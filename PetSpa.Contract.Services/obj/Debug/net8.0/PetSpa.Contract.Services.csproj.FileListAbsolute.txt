@@ -1,0 +1,11 @@
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.deps.json
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.pdb
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfoInputs.cache
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfo.cs
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.CoreCompileInputs.cache
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\refint\PetSpa.Contract.Services.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll

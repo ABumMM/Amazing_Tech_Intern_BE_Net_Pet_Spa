@@ -1,0 +1,169 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.repositories\\uow\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|solutionrelative:petspa.repositories\\uow\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.repositories\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|solutionrelative:petspa.repositories\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.repositories\\context\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|solutionrelative:petspa.repositories\\context\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ADC77EF5-0819-4073-B856-E2CB2358E55C}|PetSpa.ModelViews\\PetSpa.ModelViews.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.modelviews\\authmodelviews\\loginmodelviews.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ADC77EF5-0819-4073-B856-E2CB2358E55C}|PetSpa.ModelViews\\PetSpa.ModelViews.csproj|solutionrelative:petspa.modelviews\\authmodelviews\\loginmodelviews.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.contract.repositories\\iuow\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|solutionrelative:petspa.contract.repositories\\iuow\\iunitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.contract.repositories\\iuow\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|solutionrelative:petspa.contract.repositories\\iuow\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.core\\base\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|solutionrelative:petspa.core\\base\\baseresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.core\\base\\baseexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|solutionrelative:petspa.core\\base\\baseexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|c:\\users\\hung\\source\\repos\\petspabe\\petspa.core\\base\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|solutionrelative:petspa.core\\base\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Repositories\\UOW\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "PetSpa.Repositories\\UOW\\GenericRepository.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Repositories\\UOW\\GenericRepository.cs",
+              "RelativeToolTip": "PetSpa.Repositories\\UOW\\GenericRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T16:18:31.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DatabaseContext.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "RelativeDocumentMoniker": "PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "RelativeToolTip": "PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T16:08:04.979Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Repositories\\UOW\\UnitOfWork.cs",
+              "RelativeDocumentMoniker": "PetSpa.Repositories\\UOW\\UnitOfWork.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Repositories\\UOW\\UnitOfWork.cs",
+              "RelativeToolTip": "PetSpa.Repositories\\UOW\\UnitOfWork.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAIwDMAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T16:07:33.718Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "LoginModelViews.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.ModelViews\\AuthModelViews\\LoginModelViews.cs",
+              "RelativeDocumentMoniker": "PetSpa.ModelViews\\AuthModelViews\\LoginModelViews.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.ModelViews\\AuthModelViews\\LoginModelViews.cs",
+              "RelativeToolTip": "PetSpa.ModelViews\\AuthModelViews\\LoginModelViews.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T16:05:48.266Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IGenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Contract.Repositories\\IUOW\\IGenericRepository.cs",
+              "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\IUOW\\IGenericRepository.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Contract.Repositories\\IUOW\\IGenericRepository.cs",
+              "RelativeToolTip": "PetSpa.Contract.Repositories\\IUOW\\IGenericRepository.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAswAcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T16:05:13.299Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IUnitOfWork.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Contract.Repositories\\IUOW\\IUnitOfWork.cs",
+              "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\IUOW\\IUnitOfWork.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Contract.Repositories\\IUOW\\IUnitOfWork.cs",
+              "RelativeToolTip": "PetSpa.Contract.Repositories\\IUOW\\IUnitOfWork.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T16:01:45.512Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BaseResponse.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Core\\Base\\BaseResponse.cs",
+              "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseResponse.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Core\\Base\\BaseResponse.cs",
+              "RelativeToolTip": "PetSpa.Core\\Base\\BaseResponse.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAArwCsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T15:42:27.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "BaseException.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Core\\Base\\BaseException.cs",
+              "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseException.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Core\\Base\\BaseException.cs",
+              "RelativeToolTip": "PetSpa.Core\\Base\\BaseException.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T15:39:37.987Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Core\\Base\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\PetSpaBE\\PetSpa.Core\\Base\\BaseEntity.cs",
+              "RelativeToolTip": "PetSpa.Core\\Base\\BaseEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-10T15:37:57.593Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

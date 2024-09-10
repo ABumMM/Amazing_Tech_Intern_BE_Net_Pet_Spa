@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "PetSpa.Contract.Services/1.0.0": {
+        "runtime": {
+          "PetSpa.Contract.Services.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PetSpa.Contract.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

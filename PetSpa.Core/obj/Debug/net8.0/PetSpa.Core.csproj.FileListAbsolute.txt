@@ -1,0 +1,11 @@
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.pdb
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfoInputs.cache
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfo.cs
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.CoreCompileInputs.cache
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\refint\PetSpa.Core.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll

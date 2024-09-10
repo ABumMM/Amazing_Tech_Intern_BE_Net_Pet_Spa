@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "PetSpa.Contract.Repositories/1.0.0": {
+        "dependencies": {
+          "PetSpa.Core": "1.0.0"
+        },
+        "runtime": {
+          "PetSpa.Contract.Repositories.dll": {}
+        }
+      },
+      "PetSpa.Core/1.0.0": {
+        "runtime": {
+          "PetSpa.Core.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "PetSpa.Contract.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PetSpa.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
