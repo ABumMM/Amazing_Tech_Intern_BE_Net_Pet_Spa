@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {}
+    "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Core\\PetSpa.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
+    "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Core\\PetSpa.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+        "projectUniqueName": "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Core\\PetSpa.Core.csproj",
         "projectName": "PetSpa.Core",
-        "projectPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
-        "packagesPath": "C:\\Users\\hotro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\",
+        "projectPath": "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Core\\PetSpa.Core.csproj",
+        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+        "outputPath": "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\hotro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
