@@ -61,3 +61,25 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Rep
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.pdb
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\ref\PetSpa.Repositories.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Repositories.deps.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Repositories.runtimeconfig.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Repositories.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Repositories.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Contract.Repositories.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.ModelViews.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Contract.Repositories.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.ModelViews.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\bin\Debug\net8.0\PetSpa.Core.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.csproj.AssemblyReference.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.GeneratedMSBuildEditorConfig.editorconfig
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.AssemblyInfoInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.AssemblyInfo.cs
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.csproj.CoreCompileInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.sourcelink.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.R.4FBC1838.Up2Date
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\refint\PetSpa.Repositories.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\PetSpa.Repositories.genruntimeconfig.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Repositories\obj\Debug\net8.0\ref\PetSpa.Repositories.dll

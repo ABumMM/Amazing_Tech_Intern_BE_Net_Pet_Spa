@@ -39,3 +39,18 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Cor
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.runtimeconfig.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.AssemblyReference.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfoInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfo.cs
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.CoreCompileInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.sourcelink.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\refint\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
