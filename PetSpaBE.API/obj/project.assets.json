@@ -4503,19 +4503,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hotro\\.nuget\\packages\\": {}
+    "C:\\Users\\Nguyen Van Tai\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+      "projectUniqueName": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
       "projectName": "PetSpaBE.API",
-      "projectPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
-      "packagesPath": "C:\\Users\\hotro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\",
+      "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+      "packagesPath": "C:\\Users\\Nguyen Van Tai\\.nuget\\packages\\",
+      "outputPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\hotro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nguyen Van Tai\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4523,15 +4523,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
-              "projectPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
+            "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
+              "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
             }
           }
         }
