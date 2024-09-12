@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {}
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
         "projectName": "PetSpa.ModelViews",
-        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
         "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\obj\\",
         "projectStyle": "PackageReference",

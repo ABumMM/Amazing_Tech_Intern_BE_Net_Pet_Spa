@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj": {}
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
         "projectName": "PetSpa.Contract.Repositories",
-        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
         "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\obj\\",
+        "outputPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HUNG\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -29,8 +29,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
-                "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj"
+              "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
+                "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj"
               }
             }
           }
@@ -99,12 +99,12 @@
         }
       }
     },
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
         "projectName": "PetSpa.Core",
-        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
         "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\",
         "projectStyle": "PackageReference",
@@ -186,12 +186,12 @@
         }
       }
     },
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
         "projectName": "PetSpa.ModelViews",
-        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
         "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\obj\\",
         "projectStyle": "PackageReference",
@@ -273,14 +273,14 @@
         }
       }
     },
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
         "projectName": "PetSpa.Repositories",
-        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
         "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\obj\\",
+        "outputPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HUNG\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -298,11 +298,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj": {
-                "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj"
+              "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj": {
+                "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj"
               },
-              "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
-                "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
+              "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+                "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
               }
             }
           }
@@ -371,14 +371,14 @@
         }
       }
     },
-    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
         "projectName": "PetSpaBE.API",
-        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
         "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\",
+        "outputPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\HUNG\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -396,8 +396,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
-                "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
+              "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
+                "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
               }
             }
           }

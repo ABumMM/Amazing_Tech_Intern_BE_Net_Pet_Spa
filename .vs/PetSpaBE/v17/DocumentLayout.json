@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|c:\\users\\hung\\source\\repos\\amazing_tech_intern_be_net_pet_spa\\petspa.contract.repositories\\entity\\services.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|solutionrelative:petspa.contract.repositories\\entity\\services.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|c:\\users\\hung\\source\\repos\\amazing_tech_intern_be_net_pet_spa\\petspa.contract.repositories\\entity\\packages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|solutionrelative:petspa.contract.repositories\\entity\\packages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -147,19 +151,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Services.cs",
+              "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\Services.cs",
+              "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\Services.cs",
+              "ToolTip": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\Services.cs",
+              "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\Services.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T14:29:02.15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Packages.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\Packages.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\Packages.cs",
               "ToolTip": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\Packages.cs",
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\Packages.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAQwBYAAAAAAAAA",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAwBMAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-12T12:12:21.293Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Employees.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\Employees.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\Employees.cs",
@@ -167,12 +184,11 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\Employees.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAAAoAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T11:07:37.152Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-12T11:07:37.152Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "20240912110100_InitialCreate.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\Migrations\\20240912110100_InitialCreate.cs",
               "RelativeDocumentMoniker": "PetSpa.Repositories\\Migrations\\20240912110100_InitialCreate.cs",
@@ -184,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\appsettings.json",
               "RelativeDocumentMoniker": "PetSpaBE.API\\appsettings.json",
@@ -196,7 +212,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\Program.cs",
               "RelativeDocumentMoniker": "PetSpaBE.API\\Program.cs",
@@ -208,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "UserInfo.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\UserInfo.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\UserInfo.cs",
@@ -216,12 +232,11 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\UserInfo.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T09:07:47.807Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-12T09:07:47.807Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "DatabaseContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\Migrations\\DatabaseContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "PetSpa.Repositories\\Migrations\\DatabaseContextModelSnapshot.cs",
@@ -233,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\UOW\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "PetSpa.Repositories\\UOW\\UnitOfWork.cs",
@@ -245,7 +260,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "DependencyInjection.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\DependencyInjection.cs",
               "RelativeDocumentMoniker": "PetSpa.Services\\DependencyInjection.cs",
@@ -257,7 +272,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "ApplicationUserTokens.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
@@ -269,7 +284,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\Service\\UserService.cs",
               "RelativeDocumentMoniker": "PetSpa.Services\\Service\\UserService.cs",
@@ -281,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "UserResponseModel.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\UserModelViews\\UserResponseModel.cs",
               "RelativeDocumentMoniker": "PetSpa.ModelViews\\UserModelViews\\UserResponseModel.cs",
@@ -293,7 +308,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "IUserService.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\Interface\\IUserService.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Services\\Interface\\IUserService.cs",
@@ -305,7 +320,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "ApplicationRole.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\ApplicationRole.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationRole.cs",
@@ -317,7 +332,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "DatabaseContext.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\Context\\DatabaseContext.cs",
               "RelativeDocumentMoniker": "PetSpa.Repositories\\Context\\DatabaseContext.cs",
@@ -329,7 +344,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ApplicationUserRoles.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\ApplicationUserRoles.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserRoles.cs",
@@ -341,7 +356,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "ApplicationUserLogins.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\ApplicationUserLogins.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserLogins.cs",
@@ -353,7 +368,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ApplicationUserClaims.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\ApplicationUserClaims.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserClaims.cs",
@@ -365,7 +380,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "ApplicationUser.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\ApplicationUser.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationUser.cs",
@@ -377,7 +392,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "ApplicationRoleClaims.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\Entity\\ApplicationRoleClaims.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationRoleClaims.cs",
@@ -389,7 +404,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "GenericRepository.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\UOW\\GenericRepository.cs",
               "RelativeDocumentMoniker": "PetSpa.Repositories\\UOW\\GenericRepository.cs",
@@ -401,7 +416,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "LoginModelViews.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\AuthModelViews\\LoginModelViews.cs",
               "RelativeDocumentMoniker": "PetSpa.ModelViews\\AuthModelViews\\LoginModelViews.cs",
@@ -413,7 +428,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "IGenericRepository.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\IUOW\\IGenericRepository.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\IUOW\\IGenericRepository.cs",
@@ -425,7 +440,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "IUnitOfWork.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\IUOW\\IUnitOfWork.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\IUOW\\IUnitOfWork.cs",
@@ -437,7 +452,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "BaseResponse.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\Base\\BaseResponse.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseResponse.cs",
@@ -449,7 +464,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "BaseException.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\Base\\BaseException.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseException.cs",
@@ -461,7 +476,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\Base\\BaseEntity.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseEntity.cs",
