@@ -2,6 +2,7 @@
 using PetSpa.Core.Utils;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class ApplicationUserRoles : IdentityUserRole<Guid>
     {
+        [Key]
+        public string Id { get; set; }
         public string? CreatedBy { get; set; }
         public string? LastUpdatedBy { get; set; }
         public string? DeletedBy { get; set; }
