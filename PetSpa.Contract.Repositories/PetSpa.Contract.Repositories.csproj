@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Enitty\" />
+    <Compile Remove="Enitty\**" />
+    <EmbeddedResource Remove="Enitty\**" />
+    <None Remove="Enitty\**" />
   </ItemGroup>
 
   <ItemGroup>
