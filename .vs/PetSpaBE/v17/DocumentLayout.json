@@ -70,8 +70,7 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
               "ViewState": "AgIAAAgAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T15:12:33.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-12T15:12:33.003Z"
             },
             {
               "$type": "Document",
@@ -83,8 +82,7 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\Employees.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T15:04:35.577Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-12T15:04:35.577Z"
             },
             {
               "$type": "Document",
@@ -96,8 +94,7 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\OrderDetails.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T15:04:31.238Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-12T15:04:31.238Z"
             },
             {
               "$type": "Document",
@@ -107,7 +104,7 @@
               "RelativeDocumentMoniker": "PetSpa.Repositories\\Context\\DatabaseContext.cs",
               "ToolTip": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Repositories\\Context\\DatabaseContext.cs",
               "RelativeToolTip": "PetSpa.Repositories\\Context\\DatabaseContext.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAwwBQAAABPAAAAAAAAAA==",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAywAkAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-12T15:03:20.074Z",
               "EditorCaption": ""
@@ -122,8 +119,7 @@
               "RelativeToolTip": "PetSpaBE.API\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-12T10:44:48.725Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-12T10:44:48.725Z"
             }
           ]
         },
