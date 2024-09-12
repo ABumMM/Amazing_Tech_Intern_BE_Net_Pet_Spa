@@ -334,3 +334,14 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.A
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.pdb
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\ref\PetSpaBE.API.dll
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.csproj.AssemblyReference.cache
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.AssemblyInfoInputs.cache
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.AssemblyInfo.cs
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.csproj.CoreCompileInputs.cache
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.sourcelink.json
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.dll
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\refint\PetSpaBE.API.dll
+C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.pdb

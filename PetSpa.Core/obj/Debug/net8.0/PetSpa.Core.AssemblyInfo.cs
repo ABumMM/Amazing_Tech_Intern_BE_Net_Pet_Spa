@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PetSpa.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b6573160addbb4afe50d7d16971c41d1b1c11784")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6c5ce17324eb84b68c5962664cfa40b0ef93b7d")]
 [assembly: System.Reflection.AssemblyProductAttribute("PetSpa.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PetSpa.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

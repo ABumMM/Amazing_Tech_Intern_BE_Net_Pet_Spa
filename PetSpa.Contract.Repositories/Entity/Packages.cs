@@ -18,8 +18,6 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Image {  get; set; }
         public string? Information {  get; set; }
         public string? Experiences {  get; set; }
-        public Guid ServiceID { get; set; }
-
-
+        public  ICollection<Services>?Services { get; set; }
     }
 }
