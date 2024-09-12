@@ -3827,19 +3827,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HUNG\\.nuget\\packages\\": {}
+    "C:\\Users\\hotro\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+      "projectUniqueName": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
       "projectName": "PetSpa.ModelViews",
-      "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
-      "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\obj\\",
+      "projectPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+      "packagesPath": "C:\\Users\\hotro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HUNG\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hotro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3912,7 +3912,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
