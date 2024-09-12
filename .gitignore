@@ -396,6 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+<<<<<<< HEAD
 
 
 *.suo
@@ -408,3 +409,5 @@ FodyWeavers.xsd
 *.nuget.cache
 *.nuget.g.props
 *.dgspec.json
+=======
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e

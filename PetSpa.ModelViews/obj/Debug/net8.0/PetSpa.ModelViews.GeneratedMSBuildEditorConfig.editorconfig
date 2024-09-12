@@ -8,6 +8,10 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PetSpa.ModelViews
+<<<<<<< HEAD
 build_property.ProjectDir = C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\
+=======
+build_property.ProjectDir = C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

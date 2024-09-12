@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "rlcZ53mjyjY=",
   "success": true,
   "projectFilePath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+=======
+  "dgSpecHash": "rmdWmQvxoGM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
   "expectedPackageFiles": [
     "C:\\Users\\HUNG\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\HUNG\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
