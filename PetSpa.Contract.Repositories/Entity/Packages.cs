@@ -19,7 +19,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Information {  get; set; }
         public string? Experiences {  get; set; }
         public Guid ServiceID { get; set; }
-
+        public virtual ICollection<Services>? Services { get; set; }
 
     }
 }
