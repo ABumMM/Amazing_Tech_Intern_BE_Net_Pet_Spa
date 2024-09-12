@@ -4503,19 +4503,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HUNG\\.nuget\\packages\\": {}
+    "C:\\Users\\MSI\\.nuget\\packages\\": {},
+    "D:\\Download\\VisualStudio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+      "projectUniqueName": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
       "projectName": "PetSpaBE.API",
-      "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
-      "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\",
+      "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+      "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
+      "outputPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Download\\VisualStudio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\HUNG\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4530,8 +4535,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
-              "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
+            "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
+              "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
             }
           }
         }
@@ -4599,7 +4604,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
