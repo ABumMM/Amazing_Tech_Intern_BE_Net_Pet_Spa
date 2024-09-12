@@ -1,0 +1,56 @@
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.pdb
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfoInputs.cache
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfo.cs
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.CoreCompileInputs.cache
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\refint\PetSpa.Core.dll
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
+C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.pdb
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfoInputs.cache
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfo.cs
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.CoreCompileInputs.cache
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.sourcelink.json
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\refint\PetSpa.Core.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.runtimeconfig.json
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.AssemblyReference.cache
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.runtimeconfig.json
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.pdb
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.AssemblyReference.cache
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfoInputs.cache
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfo.cs
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.CoreCompileInputs.cache
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.sourcelink.json
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\refint\PetSpa.Core.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.runtimeconfig.json
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.pdb
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.AssemblyReference.cache
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfoInputs.cache
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfo.cs
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.CoreCompileInputs.cache
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.sourcelink.json
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.dll
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\refint\PetSpa.Core.dll
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
+D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
