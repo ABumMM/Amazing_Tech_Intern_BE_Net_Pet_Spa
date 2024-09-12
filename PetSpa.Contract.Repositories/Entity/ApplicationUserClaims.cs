@@ -1,11 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using PetSpa.Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PetSpa.Contract.Repositories.Entity
 {
     public class ApplicationUserClaims: IdentityUserClaim<Guid>
