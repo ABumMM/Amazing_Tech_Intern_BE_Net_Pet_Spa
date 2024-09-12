@@ -17,5 +17,7 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<ApplicationUserTokens> ApplicationUserTokens => Set<ApplicationUserTokens>();
 
         public virtual DbSet<UserInfo> UserInfos => Set<UserInfo>();
+
+        public virtual DbSet<OrderDetails> OrderDetails => Set<OrderDetails>();
     }
 }

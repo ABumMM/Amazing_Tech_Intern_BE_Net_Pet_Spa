@@ -4022,19 +4022,40 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
+    "C:\\Users\\HP\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+=======
     "C:\\Users\\Nguyen Van Tai\\.nuget\\packages\\": {}
+>>>>>>> c6c5ce17324eb84b68c5962664cfa40b0ef93b7d
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
+      "projectName": "PetSpa.Contract.Repositories",
+      "projectPath": "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Contract.Repositories\\obj\\",
+=======
       "projectUniqueName": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
       "projectName": "PetSpa.Contract.Repositories",
       "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj",
       "packagesPath": "C:\\Users\\Nguyen Van Tai\\.nuget\\packages\\",
       "outputPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\obj\\",
+>>>>>>> c6c5ce17324eb84b68c5962664cfa40b0ef93b7d
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
+<<<<<<< HEAD
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+=======
         "C:\\Users\\Nguyen Van Tai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> c6c5ce17324eb84b68c5962664cfa40b0ef93b7d
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4048,8 +4069,13 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+<<<<<<< HEAD
+            "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Core\\PetSpa.Core.csproj": {
+              "projectPath": "D:\\Intern ASP.NET\\Pet's_Spa_Amazing\\PetSpa.Core\\PetSpa.Core.csproj"
+=======
             "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
               "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj"
+>>>>>>> c6c5ce17324eb84b68c5962664cfa40b0ef93b7d
             }
           }
         }
