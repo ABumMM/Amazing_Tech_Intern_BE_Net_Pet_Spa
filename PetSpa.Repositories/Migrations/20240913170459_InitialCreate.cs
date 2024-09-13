@@ -15,12 +15,8 @@ namespace PetSpa.Repositories.Migrations
                 name: "ApplicationRoleClaims",
                 columns: table => new
                 {
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.cs
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-========
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.cs
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -60,12 +56,8 @@ namespace PetSpa.Repositories.Migrations
                 name: "ApplicationUserClaims",
                 columns: table => new
                 {
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.cs
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-========
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.cs
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -210,10 +202,6 @@ namespace PetSpa.Repositories.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.cs
-                    MemberShipID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-========
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.cs
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -271,7 +259,6 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.cs
                 name: "Orders",
                 columns: table => new
                 {
@@ -294,8 +281,6 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-========
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.cs
                 name: "OrdersDetails",
                 columns: table => new
                 {
@@ -318,31 +303,6 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.cs
-========
-                name: "Package",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    EmployeeID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Total = table.Column<double>(type: "float", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Package", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.cs
                 name: "Packages",
                 columns: table => new
                 {
@@ -689,17 +649,10 @@ namespace PetSpa.Repositories.Migrations
                 name: "MemberShips");
 
             migrationBuilder.DropTable(
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.cs
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "OrdersDetails");
-========
-                name: "OrdersDetails");
-
-            migrationBuilder.DropTable(
-                name: "Package");
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.cs
 
             migrationBuilder.DropTable(
                 name: "Packages");
