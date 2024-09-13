@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PetSpaBE.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+30d9a9ab66817a5d67cd161227e80eaf8862bc40")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+309c30485c60c045c4bbe6747b371bc7cb415478")]
 [assembly: System.Reflection.AssemblyProductAttribute("PetSpaBE.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PetSpaBE.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

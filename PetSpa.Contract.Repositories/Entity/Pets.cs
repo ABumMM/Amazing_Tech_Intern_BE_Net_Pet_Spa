@@ -10,6 +10,10 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Pets : BaseEntity
     {
+<<<<<<< HEAD
+=======
+   
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }
