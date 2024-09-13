@@ -62,6 +62,34 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Ser
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\ref\PetSpa.Services.dll
 <<<<<<< HEAD
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Services.deps.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Services.runtimeconfig.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Services.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Services.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.ModelViews.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Repositories.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Contract.Services.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.ModelViews.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Repositories.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\bin\Debug\net8.0\PetSpa.Core.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.csproj.AssemblyReference.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.AssemblyInfoInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.AssemblyInfo.cs
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.csproj.CoreCompileInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.sourcelink.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.S.BB001A08.Up2Date
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\refint\PetSpa.Services.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.genruntimeconfig.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\ref\PetSpa.Services.dll
+=======
+<<<<<<< HEAD
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Services\bin\Debug\net8.0\PetSpa.Services.deps.json
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Services\bin\Debug\net8.0\PetSpa.Services.runtimeconfig.json
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Services\bin\Debug\net8.0\PetSpa.Services.dll
@@ -116,3 +144,4 @@ C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\ob
 C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\PetSpa.Services.genruntimeconfig.cache
 C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Services\obj\Debug\net8.0\ref\PetSpa.Services.dll
 >>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c

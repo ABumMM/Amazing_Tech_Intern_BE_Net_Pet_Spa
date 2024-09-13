@@ -40,6 +40,23 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Cor
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
 <<<<<<< HEAD
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.runtimeconfig.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.AssemblyReference.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfoInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.AssemblyInfo.cs
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.csproj.CoreCompileInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.sourcelink.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\refint\PetSpa.Core.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
+=======
+<<<<<<< HEAD
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.deps.json
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.runtimeconfig.json
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Core\bin\Debug\net8.0\PetSpa.Core.dll
@@ -72,3 +89,4 @@ C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\De
 C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\PetSpa.Core.genruntimeconfig.cache
 C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\obj\Debug\net8.0\ref\PetSpa.Core.dll
 >>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c

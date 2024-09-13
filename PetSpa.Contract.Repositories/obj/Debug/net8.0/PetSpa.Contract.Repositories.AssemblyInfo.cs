@@ -15,7 +15,12 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3989cf036a5b0ba7a2cd403ab397dcade2d64522")]
+=======
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1e6c169d6c46dd98c25243e067f73b5f9da59b2")]
+>>>>>>> 6cfbe2353be08b3bf4f42112eeed2171ba2ba44a
 =======
 <<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ca268c7c6c70d647fa11044a6eae5701d864b04")]
@@ -35,6 +40,9 @@ using System.Reflection;
 >>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
 >>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
 >>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06042f096ea7e143b0a51554a1cf4d4571e736c8")]
+>>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
 [assembly: System.Reflection.AssemblyProductAttribute("PetSpa.Contract.Repositories")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PetSpa.Contract.Repositories")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
