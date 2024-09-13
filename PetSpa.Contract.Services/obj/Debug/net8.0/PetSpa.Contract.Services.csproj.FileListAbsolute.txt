@@ -16,3 +16,7 @@ D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSp
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Core.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.pdb
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Core.pdb

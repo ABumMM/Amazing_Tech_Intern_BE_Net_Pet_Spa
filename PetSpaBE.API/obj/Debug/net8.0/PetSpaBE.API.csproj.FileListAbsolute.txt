@@ -150,3 +150,5 @@ D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSp
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.pdb
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.genruntimeconfig.cache
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\ref\PetSpaBE.API.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\PetSpa.Contract.Services.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\PetSpa.Contract.Services.pdb

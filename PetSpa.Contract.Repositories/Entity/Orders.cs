@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    internal class Orders : BaseEntity
+    public class Orders : BaseEntity
     {
-        [Key]
-        public Guid OrderID { get; set; } 
-
         public Guid? CustomerID { get; set; }
 
         public Guid? EmployeeID { get; set; } 
@@ -25,7 +22,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
         // liên kết khóa ngoại nhân viên
         // liên kết khóa ngoại khách hàng
-        public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
+        /*public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();*/
 
     }
 }

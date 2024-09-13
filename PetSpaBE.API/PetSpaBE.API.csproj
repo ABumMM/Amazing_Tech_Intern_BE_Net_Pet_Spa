@@ -24,10 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\PetSpa.Contract.Repositories\PetSpa.Contract.Repositories.csproj" />
+    <ProjectReference Include="..\PetSpa.Contract.Services\PetSpa.Contract.Services.csproj" />
     <ProjectReference Include="..\PetSpa.Repositories\PetSpa.Repositories.csproj" />
   </ItemGroup>
 

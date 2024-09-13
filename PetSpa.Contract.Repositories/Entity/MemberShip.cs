@@ -10,10 +10,6 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class MemberShip : BaseEntity
     {
-        [Key]
-
-        public Guid Id { get; set; }
-
         public string Name { get; set; } = string.Empty;
 
         public DateTime Date { get; set; }
