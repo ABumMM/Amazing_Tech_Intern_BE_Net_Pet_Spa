@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
+  "dgSpecHash": "fgBE3/attr8=",
+=======
   "dgSpecHash": "Q8GjoA+wFSc=",
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
   "success": true,
   "projectFilePath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\PetSpa.Services.csproj",
   "expectedPackageFiles": [

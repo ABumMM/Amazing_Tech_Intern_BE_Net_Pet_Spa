@@ -16,6 +16,12 @@ D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSp
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
+<<<<<<< HEAD
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Core.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.pdb
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Core.pdb
+=======
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.deps.json
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.runtimeconfig.json
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
@@ -34,3 +40,4 @@ C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Se
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c

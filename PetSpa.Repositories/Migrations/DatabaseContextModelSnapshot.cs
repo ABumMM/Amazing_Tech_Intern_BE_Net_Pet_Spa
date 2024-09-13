@@ -260,9 +260,17 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRoleClaims", b =>
                 {
+<<<<<<< HEAD
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+=======
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -379,9 +387,17 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUserClaims", b =>
                 {
+<<<<<<< HEAD
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+=======
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -605,6 +621,12 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
+<<<<<<< HEAD
+                    b.Property<Guid>("MemberShipID")
+                        .HasColumnType("uniqueidentifier");
+
+=======
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -751,7 +773,11 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
+<<<<<<< HEAD
+                    b.ToTable("Orders");
+=======
                     b.ToTable("Package");
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>

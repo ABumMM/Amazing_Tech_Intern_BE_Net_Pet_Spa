@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("petSpa"),
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PetSpa"),
         sqlOptions => sqlOptions.MigrationsAssembly("PetSpa.Repositories"));
 });
 

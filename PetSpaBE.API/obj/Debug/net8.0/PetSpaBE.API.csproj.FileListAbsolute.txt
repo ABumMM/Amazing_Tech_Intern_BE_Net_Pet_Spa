@@ -150,6 +150,10 @@ D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSp
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.pdb
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.genruntimeconfig.cache
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\ref\PetSpaBE.API.dll
+<<<<<<< HEAD
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\PetSpa.Contract.Services.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\PetSpa.Contract.Services.pdb
+=======
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\appsettings.json
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\PetSpaBE.API.exe
@@ -302,3 +306,4 @@ C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\D
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.pdb
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.genruntimeconfig.cache
 C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\ref\PetSpaBE.API.dll
+>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c

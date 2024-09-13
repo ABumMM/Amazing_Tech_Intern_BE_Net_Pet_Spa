@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PetSpa.Contract.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d0f8d55969b5f45a1e99275746bdfb0f533d0e3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+309c30485c60c045c4bbe6747b371bc7cb415478")]
 [assembly: System.Reflection.AssemblyProductAttribute("PetSpa.Contract.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PetSpa.Contract.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
