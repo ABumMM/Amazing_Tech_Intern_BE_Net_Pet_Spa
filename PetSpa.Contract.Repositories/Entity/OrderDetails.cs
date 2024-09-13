@@ -11,8 +11,7 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class OrdersDetails : BaseEntity 
     {
-        [Key]
-        public Guid Id { get; set; }
+    
         public int Quantity { get; set; }
         public string Status { get; set; }
         public double Price { get; set; } = 0;

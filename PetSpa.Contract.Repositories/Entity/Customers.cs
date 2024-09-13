@@ -10,9 +10,7 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Customers : BaseEntity
     {
-        [Key]
-
-        public Guid Id { get; set; }
+  
 
         public string Name { get; set; } = string.Empty;
 
@@ -22,16 +20,16 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public string Address { get; set; }
 
-        public Guid MemberShipID { get; set; }
+        //public Guid MemberShipID { get; set; }
 
-        // public virtual MemberShip MemberShip { get; set; }
-        //ae nào làm bảng membership thì làm đi nhé 
+        //// public virtual MemberShip MemberShip { get; set; }
+        ////ae nào làm bảng membership thì làm đi nhé 
 
-        // Mối quan hệ với bảng Bookings(một-nhiều)
-        public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
+        //// Mối quan hệ với bảng Bookings(một-nhiều)
+        //public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
-        // Khóa ngoại
-        public Guid ApplicationRoleId { get; set; }
-        public virtual ApplicationRole ApplicationRole { get; set; }
+        //// Khóa ngoại
+        //public Guid ApplicationRoleId { get; set; }
+        //public virtual ApplicationRole ApplicationRole { get; set; }
     }
 }
