@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "WorkspaceRootPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\",
   "Documents": [
     {
@@ -208,6 +209,16 @@
       "RelativeMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|solutionrelative:petspa.core\\base\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
 >>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
 >>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
+=======
+  "WorkspaceRootPath": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}|PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.contract.services\\interface\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}|PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj|solutionrelative:petspa.contract.services\\interface\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+>>>>>>> 1d0f8d55969b5f45a1e99275746bdfb0f533d0e3
     }
   ],
   "DocumentGroupContainers": [
@@ -217,6 +228,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
 <<<<<<< HEAD
           "SelectedChildIndex": 3,
 =======
@@ -246,6 +258,10 @@
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
+=======
+          "SelectedChildIndex": 8,
+          "Children": [
+>>>>>>> 1d0f8d55969b5f45a1e99275746bdfb0f533d0e3
             {
               "$type": "Bookmark",
 >>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
@@ -258,6 +274,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Bookmark",
@@ -277,6 +297,7 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
 <<<<<<< HEAD
               "DocumentIndex": 1,
               "Title": "Employees.cs",
@@ -400,10 +421,22 @@
               "ViewState": "AQIAAAwAAAAAAAAAAAAAABUAAABEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-12T17:24:49.017Z",
+=======
+              "DocumentIndex": 0,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\Interface\\IUserService.cs",
+              "RelativeDocumentMoniker": "PetSpa.Contract.Services\\Interface\\IUserService.cs",
+              "ToolTip": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\Interface\\IUserService.cs",
+              "RelativeToolTip": "PetSpa.Contract.Services\\Interface\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T07:11:33.633Z",
+>>>>>>> 1d0f8d55969b5f45a1e99275746bdfb0f533d0e3
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
 <<<<<<< HEAD
               "DocumentIndex": 1,
 =======
@@ -1091,6 +1124,15 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+=======
+              "DocumentIndex": 1,
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAMcVAAAAAAAAAAAgwN4VAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-09-13T07:11:07.219Z"
+>>>>>>> 1d0f8d55969b5f45a1e99275746bdfb0f533d0e3
             }
           ]
         },
@@ -1101,7 +1143,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
->>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
             }
           ]
         }

@@ -1,22 +1,3 @@
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.deps.json
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.pdb
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfoInputs.cache
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfo.cs
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.CoreCompileInputs.cache
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.dll
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\refint\PetSpa.Contract.Services.dll
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
-C:\Users\HUNG\source\repos\PetSpaBE\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.GeneratedMSBuildEditorConfig.editorconfig
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfoInputs.cache
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfo.cs
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.CoreCompileInputs.cache
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.sourcelink.json
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.dll
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\refint\PetSpa.Contract.Services.dll
-D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.deps.json
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.runtimeconfig.json
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
@@ -24,63 +5,14 @@ D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSp
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.dll
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.pdb
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.AssemblyReference.cache
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfoInputs.cache
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfo.cs
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.CoreCompileInputs.cache
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.sourcelink.json
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.C.EC1DA2E2.Up2Date
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\refint\PetSpa.Contract.Services.dll
+D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
 D:\OneDrive\Máy tính\ThucTapIT\Task02\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.deps.json
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.runtimeconfig.json
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.pdb
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.dll
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.pdb
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.AssemblyReference.cache
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfoInputs.cache
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfo.cs
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.CoreCompileInputs.cache
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.sourcelink.json
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.C.EC1DA2E2.Up2Date
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.dll
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\refint\PetSpa.Contract.Services.dll
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
-C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
-<<<<<<< HEAD
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.deps.json
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.runtimeconfig.json
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.pdb
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.dll
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.pdb
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.AssemblyReference.cache
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.GeneratedMSBuildEditorConfig.editorconfig
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfoInputs.cache
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfo.cs
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.CoreCompileInputs.cache
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.sourcelink.json
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.C.EC1DA2E2.Up2Date
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.dll
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\refint\PetSpa.Contract.Services.dll
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
-D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
-=======
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.deps.json
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.runtimeconfig.json
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.dll
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Services.pdb
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.dll
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.ModelViews.pdb
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.AssemblyReference.cache
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfoInputs.cache
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.AssemblyInfo.cs
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.csproj.CoreCompileInputs.cache
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.sourcelink.json
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.C.EC1DA2E2.Up2Date
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.dll
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\refint\PetSpa.Contract.Services.dll
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
-C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
->>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e

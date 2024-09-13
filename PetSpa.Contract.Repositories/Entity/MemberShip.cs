@@ -8,7 +8,7 @@ using PetSpa.Core.Base;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class MemberShip
+    public class MemberShip : BaseEntity
     {
         [Key]
 
