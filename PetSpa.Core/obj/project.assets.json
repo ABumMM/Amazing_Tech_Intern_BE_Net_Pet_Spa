@@ -4024,6 +4024,9 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+    "C:\\Users\\anhng\\.nuget\\packages\\": {}
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
     "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
@@ -4035,10 +4038,14 @@
     "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
 >>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
       "projectUniqueName": "E:\\PetSpaBE\\PetSpa.Core\\PetSpa.Core.csproj",
@@ -4062,20 +4069,22 @@
 <<<<<<< HEAD
 =======
       "projectUniqueName": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
       "projectName": "PetSpa.Core",
-      "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
-      "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
-      "outputPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\",
+      "projectPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+      "packagesPath": "C:\\Users\\anhng\\.nuget\\packages\\",
+      "outputPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Download\\VisualStudio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
+<<<<<<< HEAD
+        "C:\\Users\\anhng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
         "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
 =======
 >>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4158,6 +4167,9 @@
           }
         },
 <<<<<<< HEAD
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-preview.7.24407.12/PortableRuntimeIdentifierGraph.json"
 =======
@@ -4166,6 +4178,7 @@
 =======
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-preview.7.24407.12/PortableRuntimeIdentifierGraph.json"
 >>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
       }
     }
   },
@@ -4174,6 +4187,9 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
+<<<<<<< HEAD
+      "message": "Problem reading the cache file D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+=======
       "message": "Problem reading the cache file D:\\Amazing_PetSpa\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     },
     {
@@ -4225,6 +4241,7 @@
       "targetGraphs": [
         "net8.0"
       ]
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
     }
   ]
 }

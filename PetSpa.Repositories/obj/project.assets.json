@@ -4164,6 +4164,9 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+    "C:\\Users\\anhng\\.nuget\\packages\\": {}
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
     "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
@@ -4175,10 +4178,14 @@
     "C:\\Users\\User\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
 >>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
+      "projectUniqueName": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
       "projectUniqueName": "E:\\PetSpaBE\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
@@ -4195,28 +4202,16 @@
 =======
 <<<<<<< HEAD
       "projectUniqueName": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
       "projectName": "PetSpa.Repositories",
-      "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
-      "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
-      "outputPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\obj\\",
-=======
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
-      "projectName": "PetSpa.Repositories",
-      "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
-=======
-      "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
-      "projectName": "PetSpa.Repositories",
-      "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
->>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
-      "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\obj\\",
->>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
+      "projectPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj",
+      "packagesPath": "C:\\Users\\anhng\\.nuget\\packages\\",
+      "outputPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "D:\\Download\\VisualStudio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
+<<<<<<< HEAD
+        "C:\\Users\\anhng\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
         "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
 =======
@@ -4233,6 +4228,7 @@
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4247,6 +4243,13 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+<<<<<<< HEAD
+            "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj": {
+              "projectPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj"
+            },
+            "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+              "projectPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
             "E:\\PetSpaBE\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj": {
@@ -4284,6 +4287,7 @@
             "D:\\Amazing_PetSpa\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
               "projectPath": "D:\\Amazing_PetSpa\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
 >>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
             }
           }
         }
@@ -4358,6 +4362,9 @@
           }
         },
 <<<<<<< HEAD
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-preview.7.24407.12/PortableRuntimeIdentifierGraph.json"
 =======
@@ -4366,6 +4373,7 @@
 =======
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100-preview.7.24407.12/PortableRuntimeIdentifierGraph.json"
 >>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
       }
     }
   },
@@ -4374,6 +4382,9 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
+<<<<<<< HEAD
+      "message": "Problem reading the cache file D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+=======
       "message": "Problem reading the cache file D:\\Amazing_PetSpa\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     },
     {
@@ -4425,6 +4436,7 @@
       "targetGraphs": [
         "net8.0"
       ]
+>>>>>>> 09631208463d3135e650c95629111eb769b49a27
     }
   ]
 }

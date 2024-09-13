@@ -13,7 +13,12 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
-        //public virtual ICollection<Employees> Employees { get; set; } = new List<Employees>();
+
+        // Quan hệ một-nhiều với Employees
+        public virtual ICollection<Employees> Employees { get; set; } = new List<Employees>();
+        // Quan hệ một-nhiều với Customers
+        public virtual ICollection<Customers> Customers { get; set; } = new List<Customers>();
+
         public ApplicationRole()
         {
             CreatedTime = CoreHelper.SystemTimeNow;

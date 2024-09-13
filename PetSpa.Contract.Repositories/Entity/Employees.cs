@@ -18,7 +18,9 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTime DayofBirth { get; set; }
         public string Address { get; set; }
         public double? Salary { get; set; }
-        
+
+        // Mối quan hệ với bảng Bookings(một-nhiều)
+        public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
     }
 }
