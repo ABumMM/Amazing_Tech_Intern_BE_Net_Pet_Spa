@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "TX6qwuhOkHficwqa7MTHFAQiGwjf46918T8E3rBG2sc=",
+  "Hash": "X8OS+t0isetZ4xlRwdWhhMnl7m0eVS7bPBK+ysGGuwE=",
   "Source": "PetSpaBE.API",
   "BasePath": "_content/PetSpaBE.API",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }

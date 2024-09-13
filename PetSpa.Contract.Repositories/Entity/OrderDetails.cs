@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetSpa.Core.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class Orders
+    public class OrdersDetails : BaseEntity 
     {
         [Key]
         public Guid Id { get; set; }
