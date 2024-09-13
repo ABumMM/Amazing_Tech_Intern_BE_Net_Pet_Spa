@@ -947,10 +947,7 @@
           "PetSpa.Core": "1.0.0"
         },
         "runtime": {
-          "PetSpa.Contract.Repositories.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.Contract.Repositories.dll": {}
         }
       },
       "PetSpa.Contract.Services/1.0.0": {
@@ -963,10 +960,7 @@
           "PetSpa.ModelViews": "1.0.0"
         },
         "runtime": {
-          "PetSpa.Contract.Services.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.Contract.Services.dll": {}
         }
       },
       "PetSpa.Core/1.0.0": {
@@ -978,10 +972,7 @@
           "Microsoft.Extensions.Identity.Core": "8.0.8"
         },
         "runtime": {
-          "PetSpa.Core.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.Core.dll": {}
         }
       },
       "PetSpa.ModelViews/1.0.0": {
@@ -993,10 +984,7 @@
           "Microsoft.Extensions.Identity.Core": "8.0.8"
         },
         "runtime": {
-          "PetSpa.ModelViews.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.ModelViews.dll": {}
         }
       },
       "PetSpa.Repositories/1.0.0": {
@@ -1011,10 +999,7 @@
           "PetSpa.ModelViews": "1.0.0"
         },
         "runtime": {
-          "PetSpa.Repositories.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.Repositories.dll": {}
         }
       }
     }

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpaBE.API", "PetSpaBE.API\PetSpaBE.API.csproj", "{5A1C036E-D011-4BEA-922D-A0A4D7653128}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpaBE.API", "PetSpaBE.API\PetSpaBE.API.csproj", "{5A1C036E-D011-4BEA-922D-A0A4D7653128}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.SERVER", "1.SERVER", "{276EFBDB-FAE2-4F6E-A1C4-3AC2E829DC16}"
 EndProject
@@ -13,17 +13,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.REPOSITORY", "3.REPOSITOR
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.CORE", "4.CORE", "{A99E8602-81F7-4FFF-88C5-305D65C27E52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpa.Contract.Services", "PetSpa.Contract.Services\PetSpa.Contract.Services.csproj", "{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.Contract.Services", "PetSpa.Contract.Services\PetSpa.Contract.Services.csproj", "{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpa.Services", "PetSpa.Services\PetSpa.Services.csproj", "{7B853C07-0FF6-40A6-939A-35062346532A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.Services", "PetSpa.Services\PetSpa.Services.csproj", "{7B853C07-0FF6-40A6-939A-35062346532A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpa.Contract.Repositories", "PetSpa.Contract.Repositories\PetSpa.Contract.Repositories.csproj", "{62715912-320C-4A1F-BC2E-E9F2C225A1D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.Contract.Repositories", "PetSpa.Contract.Repositories\PetSpa.Contract.Repositories.csproj", "{62715912-320C-4A1F-BC2E-E9F2C225A1D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpa.ModelViews", "PetSpa.ModelViews\PetSpa.ModelViews.csproj", "{ADC77EF5-0819-4073-B856-E2CB2358E55C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.ModelViews", "PetSpa.ModelViews\PetSpa.ModelViews.csproj", "{ADC77EF5-0819-4073-B856-E2CB2358E55C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpa.Repositories", "PetSpa.Repositories\PetSpa.Repositories.csproj", "{E91F153A-2149-40A1-B2EF-47B5BE3942FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.Repositories", "PetSpa.Repositories\PetSpa.Repositories.csproj", "{E91F153A-2149-40A1-B2EF-47B5BE3942FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetSpa.Core", "PetSpa.Core\PetSpa.Core.csproj", "{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.Core", "PetSpa.Core\PetSpa.Core.csproj", "{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3646E760-E905-4BBB-9F67-4749E7938836}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
