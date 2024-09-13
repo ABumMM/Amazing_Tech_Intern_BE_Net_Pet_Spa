@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    internal class Pets : BaseEntity
+    public class Pets : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
+   
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }

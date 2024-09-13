@@ -10,8 +10,7 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Employees : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
+     
         public string FullName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string PhoneNPhoneNumber {  get; set; } = string.Empty ;
@@ -19,12 +18,12 @@ namespace PetSpa.Contract.Repositories.Entity
         public string Address { get; set; }
         public double? Salary { get; set; }
 
-        // Mối quan hệ với bảng Bookings(một-nhiều)
-        public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
+        //// Mối quan hệ với bảng Bookings(một-nhiều)
+        //public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
-        // Khóa ngoại
-        public Guid ApplicationRoleId { get; set; }
-        public virtual ApplicationRole ApplicationRole { get; set; }
+        //// Khóa ngoại
+        //public Guid ApplicationRoleId { get; set; }
+        //public virtual ApplicationRole ApplicationRole { get; set; }
 
     }
 }
