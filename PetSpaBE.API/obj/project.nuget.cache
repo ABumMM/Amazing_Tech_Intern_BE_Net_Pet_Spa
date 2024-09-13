@@ -1,8 +1,20 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "yhKecPUI10SgB19R/t6Oh5aKNszduqdI+VjWtk8quQpOmQGN3BZFmABFsfUoKG4XOtsHp3f4/LP0GVnnPvn1ZA==",
   "success": true,
   "projectFilePath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+=======
+<<<<<<< HEAD
+  "dgSpecHash": "U0blhRLCqiY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+=======
+  "dgSpecHash": "E3lyoMpdGJk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\PetSpaBE.API.csproj",
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
   "expectedPackageFiles": [
     "C:\\Users\\MSI\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\MSI\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -88,5 +100,12 @@
     "C:\\Users\\MSI\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\MSI\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

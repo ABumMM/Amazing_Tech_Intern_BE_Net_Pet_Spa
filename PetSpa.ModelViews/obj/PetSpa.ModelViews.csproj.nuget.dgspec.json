@@ -1,7 +1,12 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {}
+=======
+<<<<<<< HEAD
+    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {}
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
   },
   "projects": {
     "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
@@ -9,9 +14,26 @@
       "restore": {
         "projectUniqueName": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
         "projectName": "PetSpa.ModelViews",
+<<<<<<< HEAD
         "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
         "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
         "outputPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\obj\\",
+=======
+        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+=======
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+        "projectName": "PetSpa.ModelViews",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj",
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+        "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\obj\\",
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Download\\VisualStudio\\Shared\\NuGetPackages"
