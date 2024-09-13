@@ -1,20 +1,46 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {}
+<<<<<<< HEAD
+    "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {}
+=======
+<<<<<<< HEAD
+    "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {}
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
   },
   "projects": {
-    "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
+    "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+        "projectUniqueName": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
         "projectName": "PetSpa.Core",
-        "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
-        "packagesPath": "C:\\Users\\Nguyen Van Tai\\.nuget\\packages\\",
-        "outputPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\",
+<<<<<<< HEAD
+        "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+        "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
+        "outputPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\",
+=======
+        "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+=======
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+        "projectName": "PetSpa.Core",
+        "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj",
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+        "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\obj\\",
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "D:\\Download\\VisualStudio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Nguyen Van Tai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +48,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -86,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

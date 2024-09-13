@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PetSpa.Contract.Repositories.Entity
+{
+    public class OrderDetails
+    {
+        [Key]
+        public Guid Id { get; set; }
+        public int Quantity { get; set; }
+        public string Status { get; set; }
+        public double Price { get; set; } = 0;
+        public Guid? OrderId { get; set; }
+        public Guid? Packed { get; set; }
+    }
+}

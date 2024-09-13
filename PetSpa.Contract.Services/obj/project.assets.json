@@ -3848,19 +3848,38 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nguyen Van Tai\\.nuget\\packages\\": {}
+    "C:\\Users\\MSI\\.nuget\\packages\\": {},
+    "D:\\Download\\VisualStudio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+<<<<<<< HEAD
+      "projectUniqueName": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
       "projectName": "PetSpa.Contract.Services",
-      "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
-      "packagesPath": "C:\\Users\\Nguyen Van Tai\\.nuget\\packages\\",
-      "outputPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\obj\\",
+      "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+      "packagesPath": "C:\\Users\\MSI\\.nuget\\packages\\",
+      "outputPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\obj\\",
+=======
+<<<<<<< HEAD
+      "projectUniqueName": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+      "projectName": "PetSpa.Contract.Services",
+      "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+=======
+      "projectUniqueName": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+      "projectName": "PetSpa.Contract.Services",
+      "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj",
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+      "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\obj\\",
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Download\\VisualStudio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Nguyen Van Tai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MSI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3868,14 +3887,25 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
-              "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
+<<<<<<< HEAD
+            "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+              "projectPath": "D:\\Work\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
+=======
+<<<<<<< HEAD
+            "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+              "projectPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
+=======
+            "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj": {
+              "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.ModelViews\\PetSpa.ModelViews.csproj"
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
             }
           }
         }
@@ -3936,8 +3966,16 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

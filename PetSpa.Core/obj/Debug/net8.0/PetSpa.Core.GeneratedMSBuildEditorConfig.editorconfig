@@ -8,6 +8,14 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = PetSpa.Core
-build_property.ProjectDir = D:\Thực Tập\Task2-2\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\
+<<<<<<< HEAD
+build_property.ProjectDir = D:\Work\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\
+=======
+<<<<<<< HEAD
+build_property.ProjectDir = C:\Users\HUNG\Source\Repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\
+=======
+build_property.ProjectDir = C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Core\
+>>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
