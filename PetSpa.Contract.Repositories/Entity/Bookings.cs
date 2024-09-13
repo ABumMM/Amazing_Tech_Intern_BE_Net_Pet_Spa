@@ -17,38 +17,31 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTime Date { get; set; }
         public string Status { get; set; }
 
-<<<<<<< HEAD
+
         // khóa ngoại Customers
         public Guid CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customers Customer { get; set; }
 
         //khóa ngoại employee
-        public Guid? EmployeeId { get; set; }
+        public Guid? EmployeesId { get; set; }
         [ForeignKey("EmployeeId")]
         public virtual Employees Employee { get; set; }
 
         //khóa ngoại oderid
-        public Guid? OrderId { get; set; }
+        /*public Guid? OrdersId { get; set; }
         [ForeignKey("OrderId")]
-        public virtual Orders Order { get; set; }
+        public virtual Orders Orders { get; set; }*/
 
         //khóa ngoại packerid
         public Guid? PackerId { get; set; }
         [ForeignKey("PackageId")]
-        public virtual Packages Package { get; set; }
-=======
+        public virtual Packages Packages { get; set; }
+
         public Guid CustomerID { get; set; }
-        public virtual Customers Customer { get; set; }
+        public virtual Customers Customers { get; set; }
 
         public Guid EmployeeId { get; set; }
-        public virtual Employees Employee { get; set; }
-
-        
-        public Guid OrderId { get; set; }
-        public virtual Orders Order { get; set; }
-
-        public virtual ICollection<Packages> Packages { get; set; }
->>>>>>> 09631208463d3135e650c95629111eb769b49a27
+        public virtual Employees Employees { get; set; }
     }
 }

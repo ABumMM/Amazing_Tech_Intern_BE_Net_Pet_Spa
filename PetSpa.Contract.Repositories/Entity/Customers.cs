@@ -26,8 +26,12 @@ namespace PetSpa.Contract.Repositories.Entity
 
         // public virtual MemberShip MemberShip { get; set; }
         //ae nào làm bảng membership thì làm đi nhé 
+
         // Mối quan hệ với bảng Bookings(một-nhiều)
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
+        // Khóa ngoại
+        public Guid ApplicationRoleId { get; set; }
+        public virtual ApplicationRole ApplicationRole { get; set; }
     }
 }
