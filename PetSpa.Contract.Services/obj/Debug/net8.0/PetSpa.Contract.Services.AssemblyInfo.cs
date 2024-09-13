@@ -15,6 +15,9 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< HEAD
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ca268c7c6c70d647fa11044a6eae5701d864b04")]
+=======
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d695c876063b9d3ea19d21748b68bba0fd81be0")]
 =======
 <<<<<<< HEAD
@@ -27,6 +30,7 @@ using System.Reflection;
 >>>>>>> a27d90a80218d71a26e2aa85a161acfa0e834166
 >>>>>>> ff5a444a0cbb6a05ab6f290c552d05cb92909499
 >>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
 [assembly: System.Reflection.AssemblyProductAttribute("PetSpa.Contract.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PetSpa.Contract.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
