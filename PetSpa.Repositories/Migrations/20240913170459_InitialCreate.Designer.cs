@@ -12,11 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.Designer.cs
-    [Migration("20240913163606_InitialCreate")]
-========
-    [Migration("20240913152528_InitialCreate")]
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.Designer.cs
+    [Migration("20240913170459_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -267,17 +263,11 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRoleClaims", b =>
                 {
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.Designer.cs
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-========
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.Designer.cs
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -394,17 +384,11 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUserClaims", b =>
                 {
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.Designer.cs
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-========
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.Designer.cs
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -628,12 +612,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.Designer.cs
-                    b.Property<Guid>("MemberShipID")
-                        .HasColumnType("uniqueidentifier");
-
-========
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.Designer.cs
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -780,11 +758,7 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20240913163606_InitialCreate.Designer.cs
                     b.ToTable("Orders");
-========
-                    b.ToTable("Package");
->>>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c:PetSpa.Repositories/Migrations/20240913152528_InitialCreate.Designer.cs
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>

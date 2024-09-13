@@ -11,10 +11,6 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class OrdersDetails : BaseEntity 
     {
-<<<<<<< HEAD
-=======
-    
->>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
         public int Quantity { get; set; }
         public string Status { get; set; }
         public double Price { get; set; } = 0;

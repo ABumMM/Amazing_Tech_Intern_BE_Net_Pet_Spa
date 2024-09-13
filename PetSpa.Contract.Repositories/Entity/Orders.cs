@@ -10,11 +10,6 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Orders : BaseEntity
     {
-<<<<<<< HEAD
-=======
-     
-
->>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
         public Guid? CustomerID { get; set; }
 
         public Guid? EmployeeID { get; set; } 
@@ -27,11 +22,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
         // liên kết khóa ngoại nhân viên
         // liên kết khóa ngoại khách hàng
-<<<<<<< HEAD
         /*public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();*/
-=======
-        //public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
->>>>>>> a1247fff7a39cde2f6ecd1b258c154411790114c
 
     }
 }
