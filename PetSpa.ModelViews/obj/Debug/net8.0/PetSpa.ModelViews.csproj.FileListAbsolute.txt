@@ -40,6 +40,23 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Mod
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\ref\PetSpa.ModelViews.dll
 <<<<<<< HEAD
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\bin\Debug\net8.0\PetSpa.ModelViews.deps.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\bin\Debug\net8.0\PetSpa.ModelViews.runtimeconfig.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\bin\Debug\net8.0\PetSpa.ModelViews.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\bin\Debug\net8.0\PetSpa.ModelViews.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.csproj.AssemblyReference.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.GeneratedMSBuildEditorConfig.editorconfig
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.AssemblyInfoInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.AssemblyInfo.cs
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.csproj.CoreCompileInputs.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.sourcelink.json
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\refint\PetSpa.ModelViews.dll
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.pdb
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.genruntimeconfig.cache
+D:\Amazing_PetSpa\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\ref\PetSpa.ModelViews.dll
+=======
+<<<<<<< HEAD
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.ModelViews\bin\Debug\net8.0\PetSpa.ModelViews.deps.json
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.ModelViews\bin\Debug\net8.0\PetSpa.ModelViews.runtimeconfig.json
 D:\Intern ASP.NET\Pet's_Spa_Amazing\PetSpa.ModelViews\bin\Debug\net8.0\PetSpa.ModelViews.dll
@@ -72,3 +89,4 @@ C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\
 C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\PetSpa.ModelViews.genruntimeconfig.cache
 C:\Users\HUNG\source\repos\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.ModelViews\obj\Debug\net8.0\ref\PetSpa.ModelViews.dll
 >>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+>>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c

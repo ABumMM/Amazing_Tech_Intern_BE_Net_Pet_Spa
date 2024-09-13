@@ -15,6 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3989cf036a5b0ba7a2cd403ab397dcade2d64522")]
 =======
 <<<<<<< HEAD
@@ -35,6 +36,9 @@ using System.Reflection;
 >>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
 >>>>>>> e12cb1f420f573dbb464bdf567e14ac841638a8c
 >>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06042f096ea7e143b0a51554a1cf4d4571e736c8")]
+>>>>>>> cb85c9ec2bbada33beaa5069db49b83fb1ec3adf
 [assembly: System.Reflection.AssemblyProductAttribute("PetSpa.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PetSpa.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
