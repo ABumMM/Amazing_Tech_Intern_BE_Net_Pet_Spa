@@ -1,6 +1,0 @@
-@PetSpaBE.API_HostAddress = http://localhost:5211
-
-GET {{PetSpaBE.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

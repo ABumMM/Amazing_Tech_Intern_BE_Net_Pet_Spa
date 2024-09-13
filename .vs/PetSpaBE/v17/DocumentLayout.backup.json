@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "WorkspaceRootPath": "E:\\PetSpaBE\\",
   "Documents": [
     {
@@ -49,6 +50,29 @@
     {
       "AbsoluteMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|e:\\petspabe\\petspa.core\\base\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|solutionrelative:petspa.core\\base\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+=======
+  "WorkspaceRootPath": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|d:\\intern asp.net\\pet\u0027s_spa_amazing\\petspa.repositories\\context\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|solutionrelative:petspa.repositories\\context\\databasecontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|d:\\intern asp.net\\pet\u0027s_spa_amazing\\petspa.contract.repositories\\entity\\applicationusertokens.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|solutionrelative:petspa.contract.repositories\\entity\\applicationusertokens.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|d:\\intern asp.net\\pet\u0027s_spa_amazing\\petspa.contract.repositories\\entity\\orderdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|solutionrelative:petspa.contract.repositories\\entity\\orderdetails.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|d:\\intern asp.net\\pet\u0027s_spa_amazing\\petspabe.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|solutionrelative:petspabe.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|d:\\intern asp.net\\pet\u0027s_spa_amazing\\petspa.contract.repositories\\entity\\employees.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62715912-320C-4A1F-BC2E-E9F2C225A1D2}|PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj|solutionrelative:petspa.contract.repositories\\entity\\employees.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+>>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
     }
   ],
   "DocumentGroupContainers": [
@@ -58,7 +82,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 12,
+=======
+          "SelectedChildIndex": 10,
+>>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,6 +102,7 @@
             },
             {
               "$type": "Bookmark",
+<<<<<<< HEAD
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
@@ -82,10 +111,13 @@
             },
             {
               "$type": "Bookmark",
+=======
+>>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
               "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
               "$type": "Bookmark",
+<<<<<<< HEAD
               "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
             },
             {
@@ -138,11 +170,35 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-10T16:08:04.979Z",
+=======
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ApplicationUserTokens.cs",
+              "DocumentMoniker": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
+              "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
+              "ToolTip": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
+              "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T15:12:33.003Z",
+>>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+<<<<<<< HEAD
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "E:\\PetSpaBE\\PetSpa.Repositories\\UOW\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "PetSpa.Repositories\\UOW\\UnitOfWork.cs",
@@ -151,11 +207,35 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-10T16:07:33.718Z",
+=======
+              "Title": "Employees.cs",
+              "DocumentMoniker": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Contract.Repositories\\Entity\\Employees.cs",
+              "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\Employees.cs",
+              "ToolTip": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Contract.Repositories\\Entity\\Employees.cs",
+              "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\Employees.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T15:04:35.577Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OrderDetails.cs",
+              "DocumentMoniker": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Contract.Repositories\\Entity\\OrderDetails.cs",
+              "RelativeDocumentMoniker": "PetSpa.Contract.Repositories\\Entity\\OrderDetails.cs",
+              "ToolTip": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Contract.Repositories\\Entity\\OrderDetails.cs",
+              "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\OrderDetails.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAoAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T15:04:31.238Z",
+>>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+<<<<<<< HEAD
               "Title": "BaseException.cs",
               "DocumentMoniker": "E:\\PetSpaBE\\PetSpa.Core\\Base\\BaseException.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseException.cs",
@@ -164,10 +244,21 @@
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-10T15:39:37.987Z",
+=======
+              "Title": "DatabaseContext.cs",
+              "DocumentMoniker": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "RelativeDocumentMoniker": "PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "ToolTip": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "RelativeToolTip": "PetSpa.Repositories\\Context\\DatabaseContext.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAwwBQAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T15:03:20.074Z",
+>>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 6,
               "Title": "GenericRepository.cs",
               "DocumentMoniker": "E:\\PetSpaBE\\PetSpa.Repositories\\UOW\\GenericRepository.cs",
@@ -238,6 +329,28 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-10T15:37:57.593Z"
+=======
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpaBE.API\\Program.cs",
+              "RelativeDocumentMoniker": "PetSpaBE.API\\Program.cs",
+              "ToolTip": "D:\\Intern ASP.NET\\Pet\u0027s_Spa_Amazing\\PetSpaBE.API\\Program.cs",
+              "RelativeToolTip": "PetSpaBE.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-12T10:44:48.725Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+>>>>>>> 0b108a3a821087f7a2c24baf10b64027266284d8
             }
           ]
         }
