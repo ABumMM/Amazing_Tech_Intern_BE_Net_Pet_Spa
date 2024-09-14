@@ -16,6 +16,7 @@ namespace PetSpa.Services
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPackageService, PackageService>();
         }
         public static void AddServices(this IServiceCollection services)
         {

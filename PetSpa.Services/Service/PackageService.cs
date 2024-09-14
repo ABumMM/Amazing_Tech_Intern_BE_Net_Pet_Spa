@@ -7,19 +7,26 @@ namespace PetSpa.Services.Service
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public PackageService(IUnitOfWork unitOfWork)
+        public PackageService(IUnitOfWork unitOfWork) 
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork=unitOfWork;
         }
-        public Task Add(Packages package)
+        public async Task Add(Packages package)
         {
-            throw new NotImplementedException();
+            package.Id = Guid.NewGuid().ToString("N");
+            IGenericRepository<Packages> genericRepository = _unitOfWork.GetRepository<Packages>();
+            await genericRepository.InsertAsync(package);
+            await _unitOfWork.SaveAsync();
         }
 
-        public Task Delete(object id)
+        public async Task Delete(object id)
         {
-            throw new NotImplementedException();
+            IGenericRepository<Packages> genericRepository = _unitOfWork.GetRepository<Packages>();
+            await genericRepository.DeleteAsync(id);
+            await _unitOfWork.SaveAsync();
         }
+       
+       
 
         public Task<IList<Packages>> GetAll()
         {
@@ -28,12 +35,16 @@ namespace PetSpa.Services.Service
 
         public Task<Packages?> GetById(object id)
         {
+            return _unitOfWork.GetRepository<Packages>().GetByIdAsync(id);
+        }
+
+        public async Task Update(Packages package)
+        {
+            IGenericRepository<Packages> genericRepository = _unitOfWork.GetRepository<Packages>();
+            await genericRepository.UpdateAsync(package);
+            await _unitOfWork.SaveAsync();
             throw new NotImplementedException();
         }
 
-        public Task Update(Packages package)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
