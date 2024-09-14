@@ -21,7 +21,7 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<MemberShip> MemberShips { get; set; }
         public virtual DbSet<OrdersDetails> OrdersDetails { get; set; }
-        public virtual DbSet<Orders> Package { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Packages> Packages { get; set; }
         public virtual DbSet<Pets> Pets { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }

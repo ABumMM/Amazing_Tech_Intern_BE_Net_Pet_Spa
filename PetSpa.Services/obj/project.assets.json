@@ -1626,6 +1626,7 @@
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
           "Microsoft.Extensions.Identity.Core": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
           "PetSpa.ModelViews": "1.0.0"
         },
         "compile": {
@@ -4221,7 +4222,7 @@
       "projectName": "PetSpa.Services",
       "projectPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\PetSpa.Services.csproj",
       "packagesPath": "C:\\Users\\HUNG\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HUNG\\Source\\Repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\obj\\",
+      "outputPath": "C:\\Users\\HUNG\\source\\repos\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HUNG\\AppData\\Roaming\\NuGet\\NuGet.Config",
