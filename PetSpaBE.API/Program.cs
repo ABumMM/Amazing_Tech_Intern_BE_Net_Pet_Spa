@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Repositories.Context;
+using PetSpa.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddDbContext<DatabaseContext>(options =>
@@ -9,6 +11,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PetSpa"),
         sqlOptions => sqlOptions.MigrationsAssembly("PetSpa.Repositories"));
 });
+
+builder.Services.AddServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

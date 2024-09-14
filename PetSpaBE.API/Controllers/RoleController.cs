@@ -15,15 +15,15 @@ namespace PetSpaBE.API.Controllers
         }
 
         // GET: api/Role
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ApplicationRole>>> GetAllRoles()
+        [HttpGet("api/Role/GetAll")]
+        public async Task<IActionResult> GetAllRoles([FromQuery] Que)
         {
             var roles = await _roleService.GetAllAsync();
             return Ok(roles);
         }
 
         // GET: api/Role/{id}
-        [HttpGet("{id}")]
+        [HttpGet("api/Role/GetById/{id}")]
         public async Task<ActionResult<ApplicationRole>> GetRoleById(Guid id)
         {
             var role = await _roleService.GetByIdAsync(id);
@@ -37,7 +37,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         // POST: api/Role
-        [HttpPost]
+        [HttpPost("api/Role/AddRole")]
         public async Task<ActionResult> AddRole([FromBody] ApplicationRole role)
         {
             if (role == null)
@@ -50,7 +50,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         // PUT: api/Role/{id}
-        [HttpPut("{id}")]
+        [HttpPut("api/Role/UpdateRole{id}")]
         public async Task<IActionResult> UpdateRole(Guid id, [FromBody] ApplicationRole role)
         {
             if (role == null || id != role.Id)
@@ -63,7 +63,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         // DELETE: api/Role/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("api/Role/DeleteRole{id}")]
         public async Task<IActionResult> DeleteRole(Guid id)
         {
             var role = await _roleService.GetByIdAsync(id);

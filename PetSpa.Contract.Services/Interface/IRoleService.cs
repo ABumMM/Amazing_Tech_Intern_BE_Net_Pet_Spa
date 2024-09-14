@@ -11,7 +11,7 @@ namespace PetSpa.Contract.Services.Interface
     public interface IRoleService
     {
         Task<ApplicationRole> GetByIdAsync(Guid id);
-        Task<IEnumerable<ApplicationRole>> GetAllAsync();
+        Task<IList<ApplicationRole>> GetAllAsync();
         Task AddAsync(ApplicationRole role);
         Task UpdateAsync(ApplicationRole role);
         Task DeleteAsync(Guid id);

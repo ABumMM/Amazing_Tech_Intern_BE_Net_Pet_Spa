@@ -1776,6 +1776,27 @@
         "runtime": {
           "bin/placeholder/PetSpa.Repositories.dll": {}
         }
+      },
+      "PetSpa.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "Microsoft.Extensions.Identity.Core": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
+          "PetSpa.Contract.Services": "1.0.0",
+          "PetSpa.ModelViews": "1.0.0",
+          "PetSpa.Repositories": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PetSpa.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetSpa.Services.dll": {}
+        }
       }
     }
   },
@@ -4611,6 +4632,11 @@
       "type": "project",
       "path": "../PetSpa.Repositories/PetSpa.Repositories.csproj",
       "msbuildProject": "../PetSpa.Repositories/PetSpa.Repositories.csproj"
+    },
+    "PetSpa.Services/1.0.0": {
+      "type": "project",
+      "path": "../PetSpa.Services/PetSpa.Services.csproj",
+      "msbuildProject": "../PetSpa.Services/PetSpa.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4625,6 +4651,7 @@
       "PetSpa.Contract.Repositories >= 1.0.0",
       "PetSpa.Contract.Services >= 1.0.0",
       "PetSpa.Repositories >= 1.0.0",
+      "PetSpa.Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -4664,6 +4691,9 @@
             },
             "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
               "projectPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
+            },
+            "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\PetSpa.Services.csproj": {
+              "projectPath": "D:\\OneDrive\\Máy tính\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\PetSpa.Services.csproj"
             }
           }
         }
