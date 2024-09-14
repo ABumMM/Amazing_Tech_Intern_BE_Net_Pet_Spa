@@ -4,10 +4,7 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 39145a9053671ca5fa5ac234fa1a5ae4c7496cac
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -16,32 +13,11 @@ namespace PetSpaBE.API.Controllers
     {
         private readonly IPackageService _packageService;
 
-<<<<<<< HEAD
         public PackageController(IPackageService packageService) 
         {
             _packageService=packageService;
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllPackages(int PageNumber = 1, int PageSize=3)
-        {
-            IList<Packages> packages = await _packageService.GetAll();
-
-            int totalItems = packages.Count();
-
-            var pagedItems = packages.Skip((PageNumber - 1) * PageSize).Take(PageSize).ToList();
-
-            var paginatedList = new BasePaginatedList<Packages>(
-                pagedItems, // Danh sách các phần tử cho trang hiện tại
-                totalItems, // Tổng số phần tử
-                PageNumber, // Số trang hiện tại
-                PageSize // Kích thước trang
-            );
-=======
-        public PackageController(IPackageService packageService)
-        {
-            _packageService = packageService;
-        }
+   
 
         [HttpGet]
         public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
@@ -58,12 +34,10 @@ namespace PetSpaBE.API.Controllers
 
             // Tạo đối tượng BasePaginatedList để trả về
             var paginatedList = new BasePaginatedList<Packages>(paginatedRoles, totalPackage, pageNumber, pageSize);
->>>>>>> 39145a9053671ca5fa5ac234fa1a5ae4c7496cac
 
             return Ok(paginatedList);
         }
         [HttpPost]
-<<<<<<< HEAD
         public async Task<IActionResult> AddPackage(Packages packages)
         {
             await _packageService.Add(packages);
@@ -104,12 +78,6 @@ namespace PetSpaBE.API.Controllers
                 return NotFound("Package not found!");
             }
         }
-=======
-        public async Task<IActionResult> AddPackage(Packages package)
-        {
-            await _packageService.Add(package);
-            return Ok();
-        }
->>>>>>> 39145a9053671ca5fa5ac234fa1a5ae4c7496cac
+
     }
 }
