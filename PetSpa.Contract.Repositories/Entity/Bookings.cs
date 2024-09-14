@@ -11,23 +11,19 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Bookings : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
-
-
-        // khóa ngoại Customers
-        public Guid CustomerId { get; set; }
-        [ForeignKey("CustomerId")]
-        public virtual Customers Customer { get; set; }
-
 
         //khóa ngoại employee
         public Guid? EmployeesId { get; set; }
         [ForeignKey("EmployeeId")]
         public virtual Employees Employee { get; set; }
+
+        // khóa ngoại Customers
+        public Guid CustomerId { get; set; }
+        [ForeignKey("CustomerId")]
+        public virtual Customers Customer { get; set; }
 
         //khóa ngoại oderid
         public Guid? OrdersId { get; set; }
@@ -36,5 +32,6 @@ namespace PetSpa.Contract.Repositories.Entity
 
         //1 booking có nhiều gói
         public virtual ICollection<Packages> Packages { get; set; } = new List<Packages>();
+
     }
 }

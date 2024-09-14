@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    internal class Review : BaseEntity
+    public class Review : BaseEntity
     {
         public DateTime ReviewDate { get; set; }
         public string? Description { get; set; }

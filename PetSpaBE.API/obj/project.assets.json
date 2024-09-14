@@ -1704,6 +1704,25 @@
           "bin/placeholder/PetSpa.Contract.Repositories.dll": {}
         }
       },
+      "PetSpa.Contract.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "Microsoft.Extensions.Identity.Core": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
+          "PetSpa.ModelViews": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PetSpa.Contract.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetSpa.Contract.Services.dll": {}
+        }
+      },
       "PetSpa.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -1729,7 +1748,8 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
-          "Microsoft.Extensions.Identity.Core": "8.0.8"
+          "Microsoft.Extensions.Identity.Core": "8.0.8",
+          "PetSpa.Core": "1.0.0"
         },
         "compile": {
           "bin/placeholder/PetSpa.ModelViews.dll": {}
@@ -1756,6 +1776,27 @@
         },
         "runtime": {
           "bin/placeholder/PetSpa.Repositories.dll": {}
+        }
+      },
+      "PetSpa.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "Microsoft.Extensions.Identity.Core": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
+          "PetSpa.Contract.Services": "1.0.0",
+          "PetSpa.ModelViews": "1.0.0",
+          "PetSpa.Repositories": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PetSpa.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetSpa.Services.dll": {}
         }
       }
     }
@@ -4573,6 +4614,11 @@
       "path": "../PetSpa.Contract.Repositories/PetSpa.Contract.Repositories.csproj",
       "msbuildProject": "../PetSpa.Contract.Repositories/PetSpa.Contract.Repositories.csproj"
     },
+    "PetSpa.Contract.Services/1.0.0": {
+      "type": "project",
+      "path": "../PetSpa.Contract.Services/PetSpa.Contract.Services.csproj",
+      "msbuildProject": "../PetSpa.Contract.Services/PetSpa.Contract.Services.csproj"
+    },
     "PetSpa.Core/1.0.0": {
       "type": "project",
       "path": "../PetSpa.Core/PetSpa.Core.csproj",
@@ -4587,6 +4633,11 @@
       "type": "project",
       "path": "../PetSpa.Repositories/PetSpa.Repositories.csproj",
       "msbuildProject": "../PetSpa.Repositories/PetSpa.Repositories.csproj"
+    },
+    "PetSpa.Services/1.0.0": {
+      "type": "project",
+      "path": "../PetSpa.Services/PetSpa.Services.csproj",
+      "msbuildProject": "../PetSpa.Services/PetSpa.Services.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4598,7 +4649,10 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.8",
       "Microsoft.Extensions.Identity.Core >= 8.0.8",
+      "PetSpa.Contract.Repositories >= 1.0.0",
+      "PetSpa.Contract.Services >= 1.0.0",
       "PetSpa.Repositories >= 1.0.0",
+      "PetSpa.Services >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -4629,8 +4683,17 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj": {
+              "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Repositories\\PetSpa.Contract.Repositories.csproj"
+            },
+            "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj": {
+              "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj"
+            },
             "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
               "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
+            },
+            "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\PetSpa.Services.csproj": {
+              "projectPath": "D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\PetSpa.Services.csproj"
             }
           }
         }
@@ -4709,13 +4772,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Thực Tập\\Task2-2\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }
