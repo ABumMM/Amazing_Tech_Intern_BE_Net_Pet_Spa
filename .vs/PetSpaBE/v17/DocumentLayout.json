@@ -7,6 +7,22 @@
       "RelativeMoniker": "D:0:0:{7B853C07-0FF6-40A6-939A-35062346532A}|PetSpa.Services\\PetSpa.Services.csproj|solutionrelative:petspa.services\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspabe.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|solutionrelative:petspabe.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7B853C07-0FF6-40A6-939A-35062346532A}|PetSpa.Services\\PetSpa.Services.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.services\\service\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B853C07-0FF6-40A6-939A-35062346532A}|PetSpa.Services\\PetSpa.Services.csproj|solutionrelative:petspa.services\\service\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}|PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.contract.services\\interface\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}|PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj|solutionrelative:petspa.contract.services\\interface\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspabe.api\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|solutionrelative:petspabe.api\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.repositories\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E91F153A-2149-40A1-B2EF-47B5BE3942FC}|PetSpa.Repositories\\PetSpa.Repositories.csproj|solutionrelative:petspa.repositories\\uow\\unitofwork.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -25,22 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.core\\base\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}|PetSpa.Core\\PetSpa.Core.csproj|solutionrelative:petspa.core\\base\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspabe.api\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|solutionrelative:petspabe.api\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}|PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.contract.services\\interface\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}|PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj|solutionrelative:petspa.contract.services\\interface\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7B853C07-0FF6-40A6-939A-35062346532A}|PetSpa.Services\\PetSpa.Services.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.services\\service\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B853C07-0FF6-40A6-939A-35062346532A}|PetSpa.Services\\PetSpa.Services.csproj|solutionrelative:petspa.services\\service\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspabe.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A1C036E-D011-4BEA-922D-A0A4D7653128}|PetSpaBE.API\\PetSpaBE.API.csproj|solutionrelative:petspabe.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F411E487-4B6E-44AB-B69F-8FD14FF1D8B8}|PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj|d:\\onedrive\\m\u00E1y t\u00EDnh\\thuctapit\\task02\\amazing_tech_intern_be_net_pet_spa\\petspa.contract.services\\interface\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -149,7 +149,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "UnitOfWork.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\UOW\\UnitOfWork.cs",
               "RelativeDocumentMoniker": "PetSpa.Repositories\\UOW\\UnitOfWork.cs",
@@ -157,12 +157,11 @@
               "RelativeToolTip": "PetSpa.Repositories\\UOW\\UnitOfWork.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T18:29:17.253Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T18:29:17.253Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "BaseException.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\Base\\BaseException.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseException.cs",
@@ -170,12 +169,11 @@
               "RelativeToolTip": "PetSpa.Core\\Base\\BaseException.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T18:29:14.923Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T18:29:14.923Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\Base\\BaseEntity.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseEntity.cs",
@@ -183,8 +181,7 @@
               "RelativeToolTip": "PetSpa.Core\\Base\\BaseEntity.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T18:29:10.293Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T18:29:10.293Z"
             },
             {
               "$type": "Document",
@@ -196,12 +193,11 @@
               "RelativeToolTip": "PetSpa.Contract.Services\\Interface\\IUserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T18:24:12.707Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T18:24:12.707Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "BaseResponse.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\Base\\BaseResponse.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BaseResponse.cs",
@@ -209,31 +205,30 @@
               "RelativeToolTip": "PetSpa.Core\\Base\\BaseResponse.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:58:11.168Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:58:11.168Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "IRoleService.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\Interface\\IRoleService.cs",
               "RelativeDocumentMoniker": "PetSpa.Contract.Services\\Interface\\IRoleService.cs",
               "ToolTip": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\Interface\\IRoleService.cs",
               "RelativeToolTip": "PetSpa.Contract.Services\\Interface\\IRoleService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T17:31:13.116Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
               "Title": "RoleService.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\Service\\RoleService.cs",
               "RelativeDocumentMoniker": "PetSpa.Services\\Service\\RoleService.cs",
               "ToolTip": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\Service\\RoleService.cs",
               "RelativeToolTip": "PetSpa.Services\\Service\\RoleService.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAjwA0AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T17:26:32.543Z",
               "EditorCaption": ""
@@ -248,8 +243,7 @@
               "RelativeToolTip": "PetSpa.Repositories\\UOW\\GenericRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAYwBIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:26:26.32Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:26:26.32Z"
             },
             {
               "$type": "Document",
@@ -261,18 +255,17 @@
               "RelativeToolTip": "PetSpa.Services\\Service\\UserService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:22:42.428Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:22:42.428Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 4,
               "Title": "RoleController.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\Controllers\\RoleController.cs",
               "RelativeDocumentMoniker": "PetSpaBE.API\\Controllers\\RoleController.cs",
               "ToolTip": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\Controllers\\RoleController.cs",
               "RelativeToolTip": "PetSpaBE.API\\Controllers\\RoleController.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAAB8AAAANAAAAAAAAAA==",
+              "ViewState": "AgIAADsAAAAAAAAAAAAAAEQAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T17:19:33.811Z",
               "EditorCaption": ""
@@ -285,14 +278,14 @@
               "RelativeDocumentMoniker": "PetSpa.Services\\DependencyInjection.cs",
               "ToolTip": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Services\\DependencyInjection.cs",
               "RelativeToolTip": "PetSpa.Services\\DependencyInjection.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAABAAAAAqAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABcAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T17:16:05.889Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "BasePaginatedList.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\Base\\BasePaginatedList.cs",
               "RelativeDocumentMoniker": "PetSpa.Core\\Base\\BasePaginatedList.cs",
@@ -300,8 +293,7 @@
               "RelativeToolTip": "PetSpa.Core\\Base\\BasePaginatedList.cs",
               "ViewState": "AgIAAAIAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:15:01.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:15:01.507Z"
             },
             {
               "$type": "Document",
@@ -313,8 +305,7 @@
               "RelativeToolTip": "..\\..\\Task01\\XuongMay-BE\\XuongMay_BE.Core\\Query\\QueryObject.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:14:28.166Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:14:28.166Z"
             },
             {
               "$type": "Document",
@@ -326,8 +317,7 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\ApplicationRole.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:05:55.199Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:05:55.199Z"
             },
             {
               "$type": "Document",
@@ -339,8 +329,7 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\ApplicationRoleClaims.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:05:51.243Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:05:51.243Z"
             },
             {
               "$type": "Document",
@@ -376,8 +365,7 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserRoles.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAAABAAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:05:41.014Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:05:41.014Z"
             },
             {
               "$type": "Document",
@@ -389,8 +377,7 @@
               "RelativeToolTip": "PetSpa.Contract.Repositories\\Entity\\ApplicationUserTokens.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-13T17:05:39.051Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-13T17:05:39.051Z"
             },
             {
               "$type": "Document",
@@ -430,13 +417,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\Program.cs",
               "RelativeDocumentMoniker": "PetSpaBE.API\\Program.cs",
               "ToolTip": "D:\\OneDrive\\M\u00E1y t\u00EDnh\\ThucTapIT\\Task02\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpaBE.API\\Program.cs",
               "RelativeToolTip": "PetSpaBE.API\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAjwA4AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-13T17:04:16.423Z",
               "EditorCaption": ""

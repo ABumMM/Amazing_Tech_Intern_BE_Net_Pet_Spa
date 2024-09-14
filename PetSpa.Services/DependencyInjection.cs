@@ -21,7 +21,7 @@ namespace PetSpa.Services
 
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IRoleService, RoleService>();
+            /*services.AddScoped<IRoleService, RoleService>();*/
         }
     }
 }

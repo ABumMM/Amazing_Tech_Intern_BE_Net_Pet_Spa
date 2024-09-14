@@ -1,4 +1,4 @@
-﻿using PetSpa.Contract.Repositories.IUOW;
+﻿/*using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Repositories.UOW;
 using System;
 using System.Collections.Generic;
@@ -50,3 +50,4 @@ namespace PetSpa.Services.Service
         }
     }
 }
+*/
