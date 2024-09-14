@@ -11,13 +11,15 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Services : BaseEntity
     {
-   
         public string? Name { get; set; }
         public decimal Price { get; set; }
         public string? Description { get; set; }
 
         [JsonIgnore]
         public virtual Packages? Package { get; set; }
+
+    
+
     }
 }
 

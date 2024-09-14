@@ -1,6 +1,7 @@
 ﻿
 using PetSpa.Contract.Repositories.Entity;
 
+
 namespace PetSpa.Contract.Services.Interface
 {
     public interface IPackageService

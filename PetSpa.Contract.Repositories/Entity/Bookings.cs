@@ -11,7 +11,6 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Bookings : BaseEntity
     {
-       
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
@@ -32,15 +31,13 @@ namespace PetSpa.Contract.Repositories.Entity
         //[ForeignKey("OrderId")]
         //public virtual Orders Orders { get; set; }*/
 
-        ////khóa ngoại packerid
-        //public Guid? PackerId { get; set; }
-        //[ForeignKey("PackageId")]
-        //public virtual Packages Packages { get; set; }
+        //khóa ngoại packerid
+
+        /*public Guid? PackerId { get; set; }
+        [ForeignKey("PackageId")]
+        public virtual Packages Packages { get; set; }
 
         //public Guid CustomerID { get; set; }
-        //public virtual Customers Customers { get; set; }
-
-        //public Guid EmployeeId { get; set; }
-        //public virtual Employees Employees { get; set; }
+        //public virtual Customers Customers { get; set; }*/
     }
 }

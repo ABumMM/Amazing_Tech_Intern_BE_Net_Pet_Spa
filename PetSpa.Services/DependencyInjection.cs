@@ -18,5 +18,10 @@ namespace PetSpa.Services
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPackageService, PackageService>();
         }
+        public static void AddServices(this IServiceCollection services)
+        {
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IPackageService, PackageService>();
+        }
     }
 }

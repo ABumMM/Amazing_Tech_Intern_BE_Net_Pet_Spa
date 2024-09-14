@@ -25,6 +25,8 @@ namespace PetSpa.Services.Service
             await genericRepository.DeleteAsync(id);
             await _unitOfWork.SaveAsync();
         }
+       
+       
 
         public Task<IList<Packages>> GetAll()
         {
@@ -41,6 +43,8 @@ namespace PetSpa.Services.Service
             IGenericRepository<Packages> genericRepository = _unitOfWork.GetRepository<Packages>();
             await genericRepository.UpdateAsync(package);
             await _unitOfWork.SaveAsync();
+            throw new NotImplementedException();
         }
+
     }
 }

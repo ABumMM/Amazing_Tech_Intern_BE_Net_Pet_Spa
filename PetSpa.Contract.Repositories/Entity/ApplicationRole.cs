@@ -5,7 +5,7 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class ApplicationRole: IdentityRole<Guid>
     {
-     
+
         public string? CreatedBy { get; set; }
         public string? LastUpdatedBy { get; set; }
         public string? DeletedBy { get; set; }

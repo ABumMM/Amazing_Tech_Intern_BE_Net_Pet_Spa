@@ -10,7 +10,6 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Pets : BaseEntity
     {
-   
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }

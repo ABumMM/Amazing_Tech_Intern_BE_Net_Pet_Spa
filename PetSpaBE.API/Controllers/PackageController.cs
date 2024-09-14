@@ -4,7 +4,10 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 39145a9053671ca5fa5ac234fa1a5ae4c7496cac
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -13,6 +16,7 @@ namespace PetSpaBE.API.Controllers
     {
         private readonly IPackageService _packageService;
 
+<<<<<<< HEAD
         public PackageController(IPackageService packageService) 
         {
             _packageService=packageService;
@@ -33,10 +37,33 @@ namespace PetSpaBE.API.Controllers
                 PageNumber, // Số trang hiện tại
                 PageSize // Kích thước trang
             );
+=======
+        public PackageController(IPackageService packageService)
+        {
+            _packageService = packageService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
+        {
+            IList<Packages> packages = await _packageService.GetAll();
+        
+            int totalPackage = packages.Count;
+
+            // Thực hiện phân trang
+            var paginatedRoles = packages
+                .Skip((pageNumber - 1) * pageSize) 
+                .Take(pageSize)                    
+                .ToList();                        
+
+            // Tạo đối tượng BasePaginatedList để trả về
+            var paginatedList = new BasePaginatedList<Packages>(paginatedRoles, totalPackage, pageNumber, pageSize);
+>>>>>>> 39145a9053671ca5fa5ac234fa1a5ae4c7496cac
 
             return Ok(paginatedList);
         }
         [HttpPost]
+<<<<<<< HEAD
         public async Task<IActionResult> AddPackage(Packages packages)
         {
             await _packageService.Add(packages);
@@ -77,5 +104,12 @@ namespace PetSpaBE.API.Controllers
                 return NotFound("Package not found!");
             }
         }
+=======
+        public async Task<IActionResult> AddPackage(Packages package)
+        {
+            await _packageService.Add(package);
+            return Ok();
+        }
+>>>>>>> 39145a9053671ca5fa5ac234fa1a5ae4c7496cac
     }
 }

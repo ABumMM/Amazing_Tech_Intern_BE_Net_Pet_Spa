@@ -27,8 +27,6 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
-        //public virtual DbSet<UserInfo> UserInfos => Set<UserInfo>();
 
-        /*public virtual DbSet<Orders> Orders => Set<Orders>();*/
     }
 }
