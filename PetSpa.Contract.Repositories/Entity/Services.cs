@@ -1,4 +1,4 @@
-using PetSpa.Core.Base;
+﻿using PetSpa.Core.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,7 +16,9 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Description { get; set; }
 
         [JsonIgnore]
-        public virtual Packages Package { get; set; }
+        public virtual Packages? Package { get; set; }
+
+    
 
     }
 }
