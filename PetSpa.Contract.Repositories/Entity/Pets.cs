@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetSpa.Core.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    internal class Pets
+    public class Pets : BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }
@@ -18,7 +17,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public int Age { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
-        public int CustomerID { get; set; }
+        public int CustomerID { get; set; } 
 
     }
 }
