@@ -943,10 +943,7 @@
           "Microsoft.Extensions.Identity.Core": "8.0.8"
         },
         "runtime": {
-          "PetSpa.Core.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.Core.dll": {}
         }
       }
     }

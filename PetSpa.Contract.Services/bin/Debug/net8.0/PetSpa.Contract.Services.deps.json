@@ -945,10 +945,7 @@
           "PetSpa.Core": "1.0.0"
         },
         "runtime": {
-          "PetSpa.Contract.Repositories.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.Contract.Repositories.dll": {}
         }
       },
       "PetSpa.Core/1.0.0": {
@@ -960,10 +957,7 @@
           "Microsoft.Extensions.Identity.Core": "8.0.8"
         },
         "runtime": {
-          "PetSpa.Core.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.Core.dll": {}
         }
       },
       "PetSpa.ModelViews/1.0.0": {
@@ -972,13 +966,11 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
-          "Microsoft.Extensions.Identity.Core": "8.0.8"
+          "Microsoft.Extensions.Identity.Core": "8.0.8",
+          "PetSpa.Core": "1.0.0"
         },
         "runtime": {
-          "PetSpa.ModelViews.dll": {
-            "assemblyVersion": "1.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "PetSpa.ModelViews.dll": {}
         }
       }
     }
