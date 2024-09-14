@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240913170459_InitialCreate")]
+    [Migration("20240913172252_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -964,10 +964,16 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PackageId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PackageId");
 
                     b.ToTable("Services");
                 });
@@ -1071,6 +1077,22 @@ namespace PetSpa.Repositories.Migrations
                         .HasForeignKey("UserInfoId");
 
                     b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
+                {
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
+                        .WithMany("Service")
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Package");
+                });
+
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
+                {
+                    b.Navigation("Service");
                 });
 #pragma warning restore 612, 618
         }
