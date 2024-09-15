@@ -27,13 +27,13 @@ namespace PetSpaBE.API.Controllers
             int totalPackage = packages.Count;
 
             // Thực hiện phân trang
-            var paginatedRoles = packages
+            var paginatedPackages = packages
                 .Skip((pageNumber - 1) * pageSize) 
                 .Take(pageSize)                    
                 .ToList();                        
 
             // Tạo đối tượng BasePaginatedList để trả về
-            var paginatedList = new BasePaginatedList<Packages>(paginatedRoles, totalPackage, pageNumber, pageSize);
+            var paginatedList = new BasePaginatedList<Packages>(paginatedPackages, totalPackage, pageNumber, pageSize);
 
             return Ok(paginatedList);
         }
