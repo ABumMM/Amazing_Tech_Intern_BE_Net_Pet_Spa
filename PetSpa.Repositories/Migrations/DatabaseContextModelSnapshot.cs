@@ -560,6 +560,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -572,17 +575,29 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EmployeesId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("OrdersId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("EmployeesId");
+
+                    b.HasIndex("OrdersId");
 
                     b.ToTable("Bookings");
                 });
@@ -681,7 +696,7 @@ namespace PetSpa.Repositories.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.MemberShip", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.MemberShips", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -815,6 +830,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("BookingId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -847,6 +865,8 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
 
                     b.ToTable("Packages");
                 });
@@ -1091,6 +1111,36 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("UserInfo");
                 });
 
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Bookings", b =>
+                {
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Customers", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Employees", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeesId");
+
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
+                        .WithMany()
+                        .HasForeignKey("OrdersId");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
+                {
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Bookings", "Booking")
+                        .WithMany("Package")
+                        .HasForeignKey("BookingId");
+
+                    b.Navigation("Booking");
+                });
+
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
@@ -1103,6 +1153,11 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRole", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Bookings", b =>
+                {
+                    b.Navigation("Package");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
