@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PetSpa.Contract.Repositories.Entity;
-
+using PetSpa.ModelViews.ModelViews;
 namespace PetSpa.Contract.Services.Interface
 {
     public interface IOrderService
     {
-        Task<IList<Orders>> GetAll();
-        Task<Orders?> GetById(object id);
-        Task Add(Orders o);
-        Task Update(Orders o);
+        Task<IList<OrderResponseModel>> GetAll();
+        Task<OrderResponseModel?> GetById(object id);
+        Task Add(OrderResponseModel order);
+        Task Update(OrderResponseModel order);
         Task Delete(object id);
     }
 }
