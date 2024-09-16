@@ -11,8 +11,8 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class ApplicationUser:IdentityUser<Guid>
     {
-        [Key]
-        public Guid Id { get; set; }
+
+        public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public virtual UserInfo? UserInfo { get; set; }
         public string? CreatedBy { get; set; }
@@ -21,6 +21,11 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
+
+        // Khóa ngoại đến ApplicationRole
+        public Guid RoleId { get; set; }
+        public virtual ApplicationRole Role { get; set; }
+
         public ApplicationUser()
         {
             CreatedTime = CoreHelper.SystemTimeNow;
