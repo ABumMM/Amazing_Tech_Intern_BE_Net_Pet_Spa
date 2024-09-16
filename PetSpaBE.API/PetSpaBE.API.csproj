@@ -24,8 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
+=======
 
     <ProjectReference Include="..\PetSpa.Contract.Repositories\PetSpa.Contract.Repositories.csproj" />
+>>>>>>> 833a266402cd1da52766d54545ab44796f4257b5
     <ProjectReference Include="..\PetSpa.Contract.Services\PetSpa.Contract.Services.csproj" />
     <ProjectReference Include="..\PetSpa.Repositories\PetSpa.Repositories.csproj" />
     <ProjectReference Include="..\PetSpa.Services\PetSpa.Services.csproj" />
