@@ -20,7 +20,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
 
         [JsonIgnore]
-        public ICollection<Services>? Service { get; set; }
+        public ICollection<ServicesEntity>? Service { get; set; }
         //public Guid ServiceID { get; set; }
         //public virtual ICollection<Services>? Services { get; set; }
     }
