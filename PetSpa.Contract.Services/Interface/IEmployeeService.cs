@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Services.Interface
 {
-    interface IAuthService
+    public interface IEmployeeService
     {
-        Task Add(UserResponseModel user);
-        Task Update(UserResponseModel user);
+        Task<IList<EmployeeResponseModel>> GetAll();
+        Task<EmployeeResponseModel?> GetById(object id);
+        Task Add(EmployeeResponseModel emloyee);
+        Task Update(EmployeeResponseModel emloyee);
         Task Delete(object id);
     }
 }
