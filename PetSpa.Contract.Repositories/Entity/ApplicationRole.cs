@@ -18,6 +18,10 @@ namespace PetSpa.Contract.Repositories.Entity
         //// Quan hệ một-nhiều với Customers
         //public virtual ICollection<Customers> Customers { get; set; } = new List<Customers>();
 
+        // Quan hệ một-nhiều với ApplicationUser
+        public virtual ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
+
+
         public ApplicationRole()
         {
             CreatedTime = CoreHelper.SystemTimeNow;

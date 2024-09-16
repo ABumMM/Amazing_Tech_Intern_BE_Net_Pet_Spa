@@ -16,7 +16,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string Status { get; set; }
 
 
-        //// khóa ngoại Customers
+        // khóa ngoại Customers
         public Guid CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public virtual Customers Customer { get; set; }
@@ -25,7 +25,6 @@ namespace PetSpa.Contract.Repositories.Entity
         public Guid? EmployeesId { get; set; }
         [ForeignKey("EmployeeId")]
         public virtual Employees Employee { get; set; }
-
 
         ////khóa ngoại oderid
         public Guid? OrdersId { get; set; }
