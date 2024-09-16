@@ -16,9 +16,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTime Date { get; set; }
         public string Status { get; set; }
 
-
         // khóa ngoại Customers
-
         public string? CustomerId { get; set; }
         [JsonIgnore]
         public virtual Customers Customer { get; set; }
