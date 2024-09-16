@@ -1562,6 +1562,23 @@
             "rid": "win"
           }
         }
+      },
+      "PetSpa.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Abstractions": "2.2.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "Microsoft.Extensions.Identity.Core": "8.0.8"
+        },
+        "compile": {
+          "bin/placeholder/PetSpa.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetSpa.Core.dll": {}
+        }
       }
     }
   },
@@ -4009,6 +4026,11 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "PetSpa.Core/1.0.0": {
+      "type": "project",
+      "path": "../PetSpa.Core/PetSpa.Core.csproj",
+      "msbuildProject": "../PetSpa.Core/PetSpa.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4019,7 +4041,8 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.8",
-      "Microsoft.Extensions.Identity.Core >= 8.0.8"
+      "Microsoft.Extensions.Identity.Core >= 8.0.8",
+      "PetSpa.Core >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4054,7 +4077,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Amazing_PetSpa\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj": {
+              "projectPath": "D:\\Amazing_PetSpa\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Core\\PetSpa.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

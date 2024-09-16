@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PetSpa.Core.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    internal class Orders
+    public class Orders : BaseEntity
     {
-        [Key]
-        public Guid OrderID { get; set; } 
-
         public Guid? CustomerID { get; set; }
 
         public Guid? EmployeeID { get; set; } 
@@ -20,11 +18,12 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public string PaymentMethod { get; set; } = string.Empty;
 
-        public double Total { get; set; } 
+        public double Total { get; set; }
 
         // liên kết khóa ngoại nhân viên
         public virtual Employees Employees { get; set; }
         // liên kết khóa ngoại khách hàng
+        /*public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();*/
 
     }
 }

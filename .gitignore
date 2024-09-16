@@ -396,18 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-<<<<<<< HEAD
 
-
-*.suo
-*.v2
-*.cache
-*.dll
-*.pdb
-*.bin
-*.editorconfig
-*.nuget.cache
-*.nuget.g.props
-*.dgspec.json
-=======
->>>>>>> 3624f926008b220ca2844f490a7666c996e0ee1e
+PetSpaBE/appsettings.json

@@ -1,19 +1,12 @@
-﻿using Microsoft.VisualBasic;
+﻿
 using PetSpa.Core.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+using System.Text.Json.Serialization;
+
 
 namespace PetSpa.Contract.Repositories.Entity
 {
     public class Packages: BaseEntity
     {
-        [Key]
-        public Guid ID {  get; set; }
         public string Name { get; set; }=String.Empty;
         public string? Image {  get; set; }
         public string? Information {  get; set; }
@@ -26,5 +19,9 @@ namespace PetSpa.Contract.Repositories.Entity
         public virtual ICollection<Services>? Services { get; set; }
 
 
+        [JsonIgnore]
+        public ICollection<Services>? Service { get; set; }
+        //public Guid ServiceID { get; set; }
+        //public virtual ICollection<Services>? Services { get; set; }
     }
 }
