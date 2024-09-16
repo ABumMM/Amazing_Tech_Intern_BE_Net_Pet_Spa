@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
+using PetSpa.Core.Base;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.Services.Service;
 using System;
 using System.Threading.Tasks;
 
@@ -18,10 +20,25 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int pageNumber = 1, int pageSize = 10)
         {
             var employees = await _employeeService.GetAll();
-            return Ok(employees);
+            if (employees == null || !employees.Any())
+            {
+                return NotFound("No employees found.");
+            }
+
+            // Thực hiện phân trang
+            var paginatedEmployees = employees
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            // Tạo đối tượng BasePaginatedList để trả về
+            var totalUserCount = employees.Count;
+            var paginatedList = new BasePaginatedList<UserResponseModel>(paginatedEmployees, totalUserCount, pageNumber, pageSize);
+
+            return Ok(paginatedList);
         }
 
         [HttpGet("GetById/{id}")]
