@@ -2,7 +2,6 @@
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.UserModelViews;
 namespace PetSpa.Services.Service
 {
     public class PackageService : IPackageService
