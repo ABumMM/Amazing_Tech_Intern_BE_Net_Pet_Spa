@@ -1,6 +1,6 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
 
-namespace PetSpa.ModelViews.UserResponseModel
+namespace PetSpa.ModelViews.ModelViews
 {
     public class UserResponseModel
     {

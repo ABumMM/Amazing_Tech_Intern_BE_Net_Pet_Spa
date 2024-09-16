@@ -17,9 +17,9 @@ namespace PetSpa.Contract.Repositories.Entity
 
 
         // khóa ngoại Customers
-        public Guid CustomerId { get; set; }
+        /*public Guid CustomerId { get; set; }
         [ForeignKey("CustomerId")]
-        public virtual Customers Customer { get; set; }
+        public virtual Customers Customer { get; set; }*/
 
         ////khóa ngoại employee
         public Guid? EmployeesId { get; set; }
@@ -27,11 +27,11 @@ namespace PetSpa.Contract.Repositories.Entity
         public virtual Employees Employee { get; set; }
 
         ////khóa ngoại oderid
-        public Guid? OrdersId { get; set; }
+        /*public Guid? OrdersId { get; set; }
         [ForeignKey("OrderId")]
         public virtual Orders Orders { get; set; }
 
         //1 booking có nhiều gói
-        public virtual ICollection<Packages> Packages { get; set; } = new List<Packages>();
+        public virtual ICollection<Packages> Packages { get; set; } = new List<Packages>();*/
     }
 }
