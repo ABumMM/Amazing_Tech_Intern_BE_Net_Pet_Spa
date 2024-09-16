@@ -1,5 +1,5 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
-using PetSpa.ModelViews.UserResponseModel;
+using PetSpa.ModelViews.ModelViews;
 namespace PetSpa.Contract.Services.Interface
 {
     public interface IUserService

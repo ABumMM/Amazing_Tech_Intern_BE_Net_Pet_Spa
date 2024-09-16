@@ -13,13 +13,11 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset LastUpdatedTime { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
 
-        //// Quan hệ một-nhiều với Employees
-        //public virtual ICollection<Employees> Employees { get; set; } = new List<Employees>();
-        //// Quan hệ một-nhiều với Customers
-        //public virtual ICollection<Customers> Customers { get; set; } = new List<Customers>();
+        // Quan hệ một-nhiều với Employees
+        public virtual ICollection<Employees> Employees { get; set; } = new List<Employees>();
+        /*// Quan hệ một-nhiều với Customers
+        public virtual ICollection<Customers> Customers { get; set; } = new List<Customers>();*/
 
-        // Quan hệ một-nhiều với ApplicationUser
-        public virtual ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
 
 
         public ApplicationRole()
