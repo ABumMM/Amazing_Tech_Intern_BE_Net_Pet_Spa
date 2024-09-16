@@ -23,6 +23,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public double Total { get; set; } 
 
         // liên kết khóa ngoại nhân viên
+        public virtual Employees Employees { get; set; }
         // liên kết khóa ngoại khách hàng
 
     }
