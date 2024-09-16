@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PetSpa.Contract.Repositories\PetSpa.Contract.Repositories.csproj" />
     <ProjectReference Include="..\PetSpa.Core\PetSpa.Core.csproj" />
   </ItemGroup>
 
