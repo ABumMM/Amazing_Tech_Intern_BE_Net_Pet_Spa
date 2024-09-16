@@ -23,13 +23,10 @@ namespace PetSpa.Services
         {
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPackageService, PackageService>();
-<<<<<<< HEAD
             services.AddScoped<IServicesService, ServicesService>();
-
-=======
             services.AddScoped<IMembershipsService, MemberShipService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
+
         }
     }
 
