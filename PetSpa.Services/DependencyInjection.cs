@@ -23,6 +23,7 @@ namespace PetSpa.Services
         {
             /*services.AddScoped<IRoleService, RoleService>();*/
             services.AddScoped<IPackageService, PackageService>();
+            services.AddScoped<IServicesService, ServicesService>();
 
         }
     }
