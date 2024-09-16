@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetSpa.Repositories.Context;
 
@@ -11,9 +12,11 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240916101040_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,12 +363,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-<<<<<<< HEAD
-=======
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -380,11 +377,6 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
-                    b.HasIndex("RoleId");
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.HasIndex("UserInfoId");
 
                     b.ToTable("ApplicationUsers");
@@ -432,11 +424,7 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUserLogins", b =>
                 {
-<<<<<<< HEAD
                     b.Property<Guid>("UserId")
-=======
-                    b.Property<Guid>("Id")
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -469,14 +457,7 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
                     b.HasKey("UserId");
-=======
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
 
                     b.ToTable("ApplicationUserLogins");
                 });
@@ -522,11 +503,7 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUserTokens", b =>
                 {
-<<<<<<< HEAD
                     b.Property<Guid>("UserId")
-=======
-                    b.Property<Guid>("Id")
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -556,20 +533,10 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
-=======
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
 
                     b.ToTable("ApplicationUserTokens");
                 });
@@ -597,16 +564,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-=======
-                    b.Property<string>("EmployeeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid?>("EmployeesId")
-                        .HasColumnType("uniqueidentifier");
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -619,11 +576,6 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
-                    b.HasIndex("EmployeeId");
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.ToTable("Bookings");
                 });
 
@@ -680,12 +632,6 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-=======
-                    b.Property<Guid?>("ApplicationRoleId")
-                        .HasColumnType("uniqueidentifier");
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -724,19 +670,10 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
                     b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.MemberShip", b =>
-=======
-                    b.HasIndex("ApplicationRoleId");
-
-                    b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.MemberShips", b =>
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -804,13 +741,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<Guid?>("EmployeeID")
                         .HasColumnType("uniqueidentifier");
 
-<<<<<<< HEAD
-=======
-                    b.Property<string>("EmployeesId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -826,11 +756,6 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
-                    b.HasIndex("EmployeesId");
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.ToTable("Orders");
                 });
 
@@ -870,10 +795,7 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-<<<<<<< HEAD
                         .IsRequired()
-=======
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1011,11 +933,7 @@ namespace PetSpa.Repositories.Migrations
                     b.ToTable("Reviews");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
-=======
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -1151,61 +1069,14 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUser", b =>
                 {
-<<<<<<< HEAD
-=======
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                     b.HasOne("PetSpa.Contract.Repositories.Entity.UserInfo", "UserInfo")
                         .WithMany()
                         .HasForeignKey("UserInfoId");
 
-<<<<<<< HEAD
                     b.Navigation("UserInfo");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
-=======
-                    b.Navigation("Role");
-
-                    b.Navigation("UserInfo");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Bookings", b =>
-                {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Employees", "Employee")
-                        .WithMany("Bookings")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employee");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Employees", b =>
-                {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationRole", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("ApplicationRoleId");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Orders", b =>
-                {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Employees", "Employees")
-                        .WithMany("Orders")
-                        .HasForeignKey("EmployeesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
                         .WithMany("Service")
@@ -1214,21 +1085,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Package");
                 });
 
-<<<<<<< HEAD
-=======
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRole", b =>
-                {
-                    b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Employees", b =>
-                {
-                    b.Navigation("Bookings");
-
-                    b.Navigation("Orders");
-                });
-
->>>>>>> 994b10a917b3a1b84cbbb4c6f1d91be264a4b233
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
                 {
                     b.Navigation("Service");
