@@ -1643,6 +1643,7 @@
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
           "Microsoft.Extensions.Identity.Core": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
           "PetSpa.Core": "1.0.0"
         },
         "compile": {

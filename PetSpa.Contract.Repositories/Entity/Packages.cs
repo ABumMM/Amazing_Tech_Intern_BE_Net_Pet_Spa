@@ -16,7 +16,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public Guid ServiceID { get; set; }
 
-        public virtual ICollection<Services>? Services { get; set; }
+        //public virtual ICollection<Services>? Services { get; set; }
 
 
         [JsonIgnore]
