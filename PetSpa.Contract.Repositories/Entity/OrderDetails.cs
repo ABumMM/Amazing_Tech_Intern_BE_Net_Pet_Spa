@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
@@ -15,6 +16,15 @@ namespace PetSpa.Contract.Repositories.Entity
         public string Status { get; set; }
         public double Price { get; set; } = 0;
         public Guid? OrderId { get; set; }
-        public Guid? Packed { get; set; }
+        public Guid? PackedID { get; set; }
+
+        [JsonIgnore]
+        public virtual Orders Orders { get; set; }
+        
+        [JsonIgnore]
+        public virtual Packages Packages { get; set; }
+
+        [JsonIgnore]
+        public ICollection<OrdersDetails>? OrdersDetail { get; set; }
     }
 }
