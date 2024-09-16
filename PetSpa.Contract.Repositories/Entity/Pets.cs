@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    internal class Pets
+    public class Pets
     {
         [Key]
         public Guid Id { get; set; }

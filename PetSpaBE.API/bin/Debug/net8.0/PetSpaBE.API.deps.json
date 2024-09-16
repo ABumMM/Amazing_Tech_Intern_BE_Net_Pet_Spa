@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore.Design": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.8",
+          "PetSpa.Contract.Services": "1.0.0",
           "PetSpa.Repositories": "1.0.0",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
@@ -976,6 +977,21 @@
           }
         }
       },
+      "PetSpa.Contract.Services/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
+          "PetSpa.ModelViews": "1.0.0"
+        },
+        "runtime": {
+          "PetSpa.Contract.Services.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "PetSpa.Core/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
@@ -1608,6 +1624,11 @@
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
     "PetSpa.Contract.Repositories/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "PetSpa.Contract.Services/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -334,3 +334,5 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.A
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.pdb
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\PetSpaBE.API.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\obj\Debug\net8.0\ref\PetSpaBE.API.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\PetSpa.Contract.Services.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpaBE.API\bin\Debug\net8.0\PetSpa.Contract.Services.pdb

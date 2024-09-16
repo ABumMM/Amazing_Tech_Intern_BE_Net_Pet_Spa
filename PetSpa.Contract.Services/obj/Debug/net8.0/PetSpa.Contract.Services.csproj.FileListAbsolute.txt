@@ -45,3 +45,7 @@ C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Con
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.pdb
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\PetSpa.Contract.Services.genruntimeconfig.cache
 C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\obj\Debug\net8.0\ref\PetSpa.Contract.Services.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Core.dll
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Contract.Repositories.pdb
+C:\Users\hotro\OneDrive\Máy tính\Amazing_Tech_Intern_BE_Net_Pet_Spa\PetSpa.Contract.Services\bin\Debug\net8.0\PetSpa.Core.pdb

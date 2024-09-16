@@ -1651,6 +1651,23 @@
           "bin/placeholder/PetSpa.Contract.Repositories.dll": {}
         }
       },
+      "PetSpa.Contract.Services/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
+          "Microsoft.EntityFrameworkCore": "8.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
+          "PetSpa.ModelViews": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PetSpa.Contract.Services.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetSpa.Contract.Services.dll": {}
+        }
+      },
       "PetSpa.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -4475,6 +4492,11 @@
       "path": "../PetSpa.Contract.Repositories/PetSpa.Contract.Repositories.csproj",
       "msbuildProject": "../PetSpa.Contract.Repositories/PetSpa.Contract.Repositories.csproj"
     },
+    "PetSpa.Contract.Services/1.0.0": {
+      "type": "project",
+      "path": "../PetSpa.Contract.Services/PetSpa.Contract.Services.csproj",
+      "msbuildProject": "../PetSpa.Contract.Services/PetSpa.Contract.Services.csproj"
+    },
     "PetSpa.Core/1.0.0": {
       "type": "project",
       "path": "../PetSpa.Core/PetSpa.Core.csproj",
@@ -4498,6 +4520,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.8",
+      "PetSpa.Contract.Services >= 1.0.0",
       "PetSpa.Repositories >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
@@ -4530,6 +4553,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj": {
+              "projectPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Contract.Services\\PetSpa.Contract.Services.csproj"
+            },
             "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj": {
               "projectPath": "C:\\Users\\hotro\\OneDrive\\Máy tính\\Amazing_Tech_Intern_BE_Net_Pet_Spa\\PetSpa.Repositories\\PetSpa.Repositories.csproj"
             }

@@ -936,6 +936,7 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.8",
           "Microsoft.EntityFrameworkCore": "8.0.8",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.8",
+          "PetSpa.Contract.Repositories": "1.0.0",
           "PetSpa.ModelViews": "1.0.0"
         },
         "runtime": {
