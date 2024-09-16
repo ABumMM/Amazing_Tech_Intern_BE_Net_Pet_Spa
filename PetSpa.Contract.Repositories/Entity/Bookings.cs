@@ -18,6 +18,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
 
         // khóa ngoại Customers
+
         public string? CustomerId { get; set; }
         [JsonIgnore]
         public virtual Customers Customer { get; set; }
@@ -28,6 +29,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public virtual Employees Employee { get; set; }
 
         ////khóa ngoại oderid
+
         public string? OrdersId { get; set; }
         [JsonIgnore]
         public virtual Orders Orders { get; set; }
@@ -37,5 +39,6 @@ namespace PetSpa.Contract.Repositories.Entity
         //public virtual ICollection<Packages> Packages { get; set; } = new List<Packages>();
         [JsonIgnore]
         public ICollection<Packages>? Package { get; set; }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
-using PetSpa.ModelViews.UserResponseModel;
+using PetSpa.ModelViews.ModelViews;
 using System.Threading.Tasks;
 using System.Linq;
 using PetSpa.Core.Base;

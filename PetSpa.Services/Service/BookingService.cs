@@ -2,7 +2,6 @@
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.UserResponseModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
