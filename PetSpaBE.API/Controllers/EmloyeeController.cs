@@ -36,7 +36,7 @@ namespace PetSpaBE.API.Controllers
 
             // Tạo đối tượng BasePaginatedList để trả về
             var totalUserCount = employees.Count;
-            var paginatedList = new BasePaginatedList<UserResponseModel>(paginatedEmployees, totalUserCount, pageNumber, pageSize);
+            var paginatedList = new BasePaginatedList<EmployeeResponseModel>(paginatedEmployees, totalUserCount, pageNumber, pageSize);
 
             return Ok(paginatedList);
         }
