@@ -1,6 +1,8 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
+using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.UserModelViews;
 namespace PetSpa.Services.Service
 {
     public class PackageService : IPackageService
@@ -26,14 +28,30 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public Task<IList<Packages>> GetAll()
+        public async Task<IList<PackageResponseModel>> GetAll()
         {
-            return _unitOfWork.GetRepository<Packages>().GetAllAsync();
+            var packages = await _unitOfWork.GetRepository<Packages>().GetAllAsync();
+            var packageResponseModels = packages.Select(pa => new PackageResponseModel
+            {
+                Id = pa.Id.ToString(),
+                Name=pa.Name,
+                Image=pa.Image,
+                Information=pa.Information,
+                Experiences=pa.Experiences,
+                ServiceEntityResponseModels = pa.Service.Select(se => new ServiceEntityResponseModel
+                {
+                    Id = se.Id.ToString(),
+                    Name = se.Name,
+                    // Ánh xạ các thuộc tính khác nếu cần
+                }).ToList()
+            }).ToList();
+
+            return packageResponseModels;
         }
 
-        public Task<Packages?> GetById(object id)
+        public Task<PackageResponseModel?> GetById(object id)
         {
-            return _unitOfWork.GetRepository<Packages>().GetByIdAsync(id);
+            return _unitOfWork.GetRepository<PackageResponseModel>().GetByIdAsync(id);
         }
 
         public async Task Update(Packages package)
