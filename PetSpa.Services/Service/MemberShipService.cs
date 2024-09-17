@@ -19,16 +19,13 @@ namespace PetSpa.Services.Service
         }
         public async Task Add(MemberShips memberShip)
         {
-            memberShip.Id = Guid.NewGuid().ToString("N");
-            IGenericRepository<MemberShips> genericRepository = _unitOfWork.GetRepository<MemberShips>();
-            await genericRepository.InsertAsync(memberShip);
+            await _unitOfWork.GetRepository<MemberShips>().InsertAsync(memberShip);
             await _unitOfWork.SaveAsync();
         }
 
         public async Task Delete(object id)
         {
-            IGenericRepository<MemberShips> genericRepository = _unitOfWork.GetRepository<MemberShips>();
-            await genericRepository.DeleteAsync(id);
+            await _unitOfWork.GetRepository<MemberShips>().DeleteAsync(id);
             await _unitOfWork.SaveAsync();
         }
 

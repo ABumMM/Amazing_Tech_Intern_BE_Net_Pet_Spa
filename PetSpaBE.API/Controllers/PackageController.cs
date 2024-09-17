@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -19,24 +20,14 @@ namespace PetSpaBE.API.Controllers
             _packageService=packageService;
         }
    
-
         [HttpGet]
         public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
         {
-            var packages = await _packageService.GetAll();
-        
-            int totalPackage = packages.Count;
-
-            // Thực hiện phân trang
-            var paginatedPackages = packages
-                .Skip((pageNumber - 1) * pageSize) 
-                .Take(pageSize)                    
-                .ToList();                        
-
-            // Tạo đối tượng BasePaginatedList để trả về
-            var paginatedList = new BasePaginatedList<PackageResponseModel>(paginatedPackages, totalPackage, pageNumber, pageSize);
-
-            return Ok(paginatedList);
+           var packages  = await _packageService.GetAll(pageNumber,pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<PackageResponseModel>>(
+                statusCode: StatusCodes.Status200OK,
+                code:ResponseCodeConstants.SUCCESS,
+                data:packages));
         }
         [HttpPost]
         public async Task<IActionResult> AddPackage(Packages packages)
@@ -45,7 +36,7 @@ namespace PetSpaBE.API.Controllers
             return Ok();
         }
         [HttpDelete]
-        public async Task<IActionResult> DeletePackage(string id)
+        public async Task<IActionResult> DeletePackage(Guid id)
         {
             try
             {
@@ -59,7 +50,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPackageById(string id)
+        public async Task<IActionResult> GetPackageById(Guid id)
         {
             var packages = await _packageService.GetById(id)??null;
             if (packages is null)
