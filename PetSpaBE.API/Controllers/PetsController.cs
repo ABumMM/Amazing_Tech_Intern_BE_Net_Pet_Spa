@@ -43,6 +43,13 @@ namespace PetSpaBE.API.Controllers
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
+        //{
+        //    if (id != pet.Id)
+        //        return BadRequest();
+
+        //    await _petService.UpdatePetAsync(pet);
+        //    return NoContent();
+
         ////{
         ////    //if (id != pet.Id)
         ////        return BadRequest();

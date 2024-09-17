@@ -2,7 +2,6 @@
 using PetSpa.Core.Base;
 using System.Text.Json.Serialization;
 
-
 namespace PetSpa.Contract.Repositories.Entity
 {
     public class Packages: BaseEntity
@@ -13,11 +12,10 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Experiences {  get; set; }
 
         [JsonIgnore]
-        public virtual Bookings? Booking { get; set; }
+        public ICollection<ServicesEntity>? Service { get; set; }=new HashSet<ServicesEntity>();
 
         [JsonIgnore]
-       
-        public ICollection<ServicesEntity>? Service { get; set; }
+        public virtual Bookings? Booking { get; set; }
 
     }
 }

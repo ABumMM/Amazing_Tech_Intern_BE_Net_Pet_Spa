@@ -24,15 +24,9 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> GetAllBookings(int pageNumber = 1, int pageSize = 2)
         {
             
-            //var bookings = await _bookingService.GetAll();
-            //if (bookings == null || !bookings.Any())
-            //{
-            //    return NotFound("No bookings found.");
-            //}
             IList<Bookings> bookings = await _bookingService.GetAll();
 
             int totalPackage = bookings.Count;
-
             // Thực hiện phân trang
             var paginatedPackages = bookings
                 .Skip((pageNumber - 1) * pageSize)

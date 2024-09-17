@@ -18,8 +18,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? PackageId { get; set; }
         [JsonIgnore]
         public virtual Packages? Package { get; set; }
-        // tự thêm 
-        
+
 
     }
 }
