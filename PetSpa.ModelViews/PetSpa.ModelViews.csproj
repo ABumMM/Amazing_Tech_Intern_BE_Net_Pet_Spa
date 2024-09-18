@@ -28,7 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
+<<<<<<< HEAD
     <Folder Include="UserModelViews\" />
+=======
+    <Folder Include="PackageModelViews\" />
+>>>>>>> 51b48a6c776267542752c9a63caeb0511a28142e
   </ItemGroup>
 
 </Project>

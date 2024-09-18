@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PetSpa.Repositories.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -77,7 +77,7 @@ namespace PetSpa.Repositories.Migrations
                 name: "ApplicationUserLogins",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -86,11 +86,12 @@ namespace PetSpa.Repositories.Migrations
                     DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationUserLogins", x => x.UserId);
+                    table.PrimaryKey("PK_ApplicationUserLogins", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,20 +118,21 @@ namespace PetSpa.Repositories.Migrations
                 name: "ApplicationUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationUserTokens", x => x.UserId);
+                    table.PrimaryKey("PK_ApplicationUserTokens", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -173,26 +175,6 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Bookings",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bookings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -211,29 +193,6 @@ namespace PetSpa.Repositories.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DayofBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<double>(type: "float", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -258,34 +217,12 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Orders",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    EmployeeID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Total = table.Column<double>(type: "float", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Orders", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "OrdersDetails",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<double>(type: "float", nullable: false),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Packed = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -299,27 +236,6 @@ namespace PetSpa.Repositories.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrdersDetails", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Packages",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Information = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Experiences = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Packages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -385,6 +301,35 @@ namespace PetSpa.Repositories.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserInfos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNPhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DayofBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Salary = table.Column<double>(type: "float", nullable: true),
+                    ApplicationRoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employees_ApplicationRoles_ApplicationRoleId",
+                        column: x => x.ApplicationRoleId,
+                        principalTable: "ApplicationRoles",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -494,6 +439,145 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ApplicationUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserInfoId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUsers_ApplicationRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "ApplicationRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUsers_UserInfos_UserInfoId",
+                        column: x => x.UserInfoId,
+                        principalTable: "UserInfos",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    EmployeeID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Total = table.Column<double>(type: "float", nullable: false),
+                    EmployeesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Employees_EmployeesId",
+                        column: x => x.EmployeesId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bookings",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    EmployeesId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OrdersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bookings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bookings_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "Customers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bookings_Employees_EmployeesId",
+                        column: x => x.EmployeesId,
+                        principalTable: "Employees",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bookings_Orders_OrdersId",
+                        column: x => x.OrdersId,
+                        principalTable: "Orders",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Packages",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Information = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Experiences = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookingId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Packages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Packages_Bookings_BookingId",
+                        column: x => x.BookingId,
+                        principalTable: "Bookings",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Services",
                 columns: table => new
                 {
@@ -519,43 +603,10 @@ namespace PetSpa.Repositories.Migrations
                         principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ApplicationUsers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserInfoId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ApplicationUsers_UserInfos_UserInfoId",
-                        column: x => x.UserInfoId,
-                        principalTable: "UserInfos",
-                        principalColumn: "Id");
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUsers_RoleId",
+                table: "ApplicationUsers",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ApplicationUsers_UserInfoId",
@@ -602,6 +653,36 @@ namespace PetSpa.Repositories.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bookings_CustomerId",
+                table: "Bookings",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_EmployeesId",
+                table: "Bookings",
+                column: "EmployeesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_OrdersId",
+                table: "Bookings",
+                column: "OrdersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_ApplicationRoleId",
+                table: "Employees",
+                column: "ApplicationRoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_EmployeesId",
+                table: "Orders",
+                column: "EmployeesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Packages_BookingId",
+                table: "Packages",
+                column: "BookingId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Services_PackageId",
                 table: "Services",
                 column: "PackageId");
@@ -612,9 +693,6 @@ namespace PetSpa.Repositories.Migrations
         {
             migrationBuilder.DropTable(
                 name: "ApplicationRoleClaims");
-
-            migrationBuilder.DropTable(
-                name: "ApplicationRoles");
 
             migrationBuilder.DropTable(
                 name: "ApplicationUserClaims");
@@ -647,19 +725,7 @@ namespace PetSpa.Repositories.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Bookings");
-
-            migrationBuilder.DropTable(
-                name: "Customers");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
                 name: "MemberShips");
-
-            migrationBuilder.DropTable(
-                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "OrdersDetails");
@@ -684,6 +750,21 @@ namespace PetSpa.Repositories.Migrations
 
             migrationBuilder.DropTable(
                 name: "Packages");
+
+            migrationBuilder.DropTable(
+                name: "Bookings");
+
+            migrationBuilder.DropTable(
+                name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "ApplicationRoles");
         }
     }
 }
