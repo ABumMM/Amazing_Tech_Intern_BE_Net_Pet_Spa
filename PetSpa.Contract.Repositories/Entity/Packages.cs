@@ -11,7 +11,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Information {  get; set; }
         public string? Experiences {  get; set; }
 
-        public  ICollection<Services>?Services { get; set; }
+        public  ICollection<ServicesEntity>?Services { get; set; }
 
         public Guid ServiceID { get; set; }
 
