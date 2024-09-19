@@ -39,9 +39,9 @@ namespace PetSpaBE.API.Controllers
             return Ok(paginatedList);
         }
         [HttpPost]
-        public async Task<IActionResult> AddBooking(Bookings bookings)
+        public async Task<IActionResult> AddBooking(BookingResponseModel bookingVM)
         {
-            await _bookingService.Add(bookings);
+            await _bookingService.Add(bookingVM);
             return Ok();
         }
         [HttpDelete]

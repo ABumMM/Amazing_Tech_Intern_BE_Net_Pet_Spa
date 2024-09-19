@@ -12,6 +12,7 @@ namespace PetSpa.ModelViews.ModelViews
 
         public string? OrdersId { get; set; }
 
-        public ICollection<Packages>? Package { get; set; }
+        public ICollection<string>? PackageIds { get; set; }
+        //public ICollection<Packages>? Package { get; set; }
     }
 }

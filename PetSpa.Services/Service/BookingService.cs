@@ -69,11 +69,11 @@ namespace PetSpa.Services.Service
         //{
         //    throw new NotImplementedException();
         //}
-        public async Task Add(Bookings booking)
+        public async Task Add(BookingResponseModel bookingVM)
         {
-            booking.Id = Guid.NewGuid().ToString("N");
-            IGenericRepository<Bookings> genericRepository = _unitOfWork.GetRepository<Bookings>();
-            await genericRepository.InsertAsync(booking);
+            //booking.Id = Guid.NewGuid().ToString("N");
+            IGenericRepository<BookingResponseModel> genericRepository = _unitOfWork.GetRepository<BookingResponseModel>();
+            await genericRepository.InsertAsync(bookingVM);
             await _unitOfWork.SaveAsync();
         }
 

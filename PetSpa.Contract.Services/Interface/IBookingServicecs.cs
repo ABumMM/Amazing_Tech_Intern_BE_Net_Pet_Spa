@@ -17,7 +17,7 @@ namespace PetSpa.Contract.Services.Interface
         //Task Delete(object id);
         Task<IList<Bookings>> GetAll();
         Task<Bookings?> GetById(object id);
-        Task Add(Bookings booking);
+        Task Add(BookingResponseModel bookingVM);
         Task Update(Bookings booking);
         Task Delete(object id);
     }
