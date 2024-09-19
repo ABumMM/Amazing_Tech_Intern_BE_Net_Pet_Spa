@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories;
 using PetSpa.Contract.Repositories.Entity;
+using PetSpa.Repositories.Context;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,9 +10,9 @@ namespace PetSpa.Repositories
 {
     public class PetRepository : IPetRepository
     {
-        private readonly PetSpaDbContext _context;
+        private readonly DatabaseContext _context;
 
-        public PetRepository(PetSpaDbContext context)
+        public PetRepository(DatabaseContext context)
         {
             _context = context;
         }
