@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240916133048_InitialCreate")]
+    [Migration("20240918203645_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -877,6 +877,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

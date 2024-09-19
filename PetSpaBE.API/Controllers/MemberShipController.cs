@@ -72,7 +72,7 @@ namespace PetSpaBE.API.Controllers
                 await _membershipsService.Update(memberShip);
                 return Ok();
             }
-            catch (Exception ex)
+            catch 
             {
                 return NotFound("MemberShip not found!");
             }
