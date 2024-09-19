@@ -1,8 +1,14 @@
-﻿using PetSpa.Contract.Repositories.Entity;
+﻿
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.Repositories.UOW;
+
 namespace PetSpa.Services.Service
 {
     public class PackageService : IPackageService
@@ -13,47 +19,161 @@ namespace PetSpa.Services.Service
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task Add(Packages package)
+        public async Task Add(POSTPackageViewModel packageVM)
         {
-            await _unitOfWork.GetRepository<Packages>().InsertAsync(package);
+            if (packageVM == null)
+            {
+                throw new BadRequestException(ErrorCode.BadRequest, "Package cannot null.");
+            }
+            if (packageVM.Name==null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest,ErrorCode.InvalidInput, "Package name is required.");
+            }
+          
+            Packages packages = new Packages()
+            {
+                Name = packageVM.Name,
+                Price = packageVM.Price,
+                Image = packageVM.Image,
+                Information = packageVM.Information,
+                Experiences = packageVM.Experiences,
+                CreatedTime = DateTime.Now,
+            };
+            await _unitOfWork.GetRepository<Packages>().InsertAsync(packages);
+            await _unitOfWork.SaveAsync();
+        }
+        public async Task Delete(string packageID)
+        {
+            Packages? existedPackage = await _unitOfWork.GetRepository<Packages>().GetByIdAsync(packageID);
+            if (existedPackage==null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+            }
+            existedPackage.DeletedTime = DateTime.Now;
+            //existedPackage.DeletedBy = ehehehheh;
+            await _unitOfWork.GetRepository<Packages>().UpdateAsync(existedPackage);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task Delete(Guid id)
-        {
-            await _unitOfWork.GetRepository<Packages>().DeleteAsync(id);
-            await _unitOfWork.SaveAsync();
-        }
-
-        public async Task<BasePaginatedList<PackageResponseModel>> GetAll(int pageNumber = 1, int pageSize = 2)
+        public async Task<BasePaginatedList<GETPackageViewModel>> GetAll(int pageNumber = 1, int pageSize = 2)
         {
             var packages = await _unitOfWork.GetRepository<Packages>().GetAllAsync();
            
-            var packageResponseModels = packages.Select(pa => new PackageResponseModel
+            var packageViewModels = packages.Select(pa => new GETPackageViewModel
             {
-                Id = pa.Id.ToString(),
+                Id = pa.Id,
                 Name=pa.Name,
+                Price=pa.Price,
                 Image=pa.Image,
                 Information=pa.Information,
                 Experiences=pa.Experiences,
+                //THiếu user => chưa làm createby,deleteby,updateby
+                //CreatedBy=pa.CreatedBy,
+                //LastUpdatedBy=pa.LastUpdatedBy,
+                //DeletedBy=pa.DeletedBy,
                 ServiceEntityResponseModels = pa.Service.Select(se => new ServiceEntityResponseModel
                 {
                     Id = se.Id.ToString(),
                     Name = se.Name,
-                    // Ánh xạ các thuộc tính khác nếu cần
                 }).ToList()
 
             }).ToList();
 
             //Count Package
             int totalPackage = packages.Count;
-            return new BasePaginatedList<PackageResponseModel>(packageResponseModels, totalPackage, pageNumber, pageSize);
+
+            var paginatedPackages = packageViewModels
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new BasePaginatedList<GETPackageViewModel>(paginatedPackages, totalPackage, pageNumber, pageSize);
         }
 
-        public Task<PackageResponseModel?> GetById(Guid id)
+        public async Task<GETPackageViewModel?> GetById(string packageID)
         {
-            return _unitOfWork.GetRepository<PackageResponseModel>().GetByIdAsync(id);
+            // Kiểm tra xem packageID có hợp lệ không
+            if (string.IsNullOrWhiteSpace(packageID))
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid package ID.");
+            }
+            IQueryable<Packages> query = _unitOfWork.GetRepository<Packages>().Entities.Where(q => !q.DeletedTime.HasValue);
+            var existedPackage = await _unitOfWork.GetRepository<Packages>().Entities.FirstOrDefaultAsync(p => p.Id == packageID);
+            if (existedPackage != null)
+            {
+                return new GETPackageViewModel
+                {
+                    Id = existedPackage.Id,
+                    Name = existedPackage.Name,
+                    Price = existedPackage.Price,
+                    Image = existedPackage.Image,
+                    Information = existedPackage.Information,
+                    Experiences = existedPackage.Experiences,
+                    //THiếu user => chưa làm createby,deleteby,updateby
+                    //CreatedBy=pa.CreatedBy,
+                    //LastUpdatedBy=pa.LastUpdatedBy,
+                    //DeletedBy=pa.DeletedBy,
+                    ServiceEntityResponseModels = existedPackage.Service.Select(se => new ServiceEntityResponseModel
+                    {
+                        Id = se.Id.ToString(),
+                        Name = se.Name,
+                    }).ToList()
+                };
+               
+            }
+            throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+
         }
+
+        public async Task<List<GETPackageViewModel?>> GetPackages(string packageID, DateTime? DateStart, DateTime? EndStart, string? Name)
+        {
+            //IQueryable<Packages> query = _unitOfWork.GetRepository<Packages>().Entities.Where(q => !q.DeletedTime.HasValue);
+
+            //// Lọc theo packageID nếu có
+            //if (!string.IsNullOrWhiteSpace(packageID))
+            //{
+            //    query = query.Where(q => q.Equals(packageID));
+            //}
+
+            //// Lọc theo DateStart và EndStart nếu có
+            //if (DateStart!=null)
+            //{
+            //    query = query.Where(q => q.CreatedTime >= DateStart.Value);
+            //}
+            //if (EndStart!=null)
+            //{
+            //    query = query.Where(q => q.CreatedTime <= EndStart.Value);
+            //}
+
+            //// Lọc theo Name nếu có
+            //if (!string.IsNullOrWhiteSpace(Name))
+            //{
+            //    query = query.Where(q => q.Name.Contains(Name));
+            //}
+
+            //// Chuyển đổi dữ liệu sang GETPackageViewModel
+            //return await query
+            //    .OrderByDescending(pa => pa.CreatedTime!=null)
+            //    .Select(pa => new GETPackageViewModel
+            //    {
+            //        Id = packageID, // Sử dụng PackageID từ cơ sở dữ liệu thay vì packageID từ tham số
+            //        Name = pa.Name,
+            //        Price = pa.Price,
+            //        Image = pa.Image,
+            //        Information = pa.Information,
+            //        Experiences = pa.Experiences,
+
+            //        // Chuyển đổi các Service thành ServiceEntityResponseModel
+            //        ServiceEntityResponseModels = pa.Service.Select(se => new ServiceEntityResponseModel
+            //        {
+            //            Id = se.Id.ToString(),
+            //            Name = se.Name,
+            //        }).ToList() ?? new List<ServiceEntityResponseModel>()
+            //    })
+            //    .ToListAsync();
+            throw new NotImplementedException();
+        }
+
 
         public async Task Update(Packages package)
         {
@@ -61,5 +181,7 @@ namespace PetSpa.Services.Service
             await genericRepository.UpdateAsync(package);
             await _unitOfWork.SaveAsync();
         }
+
+     
     }
 }
