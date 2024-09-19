@@ -1,17 +1,18 @@
 ﻿
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Core.Base;
-using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.PackageModelViews;
 
 
 namespace PetSpa.Contract.Services.Interface
 {
     public interface IPackageService
     {
-        Task<BasePaginatedList<PackageResponseModel>> GetAll(int pageNumber = 1, int pageSize = 3);
-        Task<PackageResponseModel?> GetById(Guid id);
-        Task Add(Packages package);
+        Task<BasePaginatedList<GETPackageViewModel>> GetAll(int pageNumber = 1, int pageSize = 3);
+        Task<GETPackageViewModel?> GetById(string packageID);
+        Task<List<GETPackageViewModel?>> GetPackages(string packageID, DateTime? DateStart, DateTime? EndStart,string? Name);
+        Task Add(POSTPackageViewModel package);
         Task Update(Packages package);
-        Task Delete(Guid id);
+        Task Delete(string id);
     }
 }

@@ -98,7 +98,7 @@ namespace PetSpaBE.API.Controllers
                 await _servicesService.Update(servicesEntity);
                 return Ok(servicesEntity);
             }
-            catch (Exception ex)
+            catch
             {
                 return NotFound("Package not found!");
             }

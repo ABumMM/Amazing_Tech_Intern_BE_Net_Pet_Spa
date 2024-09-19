@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Text.Json.Serialization;
 
-namespace Core.Infrastructure
+namespace PetSpa.Core.Base
 {
     public class CoreException : Exception
     {

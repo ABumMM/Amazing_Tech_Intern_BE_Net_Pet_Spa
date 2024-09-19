@@ -75,7 +75,7 @@ namespace PetSpaBE.API.Controllers
                 await _bookingService.Update(booking);
                 return Ok();
             }
-            catch (Exception ex)
+            catch
             {
                 return NotFound("Booking not found!");
             }
