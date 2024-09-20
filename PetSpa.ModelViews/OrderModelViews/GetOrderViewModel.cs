@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetSpa.ModelViews.ModelViews
+namespace PetSpa.ModelViews.OrderModelViews
 {
-    public class OrderResponseModel
+    public class GetOrderViewModel
     {
         public string? Id { get; set; }
         public string? CustomerID { get; set; }
@@ -14,9 +14,5 @@ namespace PetSpa.ModelViews.ModelViews
         public DateTime? Date { get; set; }
         public string? PaymentMethod { get; set; }
         public decimal? Total { get; set; }
-        public string? CreatedBy { get; set; }
-        public DateTime? CreatedTime { get; set; }
-        public string? UpdatedBy { get; set; }
-        public DateTime? UpdatedTime { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.OrderModelViews;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,92 +25,72 @@ namespace PetSpaBE.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllOrders(int pageNumber = 1, int pageSize = 10)
         {
-            try
-            {
-                var orders = await _orderService.GetAll();
-                if (orders == null || !orders.Any())
-                {
-                    return NotFound("Không thể tìm thấy đơn hàng.");
-                }
-
-                var paginatedOrders = orders
-                    .Skip((pageNumber - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-                var totalOrdersCount = orders.Count;
-                var paginatedList = new BasePaginatedList<OrderResponseModel>(paginatedOrders, totalOrdersCount, pageNumber, pageSize);
-
-                return Ok(paginatedList);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
-            }
+            var orders = await _orderService.GetAll(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GetOrderViewModel>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: orders));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(string id)
         {
-            try
+            var order = await _orderService.GetById(id);
+            if (order == null)
             {
-                var order = await _orderService.GetById(id);
-                if (order == null)
-                {
-                    return NotFound("Không thể tìm thấy đơn hàng.");
-                }
-                return Ok(order);
+                return NotFound(new BaseResponseModel<string>(
+                    statusCode: StatusCodes.Status404NotFound,
+                    code: ResponseCodeConstants.NOT_FOUND,
+                    data: "Order not found"));
             }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
-            }
+
+            return Ok(new BaseResponseModel<GetOrderViewModel>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: order));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddOrder([FromBody] OrderResponseModel order)
+        public async Task<IActionResult> AddOrder([FromBody] PostOrderViewModel order)
         {
-            try
-            {
-                await _orderService.Add(order);
-                return CreatedAtAction(nameof(GetOrderById), new { id = order.Id }, order);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
-            }
+            await _orderService.Add(order);
+            return CreatedAtAction(nameof(GetOrderById), new { id = order.CustomerID }, new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status201Created,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Order created successfully"));
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateOrder([FromBody] OrderResponseModel order)
         {
-            try
+            var updated = await _orderService.Update(order);
+            if (!updated)
             {
-                await _orderService.Update(order);
-                return NoContent();
+                return NotFound(new BaseResponseModel<string>(
+                    statusCode: StatusCodes.Status404NotFound,
+                    code: ResponseCodeConstants.NOT_FOUND,
+                    data: "Order not found"));
             }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
-            }
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(string id)
         {
-            try
+            var deleted = await _orderService.Delete(id);
+            if (!deleted)
             {
-                await _orderService.Delete(id);
-                return Ok("Đã xóa đơn hàng thành công");
+                return NotFound(new BaseResponseModel<string>(
+                    statusCode: StatusCodes.Status404NotFound,
+                    code: ResponseCodeConstants.NOT_FOUND,
+                    data: "Order not found"));
             }
-            catch (KeyNotFoundException)
-            {
-                return NotFound("Không thể tìm thấy đơn hàng.");
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error: {ex.Message}");
-            }
+
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Order deleted successfully"));
         }
     }
 }

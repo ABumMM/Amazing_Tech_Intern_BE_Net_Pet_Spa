@@ -1,7 +1,9 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
+using PetSpa.Core.Base;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.OrderModelViews;
 
 namespace PetSpa.Services.Service
 {
@@ -14,41 +16,38 @@ namespace PetSpa.Services.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IList<OrderResponseModel>> GetAll()
+        public async Task<BasePaginatedList<GetOrderViewModel>> GetAll(int pageNumber = 1, int pageSize = 3)
         {
-            var orders = await _unitOfWork.GetRepository<Orders>().GetAllAsync();
+            var orders = await _unitOfWork.GetRepository<Orders>()
+                .GetAllAsync(); // Assuming GetAllAsync handles pagination internally
 
             if (orders == null || !orders.Any())
             {
-                throw new KeyNotFoundException("Không có đơn hàng nào.");
+                return new BasePaginatedList<GetOrderViewModel>(new List<GetOrderViewModel>(), 0);
             }
 
-            return orders.Select(order => new OrderResponseModel
+            var orderResponseList = orders.Select(order => new GetOrderViewModel
             {
                 Id = order.Id,
                 CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date,
                 PaymentMethod = order.PaymentMethod,
-                Total = order.Total
+                Total = order.Total,
             }).ToList();
+
+            return new BasePaginatedList<GetOrderViewModel>(orderResponseList, orderResponseList.Count);
         }
 
-        public async Task<OrderResponseModel?> GetById(object id)
+        public async Task<GetOrderViewModel?> GetById(string id)
         {
-            if (id == null || string.IsNullOrEmpty(id.ToString()))
-            {
-                throw new ArgumentException("ID không hợp lệ.");
-            }
-
             var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(id);
-
             if (order == null)
             {
-                throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {id}");
+                return null; 
             }
 
-            return new OrderResponseModel
+            return new GetOrderViewModel
             {
                 Id = order.Id,
                 CustomerID = order.CustomerID,
@@ -59,31 +58,17 @@ namespace PetSpa.Services.Service
             };
         }
 
-        public async Task Add(OrderResponseModel order)
+        public async Task Add(PostOrderViewModel order)
         {
-            if (order == null)
-            {
-                throw new ArgumentNullException(nameof(order), "Thông tin đơn hàng không được để trống.");
-            }
-
-            if (order.CustomerID == null || order.EmployeeID == null)
-            {
-                throw new ArgumentException("CustomerID và EmployeeID là bắt buộc.");
-            }
-
-            if (order.Total <= 0)
-            {
-                throw new ArgumentException("Tổng tiền phải lớn hơn 0.");
-            }
-
-            var newOrder = new Orders
+            Orders newOrder = new Orders
             {
                 Id = Guid.NewGuid().ToString("N"),
                 CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
-                Date = order.Date,
+                Date = order.Date ?? DateTime.Now,
                 PaymentMethod = string.IsNullOrEmpty(order.PaymentMethod) ? "Unknown" : order.PaymentMethod,
                 Total = order.Total,
+                CreatedTime = DateTime.Now,
             };
 
             var repository = _unitOfWork.GetRepository<Orders>();
@@ -91,28 +76,18 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task Update(OrderResponseModel order)
+        public async Task Update(Orders order)
         {
-            if (order == null)
-            {
-                throw new ArgumentNullException(nameof(order), "Thông tin đơn hàng không được để trống.");
-            }
-
             var existingOrder = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(order.Id);
             if (existingOrder == null)
             {
-                throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {order.Id}");
-            }
-
-            if (order.Total <= 0)
-            {
-                throw new ArgumentException("Tổng tiền phải lớn hơn 0.");
+                return; // No action needed if not found
             }
 
             existingOrder.CustomerID = order.CustomerID;
             existingOrder.EmployeeID = order.EmployeeID;
             existingOrder.Date = order.Date;
-            existingOrder.PaymentMethod = string.IsNullOrEmpty(order.PaymentMethod) ? existingOrder.PaymentMethod : order.PaymentMethod;
+            existingOrder.PaymentMethod = order.PaymentMethod;
             existingOrder.Total = order.Total;
 
             var repository = _unitOfWork.GetRepository<Orders>();
@@ -120,23 +95,19 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task Delete(object id)
+        public async Task Delete(string id)
         {
-            if (id == null || string.IsNullOrEmpty(id.ToString()))
-            {
-                throw new ArgumentException("ID không hợp lệ.");
-            }
-
             var repository = _unitOfWork.GetRepository<Orders>();
             var existingOrder = await repository.GetByIdAsync(id);
 
             if (existingOrder == null)
             {
-                throw new KeyNotFoundException($"Không tìm thấy đơn hàng với ID: {id}");
+                return; // No action needed if not found
             }
 
             await repository.DeleteAsync(id);
             await _unitOfWork.SaveAsync();
         }
+
     }
 }

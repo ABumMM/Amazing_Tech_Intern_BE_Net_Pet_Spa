@@ -2,6 +2,9 @@
 {
     public class BasePaginatedList<T>
     {
+        private List<PetSpa.ModelViews.ModelViews.OrderResponseModel> orderResponseList;
+        private int count;
+
         public IReadOnlyCollection<T> Items { get; private set; }
 
         // Thuộc tính để lưu trữ tổng số phần tử
@@ -24,6 +27,12 @@
             PageSize = pageSize;
             TotalPages = (int)Math.Ceiling(count / (double)pageSize);
             Items = items;
+        }
+
+        public BasePaginatedList(List<PetSpa.ModelViews.ModelViews.OrderResponseModel> orderResponseList, int count)
+        {
+            this.orderResponseList = orderResponseList;
+            this.count = count;
         }
 
         // Phương thức để kiểm tra nếu có trang trước đó
