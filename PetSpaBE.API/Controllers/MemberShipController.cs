@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.ModelViews.MemberShipModelView;
+using PetSpa.ModelViews.MemberShipModelViews;
+using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -16,66 +20,55 @@ namespace PetSpaBE.API.Controllers
         {
             _membershipsService = membershipsService;
         }
-
-
         [HttpGet]
         public async Task<IActionResult> GetAllMemberShips(int pageNumber = 1, int pageSize = 2)
         {
-            IList<MemberShips> memberShips = await _membershipsService.GetAll();
-
-            int totalMemberShip = memberShips.Count;
-
-            // Thực hiện phân trang
-            var paginatedMemberShips = memberShips
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            // Tạo đối tượng BasePaginatedList để trả về
-            var paginatedList = new BasePaginatedList<MemberShips>(paginatedMemberShips, totalMemberShip, pageNumber, pageSize);
-
-            return Ok(paginatedList);
+            var memberShips = await _membershipsService.GetAll(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETMemberShipModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: memberShips));
         }
         [HttpPost]
-        public async Task<IActionResult> AddMemberShip(MemberShips memberShips)
+        public async Task<IActionResult> AddMemberShip([FromBody]POSTMemberShipModelView memberShipMV)
         {
-            await _membershipsService.Add(memberShips);
-            return Ok();
+            await _membershipsService.Add(memberShipMV);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Add membership successful"));
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMemberShip(string id)
         {
-            try
-            {
-                await _membershipsService.Delete(id);
-                return Ok();
-            }
-            catch
-            {
-                return NotFound("MemberShip not found!");
-            }
+            await _membershipsService.Delete(id);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Delete membership successful"));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMemberShipById(string id)
         {
-            var memberShips = await _membershipsService.GetById(id) ?? null;
-            if (memberShips is null)
-                return NotFound("MemberShip not found!");
-            return Ok(memberShips);
+            var memberShip = await _membershipsService.GetById(id);
+            return Ok(new BaseResponseModel<GETMemberShipModelView>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: memberShip));
         }
-        [HttpPut]
-        public async Task<IActionResult> UpdateMemberShip(MemberShips memberShip)
-        {
-            try
-            {
-                await _membershipsService.Update(memberShip);
-                return Ok();
-            }
-            catch 
-            {
-                return NotFound("MemberShip not found!");
-            }
-        }
+        //[HttpPut]
+        //public async Task<IActionResult> UpdateMemberShip(MemberShips memberShip)
+        //{
+        //    try
+        //    {
+        //        await _membershipsService.Update(memberShip);
+        //        return Ok();
+        //    }
+        //    catch
+        //    {
+        //        return NotFound("MemberShip not found!");
+        //    }
+        //}
     }
 }

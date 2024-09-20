@@ -14,11 +14,9 @@ namespace PetSpa.ModelViews.BookingModelViews
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string? Status { get; set; }
-        public string? CustomerId { get; set; }
-        public string? EmployeesId { get; set; }
 
         public string? OrdersId { get; set; }
-
-        public List<GETPackageViewModel>? getPackageViewModel { get; set; }
+        public List<PackageResponseModel>? packageResponseModels { get; set; }
+        //public List<GETPackageViewModel>? getPackageViewModel { get; set; }
     }
 }

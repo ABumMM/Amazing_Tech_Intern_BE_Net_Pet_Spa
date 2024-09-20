@@ -22,32 +22,15 @@ namespace PetSpa.Services.Service
         }
         
         public async Task Add(POSTBookingVM bookingVM)
-        {
-           
-            if (bookingVM == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "Booking cannot null.");
-            }
-            if (bookingVM.CustomerId == null)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "CustomerID không được để trống.");
-            }
-            if (bookingVM.OrdersId == null)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrdersId không được để trống.");
-            }
-            if (bookingVM.EmployeesId == null)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "EmployeeID không được để trống.");
-            }
+        {         
             Bookings Booking = new Bookings()
             {
                 Description = bookingVM.Description,
                 Status = bookingVM.Status,
                 Date = bookingVM.Date,
-                CustomerId = bookingVM.CustomerId,
+                
                 OrdersId = bookingVM.OrdersId,
-                EmployeesId = bookingVM.EmployeesId,
+                
                 
                 //Package = bookingVM.PackageIds.Select(pkgID => new Packages
                 //{
@@ -80,8 +63,8 @@ namespace PetSpa.Services.Service
                 Description = bk.Description,
                 Date = bk.Date,
                 Status = bk.Status,
-                CustomerId = bk.CustomerId,
-                EmployeesId = bk.EmployeesId,
+                
+                
                 OrdersId = bk.OrdersId,
                 //còn thiếu package
 
@@ -130,8 +113,8 @@ namespace PetSpa.Services.Service
                     Description = existedBooking.Description,
                     Date = existedBooking.Date,
                     Status = existedBooking.Status,
-                    CustomerId = existedBooking.CustomerId,
-                    EmployeesId = existedBooking.EmployeesId,
+                    
+                    
                     OrdersId = existedBooking.OrdersId,
 
                     //conf thieeus package nhows theem vaof
@@ -167,9 +150,9 @@ namespace PetSpa.Services.Service
             existingBooking.Description = bookingVM.Description;
             existingBooking.Status = bookingVM.Status;
             existingBooking.Date = bookingVM.Date; // Cập nhật ngày hoặc giữ nguyên tùy yêu cầu.
-            existingBooking.CustomerId = bookingVM.CustomerId;
+            
             existingBooking.OrdersId = bookingVM.OrdersId;
-            existingBooking.EmployeesId = bookingVM.EmployeesId;
+            
             // Cập nhật Packages nếu có thay đổi
             // existingBooking.Package = bookingVM.PackageIds.Select(pkgID => new Packages
             // {

@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -15,22 +14,22 @@ namespace PetSpaBE.API.Controllers
     {
         private readonly IPackageService _packageService;
 
-        public PackageController(IPackageService packageService) 
+        public PackageController(IPackageService packageService)
         {
-            _packageService=packageService;
+            _packageService = packageService;
         }
-   
+
         [HttpGet]
-        public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
+        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 2)
         {
-           var packages  = await _packageService.GetAll(pageNumber,pageSize);
-            return Ok(new BaseResponseModel<BasePaginatedList<GETPackageViewModel>>(
+            var packages = await _packageService.GetAll(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETPackageModelView>>(
                 statusCode: StatusCodes.Status200OK,
-                code:ResponseCodeConstants.SUCCESS,
-                data:packages));
+                code: ResponseCodeConstants.SUCCESS,
+                data: packages));
         }
         [HttpPost]
-        public async Task<IActionResult> AddPackage([FromBody]POSTPackageViewModel packageVM)
+        public async Task<IActionResult> AddPackage([FromBody] POSTPackageModelView packageVM)
         {
             await _packageService.Add(packageVM);
             return Ok(new BaseResponseModel<string>(
@@ -38,7 +37,7 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Add package successful"));
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePackage(string id)
         {
             await _packageService.Delete(id);
@@ -46,30 +45,25 @@ namespace PetSpaBE.API.Controllers
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Delete package successful"));
-         
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPackageById(string id)
         {
             var package = await _packageService.GetById(id);
-            return Ok(new BaseResponseModel<GETPackageViewModel>(
+            return Ok(new BaseResponseModel<GETPackageModelView>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: package));
         }
-        [HttpPut]
-        public async Task<IActionResult> UpdatePackage(Packages packages)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePackage([FromBody] PUTPackageModelView packageMV)
         {
-            try
-            {
-                await _packageService.Update(packages);
-                return Ok();
-            }
-            catch 
-            {
-                return NotFound("Package not found!");
-            }
+            await _packageService.Update(packageMV);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update package successful"));
         }
 
     }

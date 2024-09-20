@@ -1,4 +1,4 @@
-﻿using PetSpa.Contract.Repositories.Entity;
+﻿/*using PetSpa.Contract.Repositories.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,3 +17,4 @@ namespace PetSpa.Contract.Services.Interface
         Task Delete(object id);
     }
 }
+*/

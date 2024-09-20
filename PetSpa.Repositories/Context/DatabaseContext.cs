@@ -16,19 +16,49 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<ApplicationUserLogins> ApplicationUserLogins => Set<ApplicationUserLogins>();
         public virtual DbSet<ApplicationRoleClaims> ApplicationRoleClaims => Set<ApplicationRoleClaims>();
         public virtual DbSet<ApplicationUserTokens> ApplicationUserTokens => Set<ApplicationUserTokens>();
-
         public virtual DbSet<Bookings> Bookings { get; set; }
-        public virtual DbSet<Customers> Customers { get; set; }
-        public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<MemberShips> MemberShips { get; set; }
         public virtual DbSet<OrdersDetails> OrdersDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
-        //Packages
         public virtual DbSet<Packages> Packages { get; set; }
         public virtual DbSet<Pets> Pets { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ServicesEntity> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+                
+            // PACKAGEDSERVICE
+            // Cấu hình khóa chính cho bảng trung gian PackageService
+            modelBuilder.Entity<PackageService>()
+                .HasKey(ps => new { ps.PackageId, ps.ServiceId });
+            // Cấu hình quan hệ giữa PackageService và Packages
+            modelBuilder.Entity<PackageService>()
+                .HasOne(ps => ps.Package)
+                .WithMany(p => p.PackageServices)
+                .HasForeignKey(ps => ps.PackageId);
+            // Cấu hình quan hệ giữa PackageService và ServicesEntity
+            modelBuilder.Entity<PackageService>()
+                .HasOne(ps => ps.ServicesEntity)
+                .WithMany(s => s.PackageServices)
+                .HasForeignKey(ps => ps.ServiceId);
+
+            // BOOKINGPACKAGE
+            // Cấu hình khóa chính cho bảng trung gian BookingPackage
+            modelBuilder.Entity<BookingPackage>()
+                .HasKey(ps => new { ps.PackageId, ps.BookingId});
+            // Cấu hình quan hệ giữa BookingPackage và Packages
+            modelBuilder.Entity<BookingPackage>()
+                .HasOne(ps => ps.Package)
+                .WithMany(p => p.BookingPackages)
+                .HasForeignKey(ps => ps.PackageId);
+            // Cấu hình quan hệ giữa BookingPackage và Booking
+            modelBuilder.Entity<BookingPackage>()
+                .HasOne(ps => ps.Booking)
+                .WithMany(s => s.BookingPackages)
+                .HasForeignKey(ps => ps.BookingId);
+        }
     }
 }

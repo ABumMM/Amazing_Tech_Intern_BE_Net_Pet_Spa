@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -27,7 +27,6 @@ namespace PetSpaBE.API.Controllers
             {
                 Name = s.Name,
                 Description = s.Description,
-                PackageId = s.PackageId,
                 
             }).ToList();
 
@@ -54,7 +53,6 @@ namespace PetSpaBE.API.Controllers
                 Id = Guid.NewGuid().ToString("N"),
                 Name = service.Name,
                 Description = service.Description,
-                PackageId = service.PackageId,
             };
             await _servicesService.Add(servicesEntity);
             return Ok();
@@ -91,7 +89,6 @@ namespace PetSpaBE.API.Controllers
                     Id = service.Id,
                     Name = service.Name,
                     Description = service.Description,
-                    PackageId = service.PackageId,
                     Price = service.Price,
                     LastUpdatedTime = DateTime.Now
                 };
@@ -105,3 +102,4 @@ namespace PetSpaBE.API.Controllers
         }
     }
 }
+*/

@@ -8,8 +8,6 @@ namespace PetSpa.ModelViews.ModelViews
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string Status { get; set; }
-        public string? CustomerId { get; set; }
-        public string? EmployeesId { get; set; }
 
         public string? OrdersId { get; set; }
 
