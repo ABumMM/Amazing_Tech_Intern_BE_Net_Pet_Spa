@@ -8,7 +8,7 @@ namespace PetSpa.ModelViews.OrderModelViews
 {
     public class GetOrderViewModel
     {
-        public string? Id { get; set; }
+        public string? OrderID { get; set; }
         public string? CustomerID { get; set; }
         public string? EmployeeID { get; set; }
         public DateTime? Date { get; set; }

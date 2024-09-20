@@ -61,32 +61,16 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateOrder([FromBody] OrderResponseModel order)
+        public async Task<IActionResult> UpdateOrder(Orders order)
         {
-            var updated = await _orderService.Update(order);
-            if (!updated)
-            {
-                return NotFound(new BaseResponseModel<string>(
-                    statusCode: StatusCodes.Status404NotFound,
-                    code: ResponseCodeConstants.NOT_FOUND,
-                    data: "Order not found"));
-            }
-
-            return NoContent();
+            await _orderService.Update(order);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(string id)
         {
-            var deleted = await _orderService.Delete(id);
-            if (!deleted)
-            {
-                return NotFound(new BaseResponseModel<string>(
-                    statusCode: StatusCodes.Status404NotFound,
-                    code: ResponseCodeConstants.NOT_FOUND,
-                    data: "Order not found"));
-            }
-
+            await _orderService.Delete(id);   
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,

@@ -18,17 +18,16 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GetOrderViewModel>> GetAll(int pageNumber = 1, int pageSize = 3)
         {
-            var orders = await _unitOfWork.GetRepository<Orders>()
-                .GetAllAsync(); // Assuming GetAllAsync handles pagination internally
-
+            var orders = await _unitOfWork.GetRepository<Orders>().GetAllAsync(); 
             if (orders == null || !orders.Any())
             {
-                return new BasePaginatedList<GetOrderViewModel>(new List<GetOrderViewModel>(), 0);
+                // Truyền vào đầy đủ 4 tham số: items, totalItems, pageNumber, pageSize
+                return new BasePaginatedList<GetOrderViewModel>(new List<GetOrderViewModel>(), 0, pageNumber, pageSize);
             }
 
             var orderResponseList = orders.Select(order => new GetOrderViewModel
             {
-                Id = order.Id,
+                OrderID = order.Id,
                 CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date,
@@ -36,7 +35,8 @@ namespace PetSpa.Services.Service
                 Total = order.Total,
             }).ToList();
 
-            return new BasePaginatedList<GetOrderViewModel>(orderResponseList, orderResponseList.Count);
+            // Truyền vào đầy đủ 4 tham số: items, totalItems, pageNumber, pageSize
+            return new BasePaginatedList<GetOrderViewModel>(orderResponseList, orderResponseList.Count, pageNumber, pageSize);
         }
 
         public async Task<GetOrderViewModel?> GetById(string id)
@@ -49,7 +49,7 @@ namespace PetSpa.Services.Service
 
             return new GetOrderViewModel
             {
-                Id = order.Id,
+                OrderID = order.Id,
                 CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date,
@@ -62,7 +62,7 @@ namespace PetSpa.Services.Service
         {
             Orders newOrder = new Orders
             {
-                Id = Guid.NewGuid().ToString("N"),
+                OrderID = Guid.NewGuid().ToString("N"),
                 CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date ?? DateTime.Now,
@@ -78,20 +78,19 @@ namespace PetSpa.Services.Service
 
         public async Task Update(Orders order)
         {
-            var existingOrder = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(order.Id);
-            if (existingOrder == null)
+            Orders orders = new Orders
             {
-                return; // No action needed if not found
-            }
+                OrderID = Guid.NewGuid().ToString("N"),
+                CustomerID = order.CustomerID,
+                EmployeeID = order.EmployeeID,
+                Date = order.Date,
+                PaymentMethod = order.PaymentMethod,
+                Total = order.Total,
+                LastUpdatedTime = DateTime.Now,
 
-            existingOrder.CustomerID = order.CustomerID;
-            existingOrder.EmployeeID = order.EmployeeID;
-            existingOrder.Date = order.Date;
-            existingOrder.PaymentMethod = order.PaymentMethod;
-            existingOrder.Total = order.Total;
-
+            };
             var repository = _unitOfWork.GetRepository<Orders>();
-            repository.Update(existingOrder);
+            await repository.UpdateAsync(order);
             await _unitOfWork.SaveAsync();
         }
 

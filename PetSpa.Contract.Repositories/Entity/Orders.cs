@@ -10,6 +10,7 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Orders : BaseEntity
     {
+        public string OrderID { get; set; }
         public string? CustomerID { get; set; }
 
         public string? EmployeeID { get; set; } 
@@ -19,6 +20,8 @@ namespace PetSpa.Contract.Repositories.Entity
         public string PaymentMethod { get; set; } = string.Empty;
 
         public decimal Total { get; set; }
+        public DateTime CreateTime { get; set; }
+        public DateTime LastUpdateTime { get; set; }
 
         // Khóa ngoại đến Employees
         public virtual Employees Employees { get; set; }
