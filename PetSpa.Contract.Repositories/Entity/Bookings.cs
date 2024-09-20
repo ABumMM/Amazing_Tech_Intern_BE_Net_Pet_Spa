@@ -14,29 +14,25 @@ namespace PetSpa.Contract.Repositories.Entity
     {
         public string? Description { get; set; }
         public DateTime Date { get; set; }
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
-        // khóa ngoại Customers
-        public string? CustomerId { get; set; }
+       
+        public string CustomerId { get; set; } =string.Empty;
         [JsonIgnore]
-        public virtual Customers Customer { get; set; }
+        public virtual Customers? Customer { get; set; }
 
-        ////khóa ngoại employee
-        public string? EmployeesId { get; set; }
+     
+        public string EmployeesId { get; set; } = string.Empty;
         [JsonIgnore]
-        public virtual Employees Employee { get; set; }
+        public virtual Employees? Employee { get; set; }
 
-        ////khóa ngoại oderid
-
-        public string? OrdersId { get; set; }
+        public string OrdersId { get; set; } = string.Empty;
         [JsonIgnore]
-        public virtual Orders Orders { get; set; }
+        public virtual Orders? Orders { get; set; }
 
-        //1 booking có nhiều gói
-        //[JsonIgnore]
-        //public virtual ICollection<Packages> Packages { get; set; } = new List<Packages>();
+        
         [JsonIgnore]
-        public ICollection<Packages>? Package { get; set; }
+        public ICollection<Packages>? Package { get; set; } = new List<Packages>();
 
     }
 }

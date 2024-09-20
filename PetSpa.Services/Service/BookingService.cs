@@ -1,7 +1,13 @@
-﻿using PetSpa.Contract.Repositories.Entity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
+using PetSpa.Core.Base;
+using PetSpa.Core.Utils;
+using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.PackageModelViews;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,91 +20,164 @@ namespace PetSpa.Services.Service
         {
             _unitOfWork = unitOfWork;
         }
-
-        //public Task Add(BookingResponseModel booking)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public Task Delete(object id)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public async Task<IList<BookingResponseModel>> GetAll()
-        //{
-        //    // Lấy tất cả người dùng từ repository
-        //    var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
-
-        //    // Chuyển đổi từ ApplicationUser sang UserResponseModel
-        //    var bookingResponseModels = bookings.Select(booking => new BookingResponseModel
-        //    {
-        //        Description = booking.Description,
-        //        Date = booking.Date,
-        //        Status = booking.Status,
-        //        CustomerId = booking.CustomerId,
-        //        EmployeesId = booking.EmployeesId,
-        //        OrdersId = booking.OrdersId
-
-        //    }).ToList();
-
-        //    return bookingResponseModels;
-        //}
-
-        //public async Task<BookingResponseModel?> GetById(object id)
-        //{
-
-        //    var booking = await _unitOfWork.GetRepository<BookingResponseModel>().GetByIdAsync(id);
-
-
-        //    if (booking == null)
-        //        return null;
-
-        //    return new BookingResponseModel
-        //    {
-        //        Description = booking.Description,
-        //        Date = booking.Date,
-        //        Status = booking.Status,
-        //        CustomerId = booking.CustomerId,
-        //        EmployeesId = booking.EmployeesId,
-        //        OrdersId = booking.OrdersId
-        //    };
-        //}
-
-        //public Task Update(BookingResponseModel booking)
-        //{
-        //    throw new NotImplementedException();
-        //}
-        public async Task Add(BookingResponseModel bookingVM)
+        
+        public async Task Add(POSTBookingVM bookingVM)
         {
-            //booking.Id = Guid.NewGuid().ToString("N");
-            IGenericRepository<BookingResponseModel> genericRepository = _unitOfWork.GetRepository<BookingResponseModel>();
-            await genericRepository.InsertAsync(bookingVM);
+           
+            if (bookingVM == null)
+            {
+                throw new BadRequestException(ErrorCode.BadRequest, "Booking cannot null.");
+            }
+            if (bookingVM.CustomerId == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "CustomerID không được để trống.");
+            }
+            if (bookingVM.OrdersId == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrdersId không được để trống.");
+            }
+            if (bookingVM.EmployeesId == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "EmployeeID không được để trống.");
+            }
+            Bookings Booking = new Bookings()
+            {
+                Description = bookingVM.Description,
+                Status = bookingVM.Status,
+                Date = bookingVM.Date,
+                CustomerId = bookingVM.CustomerId,
+                OrdersId = bookingVM.OrdersId,
+                EmployeesId = bookingVM.EmployeesId,
+                
+                //Package = bookingVM.PackageIds.Select(pkgID => new Packages
+                //{
+                //    Id = pkgID,    
+                //}).ToList()
+            };
+            await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task Delete(object id)
+        public async Task Delete(string id)
         {
             IGenericRepository<Bookings> genericRepository = _unitOfWork.GetRepository<Bookings>();
             await genericRepository.DeleteAsync(id);
             await _unitOfWork.SaveAsync();
         }
 
-        public Task<IList<Bookings>> GetAll()
+        public Task Delete(object id)
         {
-            return _unitOfWork.GetRepository<Bookings>().GetAllAsync();
+            throw new NotImplementedException();
         }
 
-        public Task<Bookings?> GetById(object id)
+        public async Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber = 1, int pageSize = 2)
         {
-            return _unitOfWork.GetRepository<Bookings>().GetByIdAsync(id);
+            var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
+
+            var bookingViewModels = bookings.Select(bk => new GETBookingVM
+            {
+                Id = bk.Id,
+                Description = bk.Description,
+                Date = bk.Date,
+                Status = bk.Status,
+                CustomerId = bk.CustomerId,
+                EmployeesId = bk.EmployeesId,
+                OrdersId = bk.OrdersId,
+                //còn thiếu package
+
+
+
+                //getPackageViewModel = bk.Package.Select(pk => new GETPackageViewModel
+                //{
+                //    Id = pk.Id.ToString(),
+                //    Name = pk.Name,
+                //}).ToList()
+
+            }).ToList();
+
+            //Count Package
+            int totalBooking = bookings.Count;
+
+            var paginatedBooking = bookingViewModels
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            return new BasePaginatedList<GETBookingVM>(paginatedBooking, totalBooking, pageNumber, pageSize);
         }
 
-        public async Task Update(Bookings booking)
+
+        public async Task<GETBookingVM?> GetById(string id)
         {
-            IGenericRepository<Bookings> genericRepository = _unitOfWork.GetRepository<Bookings>();
-            await genericRepository.UpdateAsync(booking);
+            //if (string.IsNullOrWhiteSpace(id))
+            //{
+            //    throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid Booking ID.");
+            //}
+            IQueryable<Bookings> query = _unitOfWork.GetRepository<Bookings>().Entities.Where(q => !q.DeletedTime.HasValue);
+            var existedBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);
+            //if(existedBooking==null)
+            //{
+            //    throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "khônglấy được dữ liệu.");
+            //}    
+            if(existedBooking == null)
+            {
+                return null;
+            }    
+            
+                var bookingVM = new GETBookingVM
+                {
+                    Id = existedBooking.Id,
+                    Description = existedBooking.Description,
+                    Date = existedBooking.Date,
+                    Status = existedBooking.Status,
+                    CustomerId = existedBooking.CustomerId,
+                    EmployeesId = existedBooking.EmployeesId,
+                    OrdersId = existedBooking.OrdersId,
+
+                    //conf thieeus package nhows theem vaof
+                    //getPackageViewModel = existedBooking.Package.Select(se => new ....
+                    //{
+                    //    Id = se.Id.ToString(),
+                    //    Name = se.Name,
+                    //}).ToList()
+                };
+
+            return bookingVM;
+           
+
+        }
+
+        public Task<GETBookingVM?> GetById(object id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task Update( POSTBookingVM bookingVM, string id)
+        {
+            if (bookingVM == null)
+            {
+                throw new BadRequestException(ErrorCode.BadRequest, "Booking cannot be null.");
+            }
+            
+            var existingBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);
+            if (existingBooking == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
+            }
+            existingBooking.Description = bookingVM.Description;
+            existingBooking.Status = bookingVM.Status;
+            existingBooking.Date = bookingVM.Date; // Cập nhật ngày hoặc giữ nguyên tùy yêu cầu.
+            existingBooking.CustomerId = bookingVM.CustomerId;
+            existingBooking.OrdersId = bookingVM.OrdersId;
+            existingBooking.EmployeesId = bookingVM.EmployeesId;
+            // Cập nhật Packages nếu có thay đổi
+            // existingBooking.Package = bookingVM.PackageIds.Select(pkgID => new Packages
+            // {
+            //     Id = pkgID,
+            // }).ToList();
+            await _unitOfWork.GetRepository<Bookings>().UpdateAsync(existingBooking);
             await _unitOfWork.SaveAsync();
         }
+
     }
 }
