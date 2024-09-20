@@ -1,4 +1,4 @@
-﻿using PetSpa.Contract.Repositories.Entity;
+﻿/*using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.ModelViews.ServiceModelViews;
@@ -52,3 +52,4 @@ namespace PetSpa.Services.Service
         }
     }
 }
+*/

@@ -14,7 +14,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset? DeletedTime { get; set; }
 
         // Quan hệ một-nhiều với Employees
-        public virtual ICollection<Employees> Employees { get; set; } = new List<Employees>();
+        public virtual ICollection<ApplicationUser> Employees { get; set; } = new List<ApplicationUser>();
         /*// Quan hệ một-nhiều với Customers
         public virtual ICollection<Customers> Customers { get; set; } = new List<Customers>();*/
 
