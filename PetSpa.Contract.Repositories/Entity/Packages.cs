@@ -6,14 +6,13 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Packages: BaseEntity
     {
-        public string Name { get; set; }=String.Empty;
+        public string Name { get; set; }=string.Empty;
         public decimal? Price { get; set; }
         public string? Image {  get; set; }
         public string? Information {  get; set; }
         public string? Experiences {  get; set; }
-
         [JsonIgnore]
-        public ICollection<ServicesEntity>? Service { get; set; }=new HashSet<ServicesEntity>();
+        public ICollection<PackageService>? PackageServices { get; set; }=new HashSet<PackageService>();
 
         [JsonIgnore]
         public virtual Bookings? Booking { get; set; }
