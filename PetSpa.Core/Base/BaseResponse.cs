@@ -1,6 +1,5 @@
 ﻿using PetSpa.Core.Store;
 using PetSpa.Core.Utils;
-
 namespace PetSpa.Core.Base
 {
     public class BaseResponse<T>
@@ -30,7 +29,6 @@ namespace PetSpa.Core.Base
             StatusCode = statusCode;
             Code = code;
         }
-
         public static BaseResponse<T> OkResponse(T? data)
         {
             return new BaseResponse<T>(StatusCodeHelper.OK, StatusCodeHelper.OK.Name(), data);

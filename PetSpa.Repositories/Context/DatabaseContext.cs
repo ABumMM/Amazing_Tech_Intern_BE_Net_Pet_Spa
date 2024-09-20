@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
+using PetSpa.ModelViews.PackageModelViews;
 namespace PetSpa.Repositories.Context
 {
     public class DatabaseContext:IdentityDbContext
@@ -22,10 +23,11 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<MemberShips> MemberShips { get; set; }
         public virtual DbSet<OrdersDetails> OrdersDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
+        //Packages
         public virtual DbSet<Packages> Packages { get; set; }
         public virtual DbSet<Pets> Pets { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
-        public virtual DbSet<Services> Services { get; set; }
+        public virtual DbSet<ServicesEntity> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
 
     }

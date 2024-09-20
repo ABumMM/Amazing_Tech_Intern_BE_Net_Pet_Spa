@@ -21,9 +21,16 @@ namespace PetSpa.Services
 
         public static void AddServices(this IServiceCollection services)
         {
-            /*services.AddScoped<IRoleService, RoleService>();*/
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPackageService, PackageService>();
+            services.AddScoped<IServicesService, ServicesService>();
             services.AddScoped<IMembershipsService, MemberShipService>();
+
+            services.AddScoped<IBookingServicecs, BookingService>();
+
+            services.AddScoped<IEmployeeService, EmployeeService>();
+
+
         }
     }
 

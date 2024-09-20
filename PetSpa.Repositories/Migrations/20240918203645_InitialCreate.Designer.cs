@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetSpa.Repositories.Context;
 
@@ -11,9 +12,11 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240918203645_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,12 +363,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-<<<<<<< HEAD
-=======
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -380,11 +380,8 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
                     b.HasIndex("RoleId");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.HasIndex("UserInfoId");
 
                     b.ToTable("ApplicationUsers");
@@ -566,12 +563,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
-<<<<<<< HEAD
-=======
                     b.Property<string>("CustomerId")
                         .HasColumnType("nvarchar(450)");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -584,39 +578,30 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-=======
                     b.Property<string>("EmployeesId")
                         .HasColumnType("nvarchar(450)");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
-<<<<<<< HEAD
-=======
                     b.Property<string>("OrdersId")
                         .HasColumnType("nvarchar(450)");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("EmployeesId");
 
                     b.HasIndex("OrdersId");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.ToTable("Bookings");
                 });
 
@@ -673,12 +658,9 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-=======
                     b.Property<Guid?>("ApplicationRoleId")
                         .HasColumnType("uniqueidentifier");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -717,11 +699,8 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
                     b.HasIndex("ApplicationRoleId");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.ToTable("Employees");
                 });
 
@@ -793,13 +772,10 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<Guid?>("EmployeeID")
                         .HasColumnType("uniqueidentifier");
 
-<<<<<<< HEAD
-=======
                     b.Property<string>("EmployeesId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -815,11 +791,8 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
-=======
                     b.HasIndex("EmployeesId");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.ToTable("Orders");
                 });
 
@@ -859,10 +832,6 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-<<<<<<< HEAD
-                        .IsRequired()
-=======
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -875,12 +844,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-<<<<<<< HEAD
-=======
                     b.Property<string>("BookingId")
                         .HasColumnType("nvarchar(450)");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -912,10 +878,6 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-<<<<<<< HEAD
-                    b.HasKey("Id");
-
-=======
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -923,7 +885,6 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasIndex("BookingId");
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.ToTable("Packages");
                 });
 
@@ -1016,11 +977,7 @@ namespace PetSpa.Repositories.Migrations
                     b.ToTable("Reviews");
                 });
 
-<<<<<<< HEAD
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
-=======
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -1156,25 +1113,16 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUser", b =>
                 {
-<<<<<<< HEAD
-=======
                     b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationRole", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                     b.HasOne("PetSpa.Contract.Repositories.Entity.UserInfo", "UserInfo")
                         .WithMany()
                         .HasForeignKey("UserInfoId");
 
-<<<<<<< HEAD
-                    b.Navigation("UserInfo");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
-=======
                     b.Navigation("Role");
 
                     b.Navigation("UserInfo");
@@ -1229,7 +1177,6 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
                         .WithMany("Service")
@@ -1238,8 +1185,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Package");
                 });
 
-<<<<<<< HEAD
-=======
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRole", b =>
                 {
                     b.Navigation("Employees");
@@ -1257,7 +1202,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Orders");
                 });
 
->>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
                 {
                     b.Navigation("Service");

@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+<<<<<<< HEAD
 using PetSpa.ModelViews.ModelViews;
+=======
+using PetSpa.ModelViews.PackageModelViews;
+>>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
 
 
 namespace PetSpaBE.API.Controllers
@@ -19,10 +24,10 @@ namespace PetSpaBE.API.Controllers
             _packageService=packageService;
         }
    
-
         [HttpGet]
         public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
         {
+<<<<<<< HEAD
             var packages = await _packageService.GetAll();
         
             int totalPackage = packages.Count;
@@ -37,34 +42,42 @@ namespace PetSpaBE.API.Controllers
             var paginatedList = new BasePaginatedList<PackageResponseModel>(paginatedPackages, totalPackage, pageNumber, pageSize);
 
             return Ok(paginatedList);
+=======
+           var packages  = await _packageService.GetAll(pageNumber,pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETPackageViewModel>>(
+                statusCode: StatusCodes.Status200OK,
+                code:ResponseCodeConstants.SUCCESS,
+                data:packages));
+>>>>>>> 05e26ddaeb54be6bb24dbaadf87ff8883bb5426d
         }
         [HttpPost]
-        public async Task<IActionResult> AddPackage(Packages packages)
+        public async Task<IActionResult> AddPackage([FromBody]POSTPackageViewModel packageVM)
         {
-            await _packageService.Add(packages);
-            return Ok();
+            await _packageService.Add(packageVM);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Add package successful"));
         }
         [HttpDelete]
         public async Task<IActionResult> DeletePackage(string id)
         {
-            try
-            {
-                await _packageService.Delete(id);
-                return Ok();
-            }
-            catch
-            {
-                return NotFound("Package not found!");
-            }
+            await _packageService.Delete(id);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Delete package successful"));
+         
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPackageById(string id)
         {
-            var packages = await _packageService.GetById(id)??null;
-            if (packages is null)
-                return NotFound("Package not found!");
-            return Ok(packages);
+            var package = await _packageService.GetById(id);
+            return Ok(new BaseResponseModel<GETPackageViewModel>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: package));
         }
         [HttpPut]
         public async Task<IActionResult> UpdatePackage(Packages packages)
@@ -74,7 +87,7 @@ namespace PetSpaBE.API.Controllers
                 await _packageService.Update(packages);
                 return Ok();
             }
-            catch (Exception ex)
+            catch 
             {
                 return NotFound("Package not found!");
             }
