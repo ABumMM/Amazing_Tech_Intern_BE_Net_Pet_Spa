@@ -29,7 +29,7 @@ namespace PetSpa.Contract.Repositories.Entity
         //[JsonIgnore]
         //public virtual ICollection<Packages> Packages { get; set; } = new List<Packages>();
         [JsonIgnore]
-        public ICollection<Packages>? Package { get; set; }
+        public ICollection<BookingPackage>? BookingPackages { get; set; } = new HashSet<BookingPackage>();
 
     }
 }
