@@ -18,17 +18,15 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<ApplicationUserTokens> ApplicationUserTokens => Set<ApplicationUserTokens>();
 
         public virtual DbSet<Bookings> Bookings { get; set; }
-        public virtual DbSet<Customers> Customers { get; set; }
-        public virtual DbSet<Employees> Employees { get; set; }
         public virtual DbSet<MemberShips> MemberShips { get; set; }
         public virtual DbSet<OrdersDetails> OrdersDetails { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
-        //Packages
         public virtual DbSet<Packages> Packages { get; set; }
         public virtual DbSet<Pets> Pets { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ServicesEntity> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
 
+        
     }
 }

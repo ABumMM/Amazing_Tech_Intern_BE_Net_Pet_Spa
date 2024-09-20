@@ -24,7 +24,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTime LastUpdateTime { get; set; }
 
         // Khóa ngoại đến Employees
-        public virtual Employees Employees { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
         // liên kết khóa ngoại khách hàng
         public virtual Customers Customers { get; set; }

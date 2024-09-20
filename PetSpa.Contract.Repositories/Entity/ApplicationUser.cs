@@ -11,9 +11,9 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class ApplicationUser:IdentityUser<Guid>
     {
-
-        public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        public DateTime DayofBirth { get; set; }
+        public string Address { get; set; }
         public virtual UserInfo? UserInfo { get; set; }
         public string? CreatedBy { get; set; }
         public string? LastUpdatedBy { get; set; }
@@ -25,6 +25,12 @@ namespace PetSpa.Contract.Repositories.Entity
         // Khóa ngoại đến ApplicationRole
         public Guid RoleId { get; set; }
         public virtual ApplicationRole Role { get; set; }
+
+        // Mối quan hệ với bảng Bookings(một-nhiều)
+        public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
+
+        // Mối quan hệ với bảng Orders (một-nhiều)
+        public virtual ICollection<Orders> Orders { get; set; } = new List<Orders>();
 
         public ApplicationUser()
         {
