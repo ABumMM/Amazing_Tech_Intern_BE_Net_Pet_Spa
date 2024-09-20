@@ -18,8 +18,6 @@ namespace PetSpa.Contract.Repositories.Entity
         [JsonIgnore]
         public virtual Packages? Package { get; set; }
 
-    
-
     }
 }
 

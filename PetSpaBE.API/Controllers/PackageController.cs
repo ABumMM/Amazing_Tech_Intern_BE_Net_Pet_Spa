@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.ModelViews.ModelViews;
 
 
 namespace PetSpaBE.API.Controllers
@@ -22,7 +23,7 @@ namespace PetSpaBE.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
         {
-            IList<Packages> packages = await _packageService.GetAll();
+            var packages = await _packageService.GetAll();
         
             int totalPackage = packages.Count;
 
@@ -33,7 +34,7 @@ namespace PetSpaBE.API.Controllers
                 .ToList();                        
 
             // Tạo đối tượng BasePaginatedList để trả về
-            var paginatedList = new BasePaginatedList<Packages>(paginatedPackages, totalPackage, pageNumber, pageSize);
+            var paginatedList = new BasePaginatedList<PackageResponseModel>(paginatedPackages, totalPackage, pageNumber, pageSize);
 
             return Ok(paginatedList);
         }
