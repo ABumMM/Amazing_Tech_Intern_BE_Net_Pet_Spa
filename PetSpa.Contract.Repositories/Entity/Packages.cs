@@ -13,6 +13,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Experiences {  get; set; }
         [JsonIgnore]
         public ICollection<PackageService>? PackageServices { get; set; }=new HashSet<PackageService>();
+
         [JsonIgnore]
         public virtual Bookings? Booking { get; set; }
 

@@ -25,15 +25,15 @@ namespace PetSpa.Services.Service
             {
                 throw new BadRequestException(ErrorCode.BadRequest, "Package cannot null.");
             }
-            if (packageMV.Name==null)
+            if (packageMV.Name == null)
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest,ErrorCode.InvalidInput, "Package name is required.");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Package name is required.");
             }
             if (packageMV.Price < 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
             }
-          
+
             Packages packages = new Packages()
             {
                 Name = packageMV.Name,
@@ -49,7 +49,7 @@ namespace PetSpa.Services.Service
         public async Task Delete(string packageID)
         {
             Packages? existedPackage = await _unitOfWork.GetRepository<Packages>().GetByIdAsync(packageID);
-            if(existedPackage == null)
+            if (existedPackage == null)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
@@ -62,21 +62,21 @@ namespace PetSpa.Services.Service
         public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber = 1, int pageSize = 2)
         {
             var packages = await _unitOfWork.GetRepository<Packages>().GetAllAsync();
-           
+
             var packageViewModels = packages.Select(pa => new GETPackageModelView
             {
                 Id = pa.Id,
-                Name=pa.Name,
-                Price=pa.Price,
-                Image=pa.Image,
-                Information=pa.Information,
-                Experiences=pa.Experiences,
-                CreatedTime=pa.CreatedTime,
+                Name = pa.Name,
+                Price = pa.Price,
+                Image = pa.Image,
+                Information = pa.Information,
+                Experiences = pa.Experiences,
+                CreatedTime = pa.CreatedTime,
                 //THiếu user => chưa làm createby,deleteby,updateby
                 //CreatedBy=pa.CreatedBy,
                 //LastUpdatedBy=pa.LastUpdatedBy,
                 //DeletedBy=pa.DeletedBy,
-            
+
 
             }).ToList();
             //Count Package
@@ -90,7 +90,7 @@ namespace PetSpa.Services.Service
             return new BasePaginatedList<GETPackageModelView>(paginatedPackages, totalPackage, pageNumber, pageSize);
         }
 
-        public async Task<GETPackageModelView?> GetById(string ?packageID)
+        public async Task<GETPackageModelView?> GetById(string? packageID)
         {
             if (string.IsNullOrWhiteSpace(packageID))
             {
@@ -113,7 +113,7 @@ namespace PetSpa.Services.Service
                 //CreatedBy=pa.CreatedBy,
                 //LastUpdatedBy=pa.LastUpdatedBy,
                 //DeletedBy=pa.DeletedBy,
-              
+
             };
 
         }
@@ -195,6 +195,6 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-   
+
     }
 }

@@ -1,5 +1,4 @@
 ﻿
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -15,22 +14,22 @@ namespace PetSpaBE.API.Controllers
     {
         private readonly IPackageService _packageService;
 
-        public PackageController(IPackageService packageService) 
+        public PackageController(IPackageService packageService)
         {
-            _packageService=packageService;
+            _packageService = packageService;
         }
-   
+
         [HttpGet]
-        public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
+        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 2)
         {
-           var packages  = await _packageService.GetAll(pageNumber,pageSize);
+            var packages = await _packageService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETPackageModelView>>(
                 statusCode: StatusCodes.Status200OK,
-                code:ResponseCodeConstants.SUCCESS,
-                data:packages));
+                code: ResponseCodeConstants.SUCCESS,
+                data: packages));
         }
         [HttpPost]
-        public async Task<IActionResult> AddPackage([FromBody]POSTPackageModelView packageVM)
+        public async Task<IActionResult> AddPackage([FromBody] POSTPackageModelView packageVM)
         {
             await _packageService.Add(packageVM);
             return Ok(new BaseResponseModel<string>(
@@ -58,7 +57,7 @@ namespace PetSpaBE.API.Controllers
                 data: package));
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePackage([FromBody]PUTPackageModelView packageMV)
+        public async Task<IActionResult> UpdatePackage([FromBody] PUTPackageModelView packageMV)
         {
             await _packageService.Update(packageMV);
             return Ok(new BaseResponseModel<string>(
