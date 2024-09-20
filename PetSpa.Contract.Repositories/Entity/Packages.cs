@@ -15,7 +15,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public ICollection<PackageService>? PackageServices { get; set; }=new HashSet<PackageService>();
 
         [JsonIgnore]
-        public virtual Bookings? Booking { get; set; }
+        public ICollection<BookingPackage>? BookingPackages { get; set; } = new HashSet<BookingPackage>();
 
     }
 }

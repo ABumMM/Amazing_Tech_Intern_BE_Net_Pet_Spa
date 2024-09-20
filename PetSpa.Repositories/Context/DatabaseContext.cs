@@ -25,7 +25,6 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ServicesEntity> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
-        public virtual DbSet<PackageService> PackageServices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,6 +44,21 @@ namespace PetSpa.Repositories.Context
                 .HasOne(ps => ps.ServicesEntity)
                 .WithMany(s => s.PackageServices)
                 .HasForeignKey(ps => ps.ServiceId);
+
+            // BOOKINGPACKAGE
+            // Cấu hình khóa chính cho bảng trung gian BookingPackage
+            modelBuilder.Entity<BookingPackage>()
+                .HasKey(ps => new { ps.PackageId, ps.BookingId});
+            // Cấu hình quan hệ giữa BookingPackage và Packages
+            modelBuilder.Entity<BookingPackage>()
+                .HasOne(ps => ps.Package)
+                .WithMany(p => p.BookingPackages)
+                .HasForeignKey(ps => ps.PackageId);
+            // Cấu hình quan hệ giữa BookingPackage và Booking
+            modelBuilder.Entity<BookingPackage>()
+                .HasOne(ps => ps.Booking)
+                .WithMany(s => s.BookingPackages)
+                .HasForeignKey(ps => ps.BookingId);
         }
     }
 }
