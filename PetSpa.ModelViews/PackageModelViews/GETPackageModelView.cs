@@ -3,7 +3,7 @@ using PetSpa.ModelViews.ModelViews;
 
 namespace PetSpa.ModelViews.PackageModelViews
 {
-    public class GETPackageViewModel
+    public class GETPackageModelView
     {
         public string? Id { get; set; }
         public string? Name { get; set; }
@@ -14,7 +14,7 @@ namespace PetSpa.ModelViews.PackageModelViews
         public string? Information { get; set; }
         public string? Experiences { get; set; }
         public string? CreatedBy { get; set; }
-
+        public DateTimeOffset CreatedTime { get; set; }
         public List<ServiceEntityResponseModel>? ServiceEntityResponseModels { get; set; }
     }
 }

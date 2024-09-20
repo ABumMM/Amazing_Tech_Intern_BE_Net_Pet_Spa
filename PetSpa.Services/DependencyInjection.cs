@@ -25,9 +25,7 @@ namespace PetSpa.Services
             services.AddScoped<IPackageService, PackageService>();
             services.AddScoped<IServicesService, ServicesService>();
             services.AddScoped<IMembershipsService, MemberShipService>();
-
             services.AddScoped<IBookingServicecs, BookingService>();
-
             services.AddScoped<IEmployeeService, EmployeeService>();
 
 
