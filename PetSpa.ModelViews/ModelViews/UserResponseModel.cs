@@ -1,10 +1,12 @@
-﻿using PetSpa.Contract.Repositories.Entity;
+using PetSpa.Contract.Repositories.Entity;
 
 namespace PetSpa.ModelViews.ModelViews
+
 {
     public class UserResponseModel
     {
         public string? Id { get; set; }
+
         public string Email { get; set; }
         public string? FullName { get; set; }
         public string? BankAccount { get; set; }
@@ -16,5 +18,6 @@ namespace PetSpa.ModelViews.ModelViews
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
+
     }
 }

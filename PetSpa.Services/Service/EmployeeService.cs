@@ -1,4 +1,4 @@
-﻿using PetSpa.Contract.Repositories.Entity;
+﻿/*using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.ModelViews.ModelViews;
@@ -28,7 +28,7 @@ namespace PetSpa.Services.Service
                 Id = employee.Id,
                 FullName = employee.FullName,
                 Email = employee.Email,
-                PhoneNumber = employee.PhoneNPhoneNumber,
+                PhoneNumber = employee.PhoneNumber,
                 DateOfBirth = employee.DayofBirth,
                 Address = employee.Address,
                 Salary = employee.Salary,
@@ -51,7 +51,7 @@ namespace PetSpa.Services.Service
                 Id = employee.Id,
                 FullName = employee.FullName,
                 Email = employee.Email,
-                PhoneNumber = employee.PhoneNPhoneNumber,
+                PhoneNumber = employee.PhoneNumber,
                 DateOfBirth = employee.DayofBirth,
                 Address = employee.Address,
                 Salary = employee.Salary,
@@ -66,7 +66,7 @@ namespace PetSpa.Services.Service
                 Id = employee.Id,
                 FullName = employee.FullName,
                 Email = employee.Email,
-                PhoneNPhoneNumber = employee.PhoneNumber,
+                PhoneNumber = employee.PhoneNumber,
                 DayofBirth = employee.DateOfBirth,
                 Address = employee.Address,
                 Salary = employee.Salary,
@@ -85,7 +85,7 @@ namespace PetSpa.Services.Service
                 Id = employee.Id,
                 FullName = employee.FullName,
                 Email = employee.Email,
-                PhoneNPhoneNumber = employee.PhoneNumber,
+                PhoneNumber = employee.PhoneNumber,
                 DayofBirth = employee.DateOfBirth,
                 Address = employee.Address,
                 Salary = employee.Salary,
@@ -110,3 +110,4 @@ namespace PetSpa.Services.Service
         }
     }
 }
+*/

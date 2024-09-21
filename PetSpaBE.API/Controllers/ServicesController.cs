@@ -1,6 +1,4 @@
-﻿using Azure;
-using Core.Infrastructure;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -28,7 +26,7 @@ namespace PetSpaBE.API.Controllers
             var response = BaseResponse<BasePaginatedList<ServiceResposeModel>>.OkResponse(item);
             return Ok(new BaseResponseModel<BasePaginatedList<ServiceResposeModel>>(
                 statusCode: StatusCodes.Status200OK,
-                code: StatusCodeHelper.OK.Name(),
+                code: ResponseCodeConstants.SUCCESS,
                 data: item));
 
         }
@@ -36,58 +34,43 @@ namespace PetSpaBE.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddService(ServiceCreateModel service)
         {
-            ServicesEntity servicesEntity = new ServicesEntity{
-                Id = Guid.NewGuid().ToString("N"),
-                Name = service.Name,
-                Description = service.Description,
-                PackageId = service.PackageId,
-            };
-            await _servicesService.Add(servicesEntity);
-            return Ok();
+           await _servicesService.Add(service);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status201Created,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Add service successful"));
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteService(string id)
         {
-            try
-            {
-                await _servicesService.Delete(id);
-                return Ok("Delete Sucessfull");
-            }
-            catch
-            {
-                return NotFound("Package not found!");
-            }
+            await _servicesService.Delete(id);
+            return Ok(new BaseResponseModel<ServiceResposeModel>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                message:"Delete services successful"
+                ));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetServiceById(string id)
         {
-            var services = await _servicesService.GetById(id) ?? null;
-            if (services is null)
-                return NotFound("Package not found!");
-            return Ok(services);
+            var service = await _servicesService.GetById(id);
+            return Ok(new BaseResponseModel<ServiceResposeModel>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: service
+                ));
         }
         [HttpPut]
         public async Task<IActionResult> UpdateService(ServiceUpdateModel service)
         {
-            try
-            {
-                ServicesEntity servicesEntity = new ServicesEntity
-                {
-                    Id = service.Id,
-                    Name = service.Name,
-                    Description = service.Description,
-                    PackageId = service.PackageId,
-                    Price = service.Price,
-                    LastUpdatedTime = DateTime.Now
-                };
-                await _servicesService.Update(servicesEntity);
-                return Ok(servicesEntity);
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Package not found!");
-            }
+            await _servicesService.Update(service);
+            return Ok(
+                new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "update service successful")
+                );
         }
     }
 }

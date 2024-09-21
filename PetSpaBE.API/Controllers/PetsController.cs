@@ -49,6 +49,13 @@ namespace PetSpaBE.API.Controllers
 
         //    await _petService.UpdatePetAsync(pet);
         //    return NoContent();
+
+        ////{
+        ////    //if (id != pet.Id)
+        ////        return BadRequest();
+
+        ////    await _petService.UpdatePetAsync(pet);
+        ////    return NoContent();
         //}
 
         [HttpDelete("{id}")]

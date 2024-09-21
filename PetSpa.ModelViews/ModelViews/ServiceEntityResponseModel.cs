@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetSpa.ModelViews.ServiceModelViews
+namespace PetSpa.ModelViews.ModelViews
 {
-    public class ServiceResposeModel
+    public class ServiceEntityResponseModel
     {
         public string? Id { get; set; }
         public string? Name { get; set; }
-        public decimal Price { get; set; }
-        public string? Description { get; set; }
     }
 }

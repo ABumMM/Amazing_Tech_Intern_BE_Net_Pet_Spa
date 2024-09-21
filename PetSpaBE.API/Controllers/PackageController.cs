@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.ModelViews.PackageModelViews;
 
 
 namespace PetSpaBE.API.Controllers
@@ -13,70 +14,56 @@ namespace PetSpaBE.API.Controllers
     {
         private readonly IPackageService _packageService;
 
-        public PackageController(IPackageService packageService) 
+        public PackageController(IPackageService packageService)
         {
-            _packageService=packageService;
+            _packageService = packageService;
         }
-   
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPackages(int pageNumber=1, int pageSize=2)
+        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 2)
         {
-            IList<Packages> packages = await _packageService.GetAll();
-        
-            int totalPackage = packages.Count;
-
-            // Thực hiện phân trang
-            var paginatedPackages = packages
-                .Skip((pageNumber - 1) * pageSize) 
-                .Take(pageSize)                    
-                .ToList();                        
-
-            // Tạo đối tượng BasePaginatedList để trả về
-            var paginatedList = new BasePaginatedList<Packages>(paginatedPackages, totalPackage, pageNumber, pageSize);
-
-            return Ok(paginatedList);
+            var packages = await _packageService.GetAll(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETPackageModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: packages));
         }
         [HttpPost]
-        public async Task<IActionResult> AddPackage(Packages packages)
+        public async Task<IActionResult> AddPackage([FromBody] POSTPackageModelView packageVM)
         {
-            await _packageService.Add(packages);
-            return Ok();
+            await _packageService.Add(packageVM);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Add package successful"));
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePackage(string id)
         {
-            try
-            {
-                await _packageService.Delete(id);
-                return Ok();
-            }
-            catch
-            {
-                return NotFound("Package not found!");
-            }
+            await _packageService.Delete(id);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Delete package successful"));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPackageById(string id)
         {
-            var packages = await _packageService.GetById(id)??null;
-            if (packages is null)
-                return NotFound("Package not found!");
-            return Ok(packages);
+            var package = await _packageService.GetById(id);
+            return Ok(new BaseResponseModel<GETPackageModelView>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: package));
         }
-        [HttpPut]
-        public async Task<IActionResult> UpdatePackage(Packages packages)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePackage([FromBody] PUTPackageModelView packageMV)
         {
-            try
-            {
-                await _packageService.Update(packages);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return NotFound("Package not found!");
-            }
+            await _packageService.Update(packageMV);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update package successful"));
         }
 
     }
