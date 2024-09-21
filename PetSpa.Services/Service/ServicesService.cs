@@ -1,6 +1,7 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
+using PetSpa.Core.Base;
 using PetSpa.ModelViews.ServiceModelViews;
 using System;
 using System.Collections.Generic;
@@ -34,10 +35,32 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public Task<IList<ServicesEntity>> GetAll()
+        public async Task<BasePaginatedList<ServiceResposeModel>> GetAll(int pageNumber = 1, int pageSize = 10)
         {
-            return _unitOfWork.GetRepository<ServicesEntity>().GetAllAsync();
+            var service_lst = await _unitOfWork.GetRepository<ServicesEntity>().GetAllAsync();
+
+            // Map to ServiceResponseModel
+            var serviceResponseModels = service_lst.Select(s => new ServiceResposeModel
+            {
+                Name = s.Name,
+                Description = s.Description,
+                PackageId = s.PackageId,
+            }).ToList();
+
+            // Calculate total number of items
+            var totalServices = serviceResponseModels.Count;
+
+            // Paginate the results
+            var paginatedServices = serviceResponseModels
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+             
+            // Create the paginated list
+            return new BasePaginatedList<ServiceResposeModel>(paginatedServices, totalServices, pageNumber, pageSize);
         }
+
+
 
         public Task<ServicesEntity?> GetById(object id)
         {

@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Core.Infrastructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Store;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.ServiceModelViews;
 using PetSpa.Services.Service;
 namespace PetSpaBE.API.Controllers
@@ -20,31 +24,13 @@ namespace PetSpaBE.API.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetAllServices(int pageNumber=1,int pageSize=10) {
 
-            IList<ServicesEntity> services = await _servicesService.GetAll();
+            var item = await _servicesService.GetAll();
+            var response = BaseResponse<BasePaginatedList<ServiceResposeModel>>.OkResponse(item);
+            return Ok(new BaseResponseModel<BasePaginatedList<ServiceResposeModel>>(
+                statusCode: StatusCodes.Status200OK,
+                code: StatusCodeHelper.OK.Name(),
+                data: item));
 
-            // Map to ServiceResponseModel
-            IList<ServiceResposeModel> serviceResponseModels = services.Select(s => new ServiceResposeModel
-            {
-                Name = s.Name,
-                Description = s.Description,
-                PackageId = s.PackageId,
-                
-            }).ToList();
-
-            // Total number of services
-            int totalServices = serviceResponseModels.Count;
-
-            // Paginate the results
-            var paginatedServices = serviceResponseModels
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            // Create the paginated list
-            var paginatedList = new BasePaginatedList<ServiceResposeModel>(paginatedServices, totalServices, pageNumber, pageSize);
-
-            // Return the paginated result
-            return Ok(paginatedList);
         }
 
         [HttpPost]
