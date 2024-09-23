@@ -1,4 +1,4 @@
-﻿/*using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -13,12 +13,14 @@ namespace PetSpaBE.API.Controllers
     {
         private readonly IServicesService _servicesService;
 
-        public ServicesController(IServicesService servicesService) {
+        public ServicesController(IServicesService servicesService)
+        {
             _servicesService = servicesService;
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllServices(int pageNumber=1,int pageSize=10) {
+        public async Task<IActionResult> GetAllServices(int pageNumber = 1, int pageSize = 10)
+        {
 
             IList<ServicesEntity> services = await _servicesService.GetAll();
 
@@ -27,7 +29,7 @@ namespace PetSpaBE.API.Controllers
             {
                 Name = s.Name,
                 Description = s.Description,
-                
+
             }).ToList();
 
             // Total number of services
@@ -49,7 +51,8 @@ namespace PetSpaBE.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddService(ServiceCreateModel service)
         {
-            ServicesEntity servicesEntity = new ServicesEntity{
+            ServicesEntity servicesEntity = new ServicesEntity
+            {
                 Id = Guid.NewGuid().ToString("N"),
                 Name = service.Name,
                 Description = service.Description,
@@ -102,4 +105,3 @@ namespace PetSpaBE.API.Controllers
         }
     }
 }
-*/

@@ -1,4 +1,4 @@
-﻿/*using PetSpa.Contract.Repositories.Entity;
+﻿using PetSpa.Contract.Repositories.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,6 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IServicesService
     {
-
         Task<IList<ServicesEntity>> GetAll();
         Task<ServicesEntity?> GetById(object id);
         Task Add(ServicesEntity service);
@@ -17,4 +16,3 @@ namespace PetSpa.Contract.Services.Interface
         Task Delete(object id);
     }
 }
-*/
