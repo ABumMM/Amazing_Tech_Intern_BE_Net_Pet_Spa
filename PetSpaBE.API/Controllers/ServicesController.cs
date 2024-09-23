@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -15,12 +15,14 @@ namespace PetSpaBE.API.Controllers
     {
         private readonly IServicesService _servicesService;
 
-        public ServicesController(IServicesService servicesService) {
+        public ServicesController(IServicesService servicesService)
+        {
             _servicesService = servicesService;
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllServices(int pageNumber=1,int pageSize=10) {
+        public async Task<IActionResult> GetAllServices(int pageNumber = 1, int pageSize = 10)
+        {
 
             var item = await _servicesService.GetAll();
             var response = BaseResponse<BasePaginatedList<ServiceResposeModel>>.OkResponse(item);
@@ -34,7 +36,7 @@ namespace PetSpaBE.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddService(ServiceCreateModel service)
         {
-           await _servicesService.Add(service);
+            await _servicesService.Add(service);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status201Created,
                 code: ResponseCodeConstants.SUCCESS,
@@ -47,7 +49,7 @@ namespace PetSpaBE.API.Controllers
             return Ok(new BaseResponseModel<ServiceResposeModel>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
-                message:"Delete services successful"
+                message: "Delete services successful"
                 ));
         }
 
