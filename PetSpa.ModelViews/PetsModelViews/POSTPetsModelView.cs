@@ -1,25 +1,33 @@
-﻿using PetSpa.Core.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetSpa.Contract.Repositories.Entity
+namespace PetSpa.ModelViews.PetsModelViews
 {
-    public class Pets : BaseEntity
+    internal class POSTPetsModelView
     {
         public string Name { get; set; } = string.Empty;
+
+        [Required]
         public string Species { get; set; } = string.Empty;
+
+        [Required]
         public decimal Weight { get; set; }
-        public string? Breed { get; set; } 
+
+        [Required]
+        public string? Breed { get; set; }
+
+        [Required]
         public int Age { get; set; }
+
         public string? Description { get; set; }
+
         public string? Image { get; set; }
+
+        [Required]
         public int CustomerID { get; set; }
-        // Khóa ngoại đến ApplicationRole
-        public string? PetsId { get; set; }
-        //public virtual ApplicationPets Pets { get; set; }
     }
 }
