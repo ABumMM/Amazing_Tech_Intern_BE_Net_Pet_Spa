@@ -15,7 +15,7 @@ namespace PetSpa.Contract.Services.Interface
         Task<BasePaginatedList<GetOrderViewModel>> GetAll(int pageNumber = 1, int pageSize = 3);
         Task<GetOrderViewModel?> GetById(string id);
         Task Add(PostOrderViewModel order);
-        Task Update(Orders order);
+        Task Update(PutOrderViewModel order);
         Task Delete(string id);
     }
 }

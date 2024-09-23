@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Store;
 using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.OrderModelViews;
 using System;
@@ -27,8 +28,8 @@ namespace PetSpaBE.API.Controllers
         {
             var orders = await _orderService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GetOrderViewModel>>(
-                statusCode: StatusCodes.Status200OK,
-                code: ResponseCodeConstants.SUCCESS,
+                statusCode: (int)StatusCodeHelper.OK, // Sử dụng StatusCodeHelper cho mã trạng thái
+                code: nameof(StatusCodeHelper.OK),   // Sử dụng tên của enum làm mã code
                 data: orders));
         }
 
@@ -39,14 +40,14 @@ namespace PetSpaBE.API.Controllers
             if (order == null)
             {
                 return NotFound(new BaseResponseModel<string>(
-                    statusCode: StatusCodes.Status404NotFound,
-                    code: ResponseCodeConstants.NOT_FOUND,
+                    statusCode: (int)StatusCodeHelper.BadRequest,
+                    code: nameof(StatusCodeHelper.BadRequest),
                     data: "Order not found"));
             }
 
             return Ok(new BaseResponseModel<GetOrderViewModel>(
-                statusCode: StatusCodes.Status200OK,
-                code: ResponseCodeConstants.SUCCESS,
+                statusCode: (int)StatusCodeHelper.OK,
+                code: nameof(StatusCodeHelper.OK),
                 data: order));
         }
 
@@ -55,16 +56,36 @@ namespace PetSpaBE.API.Controllers
         {
             await _orderService.Add(order);
             return CreatedAtAction(nameof(GetOrderById), new { id = order.EmployeeID }, new BaseResponseModel<string>(
-                statusCode: StatusCodes.Status201Created,
-                code: ResponseCodeConstants.SUCCESS,
+                statusCode: (int)StatusCodeHelper.OK,
+                code: nameof(StatusCodeHelper.OK),
                 data: "Order created successfully"));
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateOrder(Orders order)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrder(string id, [FromBody] PutOrderViewModel Order)
         {
-            await _orderService.Update(order);
-            return Ok();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new BaseResponseModel<string>(
+                    statusCode: (int)StatusCodeHelper.BadRequest,
+                    code: nameof(StatusCodeHelper.BadRequest),
+                    data: "Invalid order data"));
+            }
+
+            var existingOrder = await _orderService.GetById(id);
+            if (existingOrder == null)
+            {
+                return NotFound(new BaseResponseModel<string>(
+                    statusCode: (int)StatusCodeHelper.BadRequest,
+                    code: nameof(StatusCodeHelper.BadRequest),
+                    data: "Order not found"));
+            }
+
+            await _orderService.Update(Order);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: (int)StatusCodeHelper.OK,
+                code: nameof(StatusCodeHelper.OK),
+                data: "Order updated successfully"));
         }
 
         [HttpDelete("{id}")]
@@ -72,8 +93,8 @@ namespace PetSpaBE.API.Controllers
         {
             await _orderService.Delete(id);   
             return Ok(new BaseResponseModel<string>(
-                statusCode: StatusCodes.Status200OK,
-                code: ResponseCodeConstants.SUCCESS,
+                statusCode: (int)StatusCodeHelper.OK,
+                code: nameof(StatusCodeHelper.OK),
                 data: "Order deleted successfully"));
         }
     }

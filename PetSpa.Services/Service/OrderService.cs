@@ -73,18 +73,20 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task Update(Orders order)
+        public async Task Update(PutOrderViewModel Order)
         {
-            Orders orders = new Orders
+            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(Order.OrderID);
+            if (order == null)
             {
-                OrderID = Guid.NewGuid().ToString("N"),
-                EmployeeID = order.EmployeeID,
-                Date = order.Date,
-                PaymentMethod = order.PaymentMethod,
-                Total = order.Total,
-                LastUpdatedTime = DateTime.Now,
+                throw new Exception("Order not found");
+            }
 
-            };
+            order.EmployeeID = Order.EmployeeID;
+            order.Date = Order.Date ?? order.Date;
+            order.PaymentMethod = Order.PaymentMethod ?? order.PaymentMethod;
+            order.Total = (double)Order.Total;
+            order.LastUpdateTime = DateTime.Now;
+
             var repository = _unitOfWork.GetRepository<Orders>();
             await repository.UpdateAsync(order);
             await _unitOfWork.SaveAsync();
