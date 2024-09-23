@@ -1,5 +1,5 @@
+﻿using PetSpa.Contract.Repositories.Entity;
 ﻿using Microsoft.AspNetCore.Http;
-using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
@@ -30,6 +30,7 @@ namespace PetSpa.Services.Service
                 Name = serviceModel.Name,
                 Description = serviceModel.Description,
             };
+
             IGenericRepository<ServicesEntity> genericRepository = _unitOfWork.GetRepository<ServicesEntity>();
             await genericRepository.InsertAsync(service);
             await _unitOfWork.SaveAsync();
@@ -92,6 +93,7 @@ namespace PetSpa.Services.Service
             };
             return serviceRespose;
         }
+
 
         public async Task Update(ServiceUpdateModel serviceModel)
         {

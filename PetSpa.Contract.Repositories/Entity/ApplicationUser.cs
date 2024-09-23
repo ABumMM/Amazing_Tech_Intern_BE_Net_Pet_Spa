@@ -23,7 +23,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset? DeletedTime { get; set; }
 
         // Khóa ngoại đến ApplicationRole
-        public Guid RoleId { get; set; }
+        public string RoleId { get; set; }
         public virtual ApplicationRole Role { get; set; }
 
         // Mối quan hệ với bảng Bookings(một-nhiều)

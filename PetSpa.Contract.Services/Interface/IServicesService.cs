@@ -10,7 +10,6 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IServicesService
     {
-
         Task<BasePaginatedList<ServiceResposeModel>> GetAll(int pageNumber = 1, int pageSize = 10);
         Task<ServiceResposeModel?> GetById(object id);
         Task Add(ServiceCreateModel service);
