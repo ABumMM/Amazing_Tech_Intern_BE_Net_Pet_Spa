@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace PetSpa.ModelViews.MemberShipModelViews
 {
-    public class POSTMemberShipModelView
+    public class PUTMemberShipModelView
     {
+        public string? Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int? Point { get; set; }
         public string? SpecialOffer { get; set; }
-        public string? CreatedBy { get; set; }
-        public DateTimeOffset? CreatedTime { get; set; }
-
+        public string? LastUpdatedBy { get; set; }
+        public DateTimeOffset LastUpdatedTime { get; set; }
     }
 }

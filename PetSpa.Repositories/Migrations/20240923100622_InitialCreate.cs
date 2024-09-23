@@ -201,9 +201,9 @@ namespace PetSpa.Repositories.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    Packed = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PackageId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -431,24 +431,25 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PackageService",
+                name: "PackageServiceDTO",
                 columns: table => new
                 {
                     PackageId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ServiceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AddedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PackageService", x => new { x.PackageId, x.ServiceId });
+                    table.PrimaryKey("PK_PackageServiceDTO", x => new { x.PackageId, x.ServiceId });
                     table.ForeignKey(
-                        name: "FK_PackageService_Packages_PackageId",
+                        name: "FK_PackageServiceDTO_Packages_PackageId",
                         column: x => x.PackageId,
                         principalTable: "Packages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PackageService_Services_ServiceId",
+                        name: "FK_PackageServiceDTO_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
@@ -513,6 +514,7 @@ namespace PetSpa.Repositories.Migrations
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Total = table.Column<double>(type: "float", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OrdersDetailsId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -529,6 +531,11 @@ namespace PetSpa.Repositories.Migrations
                         principalTable: "ApplicationUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Orders_OrdersDetails_OrdersDetailsId",
+                        column: x => x.OrdersDetailsId,
+                        principalTable: "OrdersDetails",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -653,13 +660,18 @@ namespace PetSpa.Repositories.Migrations
                 column: "OrdersId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Orders_OrdersDetailsId",
+                table: "Orders",
+                column: "OrdersDetailsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PackageService_ServiceId",
-                table: "PackageService",
+                name: "IX_PackageServiceDTO_ServiceId",
+                table: "PackageServiceDTO",
                 column: "ServiceId");
         }
 
@@ -703,10 +715,7 @@ namespace PetSpa.Repositories.Migrations
                 name: "MemberShips");
 
             migrationBuilder.DropTable(
-                name: "OrdersDetails");
-
-            migrationBuilder.DropTable(
-                name: "PackageService");
+                name: "PackageServiceDTO");
 
             migrationBuilder.DropTable(
                 name: "Pets");
@@ -734,6 +743,9 @@ namespace PetSpa.Repositories.Migrations
 
             migrationBuilder.DropTable(
                 name: "ApplicationUsers");
+
+            migrationBuilder.DropTable(
+                name: "OrdersDetails");
 
             migrationBuilder.DropTable(
                 name: "ApplicationRoles");
