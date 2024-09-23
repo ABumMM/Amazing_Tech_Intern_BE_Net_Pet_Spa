@@ -13,7 +13,7 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IBookingServicecs
     {
-        Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber =1, int pageSize=2);
+        Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber, int pageSize);
         Task<GETBookingVM?> GetById(string id);
         Task Add(POSTBookingVM bookingVM);
         Task Update( POSTBookingVM bookingVM, string id);

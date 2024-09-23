@@ -30,30 +30,11 @@ namespace PetSpa.Services.Service
                 Date = bookingVM.Date,
                 
                 OrdersId = bookingVM.OrdersId,
-                
-                
-                //Package = bookingVM.PackageIds.Select(pkgID => new Packages
-                //{
-                //    Id = pkgID,    
-                //}).ToList()
             };
             await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
             await _unitOfWork.SaveAsync();
         }
-
-        public async Task Delete(string id)
-        {
-            IGenericRepository<Bookings> genericRepository = _unitOfWork.GetRepository<Bookings>();
-            await genericRepository.DeleteAsync(id);
-            await _unitOfWork.SaveAsync();
-        }
-
-        public Task Delete(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber = 1, int pageSize = 2)
+        public async Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber , int pageSize )
         {
             var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
 
@@ -66,7 +47,6 @@ namespace PetSpa.Services.Service
                 
                 
                 OrdersId = bk.OrdersId,
-                //còn thiếu package
 
 
 
@@ -77,8 +57,6 @@ namespace PetSpa.Services.Service
                 //}).ToList()
 
             }).ToList();
-
-            //Count Package
             int totalBooking = bookings.Count;
 
             var paginatedBooking = bookingViewModels
@@ -92,16 +70,8 @@ namespace PetSpa.Services.Service
 
         public async Task<GETBookingVM?> GetById(string id)
         {
-            //if (string.IsNullOrWhiteSpace(id))
-            //{
-            //    throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid Booking ID.");
-            //}
             IQueryable<Bookings> query = _unitOfWork.GetRepository<Bookings>().Entities.Where(q => !q.DeletedTime.HasValue);
-            var existedBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);
-            //if(existedBooking==null)
-            //{
-            //    throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "khônglấy được dữ liệu.");
-            //}    
+            var existedBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);   
             if(existedBooking == null)
             {
                 return null;
@@ -149,7 +119,7 @@ namespace PetSpa.Services.Service
             }
             existingBooking.Description = bookingVM.Description;
             existingBooking.Status = bookingVM.Status;
-            existingBooking.Date = bookingVM.Date; // Cập nhật ngày hoặc giữ nguyên tùy yêu cầu.
+            existingBooking.Date = bookingVM.Date;
             
             existingBooking.OrdersId = bookingVM.OrdersId;
             

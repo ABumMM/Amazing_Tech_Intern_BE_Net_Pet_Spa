@@ -25,6 +25,10 @@ namespace PetSpaBE.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBookings(int pageNumber = 1, int pageSize = 2)
         {
+            if(pageSize < 1)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "PageSize không hợp lệ!");
+            }
             var bookings = await _bookingService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETBookingVM>>(
                 statusCode: StatusCodes.Status200OK,
@@ -46,7 +50,6 @@ namespace PetSpaBE.API.Controllers
 
             if (booking == null)
             {
-                // Nếu không tìm thấy booking, trả về NotFound
                 return NotFound(new
                 {
                     StatusCode = StatusCodes.Status404NotFound,
@@ -85,8 +88,6 @@ namespace PetSpaBE.API.Controllers
                     Message = "Không tìm thấy."
                 });
             }
-
-            // Gọi phương thức update từ _bookingService và cập nhật thông tin
             await _bookingService.Update(bookingVM, id);
             
 

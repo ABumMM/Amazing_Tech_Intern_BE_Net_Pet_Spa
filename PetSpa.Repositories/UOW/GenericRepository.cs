@@ -89,5 +89,16 @@ namespace PetSpa.Repositories.UOW
         {
             return Task.FromResult(_dbSet.Update(obj));
         }
+        //thêm
+        public async Task<T?> GetByKeysAsync(object key1, object key2)
+        {
+            return await _dbSet.FirstOrDefaultAsync(entity =>
+                EF.Property<string>(entity, "BookingId") == key1.ToString() &&
+                EF.Property<string>(entity, "PackageId") == key2.ToString());
+        }
+        public void Delete1(T entity)
+        {
+            _dbSet.Remove(entity); // Xóa dựa trên đối tượng 
+        }   
     }
 }
