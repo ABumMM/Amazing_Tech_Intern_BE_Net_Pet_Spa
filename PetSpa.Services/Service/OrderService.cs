@@ -28,7 +28,6 @@ namespace PetSpa.Services.Service
             var orderResponseList = orders.Select(order => new GetOrderViewModel
             {
                 OrderID = order.Id,
-                CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date,
                 PaymentMethod = order.PaymentMethod,
@@ -50,7 +49,6 @@ namespace PetSpa.Services.Service
             return new GetOrderViewModel
             {
                 OrderID = order.Id,
-                CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date,
                 PaymentMethod = order.PaymentMethod,
@@ -63,7 +61,6 @@ namespace PetSpa.Services.Service
             Orders newOrder = new Orders
             {
                 OrderID = Guid.NewGuid().ToString("N"),
-                CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date ?? DateTime.Now,
                 PaymentMethod = string.IsNullOrEmpty(order.PaymentMethod) ? "Unknown" : order.PaymentMethod,
@@ -81,7 +78,6 @@ namespace PetSpa.Services.Service
             Orders orders = new Orders
             {
                 OrderID = Guid.NewGuid().ToString("N"),
-                CustomerID = order.CustomerID,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date,
                 PaymentMethod = order.PaymentMethod,

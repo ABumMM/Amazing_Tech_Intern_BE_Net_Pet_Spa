@@ -25,15 +25,11 @@ namespace PetSpa.Services
             services.AddScoped<IPackageService, PackageService>();
             /*services.AddScoped<IServicesService, ServicesService>();*/
             services.AddScoped<IMembershipsService, MemberShipService>();
-
             services.AddScoped<IBookingServicecs, BookingService>();
 
-<<<<<<< HEAD
-            services.AddScoped<IEmployeeService, EmployeeService>();
+            //services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IOrderService, OrderService>();
-=======
 
->>>>>>> afc39f9aa066c00ad1b4bbb0d0caafa50ae70eb6
 
         }
     }

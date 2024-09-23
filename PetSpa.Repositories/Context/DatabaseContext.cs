@@ -16,7 +16,6 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<ApplicationUserLogins> ApplicationUserLogins => Set<ApplicationUserLogins>();
         public virtual DbSet<ApplicationRoleClaims> ApplicationRoleClaims => Set<ApplicationRoleClaims>();
         public virtual DbSet<ApplicationUserTokens> ApplicationUserTokens => Set<ApplicationUserTokens>();
-
         public virtual DbSet<Bookings> Bookings { get; set; }
         public virtual DbSet<MemberShips> MemberShips { get; set; }
         public virtual DbSet<OrdersDetails> OrdersDetails { get; set; }
@@ -26,7 +25,26 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ServicesEntity> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
+        public virtual DbSet<PackageService> PackageServices { get; set; }
 
-        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+                
+            // PACKAGEDSERVICE
+            // Cấu hình khóa chính cho bảng trung gian PackageService
+            modelBuilder.Entity<PackageService>()
+                .HasKey(ps => new { ps.PackageId, ps.ServiceId });
+            // Cấu hình quan hệ giữa PackageService và Packages
+            modelBuilder.Entity<PackageService>()
+                .HasOne(ps => ps.Package)
+                .WithMany(p => p.PackageServices)
+                .HasForeignKey(ps => ps.PackageId);
+            // Cấu hình quan hệ giữa PackageService và ServicesEntity
+            modelBuilder.Entity<PackageService>()
+                .HasOne(ps => ps.ServicesEntity)
+                .WithMany(s => s.PackageServices)
+                .HasForeignKey(ps => ps.ServiceId);
+        }
     }
 }
