@@ -4,7 +4,7 @@ namespace PetSpa.Contract.Repositories
 {
     public interface IPetRepository
     {
-        Task<IEnumerable<Pets>> GetAllPetsAsync();
+        Task<IEnumerable<Pets>> GetAllPetsAsync(int pageNumber, int pageSize);
         Task<Pets?> GetPetByIdAsync(Guid id);
         Task AddPetAsync(Pets pet);
         Task UpdatePetAsync(Pets pet);

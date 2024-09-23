@@ -4,6 +4,7 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Repositories.Context;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PetSpa.Repositories
@@ -17,9 +18,14 @@ namespace PetSpa.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Pets>> GetAllPetsAsync()
+        // Thêm chức năng phân trang
+        public async Task<IEnumerable<Pets>> GetAllPetsAsync(int pageNumber, int pageSize)
         {
-            return await _context.Pets.ToListAsync();
+            // Bỏ qua các mục trước đó và lấy số lượng mục cần thiết
+            return await _context.Pets
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<Pets?> GetPetByIdAsync(Guid id)

@@ -16,14 +16,14 @@ namespace PetSpa.Contract.Repositories.Entity
             public string Name { get; set; } = string.Empty;
             public string Species { get; set; } = string.Empty;
             public decimal Weight { get; set; }
-            public string Breed { get; set; }
+            public string? Breed { get; set; }
             public int Age { get; set; }
             public string? Description { get; set; }
             public string? Image { get; set; }
             public int CustomerID { get; set; }
             // Khóa ngoại đến User
             public string? PetsId { get; set; }
-            public virtual Pets Pets { get; set; }
+            public virtual Pets? Pets { get; set; }
         }
     }
 }
