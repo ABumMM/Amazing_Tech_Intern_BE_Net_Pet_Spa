@@ -26,6 +26,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public Guid RoleId { get; set; }
         public virtual ApplicationRole Role { get; set; }
 
+        public virtual ICollection<Pets> Pets { get; set; } = new List<Pets>();
         public ApplicationUser()
         {
             CreatedTime = CoreHelper.SystemTimeNow;
