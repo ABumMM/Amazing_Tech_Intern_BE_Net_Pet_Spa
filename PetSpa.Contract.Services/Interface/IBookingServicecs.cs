@@ -1,5 +1,8 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
+using PetSpa.Core.Base;
+using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.PackageModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +13,10 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IBookingServicecs
     {
-        //Task<IList<BookingResponseModel>> GetAll();
-        //Task<BookingResponseModel?> GetById(object id);
-        //Task Add(BookingResponseModel booking);
-        //Task Update(BookingResponseModel booking);
-        //Task Delete(object id);
-        Task<IList<Bookings>> GetAll();
-        Task<Bookings?> GetById(object id);
-        Task Add(Bookings booking);
-        Task Update(Bookings booking);
-        Task Delete(object id);
+        Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber, int pageSize);
+        Task<GETBookingVM?> GetById(string id);
+        Task Add(POSTBookingVM bookingVM);
+        Task Update( POSTBookingVM bookingVM, string id);
+        
     }
 }

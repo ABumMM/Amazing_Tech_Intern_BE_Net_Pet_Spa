@@ -14,6 +14,7 @@ namespace PetSpa.Contract.Repositories.IUOW
         void Update(T obj);
         void Delete(object id);
         void Save();
+        void Delete1(T entity);
 
         // async
         Task<IList<T>> GetAllAsync();
@@ -24,5 +25,6 @@ namespace PetSpa.Contract.Repositories.IUOW
         Task UpdateAsync(T obj);
         Task DeleteAsync(object id);
         Task SaveAsync();
+        Task<T?> GetByKeysAsync(object key1, object key2);
     }
 }

@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
@@ -23,62 +25,74 @@ namespace PetSpaBE.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllBookings(int pageNumber = 1, int pageSize = 2)
         {
-            
-            IList<Bookings> bookings = await _bookingService.GetAll();
+            if(pageSize < 1)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "PageSize không hợp lệ!");
+            }
+            var bookings = await _bookingService.GetAll(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETBookingVM>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: bookings));
 
-            int totalPackage = bookings.Count;
-            // Thực hiện phân trang
-            var paginatedPackages = bookings
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            // Tạo đối tượng BasePaginatedList để trả về
-            var paginatedList = new BasePaginatedList<Bookings>(paginatedPackages, totalPackage, pageNumber, pageSize);
-
-            return Ok(paginatedList);
         }
         [HttpPost]
-        public async Task<IActionResult> AddBooking(Bookings bookings)
+        public async Task<IActionResult> AddBooking(POSTBookingVM bookingVM)
         {
-            await _bookingService.Add(bookings);
+            await _bookingService.Add(bookingVM);
             return Ok();
-        }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteBooking(string id)
-        {
-            try
-            {
-                await _bookingService.Delete(id);
-                return Ok();
-            }
-            catch
-            {
-                return NotFound("Booking not found!");
-            }
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookingById(string id)
         {
-            var bookings = await _bookingService.GetById(id) ?? null;
-            if (bookings is null)
-                return NotFound("Booking not found!");
-            return Ok(bookings);
+            var booking = await _bookingService.GetById(id);
+
+            if (booking == null)
+            {
+                return NotFound(new
+                {
+                    StatusCode = StatusCodes.Status404NotFound,
+                    ErrorCode = "BookingNotFound",
+                    Message = "Không tìm thấy Booking với ID đó."
+                });
+            }
+            
+            return Ok(new BaseResponseModel<GETBookingVM>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: booking));
         }
-        
-        [HttpPut]
-        public async Task<IActionResult> UpdateBooking(Bookings booking)
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBooking(string id, [FromBody] POSTBookingVM bookingVM)
         {
-            try
+            if (bookingVM == null)
             {
-                await _bookingService.Update(booking);
-                return Ok();
+                return NotFound(new
+                {
+                    StatusCode = StatusCodes.Status404NotFound,
+                    ErrorCode = "InValid booking data",
+                    Message = "Booking không có dữ liệu."
+                });
             }
-            catch
+
+            var existingBooking = await _bookingService.GetById(id);
+
+            if (existingBooking == null)
             {
-                return NotFound("Booking not found!");
+                return NotFound(new
+                {
+                    StatusCode = StatusCodes.Status404NotFound,
+                    ErrorCode = "BookingNotFound",
+                    Message = "Không tìm thấy."
+                });
             }
+            await _bookingService.Update(bookingVM, id);
+            
+
+            return Ok("Booking updated successfully!");
         }
+
     }
 }
