@@ -125,9 +125,31 @@ namespace PetSpa.Services.Service
             throw new NotImplementedException();
         }
 
-        public Task Update(Packages package)
+        public async Task Update(PUTMemberShipModelView memberShipMV)
         {
-            throw new NotImplementedException();
+            MemberShips? existedMemberShip = await _unitOfWork.GetRepository<MemberShips>().GetByIdAsync(memberShipMV.Id);
+            if (existedMemberShip == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
+            }
+            if (memberShipMV == null)
+            {
+                throw new BadRequestException(ErrorCode.BadRequest, "MemberShip cannot null.");
+            }
+            if (memberShipMV.Name == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "MemberShip name is required.");
+            }
+            if (memberShipMV.Point < 0)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Point must be greater than or equal to 0.");
+            }
+            existedMemberShip.Name = memberShipMV.Name;
+            existedMemberShip.Point = memberShipMV.Point;
+            existedMemberShip.SpecialOffer = memberShipMV.SpecialOffer;
+            existedMemberShip.LastUpdatedTime = DateTime.Now;
+            await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(existedMemberShip);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

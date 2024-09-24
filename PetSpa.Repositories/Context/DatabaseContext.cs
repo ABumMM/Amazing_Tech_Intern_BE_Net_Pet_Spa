@@ -32,15 +32,15 @@ namespace PetSpa.Repositories.Context
                 
             // PACKAGEDSERVICE
             // Cấu hình khóa chính cho bảng trung gian PackageService
-            modelBuilder.Entity<PackageService>()
+            modelBuilder.Entity<PackageServiceDTO>()
                 .HasKey(ps => new { ps.PackageId, ps.ServiceId });
             // Cấu hình quan hệ giữa PackageService và Packages
-            modelBuilder.Entity<PackageService>()
+            modelBuilder.Entity<PackageServiceDTO>()
                 .HasOne(ps => ps.Package)
                 .WithMany(p => p.PackageServices)
                 .HasForeignKey(ps => ps.PackageId);
             // Cấu hình quan hệ giữa PackageService và ServicesEntity
-            modelBuilder.Entity<PackageService>()
+            modelBuilder.Entity<PackageServiceDTO>()
                 .HasOne(ps => ps.ServicesEntity)
                 .WithMany(s => s.PackageServices)
                 .HasForeignKey(ps => ps.ServiceId);

@@ -20,7 +20,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
 
         [JsonIgnore]
-        public ICollection<PackageService>? PackageServices { get; set; }=new HashSet<PackageService>();
+        public ICollection<PackageServiceDTO>? PackageServices { get; set; }=new HashSet<PackageServiceDTO>();
 
         [JsonIgnore]
         public ICollection<BookingPackage>? BookingPackages { get; set; } = new HashSet<BookingPackage>();

@@ -7,6 +7,7 @@ using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.ModelViews.ServiceModelViews;
 using PetSpa.Repositories.UOW;
 
 namespace PetSpa.Services.Service
@@ -72,6 +73,10 @@ namespace PetSpa.Services.Service
                 Information = pa.Information,
                 Experiences = pa.Experiences,
                 CreatedTime = pa.CreatedTime,
+                serviceResposeModels= new List<ServiceResposeModel>
+                {
+                    
+                }
                 //THiếu user => chưa làm createby,deleteby,updateby
                 //CreatedBy=pa.CreatedBy,
                 //LastUpdatedBy=pa.LastUpdatedBy,

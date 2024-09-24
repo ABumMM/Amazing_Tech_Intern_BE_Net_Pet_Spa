@@ -14,14 +14,17 @@ namespace PetSpa.Contract.Repositories.IUOW
         void Update(T obj);
         void Delete(object id);
         void Save();
+        void Delete1(T entity);
 
         // async
         Task<IList<T>> GetAllAsync();
         Task<BasePaginatedList<T>> GetPagging(IQueryable<T> query, int index, int pageSize);
         Task<T?> GetByIdAsync(object id);
+
         Task InsertAsync(T obj);
         Task UpdateAsync(T obj);
         Task DeleteAsync(object id);
         Task SaveAsync();
+        Task<T?> GetByKeysAsync(object key1, object key2);
     }
 }
