@@ -5,12 +5,6 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.OrderDetailModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetSpa.Services.Service
 {
@@ -23,30 +17,32 @@ namespace PetSpa.Services.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Add(POSTOrderDetailModelView detailMV)
+        public async Task Add(POSTOrderDetailModelView detailsMV)
         {
-            if (detailMV == null)
+            if (detailsMV == null)
             {
                 throw new BadRequestException(ErrorCode.BadRequest, "OrderDetail cannot null.");
             }
-            if (detailMV.Status == null)
+            if (detailsMV.Status == null)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrderDetail Status is required.");
             }
-            if (detailMV.Price < 0)
+            if (detailsMV.Price < 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
             } 
-            if (detailMV.Quantity < 0)
+            if (detailsMV.Quantity < 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Quantity must be greater than or equal to 0.");
             }
 
             OrdersDetails details = new OrdersDetails()
             {
-                Quantity = (int)detailMV.Quantity,
-                Price = (decimal)detailMV.Price,
-                Status = detailMV.Status,
+                Quantity = (int)detailsMV.Quantity,
+                Price = (decimal)detailsMV.Price,
+                Status = detailsMV.Status,
+                //OrderId = detaislMV.OrderID,
+                //PackageId = detaislsMV.PackageID,
                 CreatedTime = DateTime.Now,
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
@@ -67,7 +63,16 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> getAll(int pageNumber = 1, int pageSize = 3)
         {
-            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>().GetAllAsync();
+            //var orDetails = await _unitOfWork.GetRepository<OrdersDetails>().GetAllAsync();
+            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+                                .Entities
+                                .Include(od => od.Packages!)
+                                .ToListAsync();
+            if (orDetails == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found OrderDetail");
+            }
+
 
             var orDViewModels = orDetails.Select(orD => new GETOrderDetailModelView
             {
@@ -75,7 +80,9 @@ namespace PetSpa.Services.Service
                 Quantity = orD.Quantity,
                 Price = orD.Price,
                 Status = orD.Status,
-                CreatedTime = orD.CreatedTime,
+                //OrderID = orD.OrderId,
+                CreatedTime = orD.CreatedTime
+               
             }).ToList();
 
             //Count OrderDetail

@@ -51,11 +51,11 @@ namespace PetSpaBE.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> getOrderDetailByID(string id)
         {
-            var orDetals = await _orderDetailService.getById(id);
+            var orDetails = await _orderDetailService.getById(id);
             return Ok(new BaseResponseModel<GETOrderDetailModelView>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
-                data: orDetals));
+                data: orDetails));
         }
 
         [HttpPut("{id}")]

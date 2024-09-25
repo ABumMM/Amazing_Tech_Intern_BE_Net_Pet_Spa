@@ -18,10 +18,10 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? OrderId { get; set; }
         public string? PackageId { get; set; }
 
-        [JsonIgnore]
-        public ICollection<Orders>? Orders { get; set; } = new HashSet<Orders>();
+        //Mối kết hợp 1-n
+        public virtual Orders Orders { get; set; }
 
-        [JsonIgnore]
-        public ICollection<Packages>? Packages { get; set; } = new HashSet<Packages>();
+        //Mối kết hợp 1-n
+        public virtual Packages Packages { get; set; }
     }
 }

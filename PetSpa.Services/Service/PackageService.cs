@@ -71,7 +71,6 @@ namespace PetSpa.Services.Service
                                 .ThenInclude(ps => ps.ServicesEntity)
                                 .ToListAsync();
 
-            var serviceINPackage = await _unitOfWork.GetRepository<PackageServiceDTO>().GetAllAsync();
             if (packages == null)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
