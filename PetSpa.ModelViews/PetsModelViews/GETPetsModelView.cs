@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace PetSpa.ModelViews.PetsModelViews
 {
-    internal class GETPetsModelView
+    public class GETPetsModelView
     {
+        public string? Id { get; set; }
+
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }
@@ -16,9 +18,7 @@ namespace PetSpa.ModelViews.PetsModelViews
         public int Age { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
-        public int CustomerID { get; set; }
+        public Guid?  UserId { get; set; }
         public DateTimeOffset? CreatedTime { get; set; }
-        //public List<PetsEntityResponseModel>? PestEntityResponseModels { get; set; }
-
     }
 }

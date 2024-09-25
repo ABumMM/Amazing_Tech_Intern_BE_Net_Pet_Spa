@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PetSpa.ModelViews.PetsModelViews
 {
-    internal class PUTPetsModelView
+    public class PUTPetsModelView
     {
-        public int Id { get; set; } 
+        public string Id { get; set; } 
 
         public string Name { get; set; } = string.Empty;
 
@@ -25,5 +25,7 @@ namespace PetSpa.ModelViews.PetsModelViews
         public string? Image { get; set; }
 
         public int CustomerID { get; set; }
+        public string? LastUpdatedBy { get; set; }
+        public DateTimeOffset LastUpdatedTime { get; set; }
     }
 }

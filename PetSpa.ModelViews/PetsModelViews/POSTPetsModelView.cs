@@ -7,27 +7,30 @@ using System.Threading.Tasks;
 
 namespace PetSpa.ModelViews.PetsModelViews
 {
-    internal class POSTPetsModelView
+    public class POSTPetsModelView
     {
         public string Name { get; set; } = string.Empty;
 
-        [Required]
+       
         public string Species { get; set; } = string.Empty;
 
-        [Required]
+  
         public decimal Weight { get; set; }
 
-        [Required]
+
         public string? Breed { get; set; }
 
-        [Required]
+
         public int Age { get; set; }
 
         public string? Description { get; set; }
 
         public string? Image { get; set; }
 
-        [Required]
-        public int CustomerID { get; set; }
+
+        public Guid? UserId { get; set; }
+
+        public string? CratedBy {  get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
     }
 }

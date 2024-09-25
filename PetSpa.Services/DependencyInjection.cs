@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PetSpa.Contract.Repositories.IUOW;
+using PetSpa.Contract.Services;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Repositories.UOW;
 using PetSpa.Services.Service;
@@ -26,8 +27,16 @@ namespace PetSpa.Services
             services.AddScoped<IServicesService, ServicesService>();
             services.AddScoped<IMembershipsService, MemberShipService>();
             services.AddScoped<IBookingServicecs, BookingService>();
-            services.AddScoped<IOrderDetailServices, OrderDetailService>();
+            services.AddScoped<IBookingPackage_Service, BookingPackageService >();
 
+            services.AddScoped<IOrderDetailServices, OrderDetailService>();
+            services.AddScoped<IPackageService_Service, PackageService_Service>();
+
+
+            services.AddScoped<IPetService, PetService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<IOrderDetailServices, OrderDetailService>();
 
 
         }

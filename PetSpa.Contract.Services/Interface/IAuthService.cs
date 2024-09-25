@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Services.Interface
 {
-    interface IAuthService
+    public interface IAuthService
     {
         Task Add(UserResponseModel user);
         Task Update(UserResponseModel user);

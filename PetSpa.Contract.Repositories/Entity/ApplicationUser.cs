@@ -23,10 +23,9 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset? DeletedTime { get; set; }
 
         // Khóa ngoại đến ApplicationRole
-        public Guid RoleId { get; set; }
+        public string RoleId { get; set; }
         public virtual ApplicationRole Role { get; set; }
 
-<<<<<<< HEAD
         // Mối quan hệ với bảng Bookings(một-nhiều)
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
@@ -35,9 +34,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public virtual ICollection<Pets> Pets { get; set; } = new List<Pets>();
 
-=======
-        public virtual ICollection<Pets> Pets { get; set; } = new List<Pets>();
->>>>>>> f146d30b1bd2975250336ffc66e33eeb23a31287
+
         public ApplicationUser()
         {
             CreatedTime = CoreHelper.SystemTimeNow;

@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
-using PetSpa.ModelViews.ModelViews;
-using System.Threading.Tasks;
-using System.Linq;
 using PetSpa.Core.Base;
+using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.ModelViews.RoleModelViews;
+using PetSpa.ModelViews.UserModelViews;
+using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -18,38 +19,45 @@ namespace PetSpaBE.API.Controllers
             _userService = userService;
         }
 
-        [HttpGet("GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers(int pageNumber = 1, int pageSize = 10)
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers(int pageNumber = 1, int pageSize = 3)
         {
-            var users = await _userService.GetAll();
-            if (users == null || !users.Any())
-            {
-                return NotFound("No users found.");
-            }
-
-            // Thực hiện phân trang
-            var paginatedUsers = users
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            // Tạo đối tượng BasePaginatedList để trả về
-            var totalUserCount = users.Count;
-            var paginatedList = new BasePaginatedList<UserResponseModel>(paginatedUsers, totalUserCount, pageNumber, pageSize);
-
-            return Ok(paginatedList);
+            var users = await _userService.GetAll(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETUserModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: users));
         }
 
-        [HttpGet("GetUserById/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
             var user = await _userService.GetById(id);
-            if (user == null)
-            {
-                return NotFound("User not found!");
-            }
 
-            return Ok(user);
+            return Ok(new BaseResponseModel<GETUserModelView>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: user));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser([FromBody] PUTUserModelView user)
+        {
+            await _userService.Update(user);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update user successful"));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(Guid Id)
+        {
+            await _userService.Delete(Id);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Delete user successful"));
         }
     }
 }
