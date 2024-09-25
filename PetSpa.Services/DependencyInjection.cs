@@ -40,8 +40,6 @@ namespace PetSpa.Services
             services.AddScoped<IPackageService_Service, PackageService_Service>();
 
 
-
-
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IOrderDetailServices, OrderDetailService>();

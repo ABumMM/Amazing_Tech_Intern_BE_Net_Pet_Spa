@@ -29,5 +29,9 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
+        // liên kết khóa ngoại khách hàng
+        //public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
+
+
     }
 }

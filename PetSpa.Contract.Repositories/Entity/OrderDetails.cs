@@ -21,7 +21,7 @@ namespace PetSpa.Contract.Repositories.Entity
         [JsonIgnore]
         public ICollection<Orders>? Orders { get; set; } = new HashSet<Orders>();
 
-        //[JsonIgnore]
-        //public ICollection<Packages>? Packages { get; set; } = new HashSet<Packages>();
+        [JsonIgnore]
+        public ICollection<Packages>? Packages { get; set; } = new HashSet<Packages>();
     }
 }
