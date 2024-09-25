@@ -27,6 +27,7 @@ namespace PetSpa.Services.Service
 
             var orderResponseList = orders.Select(order => new GetOrderViewModel
             {
+                
                 OrderID = order.Id,
                 EmployeeID = order.EmployeeID,
                 Date = order.Date,
@@ -60,6 +61,7 @@ namespace PetSpa.Services.Service
         {
             Orders newOrder = new Orders
             {
+                
                 OrderID = Guid.NewGuid().ToString("N"),
                 EmployeeID = order.EmployeeID,
                 Date = order.Date ?? DateTime.Now,

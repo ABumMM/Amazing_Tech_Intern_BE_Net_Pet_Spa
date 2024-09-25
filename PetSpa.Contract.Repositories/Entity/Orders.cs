@@ -10,9 +10,8 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class Orders : BaseEntity
     {
-        public string OrderID { get; set; }
 
-        public string? EmployeeID { get; set; } 
+
 
         public DateTime Date { get; set; } 
 
@@ -24,7 +23,6 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public DateTime LastUpdateTime { get; set; }
 
-        // Khóa ngoại đến Employees
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
