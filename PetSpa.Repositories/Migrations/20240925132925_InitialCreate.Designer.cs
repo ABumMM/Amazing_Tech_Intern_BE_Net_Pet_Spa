@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetSpa.Repositories.Context;
 
@@ -11,9 +12,11 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240925132925_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -762,7 +765,6 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.PackageServiceDTO", b =>
                 {
-
                     b.Property<string>("PackageId")
                         .HasColumnType("nvarchar(450)");
 
@@ -780,42 +782,6 @@ namespace PetSpa.Repositories.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("PackageServiceDTO");
-
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("DeletedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("DeletedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("LastUpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("PackageId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("ServicesEntityID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PackageId");
-
-                    b.HasIndex("ServicesEntityID");
-
-                    b.ToTable("PackageServiceDTOs");
-
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
@@ -854,18 +820,10 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-
-                    b.Property<string>("OrdersDetailsId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-
-                    b.HasIndex("OrdersDetailsId");
-
 
                     b.ToTable("Packages");
                 });
@@ -886,11 +844,6 @@ namespace PetSpa.Repositories.Migrations
 
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetimeoffset");
-
-
-                    b.Property<int>("CustomerID")
-                        .HasColumnType("int");
-
 
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
@@ -918,19 +871,15 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-
                     b.Property<Guid>("UsersId")
                         .HasColumnType("uniqueidentifier");
-
 
                     b.Property<decimal>("Weight")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-
                     b.HasIndex("UsersId");
-
 
                     b.ToTable("Pets");
                 });
@@ -1171,7 +1120,6 @@ namespace PetSpa.Repositories.Migrations
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
                         .WithMany("PackageServices")
-
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1180,19 +1128,12 @@ namespace PetSpa.Repositories.Migrations
                         .WithMany("PackageServices")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-
-                        .HasForeignKey("PackageId");
-
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.ServicesEntity", "ServicesEntity")
-                        .WithMany("PackageServices")
-                        .HasForeignKey("ServicesEntityID");
+                        .IsRequired();
 
                     b.Navigation("Package");
 
                     b.Navigation("ServicesEntity");
                 });
-
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Pets", b =>
                 {
@@ -1203,58 +1144,44 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired();
 
                     b.Navigation("Users");
+                });
 
-                    modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
-                        {
-                            b.HasOne("PetSpa.Contract.Repositories.Entity.OrdersDetails", null)
-                                .WithMany("Packages")
-                                .HasForeignKey("OrdersDetailsId");
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRole", b =>
+                {
+                    b.Navigation("Users");
+                });
 
-                        });
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUser", b =>
+                {
+                    b.Navigation("Bookings");
 
-                    modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRole", b =>
-                        {
-                            b.Navigation("Users");
-                        });
+                    b.Navigation("Orders");
 
-                    modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUser", b =>
-                        {
-                            b.Navigation("Bookings");
+                    b.Navigation("Pets");
+                });
 
-                            b.Navigation("Orders");
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Bookings", b =>
+                {
+                    b.Navigation("BookingPackages");
+                });
 
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
+                {
+                    b.Navigation("Orders");
+                });
 
-                            b.Navigation("Pets");
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
+                {
+                    b.Navigation("BookingPackages");
 
-                        });
+                    b.Navigation("PackageServices");
+                });
 
-                    modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Bookings", b =>
-                        {
-                            b.Navigation("BookingPackages");
-                        });
-
-                    modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
-                        {
-                            b.Navigation("Orders");
-
-
-                            b.Navigation("Packages");
-
-                        });
-
-                    modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
-                        {
-                            b.Navigation("BookingPackages");
-
-                            b.Navigation("PackageServices");
-                        });
-
-                    modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
-                        {
-                            b.Navigation("PackageServices");
-                        });
-                } 
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
+                {
+                    b.Navigation("PackageServices");
+                });
 #pragma warning restore 612, 618
-                ); } 
+        }
     }
 }
