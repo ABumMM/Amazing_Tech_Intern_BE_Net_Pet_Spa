@@ -91,10 +91,14 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
             }
+            
             existingBooking.Description = bookingVM.Description;
             existingBooking.Status = bookingVM.Status;
-            existingBooking.Date = bookingVM.Date;     
-            existingBooking.OrdersId = bookingVM.OrdersId;
+            existingBooking.Date = bookingVM.Date;
+            if (bookingVM.OrdersId != null)
+            {
+                existingBooking.OrdersId = bookingVM.OrdersId;
+            }
             await _unitOfWork.GetRepository<Bookings>().UpdateAsync(existingBooking);
             await _unitOfWork.SaveAsync();
         }
