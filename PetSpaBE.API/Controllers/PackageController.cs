@@ -20,7 +20,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 2)
+        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 10)
         {
             var packages = await _packageService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETPackageModelView>>(

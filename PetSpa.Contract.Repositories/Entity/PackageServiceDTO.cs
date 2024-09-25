@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class PackageServiceDTO
+    public class PackageServiceDTO:BaseEntity
     {
         public string? PackageId { get; set; }
         public virtual Packages? Package { get; set; }
-        public string? ServiceId { get; set; }
+        public string? ServicesEntityID { get; set; }
         public virtual ServicesEntity? ServicesEntity { get; set; }
-        public string? AddedBy { get; set; }
-        public DateTimeOffset AddedDate { get; set; } // Ngày thêm service vào package
+       
 
     }
 }
