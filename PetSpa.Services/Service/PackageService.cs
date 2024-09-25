@@ -5,8 +5,10 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.ModelViews.PackageServiceModelViews;
 using PetSpa.ModelViews.ServiceModelViews;
 using PetSpa.Repositories.UOW;
 
@@ -63,6 +65,10 @@ namespace PetSpa.Services.Service
         public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber = 1, int pageSize = 2)
         {
             var packages = await _unitOfWork.GetRepository<Packages>().GetAllAsync();
+            if (packages == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+            }
 
             var packageViewModels = packages.Select(pa => new GETPackageModelView
             {
@@ -73,18 +79,9 @@ namespace PetSpa.Services.Service
                 Information = pa.Information,
                 Experiences = pa.Experiences,
                 CreatedTime = pa.CreatedTime,
-                serviceResposeModels= new List<ServiceResposeModel>
-                {
-                    
-                }
-                //THiếu user => chưa làm createby,deleteby,updateby
-                //CreatedBy=pa.CreatedBy,
-                //LastUpdatedBy=pa.LastUpdatedBy,
-                //DeletedBy=pa.DeletedBy,
-
-
+               
             }).ToList();
-            //Count Package
+
             int totalPackage = packages.Count;
 
             var paginatedPackages = packageViewModels
@@ -94,6 +91,7 @@ namespace PetSpa.Services.Service
 
             return new BasePaginatedList<GETPackageModelView>(paginatedPackages, totalPackage, pageNumber, pageSize);
         }
+
 
         public async Task<GETPackageModelView?> GetById(string? packageID)
         {
@@ -114,6 +112,7 @@ namespace PetSpa.Services.Service
                 Image = existedPackage.Image,
                 Information = existedPackage.Information,
                 Experiences = existedPackage.Experiences,
+                CreatedTime = existedPackage.CreatedTime
                 //THiếu user => chưa làm createby,deleteby,updateby
                 //CreatedBy=pa.CreatedBy,
                 //LastUpdatedBy=pa.LastUpdatedBy,
