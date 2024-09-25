@@ -1,13 +1,15 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
+using PetSpa.Core.Base;
+using PetSpa.ModelViews.PetsModelViews;
 
 namespace PetSpa.Contract.Services
 {
     public interface IPetService
     {
-        Task<IEnumerable<Pets>> GetAllPetsAsync();
-        Task<Pets?> GetPetByIdAsync(Guid id);
-        Task AddPetAsync(Pets pet);
-        Task UpdatePetAsync(Pets pet);
-        Task DeletePetAsync(Guid id);
+        Task<BasePaginatedList<GETPetsModelView>> GetAll(int pageNumber = 1, int pageSize = 3);
+        Task<GETPetsModelView?> GetById(string Id);
+        Task Add(POSTPetsModelView pet);
+        Task Update(PUTPetsModelView pet);
+        Task Delete(string Id);
     }
 }

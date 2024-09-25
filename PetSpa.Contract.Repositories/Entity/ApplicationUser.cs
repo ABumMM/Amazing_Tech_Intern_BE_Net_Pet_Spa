@@ -32,6 +32,9 @@ namespace PetSpa.Contract.Repositories.Entity
         // Mối quan hệ với bảng Orders (một-nhiều)
         public virtual ICollection<Orders> Orders { get; set; } = new List<Orders>();
 
+        public virtual ICollection<Pets> Pets { get; set; } = new List<Pets>();
+
+
         public ApplicationUser()
         {
             CreatedTime = CoreHelper.SystemTimeNow;
