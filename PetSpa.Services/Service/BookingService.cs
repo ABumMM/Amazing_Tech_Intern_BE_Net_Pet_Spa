@@ -44,17 +44,7 @@ namespace PetSpa.Services.Service
                 Description = bk.Description,
                 Date = bk.Date,
                 Status = bk.Status,
-                
-                
                 OrdersId = bk.OrdersId,
-
-
-
-                //getPackageViewModel = bk.Package.Select(pk => new GETPackageViewModel
-                //{
-                //    Id = pk.Id.ToString(),
-                //    Name = pk.Name,
-                //}).ToList()
 
             }).ToList();
             int totalBooking = bookings.Count;
@@ -67,7 +57,6 @@ namespace PetSpa.Services.Service
             return new BasePaginatedList<GETBookingVM>(paginatedBooking, totalBooking, pageNumber, pageSize);
         }
 
-
         public async Task<GETBookingVM?> GetById(string id)
         {
             IQueryable<Bookings> query = _unitOfWork.GetRepository<Bookings>().Entities.Where(q => !q.DeletedTime.HasValue);
@@ -76,35 +65,20 @@ namespace PetSpa.Services.Service
             {
                 return null;
             }    
-            
                 var bookingVM = new GETBookingVM
                 {
                     Id = existedBooking.Id,
                     Description = existedBooking.Description,
                     Date = existedBooking.Date,
                     Status = existedBooking.Status,
-                    
-                    
                     OrdersId = existedBooking.OrdersId,
-
-                    //conf thieeus package nhows theem vaof
-                    //getPackageViewModel = existedBooking.Package.Select(se => new ....
-                    //{
-                    //    Id = se.Id.ToString(),
-                    //    Name = se.Name,
-                    //}).ToList()
                 };
-
             return bookingVM;
-           
-
         }
-
         public Task<GETBookingVM?> GetById(object id)
         {
             throw new NotImplementedException();
         }
-
         public async Task Update( POSTBookingVM bookingVM, string id)
         {
             if (bookingVM == null)
@@ -119,15 +93,8 @@ namespace PetSpa.Services.Service
             }
             existingBooking.Description = bookingVM.Description;
             existingBooking.Status = bookingVM.Status;
-            existingBooking.Date = bookingVM.Date;
-            
+            existingBooking.Date = bookingVM.Date;     
             existingBooking.OrdersId = bookingVM.OrdersId;
-            
-            // Cập nhật Packages nếu có thay đổi
-            // existingBooking.Package = bookingVM.PackageIds.Select(pkgID => new Packages
-            // {
-            //     Id = pkgID,
-            // }).ToList();
             await _unitOfWork.GetRepository<Bookings>().UpdateAsync(existingBooking);
             await _unitOfWork.SaveAsync();
         }

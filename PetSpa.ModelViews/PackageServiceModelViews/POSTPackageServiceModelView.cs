@@ -13,7 +13,7 @@ namespace PetSpa.ModelViews.PackageServiceModelViews
         public virtual Packages? Package { get; set; }
         public string? ServiceId { get; set; }
         public virtual ServicesEntity? ServicesEntity { get; set; }
-        public string? AddedBy { get; set; }
-        public DateTimeOffset AddedDate { get; set; } // Ngày thêm service vào package
+        public string? CreatedBy { get; set; }
+        public DateTimeOffset CreatedTime { get; set; }
     }
 }

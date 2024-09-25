@@ -12,10 +12,10 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IPackageService_Service
     {
-        Task<BasePaginatedList<GETPackageServiceModelView>> GetAll(int pageNumber = 1, int pageSize = 3);
-        Task<GETPackageServiceModelView?> GetById(string packageID,string serviceID);
+        Task<BasePaginatedList<GETPackageServiceModelView>> GetAll(int pageNumber , int pageSize );
+        Task<GETPackageServiceModelView?> GetById(string ID);
         Task<List<GETPackageModelView?>> GetPackages(string packageID, DateTime? DateStart, DateTime? EndStart, string? Name);
         Task Add(string packageID, string serviceID);
-        Task Delete(string packageID, string serviceID);
+        Task Delete(string ID);
     }
 }

@@ -52,8 +52,8 @@ namespace PetSpa.Services.Service
                 .ToDictionary(group => group.Key, group => group.Select(bp => new GETPackageModelView
                 {
                     Id = bp.PackageId,
-                    Name = bp.Package.Name,
-                    Price = bp.Package.Price.GetValueOrDefault(),
+                    Name = bp.Package?.Name,
+                    Price = bp.Package?.Price.GetValueOrDefault(),
                 }).ToList());
 
             // Ánh xạ Booking vào ViewModel
@@ -107,7 +107,6 @@ namespace PetSpa.Services.Service
             {
                 return null;
             }
-            // Duyệt qua tất cả các bản ghi và chuyển đổi thành ViewModel
             var bookingPKVMs = existedBookingPKs.Select(existedBookingPK => new Booking_PackageVM
             {
                 BookingId = existedBookingPK.BookingId,
