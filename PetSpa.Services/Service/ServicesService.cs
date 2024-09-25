@@ -28,6 +28,7 @@ namespace PetSpa.Services.Service
             {
                 Id = Guid.NewGuid().ToString("N"),
                 Name = serviceModel.Name,
+                Price = serviceModel.Price,
                 Description = serviceModel.Description,
             };
 
