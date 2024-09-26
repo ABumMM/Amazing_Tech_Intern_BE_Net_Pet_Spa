@@ -55,7 +55,7 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> AddOrder([FromBody] PostOrderViewModel order)
         {
             await _orderService.Add(order);
-            return CreatedAtAction(nameof(GetOrderById), new { id = order.EmployeeID }, new BaseResponseModel<string>(
+            return CreatedAtAction(nameof(GetOrderById), new { id = order.UserId }, new BaseResponseModel<string>(
                 statusCode: (int)StatusCodeHelper.OK,
                 code: nameof(StatusCodeHelper.OK),
                 data: "Order created successfully"));
