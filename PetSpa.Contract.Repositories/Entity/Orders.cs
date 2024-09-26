@@ -23,13 +23,17 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public DateTime LastUpdateTime { get; set; }
 
+
         // Khóa ngoại đến Employees
         public virtual ApplicationUser User { get; set; }
-
+        [JsonIgnore]
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
         // liên kết khóa ngoại khách hàng
         //public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
+
+        [JsonIgnore]
+        public ICollection<OrdersDetails>? OrdersDetails { get; set;} = new List<OrdersDetails>();
 
 
     }
