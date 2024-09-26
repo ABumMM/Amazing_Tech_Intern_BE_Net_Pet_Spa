@@ -27,7 +27,9 @@ namespace PetSpa.Contract.Repositories.Entity
         //Mối Kết Hợp Nhiều Nhiều
 
         [JsonIgnore]
-        public virtual ICollection<OrderDetailPackage> OrderDetailPackages { get; set; } = new List<OrderDetailPackage>();
+        public ICollection<Orders>? Orders { get; set; } = new HashSet<Orders>();
 
+        [JsonIgnore]
+        public ICollection<Packages>? Packages { get; set; } = new HashSet<Packages>();
     }
 }

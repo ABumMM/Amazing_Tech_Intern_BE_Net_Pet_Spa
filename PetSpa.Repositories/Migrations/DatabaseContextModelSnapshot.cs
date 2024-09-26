@@ -738,8 +738,8 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("OrderID")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("OrdersDetailsId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
@@ -784,10 +784,10 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("OrdersId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PackageID")
+                    b.Property<string>("PackageId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
@@ -797,8 +797,6 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrdersId");
 
                     b.ToTable("OrdersDetails");
                 });
@@ -877,7 +875,7 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OrderDetailID")
+                    b.Property<string>("OrdersDetailsId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal?>("Price")
@@ -888,7 +886,7 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderDetailID");
+                    b.HasIndex("OrdersDetailsId");
 
                     b.ToTable("Packages");
                 });
@@ -1199,15 +1197,6 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
-                {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
-                        .WithMany("OrdersDetails")
-                        .HasForeignKey("OrdersId");
-
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.PackageServiceDTO", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
@@ -1225,18 +1214,9 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>
                 {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.OrdersDetails", "OrdersDetails")
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.OrdersDetails", null)
                         .WithMany("Packages")
-                        .HasForeignKey("OrderDetailID");
-
-                    b.Navigation("OrdersDetails");
-                });
-
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
-                {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", null)
-                        .WithMany("Services")
-                        .HasForeignKey("PackagesId");
+                        .HasForeignKey("OrdersDetailsId");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationRole", b =>
@@ -1256,16 +1236,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("BookingPackages");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Orders", b =>
-                {
-                    b.Navigation("Bookings");
-
-                    b.Navigation("OrdersDetails");
-                });
-
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
                 {
-                    b.Navigation("OrderDetailPackages");
+                    b.Navigation("Orders");
 
                     b.Navigation("Packages");
                 });

@@ -50,10 +50,9 @@ namespace PetSpa.Services.Service
 
             OrdersDetails details = new OrdersDetails()
             {
-                Quantity = (int)detailsMV.Quantity,
-                Price = (decimal)detailsMV.Price,
-                Status = detailsMV.Status,
-                //OrderID = detailsMV.OrderID,
+                Quantity = (int)detailMV.Quantity,
+                Price = (decimal)detailMV.Price,
+                Status = detailMV.Status,
                 CreatedTime = DateTime.Now,
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
@@ -87,11 +86,7 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> getAll(int pageNumber = 1, int pageSize = 3)
         {
-            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                                      .Entities
-                                      .Include(od => od.OrderDetailPackages)
-                                        .ThenInclude(odp => odp.Package)
-                                      .ToListAsync();
+            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>().GetAllAsync();
 
             if (orDetails == null || !orDetails.Any())
             {
@@ -104,17 +99,7 @@ namespace PetSpa.Services.Service
                 Quantity = orD.Quantity,
                 Price = orD.Price,
                 Status = orD.Status,
-                OrderID = orD.OrderID,
                 CreatedTime = orD.CreatedTime,
-                ListPackage = orD.OrderDetailPackages.Select(odp => new GETPackageModelView
-                {
-                    Id = odp.Package.Id,
-                    Name = odp.Package.Name,
-                    Price = odp.Package.Price,
-                    Image = odp.Package.Image,
-                    Information = odp.Package.Information,
-                    Experiences = odp.Package.Experiences,
-                }).ToList()
             }).ToList();
 
             //Count OrderDetail
