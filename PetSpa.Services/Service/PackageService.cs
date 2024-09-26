@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;

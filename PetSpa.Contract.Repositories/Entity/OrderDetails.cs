@@ -14,14 +14,20 @@ namespace PetSpa.Contract.Repositories.Entity
     {
         public int Quantity { get; set; }
         public string? Status { get; set; }
-        public decimal Price { get; set; } = 0;
-        public string? OrderId { get; set; }
-        public string? PackageId { get; set; }
+        public decimal? Price { get; set; }
+        public string? OrderID { get; set; }
+        public string? PackageID { get; set; }
 
         //Mối kết hợp 1-n
-        public virtual Orders Orders { get; set; }
+        public virtual Orders? Orders { get; set; }
 
-        //Mối kết hợp 1-n
-        public virtual Packages Packages { get; set; }
+        public ICollection<Packages> Packages { get; set; } = new List<Packages>();
+
+
+        //Mối Kết Hợp Nhiều Nhiều
+
+        [JsonIgnore]
+        public virtual ICollection<OrderDetailPackage> OrderDetailPackages { get; set; } = new List<OrderDetailPackage>();
+
     }
 }
