@@ -13,6 +13,8 @@ namespace PetSpa.ModelViews.OrderDetailModelViews
         public int? Quantity { get; set; }
         public string? Status { get; set; }
         public decimal? Price { get; set; }
+        /*public string? OrderID { get; set; }
+        public List<GETOrderDetailModelView>? listPackage { get; set; }*/
         public string? CreatedBy { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
         public List<GETPackageModelView>? ListPackage { get; set; }

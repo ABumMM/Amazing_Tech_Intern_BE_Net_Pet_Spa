@@ -50,9 +50,11 @@ namespace PetSpa.Services.Service
 
             OrdersDetails details = new OrdersDetails()
             {
-                Quantity = (int)detailMV.Quantity,
-                Price = (decimal)detailMV.Price,
-                Status = detailMV.Status,
+                Quantity = (int)detailsMV.Quantity,
+                Price = (decimal)detailsMV.Price,
+                Status = detailsMV.Status,
+                //OrderId = detaislMV.OrderID,
+                //PackageId = detaislsMV.PackageID,
                 CreatedTime = DateTime.Now,
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
@@ -86,7 +88,16 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> getAll(int pageNumber = 1, int pageSize = 3)
         {
-            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>().GetAllAsync();
+            //var orDetails = await _unitOfWork.GetRepository<OrdersDetails>().GetAllAsync();
+            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+                                .Entities
+                                .Include(od => od.Packages!)
+                                .ToListAsync();
+            if (orDetails == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found OrderDetail");
+            }
+
 
             if (orDetails == null || !orDetails.Any())
             {
@@ -99,7 +110,9 @@ namespace PetSpa.Services.Service
                 Quantity = orD.Quantity,
                 Price = orD.Price,
                 Status = orD.Status,
-                CreatedTime = orD.CreatedTime,
+                //OrderID = orD.OrderId,
+                CreatedTime = orD.CreatedTime
+               
             }).ToList();
 
             //Count OrderDetail
