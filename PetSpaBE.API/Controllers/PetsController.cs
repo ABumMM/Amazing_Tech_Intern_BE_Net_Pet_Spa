@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.RoleModelViews;
 using PetSpa.ModelViews.PetsModelViews;
+using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.Contract.Services.Interface;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -31,22 +33,21 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPets([FromBody] POSTPetsModelView pet)
+        public async Task<IActionResult> AddPet([FromBody] POSTPetsModelView pet)
         {
             await _petService.Add(pet);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
-                data: "Add pets successful"));
+                data: "Add pet successful"));
         }
+    
 
-
-
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
         //{
-            //if (id != pet.Id)
-            //    return BadRequest();
+        //if (id != pet.Id)
+        //    return BadRequest();
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)

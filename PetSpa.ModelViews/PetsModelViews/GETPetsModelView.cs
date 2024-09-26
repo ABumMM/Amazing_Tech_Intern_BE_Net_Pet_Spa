@@ -10,7 +10,6 @@ namespace PetSpa.ModelViews.PetsModelViews
     public class GETPetsModelView
     {
         public string? Id { get; set; }
-
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }

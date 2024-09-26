@@ -1,18 +1,13 @@
-﻿using PetSpa.Contract.Repositories;
-using PetSpa.Contract.Services;
-using PetSpa.Contract.Repositories.Entity;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using PetSpa.Repositories;
+﻿using PetSpa.Contract.Repositories.Entity;
 using Microsoft.AspNetCore.Http;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.PetsModelViews;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
+using PetSpa.Contract.Services.Interface;
+using Microsoft.Extensions.Logging;
 
-namespace PetSpa.Services
+namespace PetSpa.Services.Service
 {
     public class PetService : IPetService
     {
@@ -22,31 +17,34 @@ namespace PetSpa.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Add(POSTPetsModelView Pet)
+        public async Task Add(POSTPetsModelView petMV)
         {
-            if (Pet == null)
+            if (petMV == null)
             {
                 throw new BadRequestException(ErrorCode.BadRequest, "Pet cannot be null.");
             }
-            if (string.IsNullOrWhiteSpace(Pet.Name))
+            if (petMV.Name==null)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pet name is required.");
             }
 
-            Pets pets = new Pets
+            Pets pets = new Pets()
             {
-                Name = Pet.Name,
-                Species = Pet.Species,
-                Weight = Pet.Weight,
-                Breed = Pet.Breed,
-                Age = Pet.Age,
-                Description = Pet.Description,
-                Image = Pet.Image,
-                CreatedBy = Pet.CratedBy,
-                CreatedTime = Pet.CreatedTime,
+                Name = petMV.Name,
+                Species = petMV.Species,
+                Weight = petMV.Weight,
+                Breed = petMV.Breed,
+                Age = petMV.Age,
+                Description = petMV.Description,
+                Image = petMV.Image,
+                CreatedTime = DateTime.Now,
+
             };
+         
             await _unitOfWork.GetRepository<Pets>().InsertAsync(pets);
             await _unitOfWork.SaveAsync();
+            
+
         }
 
         public async Task Delete(string Id)
@@ -75,7 +73,7 @@ namespace PetSpa.Services
                 Age = r.Age,
                 Description = r.Description,
                 Image = r.Image,
-                UserId = r.Users.Id,
+            
                 CreatedTime = DateTime.Now,
             }).ToList();
 

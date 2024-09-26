@@ -64,14 +64,13 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber = 1, int pageSize = 2)
         {
-            //var packages = await _unitOfWork.GetRepository<Packages>().GetAllAsync();
+
+
             var packages = await _unitOfWork.GetRepository<Packages>()
                                 .Entities
                                 .Include(p => p.PackageServices!)
                                 .ThenInclude(ps => ps.ServicesEntity)
                                 .ToListAsync();
-
-            var serviceINPackage = await _unitOfWork.GetRepository<PackageServiceDTO>().GetAllAsync();
             if (packages == null)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
@@ -86,11 +85,13 @@ namespace PetSpa.Services.Service
                 Information = pa.Information,
                 Experiences = pa.Experiences,
                 CreatedTime = pa.CreatedTime,
+
                 listService = pa.PackageServices?.Select(s => new GETPackageServiceModelView
                 {
                     ServiceId = s.ServicesEntity?.Id,
                     ServiceName = s.ServicesEntity?.Name,
                 }).ToList(),
+
 
             }).ToList();
 

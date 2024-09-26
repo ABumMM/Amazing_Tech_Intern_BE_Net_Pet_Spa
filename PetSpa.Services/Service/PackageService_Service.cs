@@ -19,9 +19,9 @@ namespace PetSpa.Services.Service
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public PackageService_Service(IUnitOfWork unitOfWork) 
+        public PackageService_Service(IUnitOfWork unitOfWork)
         {
-            _unitOfWork=unitOfWork;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task Add(string packageID, string serviceID)
@@ -80,27 +80,26 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<BasePaginatedList<GETPackageServiceModelView>> GetAll(int pageNumber,int pageSize)
+        public async Task<BasePaginatedList<GETPackageServiceModelView>> GetAll(int pageNumber, int pageSize)
         {
-            //var packageservice = await _unitOfWork.GetRepository<PackageServiceDTO>().GetAllAsync();
+            var packageservice = await _unitOfWork.GetRepository<PackageServiceDTO>().GetAllAsync();
 
-            //var ViewModels = packageservice.Select(pa => new GETPackageServiceModelView
-            //{
-            //    Id = pa.Id,
-            //    //PackageId=pa.PackageId,
-            //    ServiceId=pa.ServicesEntityID,
-            //    CreatedTime = DateTime.Now,
-            //}).ToList();
+            var ViewModels = packageservice.Select(pa => new GETPackageServiceModelView
+            {
+                Id = pa.Id,
+                PackageId = pa.PackageId,
+                ServiceId = pa.ServicesEntityID,
+                CreatedTime = DateTime.Now,
+            }).ToList();
 
-            //int totalPackage = packageservice.Count;
+            int totalPackage = packageservice.Count;
 
-            //var paginatedList = ViewModels
-            //    .Skip((pageNumber - 1) * pageSize)
-            //    .Take(pageSize)
-            //    .ToList();
+            var paginatedList = ViewModels
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
-            //return new BasePaginatedList<GETPackageServiceModelView>(paginatedList, totalPackage, pageNumber, pageSize);
-            throw new NotImplementedException();
+            return new BasePaginatedList<GETPackageServiceModelView>(paginatedList, totalPackage, pageNumber, pageSize);
         }
 
         public async Task<GETPackageServiceModelView?> GetById(string ID)
@@ -116,13 +115,13 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found ");
             }
             existed.DeletedTime = DateTime.Now;
-         
+
             await _unitOfWork.GetRepository<PackageServiceDTO>().DeleteAsync(ID);
             await _unitOfWork.SaveAsync();
             return new GETPackageServiceModelView
             {
-                //Id = existed.Id,
-                //PackageId = existed.PackageId,
+                Id = existed.Id,
+                PackageId = existed.PackageId,
                 ServiceId = existed.ServicesEntityID
 
             };

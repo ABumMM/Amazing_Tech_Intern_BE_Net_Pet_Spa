@@ -22,6 +22,6 @@ namespace PetSpa.Contract.Repositories.Entity
 
         // Khóa ngoại đến User
         //public Guid UserId { get; set; }
-        public virtual ApplicationUser Users { get; set; }
+        public virtual ApplicationUser? Users { get; set; }
     }
 }
