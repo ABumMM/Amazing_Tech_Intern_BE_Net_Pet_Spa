@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240926031617_UpdateIdentityEntities")]
+    [Migration("20240926044421_UpdateIdentityEntities")]
     partial class UpdateIdentityEntities
     {
         /// <inheritdoc />
@@ -783,6 +783,9 @@ namespace PetSpa.Repositories.Migrations
 
                     b.Property<DateTimeOffset>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("OrderID")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrdersId")
                         .HasColumnType("nvarchar(450)");

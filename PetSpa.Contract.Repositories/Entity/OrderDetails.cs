@@ -25,11 +25,6 @@ namespace PetSpa.Contract.Repositories.Entity
 
 
         //Mối Kết Hợp Nhiều Nhiều
-
-        //Mối kết hợp 1-n
-        public virtual Orders Orders { get; set; }
-
-        //Mối kết hợp 1-n
-        public virtual Packages Packages { get; set; }
+        public virtual ICollection<OrderDetailPackage> OrderDetailPackages { get; set; } = new List<OrderDetailPackage>();
     }
 }
