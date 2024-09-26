@@ -99,6 +99,6 @@ namespace PetSpa.Repositories.UOW
         public void Delete1(T entity)
         {
             _dbSet.Remove(entity); // Xóa dựa trên đối tượng 
-        }   
+        }
     }
 }

@@ -1,17 +1,15 @@
-﻿using PetSpa.Core.Base;
+﻿using PetSpa.ModelViews.ModelViews;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PetSpa.Contract.Repositories.Entity
+namespace PetSpa.ModelViews.PetsModelViews
 {
-    public class Pets : BaseEntity
+    public class GETPetsModelView
     {
-        //public Guid Id { get; set; } 
-
+        public string? Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }
@@ -19,9 +17,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public int Age { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
-
-        // Khóa ngoại đến User
-        //public Guid UserId { get; set; }
-        public virtual ApplicationUser? Users { get; set; }
+        public Guid?  UserId { get; set; }
+        public DateTimeOffset? CreatedTime { get; set; }
     }
 }

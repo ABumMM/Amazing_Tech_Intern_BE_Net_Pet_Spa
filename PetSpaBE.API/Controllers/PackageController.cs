@@ -5,7 +5,6 @@ using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.PackageModelViews;
 
-
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]

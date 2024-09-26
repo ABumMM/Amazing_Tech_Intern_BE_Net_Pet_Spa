@@ -1,3 +1,5 @@
+
+using System;
 ﻿using PetSpa.Core.Base;
 using System.Text.Json.Serialization;
 

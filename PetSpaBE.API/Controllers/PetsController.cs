@@ -3,6 +3,11 @@ using PetSpa.Contract.Services;
 using PetSpa.Contract.Repositories.Entity;
 using System;
 using System.Threading.Tasks;
+using PetSpa.Core.Base;
+using PetSpa.ModelViews.RoleModelViews;
+using PetSpa.ModelViews.PetsModelViews;
+using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.Contract.Services.Interface;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -18,28 +23,31 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPets()
+        public async Task<IActionResult> GetAllPets(int pageNumber = 1, int pageSize = 2)
         {
-            var pets = await _petService.GetAllPetsAsync();
-            return Ok(pets);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPetById(Guid id)
-        {
-            var pet = await _petService.GetPetByIdAsync(id);
-            if (pet == null)
-                return NotFound();
-
-            return Ok(pet);
+            var pets = await _petService.GetAll(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETPetsModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: pets));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPet([FromBody] Pets pet)
+        public async Task<IActionResult> AddPet([FromBody] POSTPetsModelView pet)
         {
-            await _petService.AddPetAsync(pet);
-            return CreatedAtAction(nameof(GetPetById), new { id = pet.Id }, pet);
+            await _petService.Add(pet);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Add pet successful"));
         }
+    
+
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
+        //{
+        //if (id != pet.Id)
+        //    return BadRequest();
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
@@ -58,11 +66,34 @@ namespace PetSpaBE.API.Controllers
         ////    return NoContent();
         //}
 
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePet(Guid id)
+        public async Task<IActionResult> DeletePets(string Id)
         {
-            await _petService.DeletePetAsync(id);
-            return NoContent();
+            await _petService.Delete(Id);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Delete pet successful"));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPetsById(string Id)
+        {
+            var pet = await _petService.GetById(Id);
+            return Ok(new BaseResponseModel<GETPetsModelView>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: pet));
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePets([FromBody] PUTPetsModelView pet)
+        {
+            await _petService.Update(pet);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update pet successful"));
         }
     }
 }

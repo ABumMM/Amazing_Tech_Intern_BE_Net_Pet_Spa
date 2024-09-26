@@ -121,7 +121,7 @@ namespace PetSpa.Services.Service
             existedRole.LastUpdatedTime = DateTime.Now;
             await _unitOfWork.GetRepository<ApplicationRole>().UpdateAsync(existedRole);
             await _unitOfWork.SaveAsync();
-        }
+        }   
 
     }
 }
