@@ -14,7 +14,7 @@ namespace PetSpa.Contract.Services.Interface
         Task<BasePaginatedList<GETOrderDetailModelView>> getAll(int pageNumber = 1, int pageSize = 3);
         Task<GETOrderDetailModelView?> getById(string OrDetailID);
         //Task<GETOrderDetailModelView?> GETOrderDetail(string orDetailID, DateTime? DateStart, DateTime? EndStart);
-        Task Add(POSTOrderDetailModelView detailMV);
+        Task Add(POSTOrderDetailModelView detailsMV);
         Task Update(PUTOrderDetailModelView detailsMV);
         Task Delete(string OrDetailID);
 

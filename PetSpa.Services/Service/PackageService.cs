@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
@@ -64,8 +63,6 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber = 1, int pageSize = 2)
         {
-
-
             var packages = await _unitOfWork.GetRepository<Packages>()
                                 .Entities
                                 .Include(p => p.PackageServices!)
