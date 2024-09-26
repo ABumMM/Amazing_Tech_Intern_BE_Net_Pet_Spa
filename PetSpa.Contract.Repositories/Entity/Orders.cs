@@ -11,9 +11,7 @@ namespace PetSpa.Contract.Repositories.Entity
     public class Orders : BaseEntity
     {
 
-
-
-        public DateTime Date { get; set; } 
+        public string? UserId { get; set; }
 
         public string PaymentMethod { get; set; } = string.Empty;
 
@@ -22,6 +20,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTime CreateTime { get; set; }
 
         public DateTime LastUpdateTime { get; set; }
+
 
         public virtual ApplicationUser User { get; set; }
 

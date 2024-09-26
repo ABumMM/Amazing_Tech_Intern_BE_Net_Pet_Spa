@@ -27,12 +27,10 @@ namespace PetSpa.Services.Service
 
             var orderResponseList = orders.Select(order => new GetOrderViewModel
             {
-                
-                OrderID = order.Id,
-                EmployeeID = order.EmployeeID,
-                Date = order.Date,
+                UserId = order.UserId,
                 PaymentMethod = order.PaymentMethod,
                 Total = order.Total,
+                CreatedTime = order.CreatedTime,
             }).ToList();
 
             // Truyền vào đầy đủ 4 tham số: items, totalItems, pageNumber, pageSize
@@ -49,11 +47,10 @@ namespace PetSpa.Services.Service
 
             return new GetOrderViewModel
             {
-                OrderID = order.Id,
-                EmployeeID = order.EmployeeID,
-                Date = order.Date,
+                UserId = order.UserId,
                 PaymentMethod = order.PaymentMethod,
                 Total = order.Total,
+                CreatedTime = order.CreatedTime,
             };
         }
 
@@ -62,9 +59,7 @@ namespace PetSpa.Services.Service
             Orders newOrder = new Orders
             {
                 
-                OrderID = Guid.NewGuid().ToString("N"),
-                EmployeeID = order.EmployeeID,
-                Date = order.Date ?? DateTime.Now,
+                UserId = order.UserId,
                 PaymentMethod = string.IsNullOrEmpty(order.PaymentMethod) ? "Unknown" : order.PaymentMethod,
                 Total = order.Total,
                 CreatedTime = DateTime.Now,
@@ -77,14 +72,12 @@ namespace PetSpa.Services.Service
 
         public async Task Update(PutOrderViewModel Order)
         {
-            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(Order.OrderID);
+            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(Order.Id);
             if (order == null)
             {
                 throw new Exception("Order not found");
             }
 
-            order.EmployeeID = Order.EmployeeID;
-            order.Date = Order.Date ?? order.Date;
             order.PaymentMethod = Order.PaymentMethod ?? order.PaymentMethod;
             order.Total = (double)Order.Total;
             order.LastUpdateTime = DateTime.Now;
