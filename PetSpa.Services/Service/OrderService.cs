@@ -57,9 +57,7 @@ namespace PetSpa.Services.Service
         public async Task Add(PostOrderViewModel order)
         {
             Orders newOrder = new Orders
-            {
-                
-                UserId = order.UserId,
+            {   
                 PaymentMethod = string.IsNullOrEmpty(order.PaymentMethod) ? "Unknown" : order.PaymentMethod,
                 Total = order.Total,
                 CreatedTime = DateTime.Now,
@@ -80,8 +78,7 @@ namespace PetSpa.Services.Service
 
             order.PaymentMethod = Order.PaymentMethod ?? order.PaymentMethod;
             order.Total = (double)Order.Total;
-            order.LastUpdateTime = DateTime.Now;
-
+            order.LastUpdatedTime = DateTime.Now;
             var repository = _unitOfWork.GetRepository<Orders>();
             await repository.UpdateAsync(order);
             await _unitOfWork.SaveAsync();

@@ -17,10 +17,6 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public double Total { get; set; }
 
-        public DateTime CreateTime { get; set; }
-
-        public DateTime LastUpdateTime { get; set; }
-
 
         public virtual ApplicationUser User { get; set; }
 

@@ -42,11 +42,11 @@ namespace PetSpaBE.API.Controllers
 
 
 
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
         //{
-            //if (id != pet.Id)
-            //    return BadRequest();
+        //if (id != pet.Id)
+        //    return BadRequest();
 
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
@@ -67,9 +67,9 @@ namespace PetSpaBE.API.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePets(string Id)
+        public async Task<IActionResult> DeletePets(string id) 
         {
-            await _petService.Delete(Id);
+            await _petService.Delete(id);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
@@ -85,6 +85,7 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: pet));
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePets([FromBody] PUTPetsModelView pet)
         {
