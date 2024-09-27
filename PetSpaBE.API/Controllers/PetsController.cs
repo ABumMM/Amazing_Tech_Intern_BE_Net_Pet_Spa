@@ -41,6 +41,13 @@ namespace PetSpaBE.API.Controllers
             return CreatedAtAction(nameof(GetPetById), new { id = pet.Id }, pet);
         }
 
+
+        [HttpPut("{id}")]
+        //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
+        //{
+            //if (id != pet.Id)
+            //    return BadRequest();
+
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdatePet(Guid id, [FromBody] Pets pet)
         //{

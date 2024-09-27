@@ -11,6 +11,14 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Image {  get; set; }
         public string? Information {  get; set; }
         public string? Experiences {  get; set; }
+
+        public  ICollection<ServicesEntity>?Services { get; set; }
+
+        public Guid ServiceID { get; set; }
+
+        //public virtual ICollection<Services>? Services { get; set; }
+
+
         [JsonIgnore]
         public ICollection<PackageServiceDTO>? PackageServices { get; set; }
 
