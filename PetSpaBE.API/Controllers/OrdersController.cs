@@ -6,7 +6,6 @@ using PetSpa.Core.Base;
 using PetSpa.Core.Store;
 using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.OrderModelViews;
-using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.Services.Service;
 using System;
 using System.Collections.Generic;
@@ -53,13 +52,13 @@ namespace PetSpaBE.API.Controllers
                 data: order));
         }
         [HttpPost]
-        public async Task<IActionResult> AddOrder([FromBody] PostOrderViewModel orderVM)
+        public async Task<IActionResult> AddOrder([FromBody] PostOrderViewModel order)
         {
-            await _orderService.Add(orderVM);
+            await _orderService.Add(order);
             return Ok(new BaseResponseModel<string>(
-                statusCode: StatusCodes.Status200OK,
-                code: ResponseCodeConstants.SUCCESS,
-                data: "Add package successful"));
+                statusCode: (int)StatusCodeHelper.OK,
+                code: nameof(StatusCodeHelper.OK),
+                data: "Order created successfully"));
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder(string id, [FromBody] PutOrderViewModel Order)
