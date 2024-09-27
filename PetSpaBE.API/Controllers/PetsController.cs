@@ -68,9 +68,9 @@ namespace PetSpaBE.API.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePets(string Id)
+        public async Task<IActionResult> DeletePets(string id) 
         {
-            await _petService.Delete(Id);
+            await _petService.Delete(id);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
@@ -86,6 +86,7 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: pet));
         }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePets([FromBody] PUTPetsModelView pet)
         {

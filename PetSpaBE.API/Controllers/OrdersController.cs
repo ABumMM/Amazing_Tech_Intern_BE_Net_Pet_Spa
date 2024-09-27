@@ -6,6 +6,7 @@ using PetSpa.Core.Base;
 using PetSpa.Core.Store;
 using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.OrderModelViews;
+using PetSpa.Services.Service;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> AddOrder([FromBody] PostOrderViewModel order)
         {
             await _orderService.Add(order);
-            return CreatedAtAction(nameof(GetOrderById), new { id = order.UserId }, new BaseResponseModel<string>(
+            return Ok(new BaseResponseModel<string>(
                 statusCode: (int)StatusCodeHelper.OK,
                 code: nameof(StatusCodeHelper.OK),
                 data: "Order created successfully"));
