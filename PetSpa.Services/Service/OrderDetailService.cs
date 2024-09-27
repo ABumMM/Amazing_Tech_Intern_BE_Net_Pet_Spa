@@ -6,11 +6,7 @@ using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.OrderDetailModelViews;
 using PetSpa.ModelViews.PackageModelViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace PetSpa.Services.Service
 {
@@ -23,34 +19,64 @@ namespace PetSpa.Services.Service
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Add(POSTOrderDetailModelView detailMV)
+        public async Task Add(POSTOrderDetailModelView detailsMV)
         {
-            if (detailMV == null)
+            if (detailsMV == null)
             {
                 throw new BadRequestException(ErrorCode.BadRequest, "OrderDetail cannot null.");
             }
-            if (detailMV.Status == null)
+            if (detailsMV.Status == null)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrderDetail Status is required.");
             }
-            if (detailMV.Price < 0)
+            if (detailsMV.Price < 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
             } 
-            if (detailMV.Quantity < 0)
+            if (detailsMV.Quantity < 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Quantity must be greater than or equal to 0.");
             }
 
+            if (detailsMV.PackageIDs == null || !detailsMV.PackageIDs.Any())
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "At least one PackageID is required.");
+            }
+
+            // Kiểm tra từng PackageID
+            var packages = await _unitOfWork.GetRepository<Packages>()
+                                              .Entities
+                                              .Where(p => detailsMV.PackageIDs.Contains(p.Id))
+                                              .ToListAsync();
+
+            if (packages.Count != detailsMV.PackageIDs.Count)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "One or more PackageIDs not found.");
+            }
+
             OrdersDetails details = new OrdersDetails()
             {
-                Quantity = (int)detailMV.Quantity,
-                Price = (decimal)detailMV.Price,
-                Status = detailMV.Status,
+                Quantity = (int)detailsMV.Quantity,
+                Price = (decimal)detailsMV.Price,
+                Status = detailsMV.Status,
+                //OrderId = detaislMV.OrderID,
                 CreatedTime = DateTime.Now,
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
             await _unitOfWork.SaveAsync();
+
+            // Thêm mối quan hệ giữa OrderDetail và Packages
+            foreach (var package in packages)
+            {
+                var orderDetailPackage = new OrderDetailPackage
+                {
+                    OrderDetailId = details.Id,
+                    PackageId = package.Id,
+                };
+                await _unitOfWork.GetRepository<OrderDetailPackage>().InsertAsync(orderDetailPackage);
+            }
+
+            await _unitOfWork.SaveAsync();  
         }
 
         public async Task Delete(string OrDetailID)
@@ -67,7 +93,21 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> getAll(int pageNumber = 1, int pageSize = 3)
         {
-            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>().GetAllAsync();
+            var orDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+                                      .Entities
+                                      .Include(od => od.OrderDetailPackages)
+                                          .ThenInclude(odp => odp.Package)
+                                      .ToListAsync();
+            if (orDetails == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found OrderDetail");
+            }
+
+
+            if (orDetails == null || !orDetails.Any())
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found OrderDetail");
+            }
 
             var orDViewModels = orDetails.Select(orD => new GETOrderDetailModelView
             {
@@ -75,7 +115,17 @@ namespace PetSpa.Services.Service
                 Quantity = orD.Quantity,
                 Price = orD.Price,
                 Status = orD.Status,
+                //OrderID = orD.OrderID,
                 CreatedTime = orD.CreatedTime,
+                ListPackage = orD.OrderDetailPackages.Select(odp => new GETPackageModelView
+                {
+                    Id = odp.Package.Id,
+                    Name = odp.Package.Name,
+                    Price = odp.Package.Price,
+                    Image = odp.Package.Image,
+                    Information = odp.Package.Information,
+                    Experiences = odp.Package.Experiences,
+                }).ToList()
             }).ToList();
 
             //Count OrderDetail

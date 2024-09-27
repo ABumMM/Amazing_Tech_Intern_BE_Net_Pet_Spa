@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Core.Base;
 using PetSpa.Repositories.Context;
@@ -7,13 +6,6 @@ namespace PetSpa.Repositories.UOW
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-            public Task InsertAsync(Pets entity)
-            {
-                // Triển khai logic để thêm đối tượng entity vào cơ sở dữ liệu
-                return Task.CompletedTask;
-            }
-        
-
         protected readonly DatabaseContext _context;
         protected readonly DbSet<T> _dbSet;
         public GenericRepository(DatabaseContext dbContext)
@@ -107,7 +99,6 @@ namespace PetSpa.Repositories.UOW
         public void Delete1(T entity)
         {
             _dbSet.Remove(entity); // Xóa dựa trên đối tượng 
-        }   
+        }
     }
 }
- 

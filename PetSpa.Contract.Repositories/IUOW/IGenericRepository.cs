@@ -27,6 +27,6 @@ namespace PetSpa.Contract.Repositories.IUOW
         Task DeleteAsync(object id);
         Task SaveAsync();
         Task<T?> GetByKeysAsync(object key1, object key2);
-        Task InsertAsync(Pets pets);
+       
     }
 }
