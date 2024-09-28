@@ -55,6 +55,14 @@ namespace PetSpaBE.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddOrder([FromBody] PostOrderViewModel order)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(new BaseResponseModel<string>(
+                    statusCode: (int)StatusCodeHelper.BadRequest,
+                    code: nameof(StatusCodeHelper.BadRequest),
+                    data: "Invalid order data"));
+            }
+
             await _orderService.Add(order);
             return Ok(new BaseResponseModel<string>(
                 statusCode: (int)StatusCodeHelper.OK,
@@ -77,7 +85,7 @@ namespace PetSpaBE.API.Controllers
             if (existingOrder == null)
             {
                 return NotFound(new BaseResponseModel<string>(
-                    statusCode: (int)StatusCodeHelper.BadRequest,
+                    statusCode: (int)StatusCodeHelper.BadRequest    ,
                     code: nameof(StatusCodeHelper.BadRequest),
                     data: "Order not found"));
             }

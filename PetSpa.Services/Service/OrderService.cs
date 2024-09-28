@@ -56,9 +56,15 @@ namespace PetSpa.Services.Service
 
         public async Task Add(PostOrderViewModel order)
         {
+            if (string.IsNullOrEmpty(order.PaymentMethod))
+                throw new ArgumentException("PaymentMethod is required.");
+
+            if (order.Total <= 0)
+                throw new ArgumentException("Total must be greater than zero.");
+
             Orders newOrder = new Orders
-            {   
-                PaymentMethod = string.IsNullOrEmpty(order.PaymentMethod) ? "Unknown" : order.PaymentMethod,
+            {
+                PaymentMethod = order.PaymentMethod,
                 Total = order.Total,
                 CreatedTime = DateTime.Now,
             };
@@ -79,6 +85,7 @@ namespace PetSpa.Services.Service
             order.PaymentMethod = Order.PaymentMethod ?? order.PaymentMethod;
             order.Total = (double)Order.Total;
             order.LastUpdatedTime = DateTime.Now;
+
             var repository = _unitOfWork.GetRepository<Orders>();
             await repository.UpdateAsync(order);
             await _unitOfWork.SaveAsync();
@@ -91,7 +98,7 @@ namespace PetSpa.Services.Service
 
             if (existingOrder == null)
             {
-                return; // No action needed if not found
+                throw new Exception("Order not found");
             }
 
             await repository.DeleteAsync(id);
