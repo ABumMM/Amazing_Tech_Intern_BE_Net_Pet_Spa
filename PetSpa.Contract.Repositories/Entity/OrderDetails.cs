@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class OrdersDetails : BaseEntity 
+    public class OrdersDetails : BaseEntity
     {
         public int Quantity { get; set; }
         public string? Status { get; set; }

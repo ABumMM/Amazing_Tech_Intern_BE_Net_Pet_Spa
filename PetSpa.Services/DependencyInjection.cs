@@ -34,10 +34,9 @@ namespace PetSpa.Services
             services.AddScoped<IOrderService, OrderService>();
 
 
-            services.AddScoped<IBookingPackage_Service, BookingPackageService >();
+            services.AddScoped<IBookingPackage_Service, BookingPackageService>();
 
             services.AddScoped<IOrderDetailServices, OrderDetailService>();
-            services.AddScoped<IPackageService_Service, PackageService_Service>();
 
 
 
