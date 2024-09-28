@@ -57,18 +57,14 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: memberShip));
         }
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateMemberShip(MemberShips memberShip)
-        //{
-        //    try
-        //    {
-        //        await _membershipsService.Update(memberShip);
-        //        return Ok();
-        //    }
-        //    catch
-        //    {
-        //        return NotFound("MemberShip not found!");
-        //    }
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMemberShip([FromBody]PUTMemberShipModelView memberShipMV)
+        {
+            await _membershipsService.Update(memberShipMV);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update package successful"));
+        }
     }
 }

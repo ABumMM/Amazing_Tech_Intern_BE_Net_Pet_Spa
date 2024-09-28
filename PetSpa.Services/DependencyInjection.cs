@@ -27,10 +27,20 @@ namespace PetSpa.Services
             services.AddScoped<IServicesService, ServicesService>();
             services.AddScoped<IMembershipsService, MemberShipService>();
             services.AddScoped<IBookingServicecs, BookingService>();
-            services.AddScoped<IBookingPackage_Service, BookingPackageService >();
+
+
+
+            //services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IOrderService, OrderService>();
+
+
+            services.AddScoped<IBookingPackage_Service, BookingPackageService>();
 
             services.AddScoped<IOrderDetailServices, OrderDetailService>();
-            services.AddScoped<IPackageService_Service, PackageService_Service>();
+
+
+
+            services.AddScoped<IPetService, PetService>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();

@@ -9,14 +9,9 @@ namespace PetSpa.ModelViews.PackageServiceModelViews
 {
     public class GETPackageServiceModelView
     {
-        //public string? Id {  get; set; }
-        //public string? PackageId { get; set; }
-        //public string ? PackageName { get; set; }
-        public string? ServiceId { get; set; }
-        public string? ServiceName {  get; set; }
-        //public string? CreatedBy { get; set; }
-        //public DateTimeOffset CreatedTime { get; set; }
-        
+        public string? Id { get; set; }
+        public string? ServiceName { get; set; }
+
 
     }
 }
