@@ -4,6 +4,7 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.MemberShipModelView;
 using PetSpa.ModelViews.MemberShipModelViews;
 using PetSpa.ModelViews.ModelViews;
@@ -45,7 +46,7 @@ namespace PetSpa.Services.Service
                 Name = memberShipMV.Name,
                 Point = memberShipMV.Point,
                 SpecialOffer = memberShipMV.SpecialOffer,
-                CreatedTime = DateTime.Now,
+                CreatedTime =TimeHelper.ConvertToUtcPlus7(DateTime.Now),
             };
 
             await _unitOfWork.GetRepository<MemberShips>().InsertAsync(memberShips);
@@ -60,7 +61,7 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
 
-            existedMemberShips.DeletedTime = DateTime.Now;
+            //existedMemberShips.DeletedTime = DateTime.Now;
             //existedPackage.DeletedBy = ehehehheh;
             await _unitOfWork.GetRepository<MemberShips>().DeleteAsync(MemberShipId);
             await _unitOfWork.SaveAsync();
@@ -69,7 +70,10 @@ namespace PetSpa.Services.Service
         public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber = 1, int pageSize = 3)
         {
             var memberShips = await _unitOfWork.GetRepository<MemberShips>().GetAllAsync();
-
+            if (memberShips == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
+            }
             var memberShipViewModels = memberShips.Select(pa => new GETMemberShipModelView
             {
                 Id = pa.Id,
@@ -77,10 +81,6 @@ namespace PetSpa.Services.Service
                 Point=pa.Point,
                 SpecialOffer=pa.SpecialOffer,
                 CreatedTime = pa.CreatedTime,
-                //THiếu user => chưa làm createby,deleteby,updateby
-                //CreatedBy=pa.CreatedBy,
-                //LastUpdatedBy=pa.LastUpdatedBy,
-                //DeletedBy=pa.DeletedBy,
             }).ToList();
             //Count Package
             int totalPackage = memberShips.Count;
@@ -97,12 +97,12 @@ namespace PetSpa.Services.Service
         {
             if (string.IsNullOrWhiteSpace(memberShipID))
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid package ID.");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid memberhip ID.");
             }
             var existedMemberShips = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(p => p.Id == memberShipID);
             if (existedMemberShips == null)
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found membership");
             }
             return new GETMemberShipModelView
             {
@@ -110,11 +110,7 @@ namespace PetSpa.Services.Service
                 Name = existedMemberShips.Name,
                 Point = existedMemberShips.Point,
                 SpecialOffer = existedMemberShips.SpecialOffer,
-                CreatedTime = existedMemberShips.CreatedTime,
-                //THiếu user => chưa làm createby,deleteby,updateby
-                //CreatedBy=pa.CreatedBy,
-                //LastUpdatedBy=pa.LastUpdatedBy,
-                //DeletedBy=pa.DeletedBy,
+                CreatedTime = existedMemberShips.CreatedTime
                
             };
 
@@ -125,9 +121,42 @@ namespace PetSpa.Services.Service
             throw new NotImplementedException();
         }
 
-        public Task Update(Packages package)
+        public async Task Update(PUTMemberShipModelView memberShipMV)
         {
-            throw new NotImplementedException();
+            // Kiểm tra nếu packageMV null
+            if (memberShipMV == null)
+            {
+                throw new BadRequestException(ErrorCode.BadRequest, "MemberShip cannot be null.");
+            }
+
+            // Kiểm tra nếu Id bị thiếu hoặc không hợp lệ
+            if (memberShipMV.Id == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "MemberShip id is required.");
+            }
+            MemberShips? existedMemberShip = await _unitOfWork.GetRepository<MemberShips>().GetByIdAsync(memberShipMV.Id);
+            if (existedMemberShip == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
+            }
+            if (memberShipMV == null)
+            {
+                throw new BadRequestException(ErrorCode.BadRequest, "MemberShip cannot null.");
+            }
+            if (memberShipMV.Name == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "MemberShip name is required.");
+            }
+            if (memberShipMV.Point < 0)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Point must be greater than or equal to 0.");
+            }
+            existedMemberShip.Name = memberShipMV.Name;
+            existedMemberShip.Point = memberShipMV.Point;
+            existedMemberShip.SpecialOffer = memberShipMV.SpecialOffer;
+            existedMemberShip.LastUpdatedTime = DateTime.Now;
+            await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(existedMemberShip);
+            await _unitOfWork.SaveAsync();
         }
     }
 }

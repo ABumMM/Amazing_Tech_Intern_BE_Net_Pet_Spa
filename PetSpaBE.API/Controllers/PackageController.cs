@@ -5,7 +5,6 @@ using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.PackageModelViews;
 
-
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -20,7 +19,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 2)
+        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 10)
         {
             var packages = await _packageService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETPackageModelView>>(
@@ -52,6 +51,15 @@ namespace PetSpaBE.API.Controllers
         {
             var package = await _packageService.GetById(id);
             return Ok(new BaseResponseModel<GETPackageModelView>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: package));
+        }
+        [HttpGet("conditions")]
+        public async Task<IActionResult> GetPackageByConditions(DateTimeOffset? DateStart, DateTimeOffset? DateEnd)
+        {
+            var package = await _packageService.GetPackageByConditions(DateStart,DateEnd);
+            return Ok(new BaseResponseModel<List<GETPackageModelView>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: package));

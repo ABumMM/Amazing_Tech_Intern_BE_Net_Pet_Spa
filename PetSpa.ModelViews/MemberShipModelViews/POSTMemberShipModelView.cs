@@ -13,5 +13,6 @@ namespace PetSpa.ModelViews.MemberShipModelViews
         public string? SpecialOffer { get; set; }
         public string? CreatedBy { get; set; }
         public DateTimeOffset? CreatedTime { get; set; }
+
     }
 }
