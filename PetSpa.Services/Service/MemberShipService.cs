@@ -74,6 +74,11 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
             }
+
+            if (memberShips == null || !memberShips.Any())
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
+            }
             var memberShipViewModels = memberShips.Select(pa => new GETMemberShipModelView
             {
                 Id = pa.Id,

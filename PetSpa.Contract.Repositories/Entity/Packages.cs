@@ -14,13 +14,13 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? OrderDetailID { get; set; }
 
 
-
+        [JsonIgnore]
         public ICollection<ServicesEntity>? Services { get; set; }
 
         [JsonIgnore]
-        public ICollection<PackageServiceDTO>? PackageServices { get; set; }
+        public ICollection<PackageServiceEntity>? PackageServices { get; set; }
 
-
+        [JsonIgnore]
         public ICollection<BookingPackage>? BookingPackages { get; set; } = new HashSet<BookingPackage>();
 
         public virtual OrdersDetails? OrdersDetails { get; set; }

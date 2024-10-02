@@ -73,6 +73,14 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Update package successful"));
         }
-
+        [HttpDelete("ServiceInPackageID")]
+        public async Task<IActionResult> DeleteServiceInPackage(string serviceINPackageID)
+        {
+            await _packageService.DeleteServiceInPakcage(serviceINPackageID);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Delete service successful"));
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<ServicesEntity> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
-        public virtual DbSet<PackageServiceDTO> PackageServiceDTOs { get; set; }
+        public virtual DbSet<PackageServiceEntity> PackageServiceDTOs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

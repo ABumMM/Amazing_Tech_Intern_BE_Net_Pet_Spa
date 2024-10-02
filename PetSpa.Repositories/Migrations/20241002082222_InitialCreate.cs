@@ -518,7 +518,6 @@ namespace PetSpa.Repositories.Migrations
                     Information = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Experiences = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderDetailID = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ServiceID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
