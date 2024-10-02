@@ -12,7 +12,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public decimal Price { get; set; }
         public string? Description { get; set; }
         [JsonIgnore]
-        public ICollection<PackageServiceDTO>? PackageServices { get; set; } = new HashSet<PackageServiceDTO>();
+        public ICollection<PackageServiceEntity>? PackageServices { get; set; } = new HashSet<PackageServiceEntity>();
 
     }
 }

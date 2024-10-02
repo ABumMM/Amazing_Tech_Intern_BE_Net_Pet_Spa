@@ -14,5 +14,7 @@ namespace PetSpa.Contract.Services.Interface
         Task Add(POSTPackageModelView package);
         Task Update(PUTPackageModelView packageMV);
         Task Delete(string packageID);
+        Task DeleteServiceInPakcage(string serviceINPackageID);
+
     }
 }

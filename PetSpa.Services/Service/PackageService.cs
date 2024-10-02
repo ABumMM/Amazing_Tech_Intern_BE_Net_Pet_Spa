@@ -77,17 +77,18 @@ namespace PetSpa.Services.Service
             // Thêm mối quan hệ giữa OrderDetail và Packages
             foreach (var service in services)
             {
-                var packageServiceDTO = new PackageServiceDTO
+                var packageServiceDTO = new PackageServiceEntity
                 {
                     ServicesEntityID = service.Id,
                     PackageId = packages.Id,
                 };
-                await _unitOfWork.GetRepository<PackageServiceDTO>().InsertAsync(packageServiceDTO);
+                await _unitOfWork.GetRepository<PackageServiceEntity>().InsertAsync(packageServiceDTO);
             }
             await _unitOfWork.SaveAsync();
         }
         public async Task Delete(string packageID)
         {
+            
             Packages? existedPackage = await _unitOfWork.GetRepository<Packages>().GetByIdAsync(packageID);
             if (existedPackage == null)
             {
@@ -96,6 +97,17 @@ namespace PetSpa.Services.Service
             //existedPackage.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
             ////existedPackage.DeletedBy = ehehehheh;
             await _unitOfWork.GetRepository<Packages>().DeleteAsync(packageID);
+            await _unitOfWork.SaveAsync();
+        }
+
+        public async Task DeleteServiceInPakcage(string serviceINPackageID)
+        {
+            PackageServiceEntity? existedServiceINPackage = await _unitOfWork.GetRepository<PackageServiceEntity>().GetByIdAsync(serviceINPackageID);
+            if (existedServiceINPackage == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Service");
+            }
+            await _unitOfWork.GetRepository<PackageServiceEntity>().DeleteAsync(serviceINPackageID);
             await _unitOfWork.SaveAsync();
         }
 
@@ -111,6 +123,10 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
 
+            if (packages == null || !packages.Any())
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+            }
             var packageViewModels = packages.Select(pa => new GETPackageModelView
             {
                 Id = pa.Id,
@@ -177,14 +193,11 @@ namespace PetSpa.Services.Service
             // Khởi tạo truy vấn cho bảng Packages
             IQueryable<Packages> query = _unitOfWork.GetRepository<Packages>()
                 .Entities.Where(q => !q.DeletedTime.HasValue); // Chỉ lấy những gói chưa bị xóa
-
-
             // Lọc theo DateStart nếu có
             if (DateStart.HasValue)
             {
                 query = query.Where(p => p.CreatedTime >= DateStart.Value);
             }
-
             // Lọc theo DateEnd nếu có
             if (DateEnd.HasValue)
             {

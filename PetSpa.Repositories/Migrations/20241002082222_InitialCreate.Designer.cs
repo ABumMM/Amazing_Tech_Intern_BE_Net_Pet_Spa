@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240928061050_InitialCreate")]
+    [Migration("20241002082222_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -797,7 +797,7 @@ namespace PetSpa.Repositories.Migrations
                     b.ToTable("OrdersDetails");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.PackageServiceDTO", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.PackageServiceEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -876,9 +876,6 @@ namespace PetSpa.Repositories.Migrations
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("ServiceID")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -1204,7 +1201,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.PackageServiceDTO", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.PackageServiceEntity", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
                         .WithMany("PackageServices")
