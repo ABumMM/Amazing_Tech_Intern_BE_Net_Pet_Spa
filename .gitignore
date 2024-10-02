@@ -397,4 +397,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 
-PetSpaBE/appsettings.json
+appsettings.json
+
