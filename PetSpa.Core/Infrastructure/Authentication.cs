@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text.Json;
 
 namespace PetSpa.Core.Infrastructure
 {
@@ -7,161 +9,102 @@ namespace PetSpa.Core.Infrastructure
     {
         public static string GetUserIdFromHttpContextAccessor(IHttpContextAccessor httpContextAccessor)
         {
-            try
+            if (httpContextAccessor?.HttpContext == null)
             {
-                if (httpContextAccessor.HttpContext == null || !httpContextAccessor.HttpContext.Request.Headers.ContainsKey("Authorization"))
-                {
-                    throw new UnauthorizedException("Need Authorization");
-                }
-
-                string? authorizationHeader = httpContextAccessor.HttpContext.Request.Headers["Authorization"];
-
-                if (string.IsNullOrWhiteSpace(authorizationHeader) || !authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new UnauthorizedException($"Invalid authorization header: {authorizationHeader}");
-                }
-
-                string jwtToken = authorizationHeader["Bearer ".Length..].Trim();
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                if (!tokenHandler.CanReadToken(jwtToken))
-                {
-                    throw new UnauthorizedException("Invalid token format");
-                }
-
-                var token = tokenHandler.ReadJwtToken(jwtToken);
-                var idClaim = token.Claims.FirstOrDefault(claim => claim.Type == "id");
-
-                return idClaim?.Value ?? throw new UnauthorizedException("Cannot get userId from token");
+                throw new ArgumentNullException(nameof(httpContextAccessor), "HttpContextAccessor or HttpContext cannot be null");
             }
-            catch (UnauthorizedException ex)
-            {
-                var errorResponse = new
-                {
-                    data = "An unexpected error occurred.",
-                    additionalData = (object)null, // Explicitly setting null type
-                    message = ex.Message,
-                    statusCode = StatusCodes.Status401Unauthorized,
-                    code = "Unauthorized!"
-                };
 
-                var jsonResponse = System.Text.Json.JsonSerializer.Serialize(errorResponse);
-
-                if (httpContextAccessor.HttpContext != null)
-                {
-                    httpContextAccessor.HttpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    httpContextAccessor.HttpContext.Response.ContentType = "application/json";
-                    httpContextAccessor.HttpContext.Response.WriteAsync(jsonResponse).Wait();
-                }
-
-                httpContextAccessor.HttpContext?.Response.WriteAsync(jsonResponse).Wait();
-
-                throw; // Re-throw the exception to maintain the error flow
-            }
+            return ExtractClaimFromAuthorizationHeader(httpContextAccessor.HttpContext.Request.Headers["Authorization"], "id");
         }
+
         public static string GetUserIdFromHttpContext(HttpContext httpContext)
         {
-            try
+            if (httpContext == null)
             {
-                if (!httpContext.Request.Headers.ContainsKey("Authorization"))
-                {
-                    throw new UnauthorizedException("Need Authorization");
-                }
-
-                string? authorizationHeader = httpContext.Request.Headers["Authorization"];
-
-                if (string.IsNullOrWhiteSpace(authorizationHeader) || !authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new UnauthorizedException($"Invalid authorization header: {authorizationHeader}");
-                }
-
-                string jwtToken = authorizationHeader["Bearer ".Length..].Trim();
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                if (!tokenHandler.CanReadToken(jwtToken))
-                {
-                    throw new UnauthorizedException("Invalid token format");
-                }
-
-                var token = tokenHandler.ReadJwtToken(jwtToken);
-                var idClaim = token.Claims.FirstOrDefault(claim => claim.Type == "id");
-
-                return idClaim?.Value ?? throw new UnauthorizedException("Cannot get userId from token");
+                throw new ArgumentNullException(nameof(httpContext), "HttpContext cannot be null");
             }
-            catch (UnauthorizedException ex)
-            {
-                var errorResponse = new
-                {
-                    data = "An unexpected error occurred.",
-                    additionalData = (object)null, // Explicitly setting null type
-                    message = ex.Message,
-                    statusCode = StatusCodes.Status401Unauthorized,
-                    code = "Unauthorized!"
-                };
 
-                var jsonResponse = System.Text.Json.JsonSerializer.Serialize(errorResponse);
-
-                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                httpContext.Response.ContentType = "application/json";
-                httpContext.Response.WriteAsync(jsonResponse).Wait();
-
-                throw; // Re-throw the exception to maintain the error flow
-            }
+            return ExtractClaimFromAuthorizationHeader(httpContext.Request.Headers["Authorization"], "id");
         }
 
         public static string GetUserRoleFromHttpContext(HttpContext httpContext)
         {
-            try
+            if (httpContext == null)
             {
-                if (!httpContext.Request.Headers.ContainsKey("Authorization"))
-                {
-                    throw new UnauthorizedException("Need Authorization");
-                }
-
-                string? authorizationHeader = httpContext.Request.Headers["Authorization"];
-
-                if (string.IsNullOrWhiteSpace(authorizationHeader) || !authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-                {
-                    throw new UnauthorizedException($"Invalid authorization header: {authorizationHeader}");
-                }
-
-                string jwtToken = authorizationHeader["Bearer ".Length..].Trim();
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-
-                if (!tokenHandler.CanReadToken(jwtToken))
-                {
-                    throw new UnauthorizedException("Invalid token format");
-                }
-
-                var token = tokenHandler.ReadJwtToken(jwtToken);
-                var roleClaim = token.Claims.FirstOrDefault(claim => claim.Type == "role");
-
-                return roleClaim?.Value ?? throw new UnauthorizedException("Cannot get user role from token");
+                throw new ArgumentNullException(nameof(httpContext), "HttpContext cannot be null");
             }
-            catch (UnauthorizedException ex)
+
+            return ExtractClaimFromAuthorizationHeader(httpContext.Request.Headers["Authorization"], ClaimTypes.Role);
+        }
+
+        public static string GetFullNameFromClaims(IHttpContextAccessor httpContextAccessor)
+        {
+            if (httpContextAccessor?.HttpContext?.User == null)
+            {
+                return string.Empty;
+            }
+
+            var claimsIdentity = httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            return claimsIdentity?.FindFirst("fullName")?.Value ?? string.Empty;
+        }
+
+        private static string ExtractClaimFromAuthorizationHeader(string authorizationHeader, string claimType)
+        {
+            if (string.IsNullOrWhiteSpace(authorizationHeader) || !authorizationHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
+            {
+                throw new UnauthorizedException("Authorization header is missing or not a Bearer token.");
+            }
+
+            string jwtToken = authorizationHeader.Substring("Bearer ".Length).Trim();
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            if (!tokenHandler.CanReadToken(jwtToken))
+            {
+                throw new UnauthorizedException("Invalid token format.");
+            }
+
+            var token = tokenHandler.ReadJwtToken(jwtToken);
+
+            // Log all claims
+            LogClaims(token.Claims);
+
+            var claim = token.Claims.FirstOrDefault(c => c.Type == claimType);
+            if (claim == null)
+            {
+                throw new UnauthorizedException($"Claim '{claimType}' not found in the token.");
+            }
+
+            return claim.Value;
+        }
+
+        private static void LogClaims(IEnumerable<Claim> claims)
+        {
+            foreach (var claim in claims)
+            {
+                Console.WriteLine($"Claim Type: {claim.Type}, Claim Value: {claim.Value}");
+            }
+        }
+
+        private static async Task ReturnUnauthorizedResponse(HttpContext context, string message)
+        {
+            if (context != null)
             {
                 var errorResponse = new
                 {
                     data = "An unexpected error occurred.",
-                    additionalData = (object)null, // Explicitly setting null type
-                    message = ex.Message,
+                    additionalData = (object)null,
+                    message,
                     statusCode = StatusCodes.Status401Unauthorized,
-                    code = "Unauthorized!"
+                    code = "Unauthorized"
                 };
 
-                var jsonResponse = System.Text.Json.JsonSerializer.Serialize(errorResponse);
+                var jsonResponse = JsonSerializer.Serialize(errorResponse);
 
-                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                httpContext.Response.ContentType = "application/json";
-                httpContext.Response.WriteAsync(jsonResponse).Wait();
-
-                throw; // Re-throw the exception to maintain the error flow
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(jsonResponse);
             }
         }
-
     }
 
     public class UnauthorizedException : Exception

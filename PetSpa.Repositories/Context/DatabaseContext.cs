@@ -4,18 +4,18 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.ModelViews.PackageModelViews;
 namespace PetSpa.Repositories.Context
 {
-    public class DatabaseContext:IdentityDbContext
+    public class DatabaseContext:IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
-        // user
+        // user Identity
         public virtual DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
         public virtual DbSet<ApplicationRole> ApplicationRoles => Set<ApplicationRole>();
-        public virtual DbSet<ApplicationUserClaims> ApplicationUserClaims => Set<ApplicationUserClaims>();
-        public virtual DbSet<ApplicationUserRoles> ApplicationUserRoles => Set<ApplicationUserRoles>();
-        public virtual DbSet<ApplicationUserLogins> ApplicationUserLogins => Set<ApplicationUserLogins>();
         public virtual DbSet<ApplicationRoleClaims> ApplicationRoleClaims => Set<ApplicationRoleClaims>();
+        public virtual DbSet<ApplicationUserClaims> ApplicationUserClaims => Set<ApplicationUserClaims>();
+        public virtual DbSet<ApplicationUserLogins> ApplicationUserLogins => Set<ApplicationUserLogins>();
         public virtual DbSet<ApplicationUserTokens> ApplicationUserTokens => Set<ApplicationUserTokens>();
+
         public virtual DbSet<Bookings> Bookings { get; set; }
         public virtual DbSet<MemberShips> MemberShips { get; set; }
         public virtual DbSet<OrdersDetails> OrdersDetails { get; set; }
@@ -30,7 +30,18 @@ namespace PetSpa.Repositories.Context
         {
             base.OnModelCreating(modelBuilder);
 
-           
+            // Khóa ngoại trong ApplicationUserRoles 
+            modelBuilder.Entity<ApplicationUserRoles>()
+                .HasOne<ApplicationUser>()
+                .WithMany()
+                .HasForeignKey(ur => ur.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ApplicationUserRoles>()
+                .HasOne<ApplicationRole>()
+                .WithMany()
+                .HasForeignKey(ur => ur.RoleId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             // BOOKINGPACKAGE
             // Cấu hình khóa chính cho bảng trung gian BookingPackage
