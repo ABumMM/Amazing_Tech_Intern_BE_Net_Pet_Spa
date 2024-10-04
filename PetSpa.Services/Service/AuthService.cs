@@ -50,8 +50,9 @@ namespace PetSpa.Services.Service
             {
                 UserInfo = new UserInfo { FullName = signup.FullName },
                 Email = signup.Email,
+                UserName = signup.Email,  // Thiết lập UserName rõ ràng
+                //PhoneNumber = signup.PhoneNumber,
                 Password = signup.Password,
-                PhoneNumber = signup.PhoneNumber,
             };
 
             var result = await _userManager.CreateAsync(user, signup.Password);
