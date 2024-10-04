@@ -1,4 +1,6 @@
-﻿using PetSpa.Contract.Repositories.Entity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
@@ -16,23 +18,72 @@ namespace PetSpa.Services.Service
             _unitOfWork = unitOfWork;
         }
 
+        //public async Task Add(PostOrderViewModel order)
+        //{
+        //    if (string.IsNullOrEmpty(order.PaymentMethod))
+        //        throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
+
+        //    if (order.Total <= 0)
+        //        throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "Total must be greater than zero.");
+
+        //    // Kiểm tra từng PackageID
+        //    var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+        //                                          .Entities
+        //                                          .Where(p => order.OrderDetailId.Contains(p.Id))
+        //                                          .ToListAsync();
+
+        //    if (orderDetails.Count != order.OrderDetailId.Count)
+        //    {
+        //        throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "One or more PackageIDs not found.");
+        //    }
+
+        //    Orders newOrder = new Orders
+        //    {
+        //        PaymentMethod = order.PaymentMethod,
+        //        Total = order.Total,
+        //        CreatedTime = DateTime.Now,
+        //    };
+
+        //    var repository = _unitOfWork.GetRepository<Orders>();
+        //    await repository.InsertAsync(newOrder);
+        //    await _unitOfWork.SaveAsync();
+
+        //    // Thêm mối quan hệ giữa Order và OrderDetail
+        //    foreach (var orderDetail in orderDetails)
+        //    {
+        //        var orderDetailPackage = new OrderDetailPackage
+        //        {
+        //            Id = newOrder.Id, // Gán ID của Order mới
+        //            OrderDetailId = orderDetail.Id // Gán ID của OrderDetail
+        //        };
+        //        await _unitOfWork.GetRepository<OrderDetailPackage>().InsertAsync(orderDetailPackage);
+        //    }
+
+        //    await _unitOfWork.SaveAsync();
+        //}
+
         public async Task<BasePaginatedList<GetOrderViewModel>> GetAll(int pageNumber = 1, int pageSize = 3)
         {
-            var orders = await _unitOfWork.GetRepository<Orders>().GetAllAsync(); 
+            var orders = await _unitOfWork.GetRepository<Orders>().GetAllAsync();
+
             if (orders == null || !orders.Any())
             {
-                // Truyền vào đầy đủ 4 tham số: items, totalItems, pageNumber, pageSize
-                return new BasePaginatedList<GetOrderViewModel>(new List<GetOrderViewModel>(), 0, pageNumber, pageSize);
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound,"Orders not found.");
             }
 
             var orderResponseList = orders.Select(order => new GetOrderViewModel
             {
-                UserId = order.UserId,
+                //UserId = order.UserId,
+                Id = order.Id,
                 PaymentMethod = order.PaymentMethod,
                 Total = order.Total,
                 CreatedTime = order.CreatedTime,
             }).ToList();
 
+            var paginatedMemberShips = orderResponseList
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
             // Truyền vào đầy đủ 4 tham số: items, totalItems, pageNumber, pageSize
             return new BasePaginatedList<GetOrderViewModel>(orderResponseList, orderResponseList.Count, pageNumber, pageSize);
         }
@@ -42,12 +93,13 @@ namespace PetSpa.Services.Service
             var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(id);
             if (order == null)
             {
-                return null; 
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Orders not found.");
             }
 
             return new GetOrderViewModel
             {
-                UserId = order.UserId,
+                //UserId = order.UserId,
+                Id = order.Id,
                 PaymentMethod = order.PaymentMethod,
                 Total = order.Total,
                 CreatedTime = order.CreatedTime,
@@ -57,10 +109,10 @@ namespace PetSpa.Services.Service
         public async Task Add(PostOrderViewModel order)
         {
             if (string.IsNullOrEmpty(order.PaymentMethod))
-                throw new ArgumentException("PaymentMethod is required.");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
 
             if (order.Total <= 0)
-                throw new ArgumentException("Total must be greater than zero.");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "Total must be greater than zero.");
 
             Orders newOrder = new Orders
             {
@@ -79,7 +131,7 @@ namespace PetSpa.Services.Service
             var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(Order.Id);
             if (order == null)
             {
-                throw new Exception("Order not found");
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Orders not found.");
             }
 
             order.PaymentMethod = Order.PaymentMethod ?? order.PaymentMethod;
@@ -98,7 +150,7 @@ namespace PetSpa.Services.Service
 
             if (existingOrder == null)
             {
-                throw new Exception("Order not found");
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Orders not found.");
             }
 
             await repository.DeleteAsync(id);
