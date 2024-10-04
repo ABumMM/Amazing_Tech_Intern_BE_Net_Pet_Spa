@@ -12,8 +12,6 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class ApplicationUserRoles : IdentityUserRole<Guid>
     {
-        [Key]
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string? CreatedBy { get; set; }
         public string? LastUpdatedBy { get; set; }

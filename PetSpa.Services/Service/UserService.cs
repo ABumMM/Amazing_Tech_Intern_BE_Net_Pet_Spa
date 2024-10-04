@@ -94,8 +94,8 @@ namespace PetSpa.Services.Service
             existedUser.Email = user.Email;
             existedUser.UserInfo.FullName = user.FullName;
             existedUser.PhoneNumber = user.PhoneNumber;
-            existedUser.DayofBirth = user.DayofBirth;
-            existedUser.Address = user.Address;
+            existedUser.UserInfo.DayofBirth = user.DayofBirth;
+            existedUser.UserInfo.Address = user.Address;
             existedUser.UserInfo.Salary = user.Salary;
             existedUser.UserInfo.BankAccount = user.BankAccount;
             existedUser.UserInfo.BankAccountName = user.BankAccountName;

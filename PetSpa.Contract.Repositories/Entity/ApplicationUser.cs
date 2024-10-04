@@ -12,8 +12,6 @@ namespace PetSpa.Contract.Repositories.Entity
     public class ApplicationUser:IdentityUser<Guid>
     {
         public string Password { get; set; } = string.Empty;
-        public DateTime DayofBirth { get; set; }
-        public string Address { get; set; }
         public virtual UserInfo? UserInfo { get; set; }
         public string? CreatedBy { get; set; }
         public string? LastUpdatedBy { get; set; }
@@ -21,10 +19,6 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
-
-        // Khóa ngoại đến ApplicationRole
-        public string RoleId { get; set; }
-        public virtual ApplicationRole Role { get; set; }
 
         // Mối quan hệ với bảng Bookings(một-nhiều)
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
