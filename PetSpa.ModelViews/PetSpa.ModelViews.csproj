@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="UserModelViews\" />
-    <Folder Include="PackageModelViews\" />
 
   </ItemGroup>
 
