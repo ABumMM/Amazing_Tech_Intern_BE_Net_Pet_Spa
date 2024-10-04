@@ -11,19 +11,18 @@ namespace PetSpa.Contract.Repositories.Entity
     public class Orders : BaseEntity
     {
 
-        public string? UserId { get; set; }
+        //public string? UserId { get; set; }
 
         public string PaymentMethod { get; set; } = string.Empty;
 
         public double Total { get; set; }
 
 
-        public virtual ApplicationUser User { get; set; }
+        //public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
         // liên kết khóa ngoại khách hàng
-        //public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
 
 
     }

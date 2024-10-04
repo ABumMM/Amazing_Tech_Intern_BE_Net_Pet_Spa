@@ -55,6 +55,15 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: package));
         }
+        [HttpGet("conditions")]
+        public async Task<IActionResult> GetPackageByConditions(DateTimeOffset? DateStart, DateTimeOffset? DateEnd)
+        {
+            var package = await _packageService.GetPackageByConditions(DateStart,DateEnd);
+            return Ok(new BaseResponseModel<List<GETPackageModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: package));
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePackage([FromBody] PUTPackageModelView packageMV)
         {
@@ -64,6 +73,14 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Update package successful"));
         }
-
+        [HttpDelete("ServiceInPackageID")]
+        public async Task<IActionResult> DeleteServiceInPackage(string serviceINPackageID)
+        {
+            await _packageService.DeleteServiceInPakcage(serviceINPackageID);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Delete service successful"));
+        }
     }
 }
