@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -17,7 +18,7 @@ namespace PetSpaBE.API.Controllers
         {
             _packageService = packageService;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 10)
         {
