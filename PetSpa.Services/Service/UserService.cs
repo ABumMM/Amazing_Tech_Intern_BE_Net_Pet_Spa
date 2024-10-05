@@ -94,11 +94,13 @@ namespace PetSpa.Services.Service
 
             int totalUsers = await userRepository.Entities.CountAsync();
 
-            var userModelViews = users.Select(async user =>
+            var userModelViews = new List<GETUserModelView>();
+
+            foreach (var user in users)
             {
                 var roleName = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? string.Empty;
 
-                return new GETUserModelView
+                userModelViews.Add(new GETUserModelView
                 {
                     Id = user.Id,
                     Email = user.Email,
@@ -106,11 +108,12 @@ namespace PetSpa.Services.Service
                     UserInfo = user.UserInfo ?? new UserInfo(),
                     CreatedBy = user.CreatedBy,
                     CreatedTime = user.CreatedTime,
-                };
-            });
+                });
+            }
 
-            return new BasePaginatedList<GETUserModelView>(await Task.WhenAll(userModelViews), totalUsers, pageNumber, pageSize);
+            return new BasePaginatedList<GETUserModelView>(userModelViews, totalUsers, pageNumber, pageSize);
         }
+
 
         public async Task<PUTUserModelView> Update(PUTUserModelView user)
         {
