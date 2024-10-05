@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace PetSpaBE.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase

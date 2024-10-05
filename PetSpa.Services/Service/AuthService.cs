@@ -50,8 +50,7 @@ namespace PetSpa.Services.Service
             {
                 UserInfo = new UserInfo { FullName = signup.FullName },
                 Email = signup.Email,
-                UserName = signup.Email,  // Thiết lập UserName rõ ràng
-                //PhoneNumber = signup.PhoneNumber,
+                UserName = signup.Email, 
                 Password = signup.Password,
             };
 
@@ -71,7 +70,7 @@ namespace PetSpa.Services.Service
                     throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error adding role: " + string.Join(", ", result.Errors.Select(e => e.Description)));
                 }
 
-                return GenerateJwtToken(user);
+                return await GenerateJwtToken(user);
             }
 
             throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error occurred during signup: " + string.Join(", ", result.Errors.Select(e => e.Description)));
@@ -100,7 +99,7 @@ namespace PetSpa.Services.Service
             }
 
             // Tạo token và trả về
-            return GenerateJwtToken(user);
+            return await GenerateJwtToken(user);
         }
 
 
@@ -130,20 +129,30 @@ namespace PetSpa.Services.Service
             return true;
         }
 
-        public string GenerateJwtToken(ApplicationUser user)
+        
+        public async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
+
+            // Lấy danh sách vai trò của người dùng
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleClaims = roles.Select(role => new Claim(ClaimTypes.Role, role)).ToList();
+
+            var claims = new List<Claim>
+            {
+                new Claim("id", user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("fullName", user.UserInfo?.FullName ?? string.Empty)
+            };
+
+            // Thêm các role claim vào danh sách claim
+            claims.AddRange(roleClaims);
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim("id", user.Id.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim("fullName", user.UserInfo?.FullName ?? string.Empty),
-                    new Claim(ClaimTypes.Role, "")
-                }),
+                Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

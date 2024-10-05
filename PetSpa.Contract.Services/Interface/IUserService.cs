@@ -7,9 +7,9 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IUserService
     {
+        Task<GETUserModelView> GetById(Guid id);
         Task<BasePaginatedList<GETUserModelView>> GetAll(int pageNumber = 1, int pageSize = 3);
-        Task<GETUserModelView?> GetById(Guid userID);
-        Task Update(PUTUserModelView user);
+        Task<PUTUserModelView> Update(PUTUserModelView user);
         Task Delete(Guid Id);
     }
 }

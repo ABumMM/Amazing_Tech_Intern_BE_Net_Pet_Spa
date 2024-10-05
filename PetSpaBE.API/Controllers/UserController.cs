@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.PackageModelViews;
@@ -40,6 +41,7 @@ namespace PetSpaBE.API.Controllers
                 data: user));
         }
 
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser([FromBody] PUTUserModelView user)
         {
