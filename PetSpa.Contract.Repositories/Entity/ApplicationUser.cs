@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class ApplicationUser:IdentityUser<Guid>
+    public class ApplicationUser : IdentityUser<Guid>
     {
         public string Password { get; set; } = string.Empty;
         public virtual UserInfo? UserInfo { get; set; }

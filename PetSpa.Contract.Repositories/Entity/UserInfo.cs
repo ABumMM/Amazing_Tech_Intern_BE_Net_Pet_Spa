@@ -2,7 +2,7 @@
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class UserInfo:BaseEntity
+    public class UserInfo : BaseEntity
     {
         public string FullName { get; set; } = string.Empty;
         public DateTime DayofBirth { get; set; }

@@ -61,24 +61,18 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
 
-            //existedMemberShips.DeletedTime = DateTime.Now;
-            //existedPackage.DeletedBy = ehehehheh;
-            await _unitOfWork.GetRepository<MemberShips>().DeleteAsync(MemberShipId);
+            existedMemberShips.DeletedTime = DateTime.Now;
+            existedMemberShips.DeletedBy = "ehehehheh";
+            await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(existedMemberShips);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber = 1, int pageSize = 3)
+        public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize)
         {
+            //khi chia trang
+            //IQueryable<>
+            //IQueryable<MemberShips> memberShips = _unitOfWork.GetRepository<MemberShips>().Entities.Where(i => !i.DeletedTime.HasValue).AsQueryable();
             var memberShips = await _unitOfWork.GetRepository<MemberShips>().GetAllAsync();
-            if (memberShips == null)
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
-            }
-
-            if (memberShips == null || !memberShips.Any())
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
-            }
             var memberShipViewModels = memberShips.Select(pa => new GETMemberShipModelView
             {
                 Id = pa.Id,
@@ -89,7 +83,6 @@ namespace PetSpa.Services.Service
             }).ToList();
             //Count Package
             int totalPackage = memberShips.Count;
-
             var paginatedMemberShips = memberShipViewModels
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -104,11 +97,8 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid memberhip ID.");
             }
-            var existedMemberShips = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(p => p.Id == memberShipID);
-            if (existedMemberShips == null)
-            {
+            var existedMemberShips = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(p => p.Id == memberShipID) ??
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found membership");
-            }
             return new GETMemberShipModelView
             {
                 Id = existedMemberShips.Id,

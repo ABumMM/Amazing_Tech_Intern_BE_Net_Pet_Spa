@@ -39,7 +39,10 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> AddBookingPK(Booking_PackageVM bookingPKVM)
         {
             await _bookingPackageService.Add(bookingPKVM);
-            return Ok();
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Them thanh cong"));
         }
 
         [HttpGet("{id}")]

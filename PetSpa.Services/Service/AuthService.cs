@@ -31,7 +31,7 @@ namespace PetSpa.Services.Service
             _configuration = configuration;
         }
 
-        public async Task<string> SignUpAsync(SignUpAuthModelView signup)
+        public async Task<string?> SignUpAsync(SignUpAuthModelView signup)
         {
             if (signup == null)
             {
@@ -77,7 +77,7 @@ namespace PetSpa.Services.Service
         }
 
 
-        public async Task<string> SignInAsync(SignInAuthModelView signin)
+        public async Task<string?> SignInAsync(SignInAuthModelView signin)
         {
             if (signin == null)
             {
@@ -127,9 +127,7 @@ namespace PetSpa.Services.Service
             }
 
             return true;
-        }
-
-        
+        }    
         public async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
