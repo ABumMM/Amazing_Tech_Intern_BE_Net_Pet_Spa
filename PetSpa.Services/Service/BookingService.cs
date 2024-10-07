@@ -20,15 +20,51 @@ namespace PetSpa.Services.Service
         {
             _unitOfWork = unitOfWork;
         }
-        
+
+
+        //public async Task<bool> Add(POSTBookingVM bookingVM)
+        //{
+        //    // Kiểm tra nếu OrdersId là null
+        //    if (string.IsNullOrEmpty(bookingVM.OrdersId))
+        //    {
+        //        return false;
+        //    }
+
+        //    // Kiểm tra nếu OrderId không tồn tại
+        //    //var existingOrder = await _unitOfWork.GetRepository<Orders>().Entities
+        //    //  .FirstOrDefaultAsync(o => o.Id == bookingVM.OrdersId);
+        //    var existedBooking = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync(p => p.Id == bookingVM.OrdersId);
+
+        //    if (existedBooking == null)
+        //    {
+        //        return false;
+        //    }
+
+        //    // Tạo đối tượng Booking mới
+        //    Bookings Booking = new Bookings()
+        //    {
+        //        Description = bookingVM.Description,
+        //        Status = bookingVM.Status,
+        //        Date = bookingVM.Date,
+        //        OrdersId = bookingVM.OrdersId,
+        //    };
+
+        //    // Thêm Booking vào cơ sở dữ liệu
+        //    await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
+        //    await _unitOfWork.SaveAsync();
+
+        //    // Ném ra thông báo thành công
+        //    return true;
+        //}
         public async Task Add(POSTBookingVM bookingVM)
-        {         
+        {
+            //var existingOrder = await _unitOfWork.GetRepository<Orders>().Entities
+            //.FirstOrDefaultAsync(o => o.Id == bookingVM.OrdersId);
             Bookings Booking = new Bookings()
             {
                 Description = bookingVM.Description,
                 Status = bookingVM.Status,
                 Date = bookingVM.Date,
-                
                 OrdersId = bookingVM.OrdersId,
             };
             await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
@@ -59,6 +95,7 @@ namespace PetSpa.Services.Service
 
         public async Task<GETBookingVM?> GetById(string id)
         {
+            // chỉ truy vấn nhưng booking có deleteTime = null nghĩa là chưa được xóa
             IQueryable<Bookings> query = _unitOfWork.GetRepository<Bookings>().Entities.Where(q => !q.DeletedTime.HasValue);
             var existedBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);   
             if(existedBooking == null)
@@ -74,10 +111,6 @@ namespace PetSpa.Services.Service
                     OrdersId = existedBooking.OrdersId,
                 };
             return bookingVM;
-        }
-        public Task<GETBookingVM?> GetById(object id)
-        {
-            throw new NotImplementedException();
         }
         public async Task Update( POSTBookingVM bookingVM, string id)
         {

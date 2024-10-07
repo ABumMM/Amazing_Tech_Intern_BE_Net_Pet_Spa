@@ -49,7 +49,7 @@ namespace PetSpa.Services.Service
                 .Include(bp => bp.Package)
                 .ToListAsync();
             var packageGroups = bookingPackages.GroupBy(bp => bp.BookingId)
-                .ToDictionary(group => group.Key, group => group.Select(bp => new GETPackageModelView
+                .ToDictionary(group => group.Key, group => group.Select(bp => new PackageDTO
                 {
                     Id = bp.PackageId,
                     Name = bp.Package?.Name,
@@ -63,7 +63,7 @@ namespace PetSpa.Services.Service
                 Description = b.Description,
                 Date = b.Date,
                 Status = b.Status,
-                Packages = packageGroups.ContainsKey(b.Id) ? packageGroups[b.Id] : new List<GETPackageModelView>()
+                Packages = packageGroups.ContainsKey(b.Id) ? packageGroups[b.Id] : new List<PackageDTO>()
             }).ToList();
 
             // Phân trang
@@ -75,53 +75,42 @@ namespace PetSpa.Services.Service
 
             return new BasePaginatedList<GETBooking_PackageVM>(paginatedBookingPK, totalBookings, pageNumber, pageSize);
         }
-
-
-        //public async Task<BasePaginatedList<Booking_PackageVM>> GetAll(int pageNumber, int pageSize)
-        //{
-        //    var bookingPackages = await _unitOfWork.GetRepository<BookingPackage>().GetAllAsync();
-
-        //    var bookingPKViewModels = bookingPackages.Select(bk => new Booking_PackageVM
-        //    {
-        //        BookingId = bk.BookingId,
-        //        PackageId = bk.PackageId,
-        //        AddedDate = bk.AddedDate,
-
-        //    }).ToList();
-        //    int totalBookingPK = bookingPackages.Count;
-
-        //    var paginatedBookingPK = bookingPKViewModels
-        //        .Skip((pageNumber - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToList();
-
-        //    return new BasePaginatedList<Booking_PackageVM>(paginatedBookingPK, totalBookingPK, pageNumber, pageSize);
-        //}
-        public async Task<List<Booking_PackageVM>> GetById(string id)
+        public async Task<GETBooking_PackageVM> GetById(string id)
         {
-            var existedBookingPKs = await _unitOfWork.GetRepository<BookingPackage>()
-                .Entities
-                .Where(p => p.BookingId == id)
-                .ToListAsync();
-            if (!existedBookingPKs.Any())
-            {
-                return null;
-            }
-            var bookingPKVMs = existedBookingPKs.Select(existedBookingPK => new Booking_PackageVM
-            {
-                BookingId = existedBookingPK.BookingId,
-                PackageId = existedBookingPK.PackageId,
-                AddedDate = existedBookingPK.AddedDate,
-            }).ToList();
+            var booking = await _unitOfWork.GetRepository<Bookings>()
+            .Entities
+            .FirstOrDefaultAsync(b => b.Id == id);
 
-            return bookingPKVMs;
+            if (booking == null)
+            {
+                return null; 
+            }
+            var bookingPackages = await _unitOfWork.GetRepository<BookingPackage>()
+                .Entities
+                .Where(bp => bp.BookingId == id)
+                .Include(bp => bp.Package)
+                .ToListAsync();
+            var packages = bookingPackages.Select(bp => new PackageDTO
+            {
+                Id = bp.PackageId,
+                Name = bp.Package?.Name,
+                Price = bp.Package?.Price.GetValueOrDefault()
+            }).ToList();
+            var bookingWithPackagesVM = new GETBooking_PackageVM
+            {
+                BookingId = booking.Id,
+                Description = booking.Description,
+                Date = booking.Date,
+                Status = booking.Status,
+                Packages = packages
+            };
+
+            return bookingWithPackagesVM;
         }
         public async Task<bool> DeleteBookingPackageAsync(string bookingId, string packageId)
         {
             var repository = _unitOfWork.GetRepository<BookingPackage>();
-            //bookingId = bookingId.Trim();
-            //packageId = packageId.Trim();
-            var bookingPackage = await repository.GetByKeysAsync(bookingId, packageId);
+            var bookingPackage = await _unitOfWork.GetRepository<BookingPackage>().GetByKeysAsync(bookingId, packageId);
 
             if (bookingPackage == null)
             {

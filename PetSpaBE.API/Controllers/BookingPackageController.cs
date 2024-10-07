@@ -39,7 +39,10 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> AddBookingPK(Booking_PackageVM bookingPKVM)
         {
             await _bookingPackageService.Add(bookingPKVM);
-            return Ok();
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Add BookingPackage successful"));
         }
 
         [HttpGet("{id}")]
@@ -47,7 +50,7 @@ namespace PetSpaBE.API.Controllers
         {
             var bookingPK = await _bookingPackageService.GetById(id);
 
-            if (bookingPK == null || !bookingPK.Any())
+            if (bookingPK == null)
             {
                 return NotFound(new
                 {
@@ -57,7 +60,7 @@ namespace PetSpaBE.API.Controllers
                 });
             }
 
-            return Ok(new BaseResponseModel<List<Booking_PackageVM>>(
+            return Ok(new BaseResponseModel<GETBooking_PackageVM>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: bookingPK));

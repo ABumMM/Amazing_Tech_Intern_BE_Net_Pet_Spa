@@ -13,10 +13,6 @@ namespace PetSpa.ModelViews.BookingPackageModelViews
         public string? BookingId { get; set; }
         public string? PackageId { get; set; }
         public DateTimeOffset AddedDate { get; set; }
-        //public string? Description { get; set; }
-        //public DateTime Date { get; set; }
-        //public string? Status { get; set; }
-
-        //public List<GETPackageModelView> Packages { get; set; } = new List<GETPackageModelView>();
+        
     }
 }
