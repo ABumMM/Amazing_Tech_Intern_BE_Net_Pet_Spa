@@ -4,28 +4,22 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Infrastructure;
 using PetSpa.Core.Utils;
 using PetSpa.ModelViews.MemberShipModelView;
 using PetSpa.ModelViews.MemberShipModelViews;
-using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PetSpa.Services.Service
 {
     public class MemberShipService:IMembershipsService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public MemberShipService(IUnitOfWork unitOfWork)
+        private readonly IHttpContextAccessor _contextAccessor;
+        private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
+        public MemberShipService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
         {
             _unitOfWork = unitOfWork;
+            _contextAccessor= contextAccessor;
         }
-
         public async Task Add(POSTMemberShipModelView memberShipMV)
         {
             if (memberShipMV == null)
@@ -40,13 +34,13 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Point must be greater than or equal to 0.");
             }
-
             MemberShips memberShips = new MemberShips()
             {
                 Name = memberShipMV.Name,
                 Point = memberShipMV.Point,
                 SpecialOffer = memberShipMV.SpecialOffer,
-                CreatedTime =TimeHelper.ConvertToUtcPlus7(DateTime.Now),
+                CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
+                CreatedBy = currentUserId
             };
 
             await _unitOfWork.GetRepository<MemberShips>().InsertAsync(memberShips);
@@ -60,55 +54,44 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
-
-            //existedMemberShips.DeletedTime = DateTime.Now;
-            //existedPackage.DeletedBy = ehehehheh;
-            await _unitOfWork.GetRepository<MemberShips>().DeleteAsync(MemberShipId);
+            existedMemberShips.DeletedTime = DateTime.Now;
+            existedMemberShips.DeletedBy = "ehehehheh";
+            await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(existedMemberShips);
             await _unitOfWork.SaveAsync();
         }
 
         public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize)
         {
-            var memberShips = await _unitOfWork.GetRepository<MemberShips>().GetAllAsync();
-            if (memberShips == null)
+            if (pageNumber <= 0 || pageSize <= 0)
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
             }
-
-            if (memberShips == null || !memberShips.Any())
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
-            }
-            var memberShipViewModels = memberShips.Select(pa => new GETMemberShipModelView
-            {
-                Id = pa.Id,
-                Name = pa.Name,
-                Point=pa.Point,
-                SpecialOffer=pa.SpecialOffer,
-                CreatedTime = pa.CreatedTime,
-            }).ToList();
-            //Count Package
-            int totalPackage = memberShips.Count;
-
-            var paginatedMemberShips = memberShipViewModels
+            IQueryable<MemberShips> memberShips = _unitOfWork.GetRepository<MemberShips>()
+                .Entities.Where(i => !i.DeletedTime.HasValue)//Membership chưa bị xóa
+                .OrderByDescending(c=>c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo
+            //Phân trang và chỉ lấy các bản ghi cần thiết
+            var paginatedMemberShips = await memberShips
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
-
-            return new BasePaginatedList<GETMemberShipModelView>(paginatedMemberShips, totalPackage, pageNumber, pageSize);
+                .Select(pa => new GETMemberShipModelView
+                {
+                    Id = pa.Id,
+                    Name = pa.Name,
+                    Point = pa.Point,
+                    SpecialOffer = pa.SpecialOffer,
+                    CreatedTime = pa.CreatedTime,
+                    CreatedBy = pa.CreatedBy,
+                }).ToListAsync();
+            return new BasePaginatedList<GETMemberShipModelView>(paginatedMemberShips, await memberShips.CountAsync(), pageNumber, pageSize);
         }
-
         public async Task<GETMemberShipModelView?> GetById(string memberShipID)
         {
             if (string.IsNullOrWhiteSpace(memberShipID))
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid memberhip ID.");
             }
-            var existedMemberShips = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(p => p.Id == memberShipID);
-            if (existedMemberShips == null)
-            {
+            var existedMemberShips = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(p => p.Id == memberShipID) ??
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found membership");
-            }
             return new GETMemberShipModelView
             {
                 Id = existedMemberShips.Id,
@@ -116,16 +99,12 @@ namespace PetSpa.Services.Service
                 Point = existedMemberShips.Point,
                 SpecialOffer = existedMemberShips.SpecialOffer,
                 CreatedTime = existedMemberShips.CreatedTime
-               
             };
-
         }
-
         public Task<List<GETMemberShipModelView?>> GetMemberShips(string packageID, DateTime? DateStart, DateTime? EndStart, string? Name)
         {
             throw new NotImplementedException();
         }
-
         public async Task Update(PUTMemberShipModelView memberShipMV)
         {
             // Kiểm tra nếu packageMV null
@@ -133,7 +112,6 @@ namespace PetSpa.Services.Service
             {
                 throw new BadRequestException(ErrorCode.BadRequest, "MemberShip cannot be null.");
             }
-
             // Kiểm tra nếu Id bị thiếu hoặc không hợp lệ
             if (memberShipMV.Id == null)
             {

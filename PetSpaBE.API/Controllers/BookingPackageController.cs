@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PetSpa.Contract.Repositories.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
-using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.BookingPackageModelViews;
-using PetSpa.Services.Service;
-
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -15,8 +9,6 @@ namespace PetSpaBE.API.Controllers
     public class BookingPackageController : ControllerBase
     {
         private readonly IBookingPackage_Service _bookingPackageService;
-       
-
         public BookingPackageController(IBookingPackage_Service bookingPKService)
         {
             _bookingPackageService = bookingPKService;
@@ -33,15 +25,16 @@ namespace PetSpaBE.API.Controllers
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: bookingPKs));
-
         }
         [HttpPost]
         public async Task<IActionResult> AddBookingPK(Booking_PackageVM bookingPKVM)
         {
             await _bookingPackageService.Add(bookingPKVM);
-            return Ok();
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Them thanh cong"));
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBookingPKById(string id)
         {
@@ -56,7 +49,6 @@ namespace PetSpaBE.API.Controllers
                     Message = "Không tìm thấy Booking với ID đó."
                 });
             }
-
             return Ok(new BaseResponseModel<List<Booking_PackageVM>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
