@@ -1,16 +1,8 @@
-﻿using PetSpa.ModelViews.ModelViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PetSpa.ModelViews.AuthModelViews;
 
-namespace PetSpa.Contract.Services.Interface
+public interface IAuthService
 {
-    public interface IAuthService
-    {
-        Task Add(UserResponseModel user);
-        Task Update(UserResponseModel user);
-        Task Delete(object id);
-    }
+    Task<string?> SignUpAsync(SignUpAuthModelView signup);
+    Task<string?> SignInAsync(SignInAuthModelView signin);
+    Task<bool> ChangePasswordAsync(ChangePasswordAuthModelView changepass, Guid UserId);
 }

@@ -42,7 +42,7 @@ namespace PetSpaBE.API.Controllers
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
-                data: "Add BookingPackage successful"));
+                data: "Them thanh cong"));
         }
 
         [HttpGet("{id}")]

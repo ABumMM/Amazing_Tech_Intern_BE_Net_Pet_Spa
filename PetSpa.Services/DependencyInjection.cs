@@ -10,10 +10,12 @@ namespace PetSpa.Services
 {
     public static class DependencyInjection
     {
-        public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static void AddInfrastructure(this IServiceCollection services)
         {
             services.AddServices();
             services.AddRepositories();
+            services.AddHttpContextAccessor();
+
         }
         public static void AddRepositories(this IServiceCollection services)
         {
@@ -27,23 +29,11 @@ namespace PetSpa.Services
             services.AddScoped<IServicesService, ServicesService>();
             services.AddScoped<IMembershipsService, MemberShipService>();
             services.AddScoped<IBookingServicecs, BookingService>();
-
-
-
-            //services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IOrderService, OrderService>();
 
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IBookingPackage_Service, BookingPackageService>();
 
-            services.AddScoped<IBookingPackage_Service, BookingPackageService >();
-
-            services.AddScoped<IOrderDetailServices, OrderDetailService>();
-            services.AddScoped<IPackageService_Service, PackageService_Service>();
-
-
-
-            services.AddScoped<IPetService, PetService>();
-
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IOrderDetailServices, OrderDetailService>();
 

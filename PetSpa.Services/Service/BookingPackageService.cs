@@ -77,10 +77,30 @@ namespace PetSpa.Services.Service
         }
         public async Task<GETBooking_PackageVM> GetById(string id)
         {
+            if (id != null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Point must be greater than or equal to 0.");
+
+            }
+            var existedBookingPKs = await _unitOfWork.GetRepository<BookingPackage>()
+                .Entities
+                .Where(p => p.BookingId == id)
+                .ToListAsync();
+            if (!existedBookingPKs.Any())
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Không tìm thấy ");
+
+            }
+            // Duyệt qua tất cả các bản ghi và chuyển đổi thành ViewModel
+            var bookingPKVMs = existedBookingPKs.Select(existedBookingPK => new Booking_PackageVM
+            {
+                BookingId = existedBookingPK.BookingId,
+                PackageId = existedBookingPK.PackageId,
+                AddedDate = existedBookingPK.AddedDate,
+            }).ToList();
             var booking = await _unitOfWork.GetRepository<Bookings>()
             .Entities
             .FirstOrDefaultAsync(b => b.Id == id);
-
             if (booking == null)
             {
                 return null; 

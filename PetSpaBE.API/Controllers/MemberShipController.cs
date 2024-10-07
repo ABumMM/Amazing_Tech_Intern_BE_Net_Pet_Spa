@@ -21,7 +21,7 @@ namespace PetSpaBE.API.Controllers
             _membershipsService = membershipsService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllMemberShips(int pageNumber = 1, int pageSize = 2)
+        public async Task<IActionResult> GetAllMemberShips(int pageNumber, int pageSize)
         {
             var memberShips = await _membershipsService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETMemberShipModelView>>(
@@ -57,18 +57,14 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: memberShip));
         }
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateMemberShip(MemberShips memberShip)
-        //{
-        //    try
-        //    {
-        //        await _membershipsService.Update(memberShip);
-        //        return Ok();
-        //    }
-        //    catch
-        //    {
-        //        return NotFound("MemberShip not found!");
-        //    }
-        //}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateMemberShip([FromBody]PUTMemberShipModelView memberShipMV)
+        {
+            await _membershipsService.Update(memberShipMV);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update package successful"));
+        }
     }
 }

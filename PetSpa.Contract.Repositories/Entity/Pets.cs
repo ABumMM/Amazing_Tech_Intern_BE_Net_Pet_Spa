@@ -11,7 +11,6 @@ namespace PetSpa.Contract.Repositories.Entity
     public class Pets : BaseEntity
     {
         //public Guid Id { get; set; } 
-
         public string Name { get; set; } = string.Empty;
         public string Species { get; set; } = string.Empty;
         public decimal Weight { get; set; }
@@ -19,7 +18,6 @@ namespace PetSpa.Contract.Repositories.Entity
         public int Age { get; set; }
         public string? Description { get; set; }
         public string? Image { get; set; }
-
         // Khóa ngoại đến User
         //public Guid UserId { get; set; }
         public virtual ApplicationUser? Users { get; set; }

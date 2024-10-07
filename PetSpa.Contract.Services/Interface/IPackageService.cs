@@ -10,9 +10,11 @@ namespace PetSpa.Contract.Services.Interface
     {
         Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber = 1, int pageSize = 3);
         Task<GETPackageModelView?> GetById(string packageID);
-        Task<List<GETPackageModelView?>> GetPackages(string packageID, DateTime? DateStart, DateTime? EndStart, string? Name);
+        Task<List<GETPackageModelView>?> GetPackageByConditions(DateTimeOffset? DateStart, DateTimeOffset? EndStart);
         Task Add(POSTPackageModelView package);
         Task Update(PUTPackageModelView packageMV);
         Task Delete(string packageID);
+        Task DeleteServiceInPakcage(string serviceINPackageID);
+
     }
 }

@@ -6,6 +6,7 @@ using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.OrderDetailModelViews;
 using PetSpa.ModelViews.PackageModelViews;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
 namespace PetSpa.Services.Service
@@ -117,7 +118,7 @@ namespace PetSpa.Services.Service
                 Status = orD.Status,
                 //OrderID = orD.OrderID,
                 CreatedTime = orD.CreatedTime,
-                ListPackage = orD.OrderDetailPackages.Select(odp => new GETPackageModelView
+                ListPackage = orD.OrderDetailPackages.Select(odp => new GETPackageModelView_OrderDetails
                 {
                     Id = odp.Package.Id,
                     Name = odp.Package.Name,
@@ -125,6 +126,7 @@ namespace PetSpa.Services.Service
                     Image = odp.Package.Image,
                     Information = odp.Package.Information,
                     Experiences = odp.Package.Experiences,
+                    
                 }).ToList()
             }).ToList();
 

@@ -12,11 +12,6 @@ namespace PetSpa.Contract.Repositories.Entity
         public DateTimeOffset LastUpdatedTime { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
 
-        // Quan hệ một-nhiều với Users  
-        public virtual ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
-
-
-
         public ApplicationRole()
         {
             CreatedTime = CoreHelper.SystemTimeNow;
