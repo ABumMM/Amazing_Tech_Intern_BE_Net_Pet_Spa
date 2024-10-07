@@ -23,7 +23,7 @@ namespace PetSpa.Services.Service
             {
                 throw new BadRequestException(ErrorCode.BadRequest, "Pet cannot be null.");
             }
-            if (petMV.Name==null)
+            if (petMV.Name == null)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pet name is required.");
             }
@@ -40,10 +40,10 @@ namespace PetSpa.Services.Service
                 CreatedTime = DateTime.Now,
 
             };
-         
+
             await _unitOfWork.GetRepository<Pets>().InsertAsync(pets);
             await _unitOfWork.SaveAsync();
-            
+
 
         }
 
@@ -73,7 +73,7 @@ namespace PetSpa.Services.Service
                 Age = r.Age,
                 Description = r.Description,
                 Image = r.Image,
-            
+
                 CreatedTime = DateTime.Now,
             }).ToList();
 

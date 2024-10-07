@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,42 +19,41 @@ namespace PetSpa.Services.Service
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
         public AuthService(
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
             IUnitOfWork unitOfWork,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _unitOfWork = unitOfWork;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         public async Task<string> SignUpAsync(SignUpAuthModelView signup)
         {
-            if (signup == null)
+            // Kiểm tra từng thuộc tính của signup
+            if (signup.FullName == null)
             {
-                throw new BadRequestException(ErrorCode.BadRequest, "SignUp model cannot be null.");
+                throw new BadRequestException(ErrorCode.BadRequest, "Full name is required.");
             }
+
             if (string.IsNullOrWhiteSpace(signup.Email) || !signup.Email.Contains("@"))
             {
                 throw new BadRequestException(ErrorCode.InvalidInput, "Email is required and must be valid.");
             }
+
             if (string.IsNullOrWhiteSpace(signup.Password) || signup.Password.Length < 6)
             {
                 throw new BadRequestException(ErrorCode.InvalidInput, "Password must be at least 6 characters long.");
             }
 
-            ApplicationUser user = new ApplicationUser
-            {
-                UserInfo = new UserInfo { FullName = signup.FullName },
-                Email = signup.Email,
-                UserName = signup.Email, 
-                Password = signup.Password,
-            };
-
+            var user = _mapper.Map<ApplicationUser>(signup);
             var result = await _userManager.CreateAsync(user, signup.Password);
 
             if (result.Succeeded)
@@ -76,17 +76,14 @@ namespace PetSpa.Services.Service
             throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error occurred during signup: " + string.Join(", ", result.Errors.Select(e => e.Description)));
         }
 
-
-        public async Task<string> SignInAsync(SignInAuthModelView signin)
+        public async Task<string?> SignInAsync(SignInAuthModelView signin)
         {
-            if (signin == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "SignIn model cannot be null.");
-            }
-            if (string.IsNullOrWhiteSpace(signin.Email) || !signin.Email.Contains("@"))
+            // Kiểm tra từng thuộc tính của signin
+            if (signin.Email == null || !signin.Email.Contains("@"))
             {
                 throw new BadRequestException(ErrorCode.InvalidInput, "Email is required and must be valid.");
             }
+
             if (string.IsNullOrWhiteSpace(signin.Password))
             {
                 throw new BadRequestException(ErrorCode.InvalidInput, "Password cannot be empty.");
@@ -102,16 +99,27 @@ namespace PetSpa.Services.Service
             return await GenerateJwtToken(user);
         }
 
-
         public async Task<bool> ChangePasswordAsync(ChangePasswordAuthModelView changepass, Guid userId)
         {
-            if (changepass == null)
+            // Kiểm tra từng thuộc tính của changepass
+            if (changepass.CurrentPassword == null)
             {
-                throw new BadRequestException(ErrorCode.BadRequest, "ChangePassword model cannot be null.");
+                throw new BadRequestException(ErrorCode.InvalidInput, "Current password cannot be empty.");
             }
-            if (string.IsNullOrWhiteSpace(changepass.CurrentPassword) || string.IsNullOrWhiteSpace(changepass.NewPassword))
+
+            if (string.IsNullOrWhiteSpace(changepass.NewPassword))
             {
-                throw new BadRequestException(ErrorCode.InvalidInput, "Current and new passwords cannot be empty.");
+                throw new BadRequestException(ErrorCode.InvalidInput, "New password cannot be empty.");
+            }
+
+            if (changepass.NewPassword.Length < 6)
+            {
+                throw new BadRequestException(ErrorCode.InvalidInput, "New password must be at least 6 characters long.");
+            }
+
+            if (changepass.NewPassword != changepass.ConfirmPassword)
+            {
+                throw new BadRequestException(ErrorCode.InvalidInput, "New password and confirm password do not match.");
             }
 
             var user = await _userManager.FindByIdAsync(userId.ToString());
@@ -129,7 +137,6 @@ namespace PetSpa.Services.Service
             return true;
         }
 
-        
         public async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
