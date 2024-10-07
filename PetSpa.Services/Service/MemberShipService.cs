@@ -67,7 +67,7 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber = 1, int pageSize = 3)
+        public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize)
         {
             var memberShips = await _unitOfWork.GetRepository<MemberShips>().GetAllAsync();
             if (memberShips == null)

@@ -21,7 +21,7 @@ namespace PetSpaBE.API.Controllers
             _membershipsService = membershipsService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllMemberShips(int pageNumber = 1, int pageSize = 2)
+        public async Task<IActionResult> GetAllMemberShips(int pageNumber , int pageSize)
         {
             var memberShips = await _membershipsService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETMemberShipModelView>>(
