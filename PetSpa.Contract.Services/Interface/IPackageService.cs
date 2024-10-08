@@ -8,7 +8,7 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IPackageService
     {
-        Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber = 1, int pageSize = 3);
+        Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber, int pageSize);
         Task<GETPackageModelView?> GetById(string packageID);
         Task<List<GETPackageModelView>?> GetPackageByConditions(DateTimeOffset? DateStart, DateTimeOffset? EndStart);
         Task Add(POSTPackageModelView package);

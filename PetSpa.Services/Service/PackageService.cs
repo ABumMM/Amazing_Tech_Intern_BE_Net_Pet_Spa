@@ -4,33 +4,28 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Infrastructure;
 using PetSpa.Core.Utils;
-using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.ModelViews.PackageServiceModelViews;
-using PetSpa.ModelViews.ServiceModelViews;
 using PetSpa.Repositories.UOW;
+
 using ServicesEntity = PetSpa.Contract.Repositories.Entity.Services;
+
 namespace PetSpa.Services.Service
 {
     public class PackageService : IPackageService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
 
-        public PackageService(IUnitOfWork unitOfWork)
+        public PackageService(IUnitOfWork unitOfWork,IHttpContextAccessor contextAccessor)
         {
             _unitOfWork = unitOfWork;
+            _contextAccessor = contextAccessor;
         }
         public async Task Add(POSTPackageModelView packageMV)
         {
-            if (packageMV == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "The packageVM field is required.");
-            }
-            if (packageMV.Name == null)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Package name is required.");
-            }
             if (packageMV.Price < 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
@@ -62,7 +57,6 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput,
                     $"The following service IDs are invalid: {string.Join(", ", invalidServiceIds)}");
             }
-       
             Packages packages = new Packages()
             {
                 Name = packageMV.Name,
@@ -71,6 +65,7 @@ namespace PetSpa.Services.Service
                 Information = packageMV.Information,
                 Experiences = packageMV.Experiences,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
+                CreatedBy=currentUserId
             };
             await _unitOfWork.GetRepository<Packages>().InsertAsync(packages);
             await _unitOfWork.SaveAsync();
@@ -111,49 +106,32 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber = 1, int pageSize = 2)
+        public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber , int pageSize)
         {
-            var packages = await _unitOfWork.GetRepository<Packages>()
-                                .Entities
-                                .Include(p => p.PackageServices!)
-                                .ThenInclude(ps => ps.ServicesEntity)
-                                .ToListAsync();
-            if (packages == null)
+            if (pageNumber <= 0 || pageSize <= 0)
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
             }
-
-            if (packages == null || !packages.Any())
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
-            }
-            var packageViewModels = packages.Select(pa => new GETPackageModelView
-            {
-                Id = pa.Id,
-                Name = pa.Name,
-                Price = pa.Price,
-                Image = pa.Image,
-                Information = pa.Information,
-                Experiences = pa.Experiences,
-                CreatedTime = pa.CreatedTime,
-                listService = pa.PackageServices?.Select(s => new GETPackageServiceModelView
-                {
-                    Id = s.Id,
-                    ServiceName = s.ServicesEntity?.Name,
-                }).ToList(),
-            }).ToList();
-
-            int totalPackage = packages.Count;
-
-            var paginatedPackages = packageViewModels
+            IQueryable<Packages> packages = _unitOfWork.GetRepository<Packages>()
+               .Entities.Where(i => !i.DeletedTime.HasValue)//Membership chưa bị xóa
+               .OrderByDescending(c => c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo
+            //Phân trang và chỉ lấy các bản ghi cần thiết
+            var paginatedPackages = await packages
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
-
-            return new BasePaginatedList<GETPackageModelView>(paginatedPackages, totalPackage, pageNumber, pageSize);
+                .Select(pa => new GETPackageModelView
+                {
+                    Id = pa.Id,
+                    Name = pa.Name,
+                    Price = pa.Price,
+                    Image = pa.Image,
+                    Information = pa.Information,
+                    Experiences = pa.Experiences,
+                    CreatedTime = pa.CreatedTime,
+                    CreatedBy = pa.CreatedBy,
+                }).ToListAsync();
+            return new BasePaginatedList<GETPackageModelView>(paginatedPackages, await packages.CountAsync(), pageNumber, pageSize);
         }
-
-
         public async Task<GETPackageModelView?> GetById(string? packageID)
         {
             if (string.IsNullOrWhiteSpace(packageID))
@@ -162,8 +140,6 @@ namespace PetSpa.Services.Service
             }
             var existedPackage = await _unitOfWork.GetRepository<Packages>()
                               .Entities
-                              .Include(p => p.PackageServices!)
-                              .ThenInclude(ps => ps.ServicesEntity)
                               .FirstOrDefaultAsync(p => p.Id == packageID);
             if (existedPackage == null)
             {
@@ -178,16 +154,9 @@ namespace PetSpa.Services.Service
                 Information = existedPackage.Information,
                 Experiences = existedPackage.Experiences,
                 CreatedTime = existedPackage.CreatedTime,
-                listService = existedPackage.PackageServices?.Select(s => new GETPackageServiceModelView
-                {
-                    Id = s.Id,
-                    ServiceName = s.ServicesEntity?.Name,
-                }).ToList(),
-
             };
 
         }
-
         public async Task<List<GETPackageModelView>?> GetPackageByConditions(DateTimeOffset? DateStart, DateTimeOffset? DateEnd)
         {
             // Khởi tạo truy vấn cho bảng Packages
@@ -223,11 +192,7 @@ namespace PetSpa.Services.Service
                 Information = p.Information,
                 Experiences = p.Experiences,
                 CreatedTime = p.CreatedTime,
-                listService = p.PackageServices?.Select(ps => new GETPackageServiceModelView
-                {
-                    Id = ps.ServicesEntityID,
-                    ServiceName = ps.ServicesEntity?.Name,
-                }).ToList()
+                CreatedBy = p.CreatedBy,
             }).ToList();
             return packageViewModels;
         }
@@ -270,12 +235,10 @@ namespace PetSpa.Services.Service
             existedPackage.Information = packageMV.Information;
             existedPackage.Experiences = packageMV.Experiences;
             existedPackage.LastUpdatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
-
+            existedPackage.LastUpdatedBy = currentUserId;
             // Thực hiện cập nhật trong cơ sở dữ liệu
             await _unitOfWork.GetRepository<Packages>().UpdateAsync(existedPackage);
             await _unitOfWork.SaveAsync();
         }
-
-
     }
 }
