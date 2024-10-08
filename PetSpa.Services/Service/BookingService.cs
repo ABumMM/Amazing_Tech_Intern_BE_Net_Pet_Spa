@@ -58,8 +58,7 @@ namespace PetSpa.Services.Service
         //}
         public async Task Add(POSTBookingVM bookingVM)
         {
-            //var existingOrder = await _unitOfWork.GetRepository<Orders>().Entities
-            //.FirstOrDefaultAsync(o => o.Id == bookingVM.OrdersId);
+            
             Bookings Booking = new Bookings()
             {
                 Description = bookingVM.Description,
@@ -67,11 +66,25 @@ namespace PetSpa.Services.Service
                 Date = bookingVM.Date,
                 OrdersId = bookingVM.OrdersId,
             };
+            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
+            
+            if (order == null)
+            {
+                throw new ErrorException(
+            StatusCodes.Status404NotFound,
+            "OrderNotFound",
+            $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
+        );
+            }
             await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
             await _unitOfWork.SaveAsync();
         }
         public async Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber , int pageSize )
         {
+            if (pageSize < 1 || pageNumber <1 )
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
+            }
             var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
 
             var bookingViewModels = bookings.Select(bk => new GETBookingVM
@@ -95,30 +108,32 @@ namespace PetSpa.Services.Service
 
         public async Task<GETBookingVM?> GetById(string id)
         {
-            // chỉ truy vấn nhưng booking có deleteTime = null nghĩa là chưa được xóa
-            IQueryable<Bookings> query = _unitOfWork.GetRepository<Bookings>().Entities.Where(q => !q.DeletedTime.HasValue);
-            var existedBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);   
-            if(existedBooking == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
-                return null;
-            }    
-                var bookingVM = new GETBookingVM
-                {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid Booking ID.");
+            }
+            //var existedBooking = await _unitOfWork.GetRepository<Bookings>().GetByIdAsync(id);
+            var existedBooking = await _unitOfWork.GetRepository<Bookings>()
+                             .Entities
+                             .FirstOrDefaultAsync(p => p.Id == id);
+            if (existedBooking == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+            }
+            var bookingVM = new GETBookingVM
+            {
                     Id = existedBooking.Id,
                     Description = existedBooking.Description,
                     Date = existedBooking.Date,
                     Status = existedBooking.Status,
                     OrdersId = existedBooking.OrdersId,
-                };
+            };
             return bookingVM;
+            
+            
         }
         public async Task Update( POSTBookingVM bookingVM, string id)
         {
-            if (bookingVM == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "Booking cannot be null.");
-            }
-            
             var existingBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);
             if (existingBooking == null)
             {

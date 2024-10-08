@@ -23,12 +23,8 @@ namespace PetSpaBE.API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBookings(int pageNumber = 1, int pageSize = 2)
+        public async Task<IActionResult> GetAllBookings(int pageNumber, int pageSize)
         {
-            if(pageSize < 1)
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "PageSize không hợp lệ!");
-            }
             var bookings = await _bookingService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETBookingVM>>(
                 statusCode: StatusCodes.Status200OK,
@@ -71,17 +67,6 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> GetBookingById(string id)
         {
             var booking = await _bookingService.GetById(id);
-
-            if (booking == null)
-            {
-                return NotFound(new
-                {
-                    StatusCode = StatusCodes.Status404NotFound,
-                    ErrorCode = "BookingNotFound",
-                    Message = "Không tìm thấy Booking với ID đó."
-                });
-            }
-            
             return Ok(new BaseResponseModel<GETBookingVM>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
@@ -91,31 +76,11 @@ namespace PetSpaBE.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBooking(string id, [FromBody] POSTBookingVM bookingVM)
         {
-            if (bookingVM == null)
-            {
-                return NotFound(new
-                {
-                    StatusCode = StatusCodes.Status404NotFound,
-                    ErrorCode = "InValid booking data",
-                    Message = "Booking không có dữ liệu."
-                });
-            }
-
-            var existingBooking = await _bookingService.GetById(id);
-
-            if (existingBooking == null)
-            {
-                return NotFound(new
-                {
-                    StatusCode = StatusCodes.Status404NotFound,
-                    ErrorCode = "BookingNotFound",
-                    Message = "Không tìm thấy."
-                });
-            }
             await _bookingService.Update(bookingVM, id);
-            
-
-            return Ok("Booking updated successfully!");
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update booking success"));
         }
 
     }
