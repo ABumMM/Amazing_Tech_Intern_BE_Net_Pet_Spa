@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Infrastructure;
 using PetSpa.ModelViews.PackageModelViews;
 
 namespace PetSpaBE.API.Controllers
@@ -13,14 +14,12 @@ namespace PetSpaBE.API.Controllers
     public class PackageController : ControllerBase
     {
         private readonly IPackageService _packageService;
-
         public PackageController(IPackageService packageService)
         {
             _packageService = packageService;
         }
-        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetAllPackages(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> GetAllPackages(int pageNumber, int pageSize)
         {
             var packages = await _packageService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETPackageModelView>>(

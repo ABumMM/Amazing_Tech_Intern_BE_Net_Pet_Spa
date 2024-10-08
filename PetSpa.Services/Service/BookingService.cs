@@ -8,6 +8,7 @@ using PetSpa.Core.Utils;
 using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.ModelViews.ServiceModelViews;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -85,25 +86,55 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
             }
-            var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
+            var genericRepository = _unitOfWork.GetRepository<Bookings>();
+            IQueryable<Bookings> bookingsQuery = genericRepository.Entities;
+            var paginatedBookings = await genericRepository.GetPagging(bookingsQuery, pageNumber, pageSize);
 
-            var bookingViewModels = bookings.Select(bk => new GETBookingVM
+            // Ánh xạ dữ liệu từ Bookings sang GETBookingVM sau khi phân trang
+            var bookingVMs = paginatedBookings.Items.Select(b => new GETBookingVM
             {
-                Id = bk.Id,
-                Description = bk.Description,
-                Date = bk.Date,
-                Status = bk.Status,
-                OrdersId = bk.OrdersId,
-
+                Id = b.Id,
+                Description = b.Description,
+                Date = b.Date,
+                Status = b.Status,
+                OrdersId = b.OrdersId
             }).ToList();
-            int totalBooking = bookings.Count;
 
-            var paginatedBooking = bookingViewModels
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
+            // Trả về danh sách phân trang của các GETBookingVM
+            return new BasePaginatedList<GETBookingVM>(bookingVMs, paginatedBookings.TotalItems, pageNumber, pageSize);
+            //
 
-            return new BasePaginatedList<GETBookingVM>(paginatedBooking, totalBooking, pageNumber, pageSize);
+            //var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
+            //var paginatedPackages = await bookings
+            //    .Skip((pageNumber - 1) * pageSize)
+            //    .Take(pageSize)
+            //    .Select(bk => new GETBookingVM
+            //    {
+            //        Id = bk.Id,
+            //        Description = bk.Description,
+            //        Date = bk.Date,
+            //        Status = bk.Status,
+            //        OrdersId = bk.OrdersId,
+            //    }).ToListAsync();
+            //return new BasePaginatedList<GETPackageModelView>(paginatedPackages, await packages.CountAsync(), pageNumber, pageSize);
+
+            //var bookingViewModels = bookings.Select(bk => new GETBookingVM
+            //{
+            //    Id = bk.Id,
+            //    Description = bk.Description,
+            //    Date = bk.Date,
+            //    Status = bk.Status,
+            //    OrdersId = bk.OrdersId,
+
+            //}).ToList();
+            //int totalBooking = bookings.Count;
+
+            //var paginatedBooking = bookingViewModels
+            //    .Skip((pageNumber - 1) * pageSize)
+            //    .Take(pageSize)
+            //    .ToList();
+
+            //return new BasePaginatedList<GETBookingVM>(paginatedBooking, totalBooking, pageNumber, pageSize);
         }
 
         public async Task<GETBookingVM?> GetById(string id)

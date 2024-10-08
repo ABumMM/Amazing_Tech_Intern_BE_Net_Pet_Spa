@@ -6,10 +6,9 @@ using System.Text.Json.Serialization;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class ServicesEntity : BaseEntity
+    public class Services : BaseEntity
     {
-        public string? Name { get; set; }
-        public decimal Price { get; set; }
+        public required string Name { get; set; }
         public string? Description { get; set; }
         [JsonIgnore]
         public ICollection<PackageServiceEntity>? PackageServices { get; set; } = new HashSet<PackageServiceEntity>();
