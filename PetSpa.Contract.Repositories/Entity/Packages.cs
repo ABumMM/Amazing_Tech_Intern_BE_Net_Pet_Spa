@@ -15,7 +15,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
 
         [JsonIgnore]
-        public ICollection<ServicesEntity>? Services { get; set; }
+        public ICollection<Services>? Services { get; set; }
 
         [JsonIgnore]
         public ICollection<PackageServiceEntity>? PackageServices { get; set; }

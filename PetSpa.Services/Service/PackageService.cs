@@ -10,7 +10,7 @@ using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.ModelViews.PackageServiceModelViews;
 using PetSpa.ModelViews.ServiceModelViews;
 using PetSpa.Repositories.UOW;
-
+using ServicesEntity = PetSpa.Contract.Repositories.Entity.Services;
 namespace PetSpa.Services.Service
 {
     public class PackageService : IPackageService
