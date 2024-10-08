@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ServicesEntity = PetSpa.Contract.Repositories.Entity.Services;
+using Microsoft.EntityFrameworkCore;
+using PetSpa.Repositories.UOW;
 namespace PetSpa.Services.Service
 {
     public class ServicesService : IServicesService
@@ -22,18 +24,12 @@ namespace PetSpa.Services.Service
         }
         public async Task Add(ServiceCreateModel serviceModel)
         {
-
-
             ServicesEntity service = new ServicesEntity
             {
-                Id = Guid.NewGuid().ToString("N"),
                 Name = serviceModel.Name,
-                Price = serviceModel.Price,
                 Description = serviceModel.Description,
-            };
-
-            IGenericRepository<ServicesEntity> genericRepository = _unitOfWork.GetRepository<ServicesEntity>();
-            await genericRepository.InsertAsync(service);
+            }; 
+            await _unitOfWork.GetRepository<ServicesEntity>().InsertAsync(service);
             await _unitOfWork.SaveAsync();
         }
 
@@ -45,36 +41,33 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(statusCode: StatusCodes.Status404NotFound, errorCode: ErrorCode.NotFound, "Not found Service with id =" + id);
             }
-           
-            await genericRepository.DeleteAsync(id);
+            service.DeletedBy = "Khoa";
+            service.DeletedTime = DateTime.UtcNow;
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<BasePaginatedList<ServiceResposeModel>> GetAll(int pageNumber = 1, int pageSize = 10)
+        public async Task<BasePaginatedList<ServiceResposeModel>> GetAll(int pageNumber, int pageSize)
         {
-            var service_lst = await _unitOfWork.GetRepository<ServicesEntity>().GetAllAsync();
+            // Retrieve the repository for ServicesEntity
+            var genericRepository = _unitOfWork.GetRepository<ServicesEntity>();
 
-            // Map to ServiceResponseModel
-            var serviceResponseModels = service_lst.Select(s => new ServiceResposeModel
+            // Create a query for the services that are not marked as deleted
+            IQueryable<ServicesEntity> servicesQuery = genericRepository.Entities
+                .Where(s => s.DeletedTime.HasValue == false); // Filter out soft-deleted records
+
+            // Use the pagination method to get the paginated list of services
+            BasePaginatedList<ServicesEntity> paginatedServices = await genericRepository.GetPagging(servicesQuery, pageNumber, pageSize);
+
+            // Map the ServicesEntity to ServiceResponseModel
+            var serviceResponseModels = paginatedServices.Items.Select(s => new ServiceResposeModel
             {
                 Id = s.Id,
                 Name = s.Name,
-                Description = s.Description,
-                Price = s.Price
-                //PackageId = s.PackageId,
+                Description = s.Description
             }).ToList();
 
-            // Calculate total number of items
-            var totalServices = serviceResponseModels.Count;
-
-            // Paginate the results
-            var paginatedServices = serviceResponseModels
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            // Create the paginated list
-            return new BasePaginatedList<ServiceResposeModel>(paginatedServices, totalServices, pageNumber, pageSize);
+            // Return the paginated list of service response models
+            return new BasePaginatedList<ServiceResposeModel>(serviceResponseModels, paginatedServices.TotalItems, pageNumber, pageSize);
         }
 
 
@@ -90,7 +83,7 @@ namespace PetSpa.Services.Service
                 Id = service.Id,
                 Name = service.Name,
                 Description = service.Description,
-                Price = service.Price
+             
             };
             return serviceRespose;
         }
@@ -107,7 +100,7 @@ namespace PetSpa.Services.Service
 
             service.Name = serviceModel.Name;
             service.Description = serviceModel.Description;
-            service.Price = serviceModel.Price;
+          
             service.LastUpdatedTime = DateTime.Now;
             
            

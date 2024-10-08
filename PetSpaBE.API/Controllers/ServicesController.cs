@@ -21,11 +21,10 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetAllServices(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> GetAllServices(int pageNumber, int pageSize)
         {
 
             var item = await _servicesService.GetAll();
-            var response = BaseResponse<BasePaginatedList<ServiceResposeModel>>.OkResponse(item);
             return Ok(new BaseResponseModel<BasePaginatedList<ServiceResposeModel>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
