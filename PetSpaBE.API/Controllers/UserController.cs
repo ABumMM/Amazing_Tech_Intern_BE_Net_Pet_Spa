@@ -19,7 +19,7 @@ namespace PetSpaBE.API.Controllers
         {
             _userService = userService;
         }
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> GetAllUsers(int pageNumber = 1, int pageSize = 3)
         {

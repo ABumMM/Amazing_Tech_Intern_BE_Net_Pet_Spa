@@ -5,6 +5,7 @@ using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
 using PetSpa.ModelViews.AuthModelViews;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PetSpaBE.API.Controllers
