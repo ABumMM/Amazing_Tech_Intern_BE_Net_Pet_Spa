@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241005044656_InitialCreate")]
+    [Migration("20241007174852_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -705,6 +705,7 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastUpdatedBy")

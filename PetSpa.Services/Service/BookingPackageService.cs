@@ -99,6 +99,11 @@ namespace PetSpa.Services.Service
         //}
         public async Task<List<Booking_PackageVM>> GetById(string id)
         {
+            if (id != null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Point must be greater than or equal to 0.");
+
+            }
             var existedBookingPKs = await _unitOfWork.GetRepository<BookingPackage>()
                 .Entities
                 .Where(p => p.BookingId == id)

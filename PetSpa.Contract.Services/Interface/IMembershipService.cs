@@ -7,7 +7,7 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IMembershipsService
     {
-        Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber = 1, int pageSize = 3);
+        Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize);
         Task<GETMemberShipModelView?> GetById(string memberShipID);
         Task<List<GETMemberShipModelView?>> GetMemberShips(string packageID, DateTime? DateStart, DateTime? EndStart, string? Name);
         Task Add(POSTMemberShipModelView memberShipMV);

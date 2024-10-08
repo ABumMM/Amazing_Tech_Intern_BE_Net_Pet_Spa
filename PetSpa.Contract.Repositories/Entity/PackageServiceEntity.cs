@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
-    public class PackageServiceEntity:BaseEntity
+    public class PackageServiceEntity : BaseEntity
     {
         public string? PackageId { get; set; }
         public virtual Packages? Package { get; set; }

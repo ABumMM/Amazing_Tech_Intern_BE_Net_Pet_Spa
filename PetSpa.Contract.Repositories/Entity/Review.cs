@@ -10,6 +10,6 @@ namespace PetSpa.Contract.Repositories.Entity
     public class Review : BaseEntity
     {
         public DateTime ReviewDate { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; }
     }
 }

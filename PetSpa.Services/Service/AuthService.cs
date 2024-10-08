@@ -35,7 +35,7 @@ namespace PetSpa.Services.Service
             _mapper = mapper;
         }
 
-        public async Task<string> SignUpAsync(SignUpAuthModelView signup)
+        public async Task<string?> SignUpAsync(SignUpAuthModelView signup)
         {
             // Kiểm tra từng thuộc tính của signup
             if (signup.FullName == null)

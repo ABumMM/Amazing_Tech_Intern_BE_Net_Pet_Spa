@@ -108,7 +108,7 @@ namespace PetSpa.Services.Service
 
         public async Task Add(PostOrderViewModel order)
         {
-            if (string.IsNullOrEmpty(order.PaymentMethod))
+            if (string.IsNullOrWhiteSpace(order.PaymentMethod))             
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
 
             if (order.Total <= 0)
@@ -120,9 +120,7 @@ namespace PetSpa.Services.Service
                 Total = order.Total,
                 CreatedTime = DateTime.Now,
             };
-
-            var repository = _unitOfWork.GetRepository<Orders>();
-            await repository.InsertAsync(newOrder);
+            await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
             await _unitOfWork.SaveAsync();
         }
 
