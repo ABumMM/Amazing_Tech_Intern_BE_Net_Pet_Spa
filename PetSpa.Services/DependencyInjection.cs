@@ -15,7 +15,12 @@ namespace PetSpa.Services
             services.AddServices();
             services.AddRepositories();
             services.AddHttpContextAccessor();
+            services.AddMapper();
 
+        }
+        public static void AddMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
         public static void AddRepositories(this IServiceCollection services)
         {
