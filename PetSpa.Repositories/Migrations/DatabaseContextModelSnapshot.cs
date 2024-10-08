@@ -719,7 +719,7 @@ namespace PetSpa.Repositories.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -746,13 +746,11 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PackagesId")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -1075,7 +1073,7 @@ namespace PetSpa.Repositories.Migrations
                         .WithMany("PackageServices")
                         .HasForeignKey("PackageId");
 
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.ServicesEntity", "ServicesEntity")
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Services", "ServicesEntity")
                         .WithMany("PackageServices")
                         .HasForeignKey("ServicesEntityID");
 
@@ -1102,7 +1100,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", null)
                         .WithMany("Services")
@@ -1146,7 +1144,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Services");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ServicesEntity", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
                 {
                     b.Navigation("PackageServices");
                 });

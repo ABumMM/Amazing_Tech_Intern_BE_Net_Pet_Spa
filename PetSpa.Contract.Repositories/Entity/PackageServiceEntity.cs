@@ -12,7 +12,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? PackageId { get; set; }
         public virtual Packages? Package { get; set; }
         public string? ServicesEntityID { get; set; }
-        public virtual ServicesEntity? ServicesEntity { get; set; }
+        public virtual Services? ServicesEntity { get; set; }
        
 
     }

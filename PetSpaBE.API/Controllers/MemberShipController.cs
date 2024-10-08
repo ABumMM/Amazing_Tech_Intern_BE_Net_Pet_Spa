@@ -1,13 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Repositories.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.MemberShipModelView;
 using PetSpa.ModelViews.MemberShipModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.Services.Service;
-
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -15,7 +10,6 @@ namespace PetSpaBE.API.Controllers
     public class MemberShipController : ControllerBase
     {
         private readonly IMembershipsService _membershipsService;
-
         public MemberShipController(IMembershipsService membershipsService)
         {
             _membershipsService = membershipsService;
@@ -47,7 +41,6 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Delete membership successful"));
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMemberShipById(string id)
         {
