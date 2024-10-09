@@ -26,60 +26,99 @@ namespace PetSpa.Services.Service
         }
         public async Task Add(Booking_PackageVM bookingPackageVM)
         {
-            BookingPackage BookingPackage = new BookingPackage()
+            // Kiểm tra trùng lặp với BookingId và PackageId
+            var existingBookingPackage = await _unitOfWork.GetRepository<BookingPackage>().Entities
+                .FirstOrDefaultAsync(bp => bp.BookingId == bookingPackageVM.BookingId &&
+                                           bp.PackageId == bookingPackageVM.PackageId);
+            if (existingBookingPackage != null)
+            {
+                throw new ErrorException(
+                    statusCode: StatusCodes.Status400BadRequest,
+                    errorCode: ErrorCode.BadRequest,
+                    message: "BookingPackage với BookingID và PackageID này đã tồn tại.");
+            }
+            //kt booking co hay khong
+            var booKing = await _unitOfWork.GetRepository<Bookings>().GetByIdAsync(bookingPackageVM.BookingId);
+
+            if (booKing == null)
+            {
+                throw new ErrorException(
+                StatusCodes.Status404NotFound,
+                "BookingNotFound",
+                $"Không tìm thấy Booking với ID: {bookingPackageVM.BookingId}"
+                );
+            }
+            //kt package co hay khong
+            var pacKage = await _unitOfWork.GetRepository<Packages>().GetByIdAsync(bookingPackageVM.PackageId);
+
+            if (pacKage == null)
+            {
+                throw new ErrorException(
+                StatusCodes.Status404NotFound,
+                "PackageNotFound",
+                $"Không tìm thấy Package với ID: {bookingPackageVM.PackageId}"
+                );
+            }
+            BookingPackage bookingPackage = new BookingPackage()
             {
                 PackageId = bookingPackageVM.PackageId,
                 BookingId = bookingPackageVM.BookingId,
                 AddedDate = bookingPackageVM.AddedDate,
             };
-            await _unitOfWork.GetRepository<BookingPackage>().InsertAsync(BookingPackage);
+
+            await _unitOfWork.GetRepository<BookingPackage>().InsertAsync(bookingPackage);
             await _unitOfWork.SaveAsync();
         }
         public async Task<BasePaginatedList<GETBooking_PackageVM>> GetAll(int pageNumber, int pageSize)
         {
-            // Truy vấn tất cả Bookings
-            var bookings = await _unitOfWork.GetRepository<Bookings>().Entities
-                .ToListAsync();
-
-            if (bookings == null || !bookings.Any())
+            if (pageSize < 1 || pageNumber < 1)
             {
-                return new BasePaginatedList<GETBooking_PackageVM>(new List<GETBooking_PackageVM>(), 0, pageNumber, pageSize);
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "PageNumber và PageSize không hợp lệ!");
             }
-            var bookingPackages = await _unitOfWork.GetRepository<BookingPackage>().Entities
-                .Include(bp => bp.Package)
-                .ToListAsync();
-            var packageGroups = bookingPackages.GroupBy(bp => bp.BookingId)
-                .ToDictionary(group => group.Key, group => group.Select(bp => new PackageDTO
+
+            // Truy vấn các Booking có liên kết với BookingPackage và phân trang trực tiếp
+            var bookingRepository = _unitOfWork.GetRepository<Bookings>();
+            var bookingPackageRepository = _unitOfWork.GetRepository<BookingPackage>();
+            var bookingsWithPackagesQuery = bookingRepository.Entities
+                .Join(
+                    bookingPackageRepository.Entities, // Liên kết với bảng BookingPackage
+                    b => b.Id,                         // Khóa chính của Bookings
+                    bp => bp.BookingId,                // Khóa ngoại của BookingPackage
+                    (b, bp) => new { Booking = b, Package = bp.Package } // Chọn các thông tin cần thiết
+                )
+                .Where(x => x.Package != null)         // Lọc ra chỉ những Booking có Package
+                .GroupBy(x => x.Booking)               // Nhóm theo Booking
+                .Select(g => new
                 {
-                    Id = bp.PackageId,
-                    Name = bp.Package?.Name,
-                    Price = bp.Package?.Price.GetValueOrDefault(),
-                }).ToList());
-
-            // Ánh xạ Booking vào ViewModel
-            var bookingWithPackagesVMs = bookings.Select(b => new GETBooking_PackageVM
-            {
-                BookingId = b.Id,
-                Description = b.Description,
-                Date = b.Date,
-                Status = b.Status,
-                Packages = packageGroups.ContainsKey(b.Id) ? packageGroups[b.Id] : new List<PackageDTO>()
-            }).ToList();
-
-            // Phân trang
-            int totalBookings = bookingWithPackagesVMs.Count;
-            var paginatedBookingPK = bookingWithPackagesVMs
+                    Booking = g.Key,
+                    Packages = g.Select(x => new PackageDTO
+                    {
+                        Id = x.Package!.Id, //! để loại bỏ cảnh báo null vì trước đó đã kiểm tra Package != null trong where
+                        Name = x.Package.Name,
+                        Price = x.Package.Price.GetValueOrDefault()
+                    }).ToList()
+                });
+            int totalBookings = await bookingsWithPackagesQuery.CountAsync();
+            var paginatedBookings = await bookingsWithPackagesQuery
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
+                .ToListAsync();
 
-            return new BasePaginatedList<GETBooking_PackageVM>(paginatedBookingPK, totalBookings, pageNumber, pageSize);
+            var bookingWithPackagesVMs = paginatedBookings.Select(b => new GETBooking_PackageVM
+            {
+                BookingId = b.Booking.Id,
+                Description = b.Booking.Description,
+                Date = b.Booking.Date,
+                Status = b.Booking.Status,
+                Packages = b.Packages
+            }).ToList();
+            return new BasePaginatedList<GETBooking_PackageVM>(bookingWithPackagesVMs, totalBookings, pageNumber, pageSize);
         }
         public async Task<GETBooking_PackageVM> GetById(string id)
         {
-            if (id != null)
+            if (id == null)
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Point must be greater than or equal to 0.");
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Id không được để trống");
 
             }
             var existedBookingPKs = await _unitOfWork.GetRepository<BookingPackage>()
@@ -127,19 +166,6 @@ namespace PetSpa.Services.Service
 
             return bookingWithPackagesVM;
         }
-        public async Task<bool> DeleteBookingPackageAsync(string bookingId, string packageId)
-        {
-            var repository = _unitOfWork.GetRepository<BookingPackage>();
-            var bookingPackage = await _unitOfWork.GetRepository<BookingPackage>().GetByKeysAsync(bookingId, packageId);
 
-            if (bookingPackage == null)
-            {
-                return false; 
-            }
-            repository.Delete1(bookingPackage);
-            await _unitOfWork.SaveAsync();
-
-            return true; 
-        }
     }
 }

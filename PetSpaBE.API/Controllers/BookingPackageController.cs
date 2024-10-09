@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.BookingPackageModelViews;
+using PetSpa.Services.Service;
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -14,12 +16,8 @@ namespace PetSpaBE.API.Controllers
             _bookingPackageService = bookingPKService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllBookingPKs(int pageNumber = 1, int pageSize = 2)
-        {
-            if (pageSize < 1)
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "PageSize không hợp lệ!");
-            }
+        public async Task<IActionResult> GetAllBookingPKs(int pageNumber, int pageSize)
+        {  
             var bookingPKs = await _bookingPackageService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETBooking_PackageVM>>(
                 statusCode: StatusCodes.Status200OK,
@@ -33,46 +31,16 @@ namespace PetSpaBE.API.Controllers
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
-                data: "Them thanh cong"));
+                data: "Thêm thành công"));
         }
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetBookingPKById(string id)
-        //{
-        //    var bookingPK = await _bookingPackageService.GetById(id);
-
-        //    if (bookingPK == null)
-        //    {
-        //        return NotFound(new
-        //        {
-        //            StatusCode = StatusCodes.Status404NotFound,
-        //            ErrorCode = "Booking_PackageNotFound",
-        //            Message = "Không tìm thấy Booking với ID đó."
-        //        });
-        //    }
-        //    return Ok(new BaseResponseModel<List<Booking_PackageVM>>(
-        //        statusCode: StatusCodes.Status200OK,
-        //        code: ResponseCodeConstants.SUCCESS,
-        //        data: bookingPK));
-        //}
-        [HttpDelete("{bookingId}/{packageId}")]
-        public async Task<IActionResult> DeleteBookingPackage(string bookingId, string packageId)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookingPackageById(string id)
         {
-            var result = await _bookingPackageService.DeleteBookingPackageAsync(bookingId, packageId);
-
-            if (!result)
-            {
-                return NotFound(new
-                {
-                    StatusCode = StatusCodes.Status404NotFound,
-                    ErrorCode = "BookingPackageNotFound",
-                    Message = "Không tìm thấy BookingPackage để xóa."
-                });
-            }
-            return Ok(new
-            {
-                StatusCode = StatusCodes.Status200OK,
-                Message = "Xóa BookingPackage thành công."
-            });
+            var booking = await _bookingPackageService.GetById(id);
+            return Ok(new BaseResponseModel<GETBooking_PackageVM>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: booking));
         }
     }
 }

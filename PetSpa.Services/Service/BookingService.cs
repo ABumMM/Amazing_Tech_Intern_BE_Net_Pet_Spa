@@ -21,42 +21,6 @@ namespace PetSpa.Services.Service
         {
             _unitOfWork = unitOfWork;
         }
-
-
-        //public async Task<bool> Add(POSTBookingVM bookingVM)
-        //{
-        //    // Kiểm tra nếu OrdersId là null
-        //    if (string.IsNullOrEmpty(bookingVM.OrdersId))
-        //    {
-        //        return false;
-        //    }
-
-        //    // Kiểm tra nếu OrderId không tồn tại
-        //    //var existingOrder = await _unitOfWork.GetRepository<Orders>().Entities
-        //    //  .FirstOrDefaultAsync(o => o.Id == bookingVM.OrdersId);
-        //    var existedBooking = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync(p => p.Id == bookingVM.OrdersId);
-
-        //    if (existedBooking == null)
-        //    {
-        //        return false;
-        //    }
-
-        //    // Tạo đối tượng Booking mới
-        //    Bookings Booking = new Bookings()
-        //    {
-        //        Description = bookingVM.Description,
-        //        Status = bookingVM.Status,
-        //        Date = bookingVM.Date,
-        //        OrdersId = bookingVM.OrdersId,
-        //    };
-
-        //    // Thêm Booking vào cơ sở dữ liệu
-        //    await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
-        //    await _unitOfWork.SaveAsync();
-
-        //    // Ném ra thông báo thành công
-        //    return true;
-        //}
         public async Task Add(POSTBookingVM bookingVM)
         {
             
@@ -72,10 +36,10 @@ namespace PetSpa.Services.Service
             if (order == null)
             {
                 throw new ErrorException(
-            StatusCodes.Status404NotFound,
-            "OrderNotFound",
-            $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
-        );
+                StatusCodes.Status404NotFound,
+                "OrderNotFound",
+                $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
+                );
             }
             await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
             await _unitOfWork.SaveAsync();
@@ -84,7 +48,7 @@ namespace PetSpa.Services.Service
         {
             if (pageSize < 1 || pageNumber <1 )
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "PageNumber và PageSize không hợp lệ!");
             }
             var genericRepository = _unitOfWork.GetRepository<Bookings>();
             IQueryable<Bookings> bookingsQuery = genericRepository.Entities;
@@ -99,42 +63,7 @@ namespace PetSpa.Services.Service
                 Status = b.Status,
                 OrdersId = b.OrdersId
             }).ToList();
-
-            // Trả về danh sách phân trang của các GETBookingVM
             return new BasePaginatedList<GETBookingVM>(bookingVMs, paginatedBookings.TotalItems, pageNumber, pageSize);
-            //
-
-            //var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
-            //var paginatedPackages = await bookings
-            //    .Skip((pageNumber - 1) * pageSize)
-            //    .Take(pageSize)
-            //    .Select(bk => new GETBookingVM
-            //    {
-            //        Id = bk.Id,
-            //        Description = bk.Description,
-            //        Date = bk.Date,
-            //        Status = bk.Status,
-            //        OrdersId = bk.OrdersId,
-            //    }).ToListAsync();
-            //return new BasePaginatedList<GETPackageModelView>(paginatedPackages, await packages.CountAsync(), pageNumber, pageSize);
-
-            //var bookingViewModels = bookings.Select(bk => new GETBookingVM
-            //{
-            //    Id = bk.Id,
-            //    Description = bk.Description,
-            //    Date = bk.Date,
-            //    Status = bk.Status,
-            //    OrdersId = bk.OrdersId,
-
-            //}).ToList();
-            //int totalBooking = bookings.Count;
-
-            //var paginatedBooking = bookingViewModels
-            //    .Skip((pageNumber - 1) * pageSize)
-            //    .Take(pageSize)
-            //    .ToList();
-
-            //return new BasePaginatedList<GETBookingVM>(paginatedBooking, totalBooking, pageNumber, pageSize);
         }
 
         public async Task<GETBookingVM?> GetById(string id)
@@ -143,13 +72,12 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid Booking ID.");
             }
-            //var existedBooking = await _unitOfWork.GetRepository<Bookings>().GetByIdAsync(id);
             var existedBooking = await _unitOfWork.GetRepository<Bookings>()
                              .Entities
                              .FirstOrDefaultAsync(p => p.Id == id);
             if (existedBooking == null)
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Booking");
             }
             var bookingVM = new GETBookingVM
             {
@@ -159,9 +87,7 @@ namespace PetSpa.Services.Service
                     Status = existedBooking.Status,
                     OrdersId = existedBooking.OrdersId,
             };
-            return bookingVM;
-            
-            
+            return bookingVM;    
         }
         public async Task Update( POSTBookingVM bookingVM, string id)
         {
@@ -170,14 +96,20 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
             }
-            
+            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
+
+            if (order == null)
+            {
+                throw new ErrorException(
+                StatusCodes.Status404NotFound,
+                "OrderNotFound",
+                $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
+                );
+            }
             existingBooking.Description = bookingVM.Description;
             existingBooking.Status = bookingVM.Status;
             existingBooking.Date = bookingVM.Date;
-            if (bookingVM.OrdersId != null)
-            {
-                existingBooking.OrdersId = bookingVM.OrdersId;
-            }
+            existingBooking.OrdersId = bookingVM.OrdersId;
             await _unitOfWork.GetRepository<Bookings>().UpdateAsync(existingBooking);
             await _unitOfWork.SaveAsync();
         }

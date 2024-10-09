@@ -32,27 +32,6 @@ namespace PetSpaBE.API.Controllers
                 data: bookings));
 
         }
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> AddBooking(POSTBookingVM bookingVM)
-        //{
-        //    var isSuccess = await _bookingService.Add(bookingVM);
-
-        //    if (!isSuccess)
-        //    {
-        //        return Ok(new BaseResponseModel<string>(
-        //        statusCode: StatusCodes.Status404NotFound,
-        //        code: ResponseCodeConstants.SUCCESS,
-        //        data: "OrderId không hợp lệ"));
-
-        //    }
-
-        //    return Ok(new BaseResponseModel<string>(
-        //        statusCode: StatusCodes.Status200OK,
-        //        code: ResponseCodeConstants.SUCCESS,
-        //        data: "Thêm thành công"));
-        //}
         [HttpPost]
         public async Task<IActionResult> AddBooking(POSTBookingVM bookingVM)
         {

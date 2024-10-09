@@ -14,8 +14,6 @@ namespace PetSpa.Contract.Services.Interface
     {
         Task<BasePaginatedList<GETBooking_PackageVM>> GetAll(int pageNumber, int pageSize);
         Task<GETBooking_PackageVM> GetById(string id);
-        Task Add(Booking_PackageVM bookingPackageVM);
-        Task <bool> DeleteBookingPackageAsync(string bookingId, string packageId);
-        
+        Task Add(Booking_PackageVM bookingPackageVM); 
     }
 }
