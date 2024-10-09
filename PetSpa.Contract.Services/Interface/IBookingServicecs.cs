@@ -15,6 +15,7 @@ namespace PetSpa.Contract.Services.Interface
     {
         Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber, int pageSize);
         Task<GETBookingVM?> GetById(string id);
+        //Task<bool> Add(POSTBookingVM bookingVM);
         Task Add(POSTBookingVM bookingVM);
         Task Update( POSTBookingVM bookingVM, string id);
         

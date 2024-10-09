@@ -8,6 +8,7 @@ using PetSpa.Core.Utils;
 using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.ModelViews.ServiceModelViews;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -20,114 +21,95 @@ namespace PetSpa.Services.Service
         {
             _unitOfWork = unitOfWork;
         }
-        
         public async Task Add(POSTBookingVM bookingVM)
-        {         
+        {
+            
             Bookings Booking = new Bookings()
             {
                 Description = bookingVM.Description,
                 Status = bookingVM.Status,
                 Date = bookingVM.Date,
-                
                 OrdersId = bookingVM.OrdersId,
             };
+            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
+            
+            if (order == null)
+            {
+                throw new ErrorException(
+                StatusCodes.Status404NotFound,
+                "OrderNotFound",
+                $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
+                );
+            }
             await _unitOfWork.GetRepository<Bookings>().InsertAsync(Booking);
             await _unitOfWork.SaveAsync();
         }
         public async Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber , int pageSize )
         {
-            var bookings = await _unitOfWork.GetRepository<Bookings>().GetAllAsync();
-
-            var bookingViewModels = bookings.Select(bk => new GETBookingVM
+            if (pageSize < 1 || pageNumber <1 )
             {
-                Id = bk.Id,
-                Description = bk.Description,
-                Date = bk.Date,
-                Status = bk.Status,
-                
-                
-                OrdersId = bk.OrdersId,
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "PageNumber và PageSize không hợp lệ!");
+            }
+            var genericRepository = _unitOfWork.GetRepository<Bookings>();
+            IQueryable<Bookings> bookingsQuery = genericRepository.Entities;
+            var paginatedBookings = await genericRepository.GetPagging(bookingsQuery, pageNumber, pageSize);
 
-
-
-                //getPackageViewModel = bk.Package.Select(pk => new GETPackageViewModel
-                //{
-                //    Id = pk.Id.ToString(),
-                //    Name = pk.Name,
-                //}).ToList()
-
+            // Ánh xạ dữ liệu từ Bookings sang GETBookingVM sau khi phân trang
+            var bookingVMs = paginatedBookings.Items.Select(b => new GETBookingVM
+            {
+                Id = b.Id,
+                Description = b.Description,
+                Date = b.Date,
+                Status = b.Status,
+                OrdersId = b.OrdersId
             }).ToList();
-            int totalBooking = bookings.Count;
-
-            var paginatedBooking = bookingViewModels
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-
-            return new BasePaginatedList<GETBookingVM>(paginatedBooking, totalBooking, pageNumber, pageSize);
+            return new BasePaginatedList<GETBookingVM>(bookingVMs, paginatedBookings.TotalItems, pageNumber, pageSize);
         }
-
 
         public async Task<GETBookingVM?> GetById(string id)
         {
-            IQueryable<Bookings> query = _unitOfWork.GetRepository<Bookings>().Entities.Where(q => !q.DeletedTime.HasValue);
-            var existedBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);   
-            if(existedBooking == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
-                return null;
-            }    
-            
-                var bookingVM = new GETBookingVM
-                {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid Booking ID.");
+            }
+            var existedBooking = await _unitOfWork.GetRepository<Bookings>()
+                             .Entities
+                             .FirstOrDefaultAsync(p => p.Id == id);
+            if (existedBooking == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Booking");
+            }
+            var bookingVM = new GETBookingVM
+            {
                     Id = existedBooking.Id,
                     Description = existedBooking.Description,
                     Date = existedBooking.Date,
                     Status = existedBooking.Status,
-                    
-                    
                     OrdersId = existedBooking.OrdersId,
-
-                    //conf thieeus package nhows theem vaof
-                    //getPackageViewModel = existedBooking.Package.Select(se => new ....
-                    //{
-                    //    Id = se.Id.ToString(),
-                    //    Name = se.Name,
-                    //}).ToList()
-                };
-
-            return bookingVM;
-           
-
+            };
+            return bookingVM;    
         }
-
-        public Task<GETBookingVM?> GetById(object id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task Update( POSTBookingVM bookingVM, string id)
         {
-            if (bookingVM == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "Booking cannot be null.");
-            }
-            
             var existingBooking = await _unitOfWork.GetRepository<Bookings>().Entities.FirstOrDefaultAsync(p => p.Id == id);
             if (existingBooking == null)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
             }
+            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
+
+            if (order == null)
+            {
+                throw new ErrorException(
+                StatusCodes.Status404NotFound,
+                "OrderNotFound",
+                $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
+                );
+            }
             existingBooking.Description = bookingVM.Description;
             existingBooking.Status = bookingVM.Status;
             existingBooking.Date = bookingVM.Date;
-            
             existingBooking.OrdersId = bookingVM.OrdersId;
-            
-            // Cập nhật Packages nếu có thay đổi
-            // existingBooking.Package = bookingVM.PackageIds.Select(pkgID => new Packages
-            // {
-            //     Id = pkgID,
-            // }).ToList();
             await _unitOfWork.GetRepository<Bookings>().UpdateAsync(existingBooking);
             await _unitOfWork.SaveAsync();
         }

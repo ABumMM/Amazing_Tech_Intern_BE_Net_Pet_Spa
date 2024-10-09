@@ -132,6 +132,7 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Orders not found.");
             }
 
+
             order.PaymentMethod = Order.PaymentMethod ?? order.PaymentMethod;
             order.Total = (double)Order.Total;
             order.LastUpdatedTime = DateTime.Now;
