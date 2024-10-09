@@ -4,6 +4,7 @@ using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.OrderDetailModelViews;
 using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -19,9 +20,9 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllOrderDetail(int pageNumber = 1, int pageSize = 2)
+        public async Task<IActionResult> GetAllOrderDetail(int pageNumber, int pageSize)
         {
-            var orDetails = await _orderDetailService.getAll(pageNumber, pageSize);
+            var orDetails = await _orderDetailService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETOrderDetailModelView>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
@@ -47,11 +48,20 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Delete OrderDetail successful"));
         }
+        [HttpGet("conditions")]
+        public async Task<IActionResult> GetOrderDetailsByConditions(DateTimeOffset? DateStart, DateTimeOffset? DateEnd)
+        {
+            var orDetails = await _orderDetailService.GETOrderDetailByConditions(DateStart, DateEnd);
+            return Ok(new BaseResponseModel<List<GETOrderDetailModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: orDetails));
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderDetailByID(string id)
         {
-            var orDetails = await _orderDetailService.getById(id);
+            var orDetails = await _orderDetailService.GetById(id);
             return Ok(new BaseResponseModel<GETOrderDetailModelView>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
