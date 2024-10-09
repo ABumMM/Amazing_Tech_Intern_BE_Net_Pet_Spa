@@ -6,7 +6,7 @@ namespace PetSpa.ModelViews.PackageModelViews
     {
         public string? Id { get; set; }
         public string? Name { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; } = 0;
         public string? Image { get; set; }
         public string? Information { get; set; }
         public string? Experiences { get; set; }
