@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241010083357_InitialCreate")]
+    [Migration("20241010150141_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -475,6 +475,9 @@ namespace PetSpa.Repositories.Migrations
 
                     b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -1064,7 +1067,7 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
-                        .WithMany()
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrdersId");
 
                     b.Navigation("Orders");
@@ -1127,6 +1130,8 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Orders", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>

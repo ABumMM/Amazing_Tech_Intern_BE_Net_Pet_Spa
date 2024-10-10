@@ -17,5 +17,9 @@ namespace PetSpa.Contract.Services.Interface
         Task Add(PostOrderViewModel order);
         Task Update(PutOrderViewModel order);
         Task Delete(string id);
+
+        //Xác nhận đơn hàng
+        Task<BasePaginatedList<GetOrderViewModel>> GetOrdersByPaymentStatus(bool isPaid, int pageNumber, int pageSize);
+        Task ConfirmOrder(string id);
     }
 }
