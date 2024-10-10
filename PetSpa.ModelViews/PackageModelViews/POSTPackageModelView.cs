@@ -1,9 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Http;
-using PetSpa.ModelViews.ModelViews;
+﻿using Microsoft.AspNetCore.Http;
+using PetSpa.ModelViews;
 using PetSpa.ModelViews.PackageServiceModelViews;
 using System.ComponentModel.DataAnnotations;
-
 namespace PetSpa.ModelViews.PackageModelViews
 {
     public class POSTPackageModelView
