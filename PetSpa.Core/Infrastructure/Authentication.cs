@@ -14,7 +14,7 @@ namespace PetSpa.Core.Infrastructure
                 throw new ArgumentNullException(nameof(httpContextAccessor), "HttpContextAccessor or HttpContext cannot be null");
             }
 
-            return ExtractClaimFromAuthorizationHeader(httpContextAccessor.HttpContext.Request.Headers["Authorization"], "id");
+            return ExtractClaimFromAuthorizationHeader(httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString(), "id");
         }
 
         public static string GetUserIdFromHttpContext(HttpContext httpContext)
@@ -24,7 +24,7 @@ namespace PetSpa.Core.Infrastructure
                 throw new ArgumentNullException(nameof(httpContext), "HttpContext cannot be null");
             }
 
-            return ExtractClaimFromAuthorizationHeader(httpContext.Request.Headers["Authorization"], "id");
+            return ExtractClaimFromAuthorizationHeader(httpContext.Request.Headers["Authorization"].ToString(), "id");
         }
 
         public static string GetUserRoleFromHttpContext(HttpContext httpContext)
@@ -34,7 +34,12 @@ namespace PetSpa.Core.Infrastructure
                 throw new ArgumentNullException(nameof(httpContext), "HttpContext cannot be null");
             }
 
-            return ExtractClaimFromAuthorizationHeader(httpContext.Request.Headers["Authorization"], ClaimTypes.Role);
+            if (!httpContext.Request.Headers.TryGetValue("Authorization", out var authorizationHeader) || string.IsNullOrWhiteSpace(authorizationHeader))
+            {
+                throw new UnauthorizedException("Authorization header is missing or empty.");
+            }
+
+            return ExtractClaimFromAuthorizationHeader(authorizationHeader.ToString(), ClaimTypes.Role);
         }
 
         public static string GetFullNameFromClaims(IHttpContextAccessor httpContextAccessor)
@@ -65,7 +70,6 @@ namespace PetSpa.Core.Infrastructure
 
             var token = tokenHandler.ReadJwtToken(jwtToken);
 
-            // Log all claims
             LogClaims(token.Claims);
 
             var claim = token.Claims.FirstOrDefault(c => c.Type == claimType);
@@ -87,23 +91,25 @@ namespace PetSpa.Core.Infrastructure
 
         private static async Task ReturnUnauthorizedResponse(HttpContext context, string message)
         {
-            if (context != null)
+            if (context == null)
             {
-                var errorResponse = new
-                {
-                    data = "An unexpected error occurred.",
-                    additionalData = (object)null,
-                    message,
-                    statusCode = StatusCodes.Status401Unauthorized,
-                    code = "Unauthorized"
-                };
-
-                var jsonResponse = JsonSerializer.Serialize(errorResponse);
-
-                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                context.Response.ContentType = "application/json";
-                await context.Response.WriteAsync(jsonResponse);
+                throw new ArgumentNullException(nameof(context), "HttpContext cannot be null");
             }
+
+            var errorResponse = new
+            {
+                data = "An unexpected error occurred.",
+                additionalData = string.Empty, 
+                message,
+                statusCode = StatusCodes.Status401Unauthorized,
+                code = "Unauthorized"
+            };
+
+            var jsonResponse = JsonSerializer.Serialize(errorResponse);
+
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(jsonResponse);
         }
     }
 

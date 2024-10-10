@@ -37,24 +37,43 @@ namespace PetSpaBE.API.Middleware
 
             if (!context.Response.HasStarted)
             {
-                var response = new BaseResponseModel<object>(
-                    StatusCodes.Status500InternalServerError,
-                    ResponseCodeConstants.INTERNAL_SERVER_ERROR,
-                    null,
-                    "An unexpected error occurred."
-                );
+                BaseResponseModel<object> response;
 
-                if (ex is CoreException coreException)
+                // Kiểm tra nếu là ErrorException
+                if (ex is ErrorException errorException)
                 {
-                    response.StatusCode = coreException.StatusCode;
-                    response.Code = coreException.Code;
-                    response.Message = coreException.Message;
+                    response = new BaseResponseModel<object>(
+                        errorException.StatusCode,
+                        errorException.ErrorDetail.ErrorCode,
+                        null,
+                        errorException.ErrorDetail.ErrorMessage ?? "An error occurred."
+                    );
+                }
+                else if (ex is CoreException coreException)
+                {
+                    // Trả về mã trạng thái và thông tin từ CoreException
+                    response = new BaseResponseModel<object>(
+                        coreException.StatusCode,
+                        coreException.Code,
+                        null,
+                        coreException.Message
+                    );
 
                     // Ghi thêm dữ liệu bổ sung nếu có
                     if (coreException.AdditionalData.Any())
                     {
                         response.AdditionalData = JsonSerializer.Serialize(coreException.AdditionalData);
                     }
+                }
+                else
+                {
+                    // Mặc định là lỗi 500
+                    response = new BaseResponseModel<object>(
+                        StatusCodes.Status500InternalServerError,
+                        ResponseCodeConstants.INTERNAL_SERVER_ERROR,
+                        null,
+                        "An unexpected error occurred."
+                    );
                 }
 
                 context.Response.ContentType = "application/json";
@@ -64,5 +83,7 @@ namespace PetSpaBE.API.Middleware
                 await context.Response.WriteAsync(jsonResponse);
             }
         }
+
+
     }
 }

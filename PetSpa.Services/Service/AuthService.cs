@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PetSpa.Contract.Repositories.Entity;
@@ -18,57 +20,49 @@ namespace PetSpa.Services.Service
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
         public AuthService(
             UserManager<ApplicationUser> userManager,
             RoleManager<ApplicationRole> roleManager,
             IUnitOfWork unitOfWork,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _unitOfWork = unitOfWork;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         public async Task<string?> SignUpAsync(SignUpAuthModelView signup)
         {
-            if (signup == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "SignUp model cannot be null.");
-            }
-            if (string.IsNullOrWhiteSpace(signup.Email) || !signup.Email.Contains("@"))
-            {
-                throw new BadRequestException(ErrorCode.InvalidInput, "Email is required and must be valid.");
-            }
-            if (string.IsNullOrWhiteSpace(signup.Password) || signup.Password.Length < 6)
-            {
-                throw new BadRequestException(ErrorCode.InvalidInput, "Password must be at least 6 characters long.");
-            }
+            if (string.IsNullOrWhiteSpace(signup.FullName))
+                throw new BadRequestException(ErrorCode.BadRequest, "Full name is required.");
 
-            ApplicationUser user = new ApplicationUser
-            {
-                UserInfo = new UserInfo { FullName = signup.FullName },
-                Email = signup.Email,
-                UserName = signup.Email, 
-                Password = signup.Password,
-            };
+            if (string.IsNullOrWhiteSpace(signup.Email) || !signup.Email.Contains("@"))
+                throw new BadRequestException(ErrorCode.InvalidInput, "Email is required and must be valid.");
+
+            if (string.IsNullOrWhiteSpace(signup.Password) || signup.Password.Length < 6)
+                throw new BadRequestException(ErrorCode.InvalidInput, "Password must be at least 6 characters long.");
+
+            var user = _mapper.Map<ApplicationUser>(signup);
+            user.UserName = signup.Email;
 
             var result = await _userManager.CreateAsync(user, signup.Password);
 
             if (result.Succeeded)
             {
-                if (!await _roleManager.RoleExistsAsync("Customer"))
+                if (!await _roleManager.RoleExistsAsync("Admin"))
                 {
-                    var role = new ApplicationRole { Name = "Customer" };
+                    var role = new ApplicationRole { Name = "Admin" };
                     await _roleManager.CreateAsync(role);
                 }
 
-                result = await _userManager.AddToRoleAsync(user, "Customer");
+                result = await _userManager.AddToRoleAsync(user, "Admin");
                 if (!result.Succeeded)
-                {
                     throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error adding role: " + string.Join(", ", result.Errors.Select(e => e.Description)));
-                }
 
                 return await GenerateJwtToken(user);
             }
@@ -76,62 +70,59 @@ namespace PetSpa.Services.Service
             throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error occurred during signup: " + string.Join(", ", result.Errors.Select(e => e.Description)));
         }
 
-
         public async Task<string?> SignInAsync(SignInAuthModelView signin)
         {
-            if (signin == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "SignIn model cannot be null.");
-            }
-            if (string.IsNullOrWhiteSpace(signin.Email) || !signin.Email.Contains("@"))
-            {
+            if (signin.Email == null || !signin.Email.Contains("@"))
                 throw new BadRequestException(ErrorCode.InvalidInput, "Email is required and must be valid.");
-            }
+
             if (string.IsNullOrWhiteSpace(signin.Password))
-            {
                 throw new BadRequestException(ErrorCode.InvalidInput, "Password cannot be empty.");
-            }
 
-            var user = await _userManager.FindByEmailAsync(signin.Email);
+            var user = await _userManager.Users
+                         .Include(u => u.UserInfo)
+                         .FirstOrDefaultAsync(u => u.Email == signin.Email);
+
             if (user == null || !await _userManager.CheckPasswordAsync(user, signin.Password))
-            {
                 throw new BadRequestException(ErrorCode.InvalidInput, "Invalid email or password.");
-            }
 
-            // Tạo token và trả về
             return await GenerateJwtToken(user);
         }
 
 
         public async Task<bool> ChangePasswordAsync(ChangePasswordAuthModelView changepass, Guid userId)
         {
-            if (changepass == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "ChangePassword model cannot be null.");
-            }
-            if (string.IsNullOrWhiteSpace(changepass.CurrentPassword) || string.IsNullOrWhiteSpace(changepass.NewPassword))
-            {
-                throw new BadRequestException(ErrorCode.InvalidInput, "Current and new passwords cannot be empty.");
-            }
+            if (string.IsNullOrWhiteSpace(changepass.CurrentPassword))
+                throw new BadRequestException(ErrorCode.InvalidInput, "Current password cannot be empty.");
+
+            if (string.IsNullOrWhiteSpace(changepass.NewPassword))
+                throw new BadRequestException(ErrorCode.InvalidInput, "New password cannot be empty.");
+
+            if (changepass.NewPassword.Length < 6)
+                throw new BadRequestException(ErrorCode.InvalidInput, "New password must be at least 6 characters long.");
+
+            if (changepass.NewPassword != changepass.ConfirmPassword)
+                throw new BadRequestException(ErrorCode.InvalidInput, "New password and confirm password do not match.");
 
             var user = await _userManager.FindByIdAsync(userId.ToString());
             if (user == null)
-            {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "User not found.");
-            }
 
             var result = await _userManager.ChangePasswordAsync(user, changepass.CurrentPassword, changepass.NewPassword);
             if (!result.Succeeded)
-            {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error occurred while changing password: " + string.Join(", ", result.Errors.Select(e => e.Description)));
-            }
 
             return true;
-        }    
+        }
+
         public async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Secret"]);
+            var secret = _configuration["Jwt:Secret"];
+
+            if (string.IsNullOrEmpty(secret))
+                throw new ArgumentNullException("Jwt:Secret", "Jwt secret key is missing in configuration.");
+
+            var key = Encoding.ASCII.GetBytes(secret);
 
             // Lấy danh sách vai trò của người dùng
             var roles = await _userManager.GetRolesAsync(user);
@@ -141,11 +132,10 @@ namespace PetSpa.Services.Service
             {
                 new Claim("id", user.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim("fullName", user.UserInfo?.FullName ?? string.Empty)
+                new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
+                new Claim("fullName", user.UserInfo?.FullName ?? "Unknown")
             };
 
-            // Thêm các role claim vào danh sách claim
             claims.AddRange(roleClaims);
 
             var tokenDescriptor = new SecurityTokenDescriptor

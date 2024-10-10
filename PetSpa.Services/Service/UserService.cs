@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
@@ -6,12 +7,7 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
-using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.UserModelViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PetSpa.Services.Service
 {
@@ -21,27 +17,43 @@ namespace PetSpa.Services.Service
         private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
 
         public UserService(IUnitOfWork unitOfWork,
             IHttpContextAccessor httpContextAccessor,
             UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager)
+            RoleManager<ApplicationRole> roleManager,
+            IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _unitOfWork = unitOfWork;
             _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
         }
 
         private Guid GetCurrentUserId()
         {
             var userIdString = Authentication.GetUserIdFromHttpContextAccessor(_httpContextAccessor);
+
+            if (string.IsNullOrWhiteSpace(userIdString))
+            {
+                throw new UnauthorizedAccessException("User ID is not available in the current context.");
+            }
+
             return Guid.Parse(userIdString);
         }
 
         private string GetCurrentUserRole()
         {
-            return Authentication.GetUserRoleFromHttpContext(_httpContextAccessor.HttpContext);
+            var httpContext = _httpContextAccessor.HttpContext;
+
+            if (httpContext == null)
+            {
+                throw new UnauthorizedAccessException("HttpContext is not available.");
+            }
+
+            return Authentication.GetUserRoleFromHttpContext(httpContext);
         }
 
         public async Task<GETUserModelView> GetById(Guid id)
@@ -54,7 +66,7 @@ namespace PetSpa.Services.Service
             var userRepository = _unitOfWork.GetRepository<ApplicationUser>();
             var user = await userRepository.Entities
                 .Include(u => u.UserInfo)
-                .FirstOrDefaultAsync(u => u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedTime == null);
 
             if (user == null)
             {
@@ -63,55 +75,45 @@ namespace PetSpa.Services.Service
 
             var roleName = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? string.Empty;
 
-            return new GETUserModelView
-            {
-                Id = user.Id,
-                Email = user.Email,
-                RoleName = roleName,
-                UserInfo = user.UserInfo ?? new UserInfo(),
-                CreatedBy = user.CreatedBy,
-                CreatedTime = user.CreatedTime,
-            };
+            var userModelView = _mapper.Map<GETUserModelView>(user);
+            userModelView.RoleName = roleName;
+
+            return userModelView;
         }
 
-        public async Task<BasePaginatedList<GETUserModelView>> GetAll(int pageNumber = 1, int pageSize = 3)
+        public async Task<BasePaginatedList<GETUserModelView>> GetAll(int pageNumber, int pageSize)
         {
-            if (pageNumber <= 0)
+            if (pageNumber <= 0 || pageSize <= 0)
             {
-                throw new ArgumentException("Số trang phải lớn hơn 0.", nameof(pageNumber));
-            }
-            if (pageSize <= 0)
-            {
-                throw new ArgumentException("Kích thước trang phải lớn hơn 0.", nameof(pageSize));
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must be greater than 0");
             }
 
-            var userRepository = _unitOfWork.GetRepository<ApplicationUser>();
-            var users = await userRepository.Entities
-                .Include(u => u.UserInfo)
+            var usersQuery = _unitOfWork.GetRepository<ApplicationUser>()
+                .Entities
+                .Include(u => u.UserInfo) 
+                .Where(i => !i.DeletedTime.HasValue)
+                .OrderByDescending(c => c.CreatedTime);
+
+            var totalUsers = await usersQuery.CountAsync();
+
+            var paginatedUsers = await usersQuery
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            int totalUsers = await userRepository.Entities.CountAsync();
-
-            var userModelViews = new List<GETUserModelView>();
-
-            foreach (var user in users)
+            var userModelViews = paginatedUsers.Select(async user =>
             {
-                var roleName = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? string.Empty;
+                var userModelView = _mapper.Map<GETUserModelView>(user);
+                userModelView.RoleName = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? string.Empty;
 
-                userModelViews.Add(new GETUserModelView
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    RoleName = roleName,
-                    UserInfo = user.UserInfo ?? new UserInfo(),
-                    CreatedBy = user.CreatedBy,
-                    CreatedTime = user.CreatedTime,
-                });
-            }
+                userModelView.FullName = user.UserInfo?.FullName ?? string.Empty; 
 
-            return new BasePaginatedList<GETUserModelView>(userModelViews, totalUsers, pageNumber, pageSize);
+                return userModelView;
+            });
+
+            var userModelViewsList = await Task.WhenAll(userModelViews);
+
+            return new BasePaginatedList<GETUserModelView>(userModelViewsList.ToList(), totalUsers, pageNumber, pageSize);
         }
 
 
@@ -128,7 +130,7 @@ namespace PetSpa.Services.Service
 
             var userRepository = _unitOfWork.GetRepository<ApplicationUser>();
             var existingUser = await userRepository.GetByIdAsync(user.Id);
-            if (existingUser == null)
+            if (existingUser == null || existingUser.DeletedTime != null)
             {
                 throw new KeyNotFoundException("Người dùng không tìm thấy.");
             }
@@ -141,11 +143,10 @@ namespace PetSpa.Services.Service
                 throw new UnauthorizedAccessException("Bạn không có quyền chỉnh sửa thông tin người dùng này.");
             }
 
-            
-            existingUser.Email = user.Email;
-            existingUser.UserInfo = user.UserInfo; 
-            existingUser.LastUpdatedBy = user.LastUpdatedBy;
-            existingUser.LastUpdatedTime = user.LastUpdatedTime;
+            _mapper.Map(user, existingUser);
+
+            existingUser.LastUpdatedBy = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+            existingUser.LastUpdatedTime = DateTime.UtcNow;
 
             await userRepository.UpdateAsync(existingUser);
             await _unitOfWork.SaveAsync();
@@ -162,7 +163,7 @@ namespace PetSpa.Services.Service
 
             var userRepository = _unitOfWork.GetRepository<ApplicationUser>();
             var existedUser = await userRepository.GetByIdAsync(id);
-            if (existedUser == null)
+            if (existedUser == null || existedUser.DeletedTime != null)
             {
                 throw new KeyNotFoundException("Người dùng không tìm thấy.");
             }
@@ -173,7 +174,11 @@ namespace PetSpa.Services.Service
                 throw new UnauthorizedAccessException("Bạn không có quyền xóa người dùng này.");
             }
 
+            // xóa mềm chỉ cập nhật thời gian xóa và trạng thái người dùng nhớ nha ae :))
             existedUser.DeletedTime = DateTime.UtcNow;
+            // này lấy role name trong http ném vào mấy cái trên cũng vậy
+            existedUser.DeletedBy = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+
             await userRepository.UpdateAsync(existedUser);
             await _unitOfWork.SaveAsync();
         }
