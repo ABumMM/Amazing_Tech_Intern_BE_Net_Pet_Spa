@@ -7,7 +7,10 @@ using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
 using PetSpa.ModelViews.MemberShipModelView;
 using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews.OrderDetailModelViews;
 using PetSpa.ModelViews.OrderModelViews;
+using PetSpa.ModelViews.PackageModelViews;
+using System.Security.Cryptography;
 
 namespace PetSpa.Services.Service
 {
@@ -25,19 +28,14 @@ namespace PetSpa.Services.Service
 
         public async Task<BasePaginatedList<GetOrderViewModel>> GetAll(int pageNumber, int pageSize)
         {
-            // Kiểm tra tính hợp lệ của tham số
             if (pageNumber <= 0 || pageSize <= 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Page number and page size must be greater than 0.");
             }
-
-            // Lấy danh sách orders chưa bị xóa và sắp xếp theo thời gian tạo
             IQueryable<Orders> orders = _unitOfWork.GetRepository<Orders>()
                 .Entities.Where(o => !o.DeletedTime.HasValue)
                 .OrderByDescending(o => o.CreatedTime)
                 .AsQueryable();
-
-            // Phân trang và chỉ lấy các bản ghi cần thiết
             var paginatedOrders = await orders
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -47,10 +45,19 @@ namespace PetSpa.Services.Service
                     PaymentMethod = o.PaymentMethod,
                     Total = o.Total,
                     CreatedBy = o.CreatedBy,
-                    CreatedTime = o.CreatedTime,                  
+                    CreatedTime = o.CreatedTime,     
+                //    OrderDetailId = o.OrderDetails.Any()
+                //? o.OrderDetails.Select(od => new GETOrderDetailModelView
+                //{
+                //    Id = od.Id,
+                //    Quantity = od.Quantity,
+                //    Status = od.Status,
+                //    Price = od.Price ?? 0, // Xử lý null cho Price
+                //    CreatedBy = od.CreatedBy,
+                //    CreatedTime = od.CreatedTime
+                //}).ToList()
+                //: new List<GETOrderDetailModelView>() // Trả về danh sách trống nếu không có chi tiết đơn hàng
                 }).ToListAsync();
-
-            // Trả về danh sách phân trang
             return new BasePaginatedList<GetOrderViewModel>(paginatedOrders, await orders.CountAsync(), pageNumber, pageSize);
         }
 
@@ -68,12 +75,12 @@ namespace PetSpa.Services.Service
                 .Entities.FirstOrDefaultAsync(o => o.Id == id)
                 ?? throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Orders");
 
-            // Trả về đối tượng GetOrderViewModel
             return new GetOrderViewModel
             {
                 Id = order.Id,
                 PaymentMethod = order.PaymentMethod,
                 Total = order.Total,
+                IsPaid = order.IsPaid,
                 CreatedTime = order.CreatedTime
             };
         }
@@ -90,7 +97,7 @@ namespace PetSpa.Services.Service
             // Lấy danh sách chi tiết đơn hàng dựa trên OrderDetailId
             var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
                 .Entities
-                .Where(od => order.OrderDetailId.Contains(od.Id)) // Sửa ở đây để sử dụng Id thay vì OrderID
+                .Where(od => order.OrderDetailId.Contains(od.Id)) 
                 .ToListAsync();
 
             // Tính tổng số tiền cho các chi tiết đơn hàng
@@ -107,7 +114,8 @@ namespace PetSpa.Services.Service
             Orders newOrder = new Orders
             {
                 PaymentMethod = order.PaymentMethod,
-                Total =(double)totalAmount, // Sử dụng tổng đã tính
+                Total =(double)totalAmount, 
+                IsPaid = false, // Đơn hàng mới tạo mặc định là chưa thanh toán
                 CreatedBy = currentUserId,
                 CreatedTime = DateTime.Now,
             };
@@ -152,31 +160,49 @@ namespace PetSpa.Services.Service
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
         }
-
-        public async Task<decimal> CalculateOrderAmount(string orderId)
+        public async Task<BasePaginatedList<GetOrderViewModel>> GetOrdersByPaymentStatus(bool isPaid, int pageNumber, int pageSize)
         {
-            decimal amount = 0; 
-
-            // Lấy danh sách các chi tiết đơn hàng dựa trên OrderID
-            var ordersDetail = await _unitOfWork.GetRepository<OrdersDetails>()
-                .Entities.Where(x => x.OrderID == orderId) // Sửa ở đây để sử dụng OrderID thay vì Id
-                .ToListAsync();
-
-            if (ordersDetail.Count > 0)
+            if (pageNumber <= 0 || pageSize <= 0)
             {
-                // Tính tổng số tiền cho các chi tiết đơn hàng
-                foreach (var item in ordersDetail)
-                {
-                    // Kiểm tra giá trị của Price trước khi thực hiện phép toán
-                    if (item.Price.HasValue) 
-                    {
-                        amount += item.Price.Value * item.Quantity;
-                    }
-                }
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Page number and page size must be greater than 0.");
             }
 
-            return amount; // Trả về tổng số tiền dưới dạng decimal
+            IQueryable<Orders> orders = _unitOfWork.GetRepository<Orders>()
+                .Entities
+                .Where(o => !o.DeletedTime.HasValue && o.IsPaid == isPaid)
+                .OrderByDescending(o => o.CreatedTime)
+                .AsQueryable();
+
+            var paginatedOrders = await orders
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(o => new GetOrderViewModel
+                {
+                    Id = o.Id,
+                    PaymentMethod = o.PaymentMethod,
+                    Total = o.Total,
+                    CreatedBy = o.CreatedBy,
+                    CreatedTime = o.CreatedTime,
+                    IsPaid = o.IsPaid
+                }).ToListAsync();
+
+            return new BasePaginatedList<GetOrderViewModel>(paginatedOrders, await orders.CountAsync(), pageNumber, pageSize);
         }
 
+        public async Task ConfirmOrder(string id)
+        {
+            var existingOrder = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(id);
+            if (existingOrder == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Order not found.");
+            }
+
+            existingOrder.IsPaid = true; // Xác nhận đơn hàng đã thanh toán
+            existingOrder.LastUpdatedTime = DateTime.UtcNow;
+            existingOrder.LastUpdatedBy = currentUserId;
+
+            await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
+            await _unitOfWork.SaveAsync();
+        }
     }
 }
