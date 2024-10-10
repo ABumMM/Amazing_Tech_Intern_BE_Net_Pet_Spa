@@ -11,7 +11,7 @@ namespace PetSpa.ModelViews.OrderDetailModelViews
         public int? Quantity { get; set; }
         public string? Status { get; set; }
         public decimal Price { get; set; } = 0;
-        // public string? OrderID { get; set; }
+        public string? OrderID { get; set; }
         public List<string>? PackageIDs { get; set; } // Danh sách PackageID
 
         public string? CreatedBy { get; set; }
