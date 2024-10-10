@@ -60,7 +60,7 @@ namespace PetSpa.Services.Service
                 Quantity = (int)detailsMV.Quantity,
                 Price = detailsMV.Price,
                 Status = detailsMV.Status,
-                //OrderId = detaislMV.OrderID,
+                OrderID = detailsMV.OrderID,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
                 CreatedBy = currentUserId
             };
@@ -123,7 +123,7 @@ namespace PetSpa.Services.Service
                     Quantity = orD.Quantity,
                     Price = (decimal)orD.Price,
                     Status = orD.Status,
-                    //OrderID = orD.OrderID,
+                    OrderID = orD.OrderID,
                     CreatedTime = orD.CreatedTime,
                     CreatedBy = orD.CreatedBy,
                     ListPackage = orD.OrderDetailPackages.Select(odp => new GETPackageModelView_OrderDetails
@@ -193,7 +193,7 @@ namespace PetSpa.Services.Service
                 Quantity = orD.Quantity,
                 Price = (decimal)orD.Price,
                 Status = orD.Status,
-                //OrderID = orD.OrderID,
+                OrderID = orD.OrderID,
                 CreatedTime = orD.CreatedTime,
                 CreatedBy = orD.CreatedBy,
                 ListPackage = orD.OrderDetailPackages.Select(odp => new GETPackageModelView_OrderDetails
