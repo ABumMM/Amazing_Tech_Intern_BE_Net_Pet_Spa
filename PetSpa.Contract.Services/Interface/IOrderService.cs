@@ -12,7 +12,7 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IOrderService
     {
-        Task<BasePaginatedList<GetOrderViewModel>> GetAll(int pageNumber = 1, int pageSize = 3);
+        Task<BasePaginatedList<GetOrderViewModel>> GetAll(int pageNumber , int pageSize );
         Task<GetOrderViewModel?> GetById(string id);
         Task Add(PostOrderViewModel order);
         Task Update(PutOrderViewModel order);
