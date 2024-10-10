@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241005044656_InitialCreate")]
+    [Migration("20241010082309_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -297,6 +297,9 @@ namespace PetSpa.Repositories.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("memberShipID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -395,6 +398,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<double>("DiscountRate")
+                        .HasColumnType("float");
+
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -405,13 +411,17 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Point")
-                        .HasColumnType("int");
+                    b.Property<double>("TotalSpent")
+                        .HasColumnType("float");
 
-                    b.Property<string>("SpecialOffer")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("MemberShips");
                 });
@@ -705,6 +715,7 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastUpdatedBy")
@@ -1036,6 +1047,15 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.MemberShips", b =>
+                {
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", "User")
+                        .WithOne("Membership")
+                        .HasForeignKey("PetSpa.Contract.Repositories.Entity.MemberShips", "UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrderDetailPackage", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.OrdersDetails", "OrderDetail")
@@ -1114,6 +1134,8 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUser", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("Membership");
 
                     b.Navigation("Orders");
 

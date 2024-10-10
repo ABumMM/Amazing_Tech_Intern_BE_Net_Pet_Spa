@@ -16,7 +16,5 @@ namespace PetSpa.ModelViews.PackageModelViews
         public string? Experiences { get; set; }
         public string? CreatedBy { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
-  
-       
     }
 }

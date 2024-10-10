@@ -5,9 +5,7 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
-using PetSpa.Core.Utils;
 using PetSpa.ModelViews.MemberShipModelView;
-using PetSpa.ModelViews.MemberShipModelViews;
 namespace PetSpa.Services.Service
 {
     public class MemberShipService:IMembershipsService
@@ -20,46 +18,6 @@ namespace PetSpa.Services.Service
             _unitOfWork = unitOfWork;
             _contextAccessor= contextAccessor;
         }
-        public async Task Add(POSTMemberShipModelView memberShipMV)
-        {
-            if (memberShipMV == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "Membership cannot be null.");
-            }
-            if (string.IsNullOrWhiteSpace(memberShipMV.Name))
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Membership name is required.");
-            }
-            if (memberShipMV.Point < 0)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Point must be greater than or equal to 0.");
-            }
-            MemberShips memberShips = new MemberShips()
-            {
-                Name = memberShipMV.Name,
-                Point = memberShipMV.Point,
-                SpecialOffer = memberShipMV.SpecialOffer,
-                CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
-                CreatedBy = currentUserId
-            };
-
-            await _unitOfWork.GetRepository<MemberShips>().InsertAsync(memberShips);
-            await _unitOfWork.SaveAsync();
-        }
-
-        public async Task Delete(string MemberShipId)
-        {
-            MemberShips? existedMemberShips = await _unitOfWork.GetRepository<MemberShips>().GetByIdAsync(MemberShipId);
-            if (existedMemberShips == null)
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
-            }
-            existedMemberShips.DeletedTime = DateTime.Now;
-            existedMemberShips.DeletedBy = "ehehehheh";
-            await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(existedMemberShips);
-            await _unitOfWork.SaveAsync();
-        }
-
         public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize)
         {
             if (pageNumber <= 0 || pageSize <= 0)
@@ -77,8 +35,8 @@ namespace PetSpa.Services.Service
                 {
                     Id = pa.Id,
                     Name = pa.Name,
-                    Point = pa.Point,
-                    SpecialOffer = pa.SpecialOffer,
+                    DiscountRate = pa.DiscountRate,
+                    TotalSpent=pa.TotalSpent,
                     CreatedTime = pa.CreatedTime,
                     CreatedBy = pa.CreatedBy,
                 }).ToListAsync();
@@ -96,50 +54,51 @@ namespace PetSpa.Services.Service
             {
                 Id = existedMemberShips.Id,
                 Name = existedMemberShips.Name,
-                Point = existedMemberShips.Point,
-                SpecialOffer = existedMemberShips.SpecialOffer,
-                CreatedTime = existedMemberShips.CreatedTime
+                CreatedTime = existedMemberShips.CreatedTime,
+                CreatedBy=existedMemberShips.CreatedBy,
             };
         }
-        public Task<List<GETMemberShipModelView?>> GetMemberShips(string packageID, DateTime? DateStart, DateTime? EndStart, string? Name)
+        // Phương thức kiểm tra xem thành viên có đủ điều kiện để nâng hạng không
+        public async Task<string> CheckMembershipUpgrade(Guid customerId)
         {
-            throw new NotImplementedException();
-        }
-        public async Task Update(PUTMemberShipModelView memberShipMV)
-        {
-            // Kiểm tra nếu packageMV null
-            if (memberShipMV == null)
+            var membership = await _unitOfWork.GetRepository<MemberShips>().GetByIdAsync(customerId);
+
+            if (membership == null)
             {
-                throw new BadRequestException(ErrorCode.BadRequest, "MemberShip cannot be null.");
+                throw new Exception("No active membership found for the customer.");
             }
-            // Kiểm tra nếu Id bị thiếu hoặc không hợp lệ
-            if (memberShipMV.Id == null)
+
+            string currentLevel = membership.Name;
+
+            //PLatinum sử dụng hơn 20000000
+            if (membership.TotalSpent >= 20000000 )
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "MemberShip id is required.");
+                if (currentLevel != "Platinum")
+                {
+                    membership.Name = "Platinum";
+                    await _unitOfWork.SaveAsync();
+                    return "Membership upgraded to Platinum!";
+                }
             }
-            MemberShips? existedMemberShip = await _unitOfWork.GetRepository<MemberShips>().GetByIdAsync(memberShipMV.Id);
-            if (existedMemberShip == null)
+            else if (membership.TotalSpent >= 10000000)
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found MemberShip");
+                if (currentLevel != "Gold")
+                {
+                    membership.Name = "Gold";
+                    await _unitOfWork.SaveAsync();
+                    return "Membership upgraded to Gold!";
+                }
             }
-            if (memberShipMV == null)
+            else if (membership.TotalSpent >= 5000000)
             {
-                throw new BadRequestException(ErrorCode.BadRequest, "MemberShip cannot null.");
+                if (currentLevel != "Silver")
+                {
+                    membership.Name = "Silver";
+                    await _unitOfWork.SaveAsync();
+                    return "Membership upgraded to Silver!";
+                }
             }
-            if (memberShipMV.Name == null)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "MemberShip name is required.");
-            }
-            if (memberShipMV.Point < 0)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Point must be greater than or equal to 0.");
-            }
-            existedMemberShip.Name = memberShipMV.Name;
-            existedMemberShip.Point = memberShipMV.Point;
-            existedMemberShip.SpecialOffer = memberShipMV.SpecialOffer;
-            existedMemberShip.LastUpdatedTime = DateTime.Now;
-            await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(existedMemberShip);
-            await _unitOfWork.SaveAsync();
+            return "No membership upgrade.";
         }
     }
 }

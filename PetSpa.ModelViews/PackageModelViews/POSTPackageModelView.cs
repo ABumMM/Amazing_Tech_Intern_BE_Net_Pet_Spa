@@ -13,9 +13,7 @@ namespace PetSpa.ModelViews.PackageModelViews
         public string? Image { get; set; }
         public string? Information { get; set; }
         public string? Experiences { get; set; }
-        public List<string>? ServiceIDs { get; set; }
-        public string? CreatedBy { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
-        
+
     }
 }
