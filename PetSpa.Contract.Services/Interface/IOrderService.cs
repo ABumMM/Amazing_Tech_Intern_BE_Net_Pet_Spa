@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Core.Base;
-using PetSpa.ModelViews.ModelViews;
+using PetSpa.ModelViews;
 using PetSpa.ModelViews.OrderModelViews;
 using PetSpa.ModelViews.PackageModelViews;
 namespace PetSpa.Contract.Services.Interface
