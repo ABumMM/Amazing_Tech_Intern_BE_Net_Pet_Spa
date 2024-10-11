@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
@@ -12,11 +13,14 @@ namespace PetSpa.Services.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IMapper _mapper;
         private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
-        public MemberShipService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
+        public MemberShipService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor
+            , IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _contextAccessor= contextAccessor;
+            _mapper= mapper;
         }
         public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize)
         {
@@ -26,21 +30,13 @@ namespace PetSpa.Services.Service
             }
             IQueryable<MemberShips> memberShips = _unitOfWork.GetRepository<MemberShips>()
                 .Entities.Where(i => !i.DeletedTime.HasValue)//Membership chưa bị xóa
-                .OrderByDescending(c=>c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo
-            //Phân trang và chỉ lấy các bản ghi cần thiết
-            var paginatedMemberShips = await memberShips
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .Select(pa => new GETMemberShipModelView
-                {
-                    Id = pa.Id,
-                    Name = pa.Name,
-                    DiscountRate = pa.DiscountRate,
-                    TotalSpent=pa.TotalSpent,
-                    CreatedTime = pa.CreatedTime,
-                    CreatedBy = pa.CreatedBy,
-                }).ToListAsync();
-            return new BasePaginatedList<GETMemberShipModelView>(paginatedMemberShips, await memberShips.CountAsync(), pageNumber, pageSize);
+                .OrderByDescending(c=>c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo                                                  
+                var paginatedMemberShips = await memberShips
+                 .Skip((pageNumber - 1) * pageSize)
+                 .Take(pageSize)
+                 .ToListAsync();
+            return new BasePaginatedList<GETMemberShipModelView>(_mapper.Map<List<GETMemberShipModelView>>(paginatedMemberShips), 
+                await memberShips.CountAsync(), pageNumber, pageSize);
         }
         public async Task<GETMemberShipModelView?> GetById(string memberShipID)
         {
@@ -50,16 +46,10 @@ namespace PetSpa.Services.Service
             }
             var existedMemberShips = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(p => p.Id == memberShipID) ??
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found membership");
-            return new GETMemberShipModelView
-            {
-                Id = existedMemberShips.Id,
-                Name = existedMemberShips.Name,
-                CreatedTime = existedMemberShips.CreatedTime,
-                CreatedBy=existedMemberShips.CreatedBy,
-            };
+            return _mapper.Map<GETMemberShipModelView>(existedMemberShips);
         }
         // Phương thức kiểm tra xem thành viên có đủ điều kiện để nâng hạng không
-        public async Task<string> CheckMembershipUpgrade(Guid customerId)
+        public async Task CheckMembershipUpgrade(Guid customerId)
         {
             var membership = await _unitOfWork.GetRepository<MemberShips>().GetByIdAsync(customerId);
 
@@ -68,37 +58,40 @@ namespace PetSpa.Services.Service
                 throw new Exception("No active membership found for the customer.");
             }
 
-            string currentLevel = membership.Name;
-
-            //PLatinum sử dụng hơn 20000000
-            if (membership.TotalSpent >= 20000000 )
+            if (membership.TotalSpent >= 20000000) // Platinum
             {
-                if (currentLevel != "Platinum")
+                if (membership.Name != "Platinum")
                 {
                     membership.Name = "Platinum";
-                    await _unitOfWork.SaveAsync();
-                    return "Membership upgraded to Platinum!";
+                    membership.DiscountRate = 0.20; // Giảm giá 20% cho hạng Platinum
                 }
             }
-            else if (membership.TotalSpent >= 10000000)
+            else if (membership.TotalSpent >= 10000000) // Gold
             {
-                if (currentLevel != "Gold")
+                if (membership.Name != "Gold")
                 {
                     membership.Name = "Gold";
-                    await _unitOfWork.SaveAsync();
-                    return "Membership upgraded to Gold!";
+                    membership.DiscountRate = 0.15; // Giảm giá 15% cho hạng Gold
                 }
             }
-            else if (membership.TotalSpent >= 5000000)
+            else if (membership.TotalSpent >= 5000000) // Silver
             {
-                if (currentLevel != "Silver")
+                if (membership.Name != "Silver")
                 {
                     membership.Name = "Silver";
-                    await _unitOfWork.SaveAsync();
-                    return "Membership upgraded to Silver!";
+                    membership.DiscountRate = 0.10; // Giảm giá 10% cho hạng Silver
                 }
             }
-            return "No membership upgrade.";
+            else // Standard
+            {
+                if (membership.Name != "Standard")
+                {
+                    membership.Name = "Standard";
+                    membership.DiscountRate = 0; // Không giảm giá cho hạng Standard
+                }
+            }
+
+            await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
         }
     }
 }

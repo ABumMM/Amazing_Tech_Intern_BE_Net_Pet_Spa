@@ -12,6 +12,7 @@ namespace PetSpa.ModelViews.OrderModelViews
         public string? Id { get; set; }
         public string? PaymentMethod { get; set; }
         public double? Total { get; set; }
+        public string? CreatedBy { get; set; }
         public DateTimeOffset? CreatedTime { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
@@ -8,19 +9,24 @@ using PetSpa.Core.Infrastructure;
 using PetSpa.Core.Utils;
 using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.ModelViews.PackageServiceModelViews;
-using PetSpa.Repositories.UOW;
+using ServicesEntity = PetSpa.Contract.Repositories.Entity.Services;
+
 namespace PetSpa.Services.Service
 {
     public class PackageService : IPackageService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IMapper _mapper;
+
         private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
 
-        public PackageService(IUnitOfWork unitOfWork,IHttpContextAccessor contextAccessor)
+        public PackageService(IUnitOfWork unitOfWork,IHttpContextAccessor contextAccessor,
+            IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
+            _mapper = mapper;
         }
         public async Task Add(POSTPackageModelView packageMV)
         {
@@ -37,7 +43,7 @@ namespace PetSpa.Services.Service
                 Information = packageMV.Information,
                 Experiences = packageMV.Experiences,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
-                CreatedBy=user?.UserName
+                CreatedBy=user?.UserInfo?.FullName
             };
             await _unitOfWork.GetRepository<Packages>().InsertAsync(packages);
             await _unitOfWork.SaveAsync();
@@ -51,7 +57,7 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
             var relatedServices =  _unitOfWork.GetRepository<PackageServiceEntity>().Entities.Where(p => p.PackageId == packageID).ToList();
-
+            //Xóa tất cả các service bên trong package mà đang liên kết
             foreach (var service in relatedServices)
             {
                 await _unitOfWork.GetRepository<PackageServiceEntity>().DeleteAsync(service.Id); // Assuming Id is the primary key
@@ -87,20 +93,11 @@ namespace PetSpa.Services.Service
                .OrderByDescending(c => c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo
             //Phân trang và chỉ lấy các bản ghi cần thiết
             var paginatedPackages = await packages
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .Select(pa => new GETPackageModelView
-                {
-                    Id = pa.Id,
-                    Name = pa.Name,
-                    Price = pa.Price,
-                    Image = pa.Image,
-                    Information = pa.Information,
-                    Experiences = pa.Experiences,
-                    CreatedTime = pa.CreatedTime,
-                    CreatedBy = pa.CreatedBy,
-                }).ToListAsync();
-            return new BasePaginatedList<GETPackageModelView>(paginatedPackages, await packages.CountAsync(), pageNumber, pageSize);
+                 .Skip((pageNumber - 1) * pageSize)
+                 .Take(pageSize)
+                 .ToListAsync();
+            return new BasePaginatedList<GETPackageModelView>(_mapper.Map<List<GETPackageModelView>>(paginatedPackages),
+                await packages.CountAsync(), pageNumber, pageSize);
         }
         public async Task AddServiceInPackage(string packageID, string serviceID)
         {
@@ -134,7 +131,7 @@ namespace PetSpa.Services.Service
             {
                 PackageId = packageID,
                 ServicesEntityID = serviceID,
-                CreatedTime = DateTime.Now,
+                CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
             };
 
             await _unitOfWork.GetRepository<PackageServiceEntity>().InsertAsync(packageService);
@@ -154,16 +151,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
-            return new GETPackageModelView
-            {
-                Id = existedPackage.Id,
-                Name = existedPackage.Name,
-                Price = existedPackage.Price,
-                Image = existedPackage.Image,
-                Information = existedPackage.Information,
-                Experiences = existedPackage.Experiences,
-                CreatedTime = existedPackage.CreatedTime,
-            };
+            return _mapper.Map<GETPackageModelView?>(existedPackage);
         }
         public async Task<List<GETPackageServiceModelView>> GetServicesByPackageId(string packageId)
         {
@@ -181,15 +169,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Package not found.");
             }
-            // Lấy danh sách service từ PackageServices
-            var serviceList = existedPackage.PackageServices?
-                                .Select(ps => new GETPackageServiceModelView
-                                {
-                                    Id = ps.Id,
-                                    ServiceName = ps.ServicesEntity?.Name ?? string.Empty
-                                }).ToList();
-
-            return serviceList ?? new List<GETPackageServiceModelView>();
+            return _mapper.Map<List<GETPackageServiceModelView>>(existedPackage.PackageServices);
         }
 
         public async Task<List<GETPackageModelView>?> GetPackageByConditions(DateTimeOffset? DateStart, DateTimeOffset? DateEnd)
@@ -216,20 +196,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "No packages found.");
             }
-
-            // Chuyển đổi dữ liệu sang GETPackageModelView
-            var packageViewModels = packages.Select(p => new GETPackageModelView
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Price = p.Price,
-                Image = p.Image,
-                Information = p.Information,
-                Experiences = p.Experiences,
-                CreatedTime = p.CreatedTime,
-                CreatedBy = p.CreatedBy,
-            }).ToList();
-            return packageViewModels;
+            return _mapper.Map<List<GETPackageModelView>>(packages);
         }
 
         public async Task Update(PUTPackageModelView packageMV)
@@ -249,16 +216,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
             }
-
-            // Cập nhật thông tin của Package
-            existedPackage.Name = packageMV.Name;
-            existedPackage.Price = packageMV.Price;
-            existedPackage.Image = packageMV.Image;
-            existedPackage.Information = packageMV.Information;
-            existedPackage.Experiences = packageMV.Experiences;
-            existedPackage.LastUpdatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
-            existedPackage.LastUpdatedBy = currentUserId;
-            // Thực hiện cập nhật trong cơ sở dữ liệu
+            _mapper.Map(packageMV, existedPackage);
             await _unitOfWork.GetRepository<Packages>().UpdateAsync(existedPackage);
             await _unitOfWork.SaveAsync();      
         }

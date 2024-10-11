@@ -11,12 +11,13 @@ namespace PetSpa.Contract.Services.Interface
 {
     public interface IOrderDetailServices
     {
-        Task<BasePaginatedList<GETOrderDetailModelView>> getAll(int pageNumber = 1, int pageSize = 3);
-        Task<GETOrderDetailModelView?> getById(string OrDetailID);
-        //Task<GETOrderDetailModelView?> GETOrderDetail(string orDetailID, DateTime? DateStart, DateTime? EndStart);
+        Task<BasePaginatedList<GETOrderDetailModelView>> GetAll(int pageNumber , int pageSize );
+        Task<GETOrderDetailModelView?> GetById(string OrDetailID);
+        Task<List<GETOrderDetailModelView>?> GETOrderDetailByConditions(DateTimeOffset? DateStart, DateTimeOffset? DateEnd);
         Task Add(POSTOrderDetailModelView detailsMV);
         Task Update(PUTOrderDetailModelView detailsMV);
         Task Delete(string OrDetailID);
+        Task DeletePackageInOrDetail(string packageINOrDetailID);
 
     }
 }
