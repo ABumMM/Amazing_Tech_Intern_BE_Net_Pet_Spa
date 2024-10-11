@@ -12,15 +12,18 @@ using System.Threading.Tasks;
 using ServicesEntity = PetSpa.Contract.Repositories.Entity.Services;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Repositories.UOW;
+using PetSpa.Core.Infrastructure;
 namespace PetSpa.Services.Service
 {
     public class ServicesService : IServicesService
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public ServicesService(IUnitOfWork unitOfWork)
+        private readonly IHttpContextAccessor _contextAccessor;
+        private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
+        public ServicesService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
         {
             _unitOfWork = unitOfWork;
+            _contextAccessor = contextAccessor;
         }
         public async Task Add(ServiceCreateModel serviceModel)
         {
@@ -28,6 +31,7 @@ namespace PetSpa.Services.Service
             {
                 Name = serviceModel.Name,
                 Description = serviceModel.Description,
+                CreatedBy = currentUserId
             }; 
             await _unitOfWork.GetRepository<ServicesEntity>().InsertAsync(service);
             await _unitOfWork.SaveAsync();
@@ -41,7 +45,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(statusCode: StatusCodes.Status404NotFound, errorCode: ErrorCode.NotFound, "Not found Service with id =" + id);
             }
-            service.DeletedBy = "Khoa";
+            service.DeletedBy = currentUserId;
             service.DeletedTime = DateTime.UtcNow;
             await _unitOfWork.SaveAsync();
         }
@@ -100,7 +104,7 @@ namespace PetSpa.Services.Service
 
             service.Name = serviceModel.Name;
             service.Description = serviceModel.Description;
-          
+            service.LastUpdatedBy = currentUserId;
             service.LastUpdatedTime = DateTime.Now;
             
            
