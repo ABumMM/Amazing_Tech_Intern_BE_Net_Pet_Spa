@@ -17,6 +17,6 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Status { get; set; }
         public required string OrdersId { get; set; }     
         public virtual Orders? Orders { get; set; }
-        public ICollection<BookingPackage>? BookingPackages { get; set; } = new HashSet<BookingPackage>();
+        public ICollection<BookingPackage> BookingPackages { get; set; } = new HashSet<BookingPackage>();
     }
 }

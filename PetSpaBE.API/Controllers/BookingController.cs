@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -10,6 +11,7 @@ using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookingController : ControllerBase
@@ -60,6 +62,15 @@ namespace PetSpaBE.API.Controllers
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Update booking success"));
+        }
+        [HttpPut("{id}/cancel")]
+        public async Task<IActionResult> CancelBooking(string id)
+        {
+            await _bookingService.CancelBooking(id);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Hủy booking thành công"));
         }
 
     }
