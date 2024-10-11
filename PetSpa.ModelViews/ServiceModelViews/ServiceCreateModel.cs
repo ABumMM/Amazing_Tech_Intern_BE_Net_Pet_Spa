@@ -12,5 +12,6 @@ namespace PetSpa.ModelViews.ServiceModelViews
         public required string Name { get; set; }
     
         public string? Description { get; set; }
+     
     }
 }
