@@ -90,7 +90,7 @@ namespace PetSpa.Services.Service
                     {
                         Id = x.BookingPackage.PackageId,
                         Name = x.BookingPackage.Package != null ? x.BookingPackage.Package.Name : "Unknown",
-                        Price = x.BookingPackage.Package != null ? x.BookingPackage.Package.Price.GetValueOrDefault() : 0
+                        Price = x.BookingPackage.Package != null ? x.BookingPackage.Package.Price : 0
                     }).ToList()
                 });
 

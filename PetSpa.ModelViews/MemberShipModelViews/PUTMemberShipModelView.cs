@@ -8,11 +8,9 @@ namespace PetSpa.ModelViews.MemberShipModelViews
 {
     public class PUTMemberShipModelView
     {
-        public string? Id { get; set; }
+        public required string Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int? Point { get; set; }
-        public string? SpecialOffer { get; set; }
-        public string? LastUpdatedBy { get; set; }
-        public DateTimeOffset LastUpdatedTime { get; set; }
+        public double TotalSpent { get; set; } = 0;//Tổng số tiền đã cho tiêu
+        public double DiscountRate { get; set; } = 0;
     }
 }

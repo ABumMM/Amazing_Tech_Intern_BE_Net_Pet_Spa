@@ -1,7 +1,6 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.BookingModelViews;
-using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.PackageModelViews;
 using System;
 using System.Collections.Generic;

@@ -19,7 +19,7 @@ namespace PetSpa.Services.Mapper
             CreateMap<BookingPackage, PackageDTO>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.PackageId))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Package != null ? src.Package.Name : string.Empty))
-                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Package != null ? src.Package.Price.GetValueOrDefault() : 0));
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Package != null ? src.Package.Price : 0));
             // Mapping từ Booking sang GETBooking_PackageVM
             CreateMap<BookingPackage, GETBooking_PackageVM>()
                 .ForMember(dest => dest.Packages, opt => opt.MapFrom(src => src));
