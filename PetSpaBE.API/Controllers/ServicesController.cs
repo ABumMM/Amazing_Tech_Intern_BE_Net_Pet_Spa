@@ -7,6 +7,7 @@ using PetSpa.Core.Store;
 using PetSpa.Core.Utils;
 using PetSpa.ModelViews.ServiceModelViews;
 using PetSpa.Services.Service;
+using System.IdentityModel.Tokens.Jwt;
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -24,7 +25,7 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> GetAllServices(int pageNumber, int pageSize)
         {
 
-            var item = await _servicesService.GetAll();
+            var item = await _servicesService.GetAll(pageNumber,pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<ServiceResposeModel>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
