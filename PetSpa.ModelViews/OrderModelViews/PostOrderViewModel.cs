@@ -9,8 +9,10 @@ namespace PetSpa.ModelViews.OrderModelViews
     public class PostOrderViewModel
     {
         public string PaymentMethod { get; set; } = "Unknown";
-        public double Total { get; set; }
-        //public List<string>? OrderDetailId { get; set; }
+        //public double Total { get; set; }
+        public List<string>? OrderDetailId { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
+        public string? CreatedBy { get; set; }
+
     }
 }

@@ -1,5 +1,4 @@
-﻿using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.PackageModelViews;
+﻿using PetSpa.ModelViews.PackageModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
