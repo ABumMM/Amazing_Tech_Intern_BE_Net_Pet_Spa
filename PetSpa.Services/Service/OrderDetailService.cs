@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
@@ -17,11 +18,14 @@ namespace PetSpa.Services.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IMapper _mapper;
+
         private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
-        public OrderDetailService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
+        public OrderDetailService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
+            _mapper = mapper;
         }
 
         public async Task Add(POSTOrderDetailModelView detailsMV)
@@ -40,24 +44,22 @@ namespace PetSpa.Services.Service
                          .Entities.FirstOrDefault(p => detailsMV.PackageID.Contains(p.Id));
 
             decimal totalPrice = 0;
-            if (package != null) 
+            if (package != null)
             {
-                totalPrice += package.Price* detailsMV.Quantity;
+                totalPrice += package.Price * detailsMV.Quantity;
             }
-        
+            var user = await _unitOfWork.GetRepository<ApplicationUser>().GetByIdAsync(Guid.Parse(currentUserId));
+
             OrdersDetails details = new OrdersDetails()
             {
                 Quantity = (int)detailsMV.Quantity,
                 Price = totalPrice,
                 Status = detailsMV.Status,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
-                CreatedBy = currentUserId
+                CreatedBy = user?.UserName
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
             await _unitOfWork.SaveAsync();
-
-            // Thêm mối quan hệ giữa OrderDetail và Packages
-
         }
 
         public async Task Delete(string OrDetailID)
@@ -70,18 +72,7 @@ namespace PetSpa.Services.Service
             existedOrDetail.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
             await _unitOfWork.GetRepository<OrdersDetails>().DeleteAsync(OrDetailID);
             await _unitOfWork.SaveAsync();
-        }
-
-        //public async Task DeletePackageInOrDetail(string packageINOrDetailID)
-        //{
-        //    OrderDetailPackage? exitstPackageInOrDetail = await _unitOfWork.GetRepository<OrderDetailPackage>().GetByIdAsync(packageINOrDetailID);
-        //    if (exitstPackageInOrDetail == null)
-        //    {
-        //        throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
-        //    }
-        //    await _unitOfWork.GetRepository<OrderDetailPackage>().DeleteAsync(packageINOrDetailID);
-        //    await _unitOfWork.SaveAsync();
-        //}
+        } 
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> GetAll(int pageNumber, int pageSize)
         {
@@ -96,18 +87,19 @@ namespace PetSpa.Services.Service
             var paginatedOrDetail = await orDetails
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .Select(orD => new GETOrderDetailModelView
-                {
-                    Id = orD.Id,
-                    Quantity = orD.Quantity,
-                    Price = (decimal)orD.Price,
-                    Status = orD.Status,
-                    OrderID = orD.Orders.Id,
-                    CreatedTime = orD.CreatedTime,
-                    CreatedBy = orD.CreatedBy,
-                   
-                }).ToListAsync();
-            return new BasePaginatedList<GETOrderDetailModelView>(paginatedOrDetail, await orDetails.CountAsync(), pageNumber, pageSize);
+                //.Select(orD => new GETOrderDetailModelView
+                //{
+                //    Id = orD.Id,
+                //    Quantity = orD.Quantity,
+                //    Price = (decimal)orD.Price,
+                //    Status = orD.Status,
+                //    //OrderID = orD.Orders.Id,
+                //    CreatedTime = orD.CreatedTime,
+                //    CreatedBy = orD.CreatedBy,
+                //})
+                .ToListAsync();
+            //return new BasePaginatedList<GETOrderDetailModelView>(paginatedOrDetail, await orDetails.CountAsync(), pageNumber, pageSize);
+            return new BasePaginatedList<GETOrderDetailModelView>(_mapper.Map<List<GETOrderDetailModelView>>(paginatedOrDetail), await orDetails.CountAsync(), pageNumber, pageSize);
         }
 
         public async Task<GETOrderDetailModelView?> GetById(string? OrDetailID)
@@ -122,14 +114,15 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found OrderDetail");
             }
 
-            return new GETOrderDetailModelView
-            {
-                Id = existedOrDetail.Id,
-                Quantity = existedOrDetail.Quantity,
-                Status = existedOrDetail.Status,
-                Price = (decimal)existedOrDetail.Price,
-                CreatedTime = existedOrDetail.CreatedTime
-            };
+            //return new GETOrderDetailModelView
+            //{
+            //    Id = existedOrDetail.Id,
+            //    Quantity = existedOrDetail.Quantity,
+            //    Status = existedOrDetail.Status,
+            //    Price = (decimal)existedOrDetail.Price,
+            //    CreatedTime = existedOrDetail.CreatedTime
+            //};
+            return _mapper.Map<GETOrderDetailModelView>(existedOrDetail);
         }
 
         public async Task<List<GETOrderDetailModelView>?> GETOrderDetailByConditions(DateTimeOffset? DateStart, DateTimeOffset? DateEnd)
@@ -158,18 +151,19 @@ namespace PetSpa.Services.Service
             }
 
             // Chuyển đổi dữ liệu sang GETPackageModelView
-            var orDetailViewModels = orDetails.Select(orD => new GETOrderDetailModelView
-            {
-                Id = orD.Id,
-                Quantity = orD.Quantity,
-                Price = (decimal)orD.Price,
-                Status = orD.Status,
-                OrderID = orD.Orders.Id,
-                CreatedTime = orD.CreatedTime,
-                CreatedBy = orD.CreatedBy,
+            //var orDetailViewModels = orDetails.Select(orD => new GETOrderDetailModelView
+            //{
+            //    Id = orD.Id,
+            //    Quantity = orD.Quantity,
+            //    Price = (decimal)orD.Price,
+            //    Status = orD.Status,
+            //    OrderID = orD.Orders.Id,
+            //    CreatedTime = orD.CreatedTime,
+            //    CreatedBy = orD.CreatedBy,
                 
-            }).ToList();
-            return orDetailViewModels;
+            //}).ToList();
+            //return orDetailViewModels;
+            return _mapper.Map<List<GETOrderDetailModelView>>(orDetails);
         }
 
         public async Task Update(PUTOrderDetailModelView detailsMV)
@@ -194,21 +188,16 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrderDetail status is required.");
             }
-            if (detailsMV.Price < 0)
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
-            }
             if (detailsMV.Quantity < 0)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Quantity must be greater than or equal to 0.");
             }
 
-            existedOrDetail.Quantity = (int)detailsMV.Quantity;
-            existedOrDetail.Status = detailsMV.Status;
-            existedOrDetail.Price = (decimal)detailsMV.Price;
-            existedOrDetail.LastUpdatedTime = DateTime.Now;
-            existedOrDetail.LastUpdatedBy = currentUserId;
-
+            //existedOrDetail.Quantity = (int)detailsMV.Quantity;
+            //existedOrDetail.Status = detailsMV.Status;
+            //existedOrDetail.LastUpdatedTime = DateTime.Now;
+            //existedOrDetail.LastUpdatedBy = currentUserId;
+            _mapper.Map(detailsMV, existedOrDetail);
             await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(existedOrDetail);
             await _unitOfWork.SaveAsync();
         }

@@ -17,7 +17,5 @@ namespace PetSpa.Contract.Services.Interface
         Task Add(POSTOrderDetailModelView detailsMV);
         Task Update(PUTOrderDetailModelView detailsMV);
         Task Delete(string OrDetailID);
-        //Task DeletePackageInOrDetail(string packageINOrDetailID);
-
     }
 }
