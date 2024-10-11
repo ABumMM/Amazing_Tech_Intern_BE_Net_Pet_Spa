@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241008180448_InitialCreate")]
+    [Migration("20241011161813_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -673,6 +673,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Species")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("UsersId")
                         .HasColumnType("uniqueidentifier");

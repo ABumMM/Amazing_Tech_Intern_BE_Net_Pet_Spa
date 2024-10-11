@@ -41,6 +41,7 @@ namespace PetSpa.Services
 
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IOrderDetailServices, OrderDetailService>();
+            services.AddScoped<IPetService, PetService>();
 
 
         }
