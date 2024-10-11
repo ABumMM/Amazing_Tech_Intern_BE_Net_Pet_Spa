@@ -57,11 +57,6 @@ namespace PetSpa.Repositories.Context
                 .HasOne(ps => ps.Booking)
                 .WithMany(s => s.BookingPackages)
                 .HasForeignKey(ps => ps.BookingId);
-            //ORDERDETAIL_PACKGAGE
-            modelBuilder.Entity<OrdersDetails>()
-                .HasMany(od => od.Packages)
-                .WithOne(p => p.OrdersDetails) // Khóa ngoại trong Packages
-                .HasForeignKey(p => p.OrderDetailID); // Đặt OrderDetailID là khóa ngoại
             // ApplicationUser và MemberShips
             modelBuilder.Entity<ApplicationUser>()
                 .HasOne(a => a.Membership) // ApplicationUser có một Membership

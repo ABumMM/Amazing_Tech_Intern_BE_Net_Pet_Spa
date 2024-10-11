@@ -53,7 +53,7 @@ namespace PetSpa.Services.Service
                 {
                     Id = bp.PackageId,
                     Name = bp.Package.Name,
-                    Price = bp.Package.Price.GetValueOrDefault(),
+                    Price = bp.Package.Price,
                 }).ToList());
 
             // Ánh xạ Booking vào ViewModel

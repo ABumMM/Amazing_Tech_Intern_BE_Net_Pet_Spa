@@ -74,5 +74,25 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Order deleted successfully"));
         }
+        [HttpGet("payment-status/{isPaid}")]
+        public async Task<IActionResult> GetOrdersByPaymentStatus(bool isPaid, int pageNumber, int pageSize)
+        {
+            var orders = await _orderService.GetOrdersByPaymentStatus(isPaid, pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GetOrderViewModel>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: orders));
+        }
+
+        // Confirm Order
+        [HttpPost("confirm/{id}")]
+        public async Task<IActionResult> ConfirmOrder(string id)
+        {
+            await _orderService.ConfirmOrder(id);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Order confirmed successfully"));
+        }
     }
 }

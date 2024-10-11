@@ -43,7 +43,7 @@ namespace PetSpa.Services.Service
                 Information = packageMV.Information,
                 Experiences = packageMV.Experiences,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
-                CreatedBy=user?.UserInfo?.FullName
+                CreatedBy=user?.UserName
             };
             await _unitOfWork.GetRepository<Packages>().InsertAsync(packages);
             await _unitOfWork.SaveAsync();
