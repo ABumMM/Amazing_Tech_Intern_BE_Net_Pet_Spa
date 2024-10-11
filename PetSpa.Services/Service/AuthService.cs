@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Core.Base;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.AuthModelViews;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -48,6 +49,7 @@ namespace PetSpa.Services.Service
                 throw new BadRequestException(ErrorCode.InvalidInput, "Password must be at least 6 characters long.");
 
             var user = _mapper.Map<ApplicationUser>(signup);
+
             user.UserName = signup.Email;
 
             var result = await _userManager.CreateAsync(user, signup.Password);
@@ -64,6 +66,20 @@ namespace PetSpa.Services.Service
                 if (!result.Succeeded)
                     throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error adding role: " + string.Join(", ", result.Errors.Select(e => e.Description)));
 
+                //Tạo Membership tương ứng cho người dùng mới
+                var newMembership = new MemberShips()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Standard", // Hạng mặc định
+                    TotalSpent = 0, // Chi tiêu ban đầu bằng 0
+                    DiscountRate = 0, // Không có giảm giá cho hạng mặc định
+                    UserId = user.Id, // Liên kết UserId của người dùng mới
+                    CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
+                    CreatedBy = user.UserName
+                };
+                // Lưu memberShip
+                await _unitOfWork.GetRepository<MemberShips>().InsertAsync(newMembership);
+                await _unitOfWork.SaveAsync();
                 return await GenerateJwtToken(user);
             }
 

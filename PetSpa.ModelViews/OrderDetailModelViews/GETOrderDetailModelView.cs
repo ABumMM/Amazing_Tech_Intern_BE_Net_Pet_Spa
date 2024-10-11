@@ -16,7 +16,7 @@ namespace PetSpa.ModelViews.OrderDetailModelViews
         public string? OrderID { get; set; }
         public string? CreatedBy { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
-        public List<GETPackageModelView_OrderDetails>? ListPackage { get; set; }
+        
 
     }
 }
