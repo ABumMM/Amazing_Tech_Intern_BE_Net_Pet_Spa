@@ -20,8 +20,7 @@ namespace PetSpa.Services.Service
         private readonly IMapper _mapper;
 
         private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
-
-        public PackageService(IUnitOfWork unitOfWork,IHttpContextAccessor contextAccessor,
+        public PackageService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor,
             IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -34,7 +33,6 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
             }
-            var user = await _unitOfWork.GetRepository<ApplicationUser>().GetByIdAsync(Guid.Parse(currentUserId));
             Packages packages = new Packages()
             {
                 Name = packageMV.Name,
@@ -43,33 +41,36 @@ namespace PetSpa.Services.Service
                 Information = packageMV.Information,
                 Experiences = packageMV.Experiences,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
-                CreatedBy=user?.UserName
+                CreatedBy = currentUserId
             };
             await _unitOfWork.GetRepository<Packages>().InsertAsync(packages);
             await _unitOfWork.SaveAsync();
         }
         public async Task Delete(string packageID)
         {
-            
+            if (string.IsNullOrWhiteSpace(packageID))
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "PackageID cannot null or whitespace");
+            }
             Packages? existedPackage = await _unitOfWork.GetRepository<Packages>().GetByIdAsync(packageID);
             if (existedPackage == null)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
             }
-            var relatedServices =  _unitOfWork.GetRepository<PackageServiceEntity>().Entities.Where(p => p.PackageId == packageID).ToList();
+            var relatedServices = _unitOfWork.GetRepository<PackageServiceEntity>().Entities.Where(p => p.PackageId == packageID).ToList();
             //Xóa tất cả các service bên trong package mà đang liên kết
             foreach (var service in relatedServices)
             {
-                await _unitOfWork.GetRepository<PackageServiceEntity>().DeleteAsync(service.Id); // Assuming Id is the primary key
+                service.DeletedTime =TimeHelper.ConvertToUtcPlus7(DateTime.Now);
+                service.DeletedBy = currentUserId;
+                await _unitOfWork.GetRepository<PackageServiceEntity>().UpdateAsync(service);
                 await _unitOfWork.SaveAsync();
             }
-
-            //existedPackage.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
-            ////existedPackage.DeletedBy = ehehehheh;
-            await _unitOfWork.GetRepository<Packages>().DeleteAsync(packageID);
+            existedPackage.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
+            existedPackage.DeletedBy = currentUserId;
+            await _unitOfWork.GetRepository<Packages>().UpdateAsync(existedPackage);
             await _unitOfWork.SaveAsync();
         }
-
         public async Task DeleteServiceInPakcage(string serviceINPackageID)
         {
             PackageServiceEntity? existedServiceINPackage = await _unitOfWork.GetRepository<PackageServiceEntity>().GetByIdAsync(serviceINPackageID);
@@ -77,12 +78,13 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Service");
             }
-          
-            await _unitOfWork.GetRepository<PackageServiceEntity>().DeleteAsync(serviceINPackageID);
+            existedServiceINPackage.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
+            existedServiceINPackage.DeletedBy= currentUserId;
+            await _unitOfWork.GetRepository<PackageServiceEntity>().UpdateAsync(existedServiceINPackage);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber , int pageSize)
+        public async Task<BasePaginatedList<GETPackageModelView>> GetAll(int pageNumber, int pageSize)
         {
             if (pageNumber <= 0 || pageSize <= 0)
             {
@@ -132,13 +134,14 @@ namespace PetSpa.Services.Service
                 PackageId = packageID,
                 ServicesEntityID = serviceID,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
+                CreatedBy=currentUserId
             };
 
             await _unitOfWork.GetRepository<PackageServiceEntity>().InsertAsync(packageService);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<GETPackageModelView?> GetById(string? packageID)
+        public async Task<GETPackageModelView?> GetById(string packageID)
         {
             if (string.IsNullOrWhiteSpace(packageID))
             {
@@ -146,7 +149,7 @@ namespace PetSpa.Services.Service
             }
             var existedPackage = await _unitOfWork.GetRepository<Packages>()
                               .Entities
-                              .FirstOrDefaultAsync(p => p.Id == packageID);
+                              .FirstOrDefaultAsync(p => p.Id == packageID && !p.DeletedTime.HasValue);
             if (existedPackage == null)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
@@ -203,7 +206,7 @@ namespace PetSpa.Services.Service
         {
             if (string.IsNullOrWhiteSpace(packageMV.Id))
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Package cannot null or whitespace");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "PackageID cannot null or whitespace");
             }
 
             // Kiểm tra sự tồn tại của Package dựa trên Id
@@ -218,7 +221,7 @@ namespace PetSpa.Services.Service
             }
             _mapper.Map(packageMV, existedPackage);
             await _unitOfWork.GetRepository<Packages>().UpdateAsync(existedPackage);
-            await _unitOfWork.SaveAsync();      
+            await _unitOfWork.SaveAsync();
         }
 
     }
