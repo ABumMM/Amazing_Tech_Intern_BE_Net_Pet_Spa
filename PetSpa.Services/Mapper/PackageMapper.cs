@@ -4,9 +4,9 @@ using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.ModelViews.PackageServiceModelViews;
 namespace PetSpa.Services.Mapper
 {
-    public class PackageMapper:Profile
+    public class PackageMapper : Profile
     {
-        public PackageMapper() 
+        public PackageMapper()
         {
             // Mapping từ Packages sang GETPackageModelView
             CreateMap<Packages, GETPackageModelView>()
