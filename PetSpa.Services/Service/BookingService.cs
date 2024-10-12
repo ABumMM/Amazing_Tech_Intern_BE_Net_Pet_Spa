@@ -114,10 +114,19 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
             }
             var currentTime = DateTimeOffset.Now;
-
+            //kiểm tra nếu trong vòng 24h trước cuộc hẹn ban đầu thì không cho sửa
             if(existingBooking.Date - currentTime < TimeSpan.FromHours(24))
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể dời lịch trong vòng 24 giờ trước cuộc hẹn ban đầu");
+            }
+            if (existingBooking.Date - currentTime < TimeSpan.FromHours(24))
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể dời lịch trong vòng 24 giờ trước cuộc hẹn ban đầu");
+            }
+            //không cho cập nhật về ngày dưới ngày hiện tại
+            if (bookingVM.Date <= currentTime)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể dời lịch xuống ngày bé hơn ngày hiện tại");
             }
             var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
 
@@ -150,7 +159,7 @@ namespace PetSpa.Services.Service
             }
             booking.Status = "Đã hủy"; // 
 
-            // Cập nhật thông tin về người hủy nếu cần (UpdatedBy)
+            // Cập nhật thông tin về người hủy
             booking.LastUpdatedBy = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             booking.LastUpdatedTime = DateTime.Now;
             _unitOfWork.GetRepository<Bookings>().Update(booking);

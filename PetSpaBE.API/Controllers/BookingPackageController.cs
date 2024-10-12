@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.BookingModelViews;
@@ -6,6 +7,7 @@ using PetSpa.ModelViews.BookingPackageModelViews;
 using PetSpa.Services.Service;
 namespace PetSpaBE.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookingPackageController : ControllerBase
