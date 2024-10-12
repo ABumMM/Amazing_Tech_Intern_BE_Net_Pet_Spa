@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241011105125_InitialCreate")]
+    [Migration("20241012153805_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -504,7 +504,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("PackagesId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
@@ -596,7 +596,7 @@ namespace PetSpa.Repositories.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -1027,7 +1027,7 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("OrdersId");
 
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Packages")
@@ -1089,8 +1089,6 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Orders", b =>
                 {
                     b.Navigation("Bookings");
-
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>

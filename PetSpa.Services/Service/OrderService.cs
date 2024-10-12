@@ -36,6 +36,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Page number and page size must be greater than 0.");
             }
+
             IQueryable<Orders> orders = _unitOfWork.GetRepository<Orders>()
                 .Entities.Where(o => !o.DeletedTime.HasValue)
                 .OrderByDescending(o => o.CreatedTime)
@@ -43,26 +44,10 @@ namespace PetSpa.Services.Service
             var paginatedOrders = await orders
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .Select(o => new GetOrderViewModel
-                {
-                    Id = o.Id,
-                    PaymentMethod = o.PaymentMethod,
-                    Total = o.Total,
-                    CreatedBy = o.CreatedBy,
-                    CreatedTime = o.CreatedTime,     
-                //    OrderDetailId = o.OrderDetails.Any()
-                //? o.OrderDetails.Select(od => new GETOrderDetailModelView
-                //{
-                //    Id = od.Id,
-                //    Quantity = od.Quantity,
-                //    Status = od.Status,
-                //    Price = od.Price ?? 0, // Xử lý null cho Price
-                //    CreatedBy = od.CreatedBy,
-                //    CreatedTime = od.CreatedTime
-                //}).ToList()
-                //: new List<GETOrderDetailModelView>() // Trả về danh sách trống nếu không có chi tiết đơn hàng
-                }).ToListAsync();
-            return new BasePaginatedList<GetOrderViewModel>(paginatedOrders, await orders.CountAsync(), pageNumber, pageSize);
+                .ToListAsync();
+
+            // Sử dụng AutoMapper để map từ Orders sang GetOrderViewModel
+            return new BasePaginatedList<GetOrderViewModel>(_mapper.Map<List<GetOrderViewModel>>(paginatedOrders), await orders.CountAsync(), pageNumber, pageSize);
         }
 
 
@@ -73,20 +58,11 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid order ID.");
             }
-
             // Lấy đơn hàng theo ID
             var order = await _unitOfWork.GetRepository<Orders>()
                 .Entities.FirstOrDefaultAsync(o => o.Id == id)
                 ?? throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Orders");
-
-            return new GetOrderViewModel
-            {
-                Id = order.Id,
-                PaymentMethod = order.PaymentMethod,
-                Total = order.Total,
-                IsPaid = order.IsPaid,
-                CreatedTime = order.CreatedTime
-            };
+            return _mapper.Map<GetOrderViewModel>(order);
         }
 
         public async Task Add(PostOrderViewModel order)
@@ -94,55 +70,40 @@ namespace PetSpa.Services.Service
             if (string.IsNullOrWhiteSpace(order.PaymentMethod))
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
 
-            // Kiểm tra xem OrderDetailId có giá trị không
             if (order.OrderDetailId == null || !order.OrderDetailId.Any())
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
 
-            // Lấy danh sách chi tiết đơn hàng dựa trên OrderDetailId
             var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
                 .Entities
-                .Where(od => order.OrderDetailId.Contains(od.Id)) 
+                .Where(od => order.OrderDetailId.Contains(od.Id))
                 .ToListAsync();
 
-            // Tính tổng số tiền cho các chi tiết đơn hàng
             decimal totalAmount = 0;
             foreach (var detail in orderDetails)
             {
-                    totalAmount += detail.Price; // Tính tổng
+                totalAmount += detail.Price;
             }
-            // Lấy thông tin khách hàng (membership)
+
             var membership = await _unitOfWork.GetRepository<MemberShips>()
-                .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(currentUserId) 
-                && !m.DeletedTime.HasValue);
+                .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(currentUserId) && !m.DeletedTime.HasValue);
 
-            double discountedTotal = 0;
-            if (membership != null)
-            {
-                // Tính tổng tiền sau khi áp dụng giảm giá
-                 discountedTotal =(double)totalAmount * (1 - membership.DiscountRate);
-            }
-            else
-            {
-                discountedTotal = (double)totalAmount; // Nếu không có thành viên, sử dụng tổng gốc
-            }
+            double discountedTotal = membership != null
+                ? (double)totalAmount * (1 - membership.DiscountRate)
+                : (double)totalAmount;
 
-            // Tạo đơn hàng mới với tổng đã tính
-            Orders newOrder = new Orders
-            {
-                PaymentMethod = order.PaymentMethod,
-                Total =discountedTotal, // Sử dụng tổng đã tính
-                IsPaid = false, // Đơn hàng mới tạo mặc định là chưa thanh toán
-                CreatedBy = currentUserId,
-                CreatedTime = DateTime.Now,
-            };
+            // Sử dụng AutoMapper để map từ PostOrderViewModel sang Orders
+            var newOrder = _mapper.Map<Orders>(order);
+            newOrder.Total = discountedTotal;
+            newOrder.IsPaid = false;
+            newOrder.CreatedBy = currentUserId;
+            newOrder.CreatedTime = DateTime.Now;
+
             await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
             await _unitOfWork.SaveAsync();
 
-            // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
             if (membership != null)
             {
-                // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
-                membership.TotalSpent +=(double) totalAmount; 
+                membership.TotalSpent += (double)totalAmount;
                 await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
                 await _unitOfWork.SaveAsync();
                 await CheckMembershipUpgrade(Guid.Parse(currentUserId));
@@ -161,17 +122,17 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Order not found.");
             }
-            existingOrder.PaymentMethod = order.PaymentMethod ?? existingOrder.PaymentMethod;
-            existingOrder.Total = order.Total; // Có thể cần xử lý kiểm tra giá trị
-            existingOrder.LastUpdatedTime = DateTime.UtcNow; // Sử dụng UTC
-            existingOrder.LastUpdatedBy = currentUserId; // Cập nhật thông tin người dùng hiện tại
+            // Sử dụng AutoMapper để map từ PutOrderViewModel sang Orders
+            _mapper.Map(order, existingOrder);
+            existingOrder.LastUpdatedTime = DateTime.UtcNow;
+            existingOrder.LastUpdatedBy = currentUserId;
+
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
         }
 
         public async Task Delete(string id)
         {
-            // Kiểm tra xem đơn hàng có tồn tại không
             var existingOrder = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(id);
             if (existingOrder == null)
             {
@@ -179,12 +140,14 @@ namespace PetSpa.Services.Service
             }
             // Đánh dấu thời gian và người thực hiện xóa (xóa mềm)
             existingOrder.DeletedTime = DateTime.Now;
-            existingOrder.DeletedBy = "Anh Nguyen"; // Cập nhật với thông tin người dùng hiện tại
+            existingOrder.DeletedBy = "Anh Nguyen"; 
 
             // Cập nhật thông tin vào cơ sở dữ liệu
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
         }
+
+
         public async Task<BasePaginatedList<GetOrderViewModel>> GetOrdersByPaymentStatus(bool isPaid, int pageNumber, int pageSize)
         {
             if (pageNumber <= 0 || pageSize <= 0)
@@ -201,17 +164,10 @@ namespace PetSpa.Services.Service
             var paginatedOrders = await orders
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .Select(o => new GetOrderViewModel
-                {
-                    Id = o.Id,
-                    PaymentMethod = o.PaymentMethod,
-                    Total = o.Total,
-                    CreatedBy = o.CreatedBy,
-                    CreatedTime = o.CreatedTime,
-                    IsPaid = o.IsPaid
-                }).ToListAsync();
+                .ToListAsync();
 
-            return new BasePaginatedList<GetOrderViewModel>(paginatedOrders, await orders.CountAsync(), pageNumber, pageSize);
+            // Sử dụng AutoMapper để ánh xạ
+            return new BasePaginatedList<GetOrderViewModel>(_mapper.Map<List<GetOrderViewModel>>(paginatedOrders), await orders.CountAsync(), pageNumber, pageSize);
         }
 
         public async Task ConfirmOrder(string id)
@@ -228,7 +184,9 @@ namespace PetSpa.Services.Service
 
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
+        
         }
+
         // Phương thức kiểm tra xem thành viên có đủ điều kiện để nâng hạng không
         public async Task CheckMembershipUpgrade(Guid customerId)
         {
@@ -272,7 +230,6 @@ namespace PetSpa.Services.Service
                     membership.DiscountRate = 0; // Không giảm giá cho hạng Standard
                 }
             }
-
             await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
             await _unitOfWork.SaveAsync();
         }

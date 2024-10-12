@@ -37,7 +37,7 @@ namespace PetSpa.Repositories.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Information = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Experiences = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -453,7 +453,7 @@ namespace PetSpa.Repositories.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     OrderID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PackageID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrdersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
