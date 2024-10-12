@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
-using PetSpa.Core.Infrastructure;
 using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.ModelViews.PackageServiceModelViews;
 using Swashbuckle.AspNetCore.Annotations;

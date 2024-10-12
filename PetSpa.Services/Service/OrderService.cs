@@ -137,6 +137,20 @@ namespace PetSpa.Services.Service
             };
             await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
             await _unitOfWork.SaveAsync();
+            //Update orderID trong orderDetailID
+            var existedOrderDetail = await _unitOfWork.GetRepository<OrdersDetails>()
+                            .Entities
+                            .Where(od => order.OrderDetailId.Contains(od.Id))
+                            .ToListAsync();
+            if (existedOrderDetail != null)
+            {
+                foreach (var detail in existedOrderDetail)
+                {
+                    detail.OrderID = newOrder.Id;
+                    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
+                    await _unitOfWork.SaveAsync();
+                }
+            }
 
             // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
             if (membership != null)
