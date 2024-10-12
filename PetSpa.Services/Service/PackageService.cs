@@ -64,9 +64,9 @@ namespace PetSpa.Services.Service
                 await _unitOfWork.SaveAsync();
             }
 
-            //existedPackage.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
-            ////existedPackage.DeletedBy = ehehehheh;
-            await _unitOfWork.GetRepository<Packages>().DeleteAsync(packageID);
+            existedPackage.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
+            existedPackage.DeletedBy = currentUserId;
+            await _unitOfWork.GetRepository<Packages>().UpdateAsync(existedPackage);
             await _unitOfWork.SaveAsync();
         }
 
@@ -146,7 +146,7 @@ namespace PetSpa.Services.Service
             }
             var existedPackage = await _unitOfWork.GetRepository<Packages>()
                               .Entities
-                              .FirstOrDefaultAsync(p => p.Id == packageID);
+                              .FirstOrDefaultAsync(p => p.Id == packageID && !p.DeletedTime.HasValue);
             if (existedPackage == null)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Package");
