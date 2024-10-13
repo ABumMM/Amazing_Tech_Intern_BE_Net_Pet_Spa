@@ -12,11 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20241012153805_InitialCreate.Designer.cs
-    [Migration("20241012153805_InitialCreate")]
-========
-    [Migration("20241013020339_InitialCreate")]
->>>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401:PetSpa.Repositories/Migrations/20241013020339_InitialCreate.Designer.cs
+    [Migration("20241013092320_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -1025,15 +1021,9 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
                 {
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20241012153805_InitialCreate.Designer.cs
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
-                        .WithMany()
-                        .HasForeignKey("OrdersId");
-========
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Order")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("OrderID");
->>>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401:PetSpa.Repositories/Migrations/20241013020339_InitialCreate.Designer.cs
 
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
                         .WithMany("OrdersDetails")

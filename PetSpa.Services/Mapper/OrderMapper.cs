@@ -13,32 +13,24 @@ namespace PetSpa.Services.Mapper
     public class OrderMapper : Profile
     {
         public OrderMapper() {
-            // Mapping từ Order sang GetOrderViewModel
+            // Map từ Orders sang GetOrderViewModel
             CreateMap<Orders, GetOrderViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod)) 
-                .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Total)) 
-                .ForMember(dest => dest.IsPaid, opt => opt.MapFrom(src => src.IsPaid)) 
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy)) 
-                .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime));
-
-            // Mapping từ GETOrderDetailModelView sang OrderDetail 
-            CreateMap<OrdersDetails, GETOrderDetailModelView>();
-
-            // Mapping từ PostOrderViewModel sang Order
-            CreateMap<PostOrderViewModel, Orders>()
-                .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime)) 
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy)) 
-                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod)); 
-
-            // Mapping từ PutOrderViewModel sang Order
-            CreateMap<PutOrderViewModel, Orders>()
-                .ForMember(dest => dest.LastUpdatedTime, opt => opt.MapFrom(src => src.LastUpdatedTime))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
                 .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Total))
-                .ForMember(dest => dest.LastUpdatedBy, opt => opt.MapFrom(src => src.LastUpdatedBy));
+                .ForMember(dest => dest.IsPaid, opt => opt.MapFrom(src => src.IsPaid))
+                .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime));
 
+            // Map từ PostOrderViewModel sang Orders
+            CreateMap<PostOrderViewModel, Orders>()
+                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
+                .ForMember(dest => dest.CustomerID, opt => opt.MapFrom(src => src.CustomerID.HasValue ? src.CustomerID.Value : Guid.Empty))
+                .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime));
 
+            // Map từ PutOrderViewModel sang Orders
+            CreateMap<PutOrderViewModel, Orders>()
+                .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
+                .ForMember(dest => dest.LastUpdatedTime, opt => opt.MapFrom(src => src.LastUpdatedTime));
         }
     }
 }

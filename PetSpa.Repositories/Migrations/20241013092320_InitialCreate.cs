@@ -454,15 +454,8 @@ namespace PetSpa.Repositories.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20241012153805_InitialCreate.cs
-                    OrderID = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PackageID = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OrdersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PackagesId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-========
                     OrderID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PackageID = table.Column<string>(type: "nvarchar(450)", nullable: true),
->>>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401:PetSpa.Repositories/Migrations/20241013020339_InitialCreate.cs
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),

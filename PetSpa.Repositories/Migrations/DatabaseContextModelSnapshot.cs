@@ -1018,15 +1018,9 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
                 {
-<<<<<<< HEAD
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
-                        .WithMany()
-                        .HasForeignKey("OrdersId");
-=======
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Order")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("OrderID");
->>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401
 
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
                         .WithMany("OrdersDetails")

@@ -16,5 +16,6 @@ namespace PetSpa.ModelViews.OrderModelViews
         public bool IsPaid { get; set; }
         public string? CreatedBy { get; set; }
         public DateTimeOffset? CreatedTime { get; set; }
+        public string? CustomerID { get; set; }
     }
 }
