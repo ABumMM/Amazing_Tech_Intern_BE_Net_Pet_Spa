@@ -35,7 +35,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Add package by admin"
             )]
-        [Authorize(Roles = "Admim")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPackage([FromBody] POSTPackageModelView packageVM)
         {
             await _packageService.Add(packageVM);
@@ -49,7 +49,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Delete a package by admin"
             )]
-        [Authorize(Roles = "Admim")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePackage(string id)
         {
             await _packageService.Delete(id);
