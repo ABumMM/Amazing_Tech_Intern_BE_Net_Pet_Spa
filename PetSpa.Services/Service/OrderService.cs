@@ -6,13 +6,7 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
-using PetSpa.ModelViews.MemberShipModelView;
-using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.OrderDetailModelViews;
 using PetSpa.ModelViews.OrderModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using System.Security.Cryptography;
-
 namespace PetSpa.Services.Service
 {
     public class OrderService : IOrderService
@@ -228,7 +222,7 @@ namespace PetSpa.Services.Service
                 membership.TotalSpent += (double)existingOrder.Total;
                 await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
                 await _unitOfWork.SaveAsync();
-                await CheckMembershipUpgrade(Guid.Parse(currentUserId));
+                await CheckMembershipUpgrade(existingOrder.CustomerID);
             }
 >>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401
         }
