@@ -113,6 +113,11 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
             }
+            //kt nếu status đã hủy thì không cho sửa
+            if(existingBooking.Status == "Đã hủy")
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể sửa Booking đã bị hủy");
+            }    
             var currentTime = DateTimeOffset.Now;
             //kiểm tra nếu trong vòng 24h trước cuộc hẹn ban đầu thì không cho sửa
             if(existingBooking.Date - currentTime < TimeSpan.FromHours(24))
@@ -152,11 +157,16 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, "BookingNotFound", $"Không tìm thấy Booking với ID: {bookingId}");
             }
+            if(booking.Status == "Đã hủy")
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Booking này đã bị hủy trước đó");
+            }    
             var currentTime = DateTimeOffset.Now;
             if(booking.Date - currentTime < TimeSpan.FromHours(24))
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể hủy trogn 24h trước cuộc hẹn!");
             }
+
             booking.Status = "Đã hủy"; // 
 
             // Cập nhật thông tin về người hủy
