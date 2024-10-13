@@ -35,7 +35,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Add package by admin"
             )]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddPackage([FromBody] POSTPackageModelView packageVM)
         {
             await _packageService.Add(packageVM);
@@ -49,7 +49,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Delete a package by admin"
             )]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePackage(string id)
         {
             await _packageService.Delete(id);
@@ -77,7 +77,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Add service to Package (packageID, serviceID)"
             )]
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddServiceToPackage(string packageID, string serviceID)
         {
             await _packageService.AddServiceInPackage(packageID, serviceID);
@@ -119,7 +119,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Update package"
             )]
-        [Authorize(Roles = "Admim")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdatePackage([FromBody] PUTPackageModelView packageMV)
         {
             await _packageService.Update(packageMV);
@@ -133,7 +133,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Delete service In Package By serviceINPackageID"
             )]
-        [Authorize(Roles = "Admim")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteServiceInPackage(string serviceINPackageID)
         {
             await _packageService.DeleteServiceInPakcage(serviceINPackageID);

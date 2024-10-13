@@ -24,7 +24,6 @@ namespace PetSpa.Services.Mapper
             // Map từ PostOrderViewModel sang Orders
             CreateMap<PostOrderViewModel, Orders>()
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
-                .ForMember(dest => dest.CustomerID, opt => opt.MapFrom(src => src.CustomerID.HasValue ? src.CustomerID.Value : Guid.Empty))
                 .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime));
 
             // Map từ PutOrderViewModel sang Orders

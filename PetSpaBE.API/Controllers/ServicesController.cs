@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -34,6 +35,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddService(ServiceCreateModel service)
         {
             await _servicesService.Add(service);
@@ -43,6 +45,7 @@ namespace PetSpaBE.API.Controllers
                 data: "Add service successful"));
         }
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteService(string id)
         {
             await _servicesService.Delete(id);
@@ -64,6 +67,7 @@ namespace PetSpaBE.API.Controllers
                 ));
         }
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateService(ServiceUpdateModel service)
         {
             await _servicesService.Update(service);
