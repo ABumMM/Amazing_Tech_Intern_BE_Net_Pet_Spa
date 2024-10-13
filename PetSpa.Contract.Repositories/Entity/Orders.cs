@@ -10,6 +10,5 @@ namespace PetSpa.Contract.Repositories.Entity
         public Guid CustomerID {  get; set; }
         public virtual ApplicationUser? Customer { get; set; }
         public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
-        public virtual ICollection<OrdersDetails> OrderDetails { get; set; } = new List<OrdersDetails>();
     }
 }
