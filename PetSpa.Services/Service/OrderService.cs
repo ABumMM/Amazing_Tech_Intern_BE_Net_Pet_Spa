@@ -85,6 +85,7 @@ namespace PetSpa.Services.Service
             var newOrder = _mapper.Map<Orders>(order);
             newOrder.Total = discountedTotal;
             newOrder.IsPaid = false;
+
             newOrder.CreatedBy = currentUserId;
             newOrder.CreatedTime = DateTime.Now;
 
