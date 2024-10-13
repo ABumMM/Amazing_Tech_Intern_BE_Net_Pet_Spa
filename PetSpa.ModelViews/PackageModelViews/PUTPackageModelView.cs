@@ -9,7 +9,5 @@ namespace PetSpa.ModelViews.PackageModelViews
         public string? Image { get; set; }
         public string? Information { get; set; }
         public string? Experiences { get; set; }
-        public string? LastUpdatedBy { get; set; }
-        public DateTimeOffset LastUpdatedTime { get; set; }
     }
 }

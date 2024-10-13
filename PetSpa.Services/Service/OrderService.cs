@@ -76,7 +76,7 @@ namespace PetSpa.Services.Service
             decimal totalAmount = orderDetails.Sum(detail => detail.Price);
 
             var membership = await _unitOfWork.GetRepository<MemberShips>()
-                .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(currentUserId) && !m.DeletedTime.HasValue);
+                .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
 
             double discountedTotal = membership != null
                 ? (double)totalAmount * (1 - membership.DiscountRate)
@@ -85,6 +85,7 @@ namespace PetSpa.Services.Service
             var newOrder = _mapper.Map<Orders>(order);
             newOrder.Total = discountedTotal;
             newOrder.IsPaid = false;
+            newOrder.CustomerID = Guid.Parse(order.CustomerID);
             newOrder.CreatedBy = currentUserId;
             newOrder.CreatedTime = DateTime.Now;
 
@@ -215,13 +216,15 @@ namespace PetSpa.Services.Service
                 .Entities.FirstOrDefaultAsync(m => m.UserId ==existingOrder.CustomerID
                 && !m.DeletedTime.HasValue);
             // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
-            if (membership != null)
+            var orderUpdated=await _unitOfWork.GetRepository<Orders>()
+                .GetByIdAsync(existingOrder.Id);
+            if (membership != null && orderUpdated!=null)
             {
                 // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
-                membership.TotalSpent += (double)existingOrder.Total;
+                membership.TotalSpent += orderUpdated.Total;
                 await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
                 await _unitOfWork.SaveAsync();
-                await CheckMembershipUpgrade(existingOrder.CustomerID);
+                await CheckMembershipUpgrade(membership.UserId);
             }
         }
 
@@ -229,7 +232,8 @@ namespace PetSpa.Services.Service
         public async Task CheckMembershipUpgrade(Guid customerId)
         {
             var membership = await _unitOfWork.GetRepository<MemberShips>().Entities
-                    .FirstOrDefaultAsync(m => m.UserId == customerId && !m.DeletedTime.HasValue);
+                    .FirstOrDefaultAsync(m => m.UserId == customerId
+                    && !m.DeletedTime.HasValue);
 
             if (membership == null)
             {

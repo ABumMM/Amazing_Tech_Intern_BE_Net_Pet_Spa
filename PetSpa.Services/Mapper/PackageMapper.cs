@@ -27,7 +27,8 @@ namespace PetSpa.Services.Mapper
 
             // Mapping từ PackageServices sang GETPackageServiceModelView
             CreateMap<PackageServiceEntity, GETPackageServiceModelView>()
-                .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.ServicesEntity != null ? src.ServicesEntity.Name : string.Empty));
+                .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.ServicesEntity != null ? src.ServicesEntity.Name : string.Empty))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.ServicesEntity != null ? src.ServicesEntity.Description : string.Empty)); ;
 
             // Mapping từ PUTPackageModelView sang Packages
             CreateMap<PUTPackageModelView, Packages>()
