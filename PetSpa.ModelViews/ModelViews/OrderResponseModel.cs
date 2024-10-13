@@ -9,8 +9,6 @@ namespace PetSpa.ModelViews.ModelViews
     public class OrderResponseModel
     {
         public string? Id { get; set; }
-        public string? CustomerID { get; set; }
-        public string? EmployeeID { get; set; }
         public DateTime? Date { get; set; }
         public string? PaymentMethod { get; set; }
         public decimal? Total { get; set; }
