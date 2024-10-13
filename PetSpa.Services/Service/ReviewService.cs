@@ -56,10 +56,9 @@ namespace PetSpa.Services.Service
                  .Include(od => od.Package) // Nếu cần thông tin về gói dịch vụ
                  .Where(od => od.PackageID == reviewMV.PackageID
                               && od.Order != null // Đảm bảo Orders không phải là null
-                              && od.Order.CreatedBy == currentUserId
+                              && od.Order.CustomerID ==Guid.Parse(currentUserId)
                               && od.Order.IsPaid) // Kiểm tra trạng thái đơn hàng nếu cần
                  .FirstOrDefaultAsync();
-
             if (completedOrderDetail == null)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, 

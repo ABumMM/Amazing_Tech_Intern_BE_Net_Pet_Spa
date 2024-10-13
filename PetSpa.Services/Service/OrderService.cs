@@ -132,11 +132,13 @@ namespace PetSpa.Services.Service
                 PaymentMethod = order.PaymentMethod,
                 Total =discountedTotal, // Sử dụng tổng đã tính
                 IsPaid = false, // Đơn hàng mới tạo mặc định là chưa thanh toán
+                CustomerID=Guid.Parse(order.CustomerID),
                 CreatedBy = currentUserId,
                 CreatedTime = DateTime.Now,
             };
             await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
             await _unitOfWork.SaveAsync();
+
             //Update orderID trong orderDetailID
             var existedOrderDetail = await _unitOfWork.GetRepository<OrdersDetails>()
                             .Entities
@@ -150,16 +152,6 @@ namespace PetSpa.Services.Service
                     await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
                     await _unitOfWork.SaveAsync();
                 }
-            }
-
-            // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
-            if (membership != null)
-            {
-                // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
-                membership.TotalSpent +=(double) totalAmount; 
-                await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
-                await _unitOfWork.SaveAsync();
-                await CheckMembershipUpgrade(Guid.Parse(currentUserId));
             }
         }
 
@@ -242,6 +234,20 @@ namespace PetSpa.Services.Service
 
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
+
+            // Lấy thông tin khách hàng (membership)
+            var membership = await _unitOfWork.GetRepository<MemberShips>()
+                .Entities.FirstOrDefaultAsync(m => m.UserId ==existingOrder.CustomerID
+                && !m.DeletedTime.HasValue);
+            // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
+            if (membership != null)
+            {
+                // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
+                membership.TotalSpent += (double)existingOrder.Total;
+                await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
+                await _unitOfWork.SaveAsync();
+                await CheckMembershipUpgrade(Guid.Parse(currentUserId));
+            }
         }
         // Phương thức kiểm tra xem thành viên có đủ điều kiện để nâng hạng không
         public async Task CheckMembershipUpgrade(Guid customerId)
