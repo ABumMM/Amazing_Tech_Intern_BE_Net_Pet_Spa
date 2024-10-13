@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.MemberShipModelView;
@@ -20,10 +21,10 @@ namespace PetSpaBE.API.Controllers
         // GET: api/membership
         [HttpGet]
         [SwaggerOperation(
-            Summary = "Retrieve all memberships",
-            Description = "Authorization: Admin",
-            OperationId = "Get All MemberShips"
-        )]
+             Summary = "Authorization: Admin",
+            Description = "View All membership"
+            )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> GetAllMemberShips(int pageNumber, int pageSize)
         {
             var memberShips = await _membershipsService.GetAll(pageNumber, pageSize);
@@ -36,10 +37,10 @@ namespace PetSpaBE.API.Controllers
         // GET: api/membership/{id}
         [HttpGet("{id}")]
         [SwaggerOperation(
-            Summary = "Get membership by ID",
-            Description = "Authorization: Admin",
-            OperationId = "Get MemberShip By Id"
-        )]
+             Summary = "Authorization: Admin",
+            Description = "Get membership by ID"
+            )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> GetMemberShipById(string id)
         {
             var memberShip = await _membershipsService.GetById(id);

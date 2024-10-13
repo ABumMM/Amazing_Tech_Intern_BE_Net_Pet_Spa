@@ -11,6 +11,7 @@ namespace PetSpa.ModelViews.OrderModelViews
         public string PaymentMethod { get; set; } = "Unknown";
         //public double Total { get; set; }
         public List<string>? OrderDetailId { get; set; }
+        public string CustomerID { get; set; }=string.Empty;
         public DateTimeOffset CreatedTime { get; set; }
         public string? CreatedBy { get; set; }
 
