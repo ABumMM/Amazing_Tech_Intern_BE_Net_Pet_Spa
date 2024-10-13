@@ -12,9 +12,6 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Information { get; set; }
         public string? Experiences { get; set; }
         [JsonIgnore]
-        public ICollection<Services>? Services { get; set; }
-
-        [JsonIgnore]
         public ICollection<PackageServiceEntity>? PackageServices { get; set; }
 
         [JsonIgnore]
@@ -23,9 +20,9 @@ namespace PetSpa.Contract.Repositories.Entity
         [JsonIgnore]
         public ICollection<OrdersDetails>? OrdersDetails { get; set; } = new HashSet<OrdersDetails>();
 
-        //Mối quan hệ 1-n
-        //[JsonIgnore]
-        //public virtual ICollection<OrderDetailPackage> OrderDetailPackages { get; set; } = new List<OrderDetailPackage>();
+        [JsonIgnore]
+        public ICollection<Reviews>? Reviews { get; set; } = new HashSet<Reviews>();
+
 
     }
 }

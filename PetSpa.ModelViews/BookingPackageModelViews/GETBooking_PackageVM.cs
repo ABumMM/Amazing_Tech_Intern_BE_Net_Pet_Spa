@@ -13,6 +13,6 @@ namespace PetSpa.ModelViews.BookingPackageModelViews
         public string? Description { get; set; }       
         public DateTime? Date { get; set; }            
         public string? Status { get; set; }            
-        public List<GETPackageModelView> Packages { get; set; } = new List<GETPackageModelView>();
+        public List<PackageDTO> Packages { get; set; } = new List<PackageDTO>();
     }
 }

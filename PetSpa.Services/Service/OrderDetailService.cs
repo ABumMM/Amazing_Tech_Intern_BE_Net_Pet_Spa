@@ -55,11 +55,14 @@ namespace PetSpa.Services.Service
                 Quantity = (int)detailsMV.Quantity,
                 Price = totalPrice,
                 Status = detailsMV.Status,
+                PackageID=detailsMV.PackageID,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
                 CreatedBy = user?.UserName
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
             await _unitOfWork.SaveAsync();
+
+            
         }
 
         public async Task Delete(string OrDetailID)

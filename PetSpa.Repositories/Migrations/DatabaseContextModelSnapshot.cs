@@ -359,7 +359,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("OrdersId")
@@ -401,7 +401,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -428,14 +428,14 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("CustomerID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DeletedBy")
                         .HasColumnType("nvarchar(max)");
@@ -449,7 +449,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("PaymentMethod")
@@ -461,7 +461,7 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("CustomerID");
 
                     b.ToTable("Orders");
                 });
@@ -486,19 +486,13 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("OrderID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrdersId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PackageID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PackagesId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
@@ -512,9 +506,9 @@ namespace PetSpa.Repositories.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrdersId");
+                    b.HasIndex("OrderID");
 
-                    b.HasIndex("PackagesId");
+                    b.HasIndex("PackageID");
 
                     b.ToTable("OrdersDetails");
                 });
@@ -539,7 +533,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("PackageId")
@@ -586,7 +580,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -633,7 +627,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
@@ -657,7 +651,7 @@ namespace PetSpa.Repositories.Migrations
                     b.ToTable("Pets");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Review", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Reviews", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -681,13 +675,15 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PackageID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PackageID");
 
                     b.ToTable("Reviews");
                 });
@@ -715,19 +711,14 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PackagesId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PackagesId");
 
                     b.ToTable("Services");
                 });
@@ -771,7 +762,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("LastUpdatedTime")
+                    b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<decimal?>("Salary")
@@ -1016,24 +1007,34 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Orders", b =>
                 {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", null)
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", "Customer")
                         .WithMany("Orders")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
                 {
+<<<<<<< HEAD
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
                         .WithMany()
                         .HasForeignKey("OrdersId");
+=======
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderID");
+>>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401
 
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Packages")
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
                         .WithMany("OrdersDetails")
-                        .HasForeignKey("PackagesId");
+                        .HasForeignKey("PackageID");
 
-                    b.Navigation("Orders");
+                    b.Navigation("Order");
 
-                    b.Navigation("Packages");
+                    b.Navigation("Package");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.PackageServiceEntity", b =>
@@ -1060,11 +1061,13 @@ namespace PetSpa.Repositories.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>
+            modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Reviews", b =>
                 {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", null)
-                        .WithMany("Services")
-                        .HasForeignKey("PackagesId");
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
+                        .WithMany("Reviews")
+                        .HasForeignKey("PackageID");
+
+                    b.Navigation("Package");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.ApplicationUser", b =>
@@ -1096,7 +1099,7 @@ namespace PetSpa.Repositories.Migrations
 
                     b.Navigation("PackageServices");
 
-                    b.Navigation("Services");
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Services", b =>

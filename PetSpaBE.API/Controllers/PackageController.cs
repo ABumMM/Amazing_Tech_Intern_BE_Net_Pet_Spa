@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Repositories.Entity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
-using PetSpa.Core.Infrastructure;
 using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.ModelViews.PackageServiceModelViews;
 using Swashbuckle.AspNetCore.Annotations;
@@ -20,7 +19,7 @@ namespace PetSpaBE.API.Controllers
         }
         [HttpGet("all")]
         [SwaggerOperation(
-            Summary = "Authorization: Customer",
+            Summary = "Authorization: Anyone",
             Description = "View all packages"
             )]
         public async Task<IActionResult> GetAllPackages(int pageNumber, int pageSize)
@@ -36,6 +35,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Add package by admin"
             )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> AddPackage([FromBody] POSTPackageModelView packageVM)
         {
             await _packageService.Add(packageVM);
@@ -49,6 +49,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Delete a package by admin"
             )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> DeletePackage(string id)
         {
             await _packageService.Delete(id);
@@ -60,7 +61,7 @@ namespace PetSpaBE.API.Controllers
 
         [HttpGet("by-id")]
         [SwaggerOperation(
-            Summary = "Authorization: Customer",
+            Summary = "Authorization: Anyone",
             Description = "View package By Package ID"
             )]
         public async Task<IActionResult> GetPackageById(string id)
@@ -76,6 +77,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Add service to Package (packageID, serviceID)"
             )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> AddServiceToPackage(string packageID, string serviceID)
         {
             await _packageService.AddServiceInPackage(packageID, serviceID);
@@ -117,6 +119,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Update package"
             )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> UpdatePackage([FromBody] PUTPackageModelView packageMV)
         {
             await _packageService.Update(packageMV);
@@ -130,6 +133,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "Delete service In Package By serviceINPackageID"
             )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> DeleteServiceInPackage(string serviceINPackageID)
         {
             await _packageService.DeleteServiceInPakcage(serviceINPackageID);

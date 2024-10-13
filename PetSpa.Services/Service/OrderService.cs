@@ -98,6 +98,7 @@ namespace PetSpa.Services.Service
             newOrder.CreatedBy = currentUserId;
             newOrder.CreatedTime = DateTime.Now;
 
+<<<<<<< HEAD
             await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
             await _unitOfWork.SaveAsync();
 
@@ -107,6 +108,34 @@ namespace PetSpa.Services.Service
                 await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
                 await _unitOfWork.SaveAsync();
                 await CheckMembershipUpgrade(Guid.Parse(currentUserId));
+=======
+            // Tạo đơn hàng mới với tổng đã tính
+            Orders newOrder = new Orders
+            {
+                PaymentMethod = order.PaymentMethod,
+                Total =discountedTotal, // Sử dụng tổng đã tính
+                IsPaid = false, // Đơn hàng mới tạo mặc định là chưa thanh toán
+                CustomerID=Guid.Parse(order.CustomerID),
+                CreatedBy = currentUserId,
+                CreatedTime = DateTime.Now,
+            };
+            await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
+            await _unitOfWork.SaveAsync();
+
+            //Update orderID trong orderDetailID
+            var existedOrderDetail = await _unitOfWork.GetRepository<OrdersDetails>()
+                            .Entities
+                            .Where(od => order.OrderDetailId.Contains(od.Id))
+                            .ToListAsync();
+            if (existedOrderDetail != null)
+            {
+                foreach (var detail in existedOrderDetail)
+                {
+                    detail.OrderID = newOrder.Id;
+                    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
+                    await _unitOfWork.SaveAsync();
+                }
+>>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401
             }
         }
 
@@ -184,7 +213,24 @@ namespace PetSpa.Services.Service
 
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
+<<<<<<< HEAD
         
+=======
+
+            // Lấy thông tin khách hàng (membership)
+            var membership = await _unitOfWork.GetRepository<MemberShips>()
+                .Entities.FirstOrDefaultAsync(m => m.UserId ==existingOrder.CustomerID
+                && !m.DeletedTime.HasValue);
+            // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
+            if (membership != null)
+            {
+                // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
+                membership.TotalSpent += (double)existingOrder.Total;
+                await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
+                await _unitOfWork.SaveAsync();
+                await CheckMembershipUpgrade(Guid.Parse(currentUserId));
+            }
+>>>>>>> 6d9e6b2b524385d5ac40bf2f1fa438f63d49c401
         }
 
         // Phương thức kiểm tra xem thành viên có đủ điều kiện để nâng hạng không

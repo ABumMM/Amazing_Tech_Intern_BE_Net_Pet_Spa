@@ -1,9 +1,5 @@
-
-using System;
-﻿using PetSpa.Core.Base;
+using PetSpa.Core.Base;
 using System.Text.Json.Serialization;
-
-
 namespace PetSpa.Contract.Repositories.Entity
 {
     public class Services : BaseEntity

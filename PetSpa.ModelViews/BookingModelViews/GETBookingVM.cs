@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace PetSpa.ModelViews.BookingModelViews
@@ -14,8 +15,12 @@ namespace PetSpa.ModelViews.BookingModelViews
         public DateTime Date { get; set; }
         public string? Status { get; set; }
 
-        public string? OrdersId { get; set; }
-        //public List<PackageResponseModel>? packageResponseModels { get; set; }
-        
+        public string OrdersId { get; set; } = string.Empty;
+        public string? CreatedBy { get; set; }
+        //không cho hiển thị nếu null
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string? LastUpdatedBy { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public DateTimeOffset? LastUpdatedTime { get; set; }
     }
 }
