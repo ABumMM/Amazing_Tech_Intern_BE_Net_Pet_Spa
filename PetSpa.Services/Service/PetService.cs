@@ -6,141 +6,131 @@ using PetSpa.ModelViews.PetsModelViews;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Services.Interface;
 using Microsoft.Extensions.Logging;
+using AutoMapper;
+using PetSpa.Services.Mapper;
+using PetSpa.Repositories.UOW;
+using Microsoft.AspNetCore.Identity;
+using PetSpa.ModelViews.UserModelViews;
 
 namespace PetSpa.Services.Service
 {
     public class PetService : IPetService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public PetService(IUnitOfWork unitOfWork)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
+        public PetService(IUnitOfWork unitOfWork, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task Add(POSTPetsModelView petMV)
         {
-            if (petMV == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "Pet cannot be null.");
-            }
             if (petMV.Name == null)
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pet name is required.");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pet Name cannot be null.");
+            }
+            if (petMV.UserId == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "UserId cannot be null.");
             }
 
-            Pets pets = new Pets()
-            {
-                Name = petMV.Name,
-                Species = petMV.Species,
-                Weight = petMV.Weight,
-                Breed = petMV.Breed,
-                Age = petMV.Age,
-                Description = petMV.Description,
-                Image = petMV.Image,
-                CreatedTime = DateTime.Now,
-
-            };
-
-            await _unitOfWork.GetRepository<Pets>().InsertAsync(pets);
+            await _unitOfWork.GetRepository<Pets>().InsertAsync(_mapper.Map<Pets>(petMV));
             await _unitOfWork.SaveAsync();
 
 
         }
-
-        public async Task Delete(string Id)
+        public async Task<PUTPetsModelView> Update(PUTPetsModelView pets)
         {
-            Pets? existedPet = await _unitOfWork.GetRepository<Pets>().GetByIdAsync(Id);
-            if (existedPet == null)
+            if (pets.Id == null)
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Pet");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid pet data.");
             }
-            existedPet.DeletedTime = DateTime.Now;
-            //existedPet.DeletedBy = currentUserId; // Sẽ thêm sau khi có authentication
-            await _unitOfWork.GetRepository<Pets>().DeleteAsync(Id);
+
+            var petRepository = _unitOfWork.GetRepository<Pets>();
+            var existingPet = await petRepository.GetByIdAsync(pets.Id);
+
+            if (existingPet == null || existingPet.DeletedTime.HasValue)
+            {
+                throw new KeyNotFoundException("Pet not found.");
+            }
+
+            _mapper.Map(pets, existingPet);
+            existingPet.LastUpdatedTime = DateTime.UtcNow;
+
+            await petRepository.UpdateAsync(existingPet);
+            await _unitOfWork.SaveAsync();
+            return _mapper.Map<PUTPetsModelView>(existingPet);
+        }
+
+        public async Task Delete(string id)
+        {
+            if (id == string.Empty)
+            {
+                throw new ArgumentException("Id không hợp lệ.", nameof(id));
+            }
+
+            var petRepository = _unitOfWork.GetRepository<Pets>();
+            var existedPet = await petRepository.GetByIdAsync(id);
+            if (existedPet == null || existedPet.DeletedTime != null)
+            {
+                throw new KeyNotFoundException("Thú cưng không tìm thấy.");
+            }
+
+
+            // Xóa mềm: cập nhật thời gian xóa và người xóa
+            existedPet.DeletedTime = DateTime.UtcNow;
+            existedPet.DeletedBy = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+
+            await petRepository.UpdateAsync(existedPet);
             await _unitOfWork.SaveAsync();
         }
 
-        public async Task<BasePaginatedList<GETPetsModelView>> GetAll(int pageNumber = 1, int pageSize = 2)
+
+        public async Task<GETPetsModelView> GetById(string id)
         {
-            var pets = await _unitOfWork.GetRepository<Pets>().GetAllAsync();
-            var PetsModelViews = pets.Select(r => new GETPetsModelView
+            if (id == string.Empty)
             {
-                Id = r.Id,
-                Name = r.Name,
-                Species = r.Species,
-                Weight = r.Weight,
-                Breed = r.Breed,
-                Age = r.Age,
-                Description = r.Description,
-                Image = r.Image,
+                throw new ArgumentException("Id không hợp lệ.", nameof(id));
+            }
 
-                CreatedTime = DateTime.Now,
-            }).ToList();
+            var petsRepository = _unitOfWork.GetRepository<Pets>();
+            var pets = await petsRepository.Entities
+                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedTime == null);
 
-            int totalPets = PetsModelViews.Count;
+            if (pets == null)
+            {
+                throw new KeyNotFoundException("Thú cưng không tìm thấy.");
+            }
+            return _mapper.Map<GETPetsModelView>(pets);
+        }
+        public async Task<BasePaginatedList<GETPetsModelView>> GetAll(int pageNumber, int pageSize)
+        {
+            if (pageNumber <= 0 || pageSize <= 0)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must be greater than 0");
+            }
 
-            var paginatedPets = PetsModelViews
+            var petsQuery = _unitOfWork.GetRepository<Pets>()
+                .Entities
+                .Where(i => !i.DeletedTime.HasValue)
+                .OrderByDescending(c => c.CreatedTime);
+
+            var totalPets = await petsQuery.CountAsync();
+
+            var paginatedPets = await petsQuery
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
+                .ToListAsync();
 
-            return new BasePaginatedList<GETPetsModelView>(paginatedPets, totalPets, pageNumber, pageSize);
+            // Chuyển đổi từ Pets sang GETPetsModelView bằng AutoMapper
+            var petsModelViewsList = _mapper.Map<List<GETPetsModelView>>(paginatedPets);
+
+            return new BasePaginatedList<GETPetsModelView>(petsModelViewsList, totalPets, pageNumber, pageSize);
         }
 
-        public async Task<GETPetsModelView?> GetById(string Id)
-        {
-            var existedPet = await _unitOfWork.GetRepository<Pets>()
-                .Entities.FirstOrDefaultAsync(r => r.Id == Id);
-            if (existedPet == null)
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Pet");
-            }
 
-            return new GETPetsModelView
-            {
-
-                Id = existedPet.Id,
-                Name = existedPet.Name,
-                Species = existedPet.Species,
-                Weight = existedPet.Weight,
-                Breed = existedPet.Breed,
-                Age = existedPet.Age,
-                Description = existedPet.Description,
-                Image = existedPet.Image,
-                UserId = existedPet.Users.Id,
-                CreatedTime = existedPet.CreatedTime,
-            };
-        }
-
-        public async Task Update(PUTPetsModelView pet)
-        {
-            if (pet == null)
-            {
-                throw new BadRequestException(ErrorCode.BadRequest, "Pet cannot be null.");
-            }
-
-            Pets? existedPet = await _unitOfWork.GetRepository<Pets>().GetByIdAsync(pet.Id);
-            if (existedPet == null)
-            {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Pet");
-            }
-
-            if (string.IsNullOrWhiteSpace(pet.Name))
-            {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pet name is required.");
-            }
-
-            existedPet.Name = pet.Name;
-            existedPet.Species = pet.Species;
-            existedPet.Weight = pet.Weight;
-            existedPet.Breed = pet.Breed;
-            existedPet.Age = pet.Age;
-            existedPet.Description = pet.Description;
-            existedPet.Image = pet.Image;
-            existedPet.LastUpdatedBy = pet.LastUpdatedBy;
-            existedPet.LastUpdatedTime = DateTime.Now;
-            await _unitOfWork.GetRepository<Pets>().UpdateAsync(existedPet);
-            await _unitOfWork.SaveAsync();
-        }
     }
 }
