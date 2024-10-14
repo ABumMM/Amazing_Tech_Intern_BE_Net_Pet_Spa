@@ -12,11 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-<<<<<<<< HEAD:PetSpa.Repositories/Migrations/20241011161813_InitialCreate.Designer.cs
-    [Migration("20241011161813_InitialCreate")]
-========
-    [Migration("20241013171627_InitialCreate")]
->>>>>>>> 266f1b0e19253921963d34107b2967157bc26f54:PetSpa.Repositories/Migrations/20241013171627_InitialCreate.Designer.cs
+    [Migration("20241014122427_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -418,14 +414,13 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<double>("TotalSpent")
                         .HasColumnType("float");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("MemberShips");
                 });
@@ -1010,7 +1005,9 @@ namespace PetSpa.Repositories.Migrations
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", "User")
                         .WithOne("Membership")
-                        .HasForeignKey("PetSpa.Contract.Repositories.Entity.MemberShips", "UserId");
+                        .HasForeignKey("PetSpa.Contract.Repositories.Entity.MemberShips", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

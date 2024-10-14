@@ -11,6 +11,7 @@ using PetSpa.Services.Mapper;
 using PetSpa.Repositories.UOW;
 using Microsoft.AspNetCore.Identity;
 using PetSpa.ModelViews.UserModelViews;
+using PetSpa.ModelViews.PackageModelViews;
 
 namespace PetSpa.Services.Service
 {
@@ -88,49 +89,39 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         }
 
-
-        public async Task<GETPetsModelView> GetById(string id)
+        public async Task<GETPetsModelView> GetById(string petsID)
         {
-            if (id == string.Empty)
+            if (string.IsNullOrWhiteSpace(petsID))
             {
-                throw new ArgumentException("Id không hợp lệ.", nameof(id));
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid Pets ID.");
             }
-
-            var petsRepository = _unitOfWork.GetRepository<Pets>();
-            var pets = await petsRepository.Entities
-                .FirstOrDefaultAsync(u => u.Id == id && u.DeletedTime == null);
-
-            if (pets == null)
+            var existedPets = await _unitOfWork.GetRepository<Pets>()
+                      .Entities
+                      .FirstOrDefaultAsync(p => p.Id == petsID && !p.DeletedTime.HasValue);
+            if (existedPets == null)
             {
-                throw new KeyNotFoundException("Thú cưng không tìm thấy.");
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Pet");
             }
-            return _mapper.Map<GETPetsModelView>(pets);
+            return _mapper.Map<GETPetsModelView>(existedPets);
         }
+
+
         public async Task<BasePaginatedList<GETPetsModelView>> GetAll(int pageNumber, int pageSize)
         {
             if (pageNumber <= 0 || pageSize <= 0)
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must be greater than 0");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
             }
-
-            var petsQuery = _unitOfWork.GetRepository<Pets>()
-                .Entities
-                .Where(i => !i.DeletedTime.HasValue)
-                .OrderByDescending(c => c.CreatedTime);
-
-            var totalPets = await petsQuery.CountAsync();
-
-            var paginatedPets = await petsQuery
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            // Chuyển đổi từ Pets sang GETPetsModelView bằng AutoMapper
-            var petsModelViewsList = _mapper.Map<List<GETPetsModelView>>(paginatedPets);
-
-            return new BasePaginatedList<GETPetsModelView>(petsModelViewsList, totalPets, pageNumber, pageSize);
+            IQueryable<Pets> pets = _unitOfWork.GetRepository<Pets>()
+               .Entities.Where(i => !i.DeletedTime.HasValue)//Membership chưa bị xóa
+               .OrderByDescending(c => c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo
+            //Phân trang và chỉ lấy các bản ghi cần thiết
+            var paginatedPets = await pets
+                 .Skip((pageNumber - 1) * pageSize)
+                 .Take(pageSize)
+                 .ToListAsync();
+            return new BasePaginatedList<GETPetsModelView>(_mapper.Map<List<GETPetsModelView>>(paginatedPets),
+                await pets.CountAsync(), pageNumber, pageSize);
         }
-
-
     }
 }
