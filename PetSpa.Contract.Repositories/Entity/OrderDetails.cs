@@ -1,30 +1,17 @@
 ﻿using PetSpa.Core.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-
 namespace PetSpa.Contract.Repositories.Entity
 {
     public class OrdersDetails : BaseEntity
     {
-        public int Quantity { get; set; }
+        public int Quantity { get; set; } = 0;
         public string? Status { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; } = 0;
         public string? OrderID { get; set; }
         public string? PackageID { get; set; }
-
         //Mối kết hợp 1-n
-        public virtual Orders? Orders { get; set; }
-
-        public ICollection<Packages> Packages { get; set; } = new List<Packages>();
-
-
+        public virtual Orders? Order { get; set; }
+        public virtual Packages? Package { get; set; }
         //Mối Kết Hợp Nhiều Nhiều
-        public virtual ICollection<OrderDetailPackage> OrderDetailPackages { get; set; } = new List<OrderDetailPackage>();
+        //public virtual ICollection<OrderDetailPackage> OrderDetailPackages { get; set; } = new List<OrderDetailPackage>();
     }
 }

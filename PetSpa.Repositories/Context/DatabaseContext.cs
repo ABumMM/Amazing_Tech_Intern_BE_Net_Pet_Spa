@@ -22,10 +22,11 @@ namespace PetSpa.Repositories.Context
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Packages> Packages { get; set; }
         public virtual DbSet<Pets> Pets { get; set; }
-        public virtual DbSet<Review> Reviews { get; set; }
+        public virtual DbSet<Reviews> Reviews { get; set; }
         public virtual DbSet<Services> Services { get; set; }
         public virtual DbSet<UserInfo> UserInfos { get; set; }
         public virtual DbSet<PackageServiceEntity> PackageServiceDTOs { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -57,12 +58,11 @@ namespace PetSpa.Repositories.Context
                 .HasOne(ps => ps.Booking)
                 .WithMany(s => s.BookingPackages)
                 .HasForeignKey(ps => ps.BookingId);
-
-            //ORDERDETAIL_PACKGAGE
-            modelBuilder.Entity<OrdersDetails>()
-                .HasMany(od => od.Packages)
-                .WithOne(p => p.OrdersDetails) // Khóa ngoại trong Packages
-                .HasForeignKey(p => p.OrderDetailID); // Đặt OrderDetailID là khóa ngoại
+            // ApplicationUser và MemberShips
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(a => a.Membership) // ApplicationUser có một Membership
+                .WithOne(m => m.User) // MemberShips có một User (ApplicationUser)
+                .HasForeignKey<MemberShips>(m => m.UserId); // Khóa ngoại trong bảng MemberShips
         }
     }
 }

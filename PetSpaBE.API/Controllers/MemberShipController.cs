@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.MemberShipModelView;
-using PetSpa.ModelViews.MemberShipModelViews;
+using Swashbuckle.AspNetCore.Annotations;
+
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -10,11 +12,19 @@ namespace PetSpaBE.API.Controllers
     public class MemberShipController : ControllerBase
     {
         private readonly IMembershipsService _membershipsService;
+
         public MemberShipController(IMembershipsService membershipsService)
         {
             _membershipsService = membershipsService;
         }
+
+        // GET: api/membership
         [HttpGet]
+        [SwaggerOperation(
+             Summary = "Authorization: Admin",
+            Description = "View All membership"
+            )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> GetAllMemberShips(int pageNumber, int pageSize)
         {
             var memberShips = await _membershipsService.GetAll(pageNumber, pageSize);
@@ -23,25 +33,14 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: memberShips));
         }
-        [HttpPost]
-        public async Task<IActionResult> AddMemberShip([FromBody]POSTMemberShipModelView memberShipMV)
-        {
-            await _membershipsService.Add(memberShipMV);
-            return Ok(new BaseResponseModel<string>(
-                statusCode: StatusCodes.Status200OK,
-                code: ResponseCodeConstants.SUCCESS,
-                data: "Add membership successful"));
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMemberShip(string id)
-        {
-            await _membershipsService.Delete(id);
-            return Ok(new BaseResponseModel<string>(
-                statusCode: StatusCodes.Status200OK,
-                code: ResponseCodeConstants.SUCCESS,
-                data: "Delete membership successful"));
-        }
+
+        // GET: api/membership/{id}
         [HttpGet("{id}")]
+        [SwaggerOperation(
+             Summary = "Authorization: Admin",
+            Description = "Get membership by ID"
+            )]
+        [Authorize(Roles = "Admim")]
         public async Task<IActionResult> GetMemberShipById(string id)
         {
             var memberShip = await _membershipsService.GetById(id);
@@ -50,14 +49,8 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: memberShip));
         }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMemberShip([FromBody]PUTMemberShipModelView memberShipMV)
-        {
-            await _membershipsService.Update(memberShipMV);
-            return Ok(new BaseResponseModel<string>(
-                statusCode: StatusCodes.Status200OK,
-                code: ResponseCodeConstants.SUCCESS,
-                data: "Update package successful"));
-        }
+
+
+      
     }
 }

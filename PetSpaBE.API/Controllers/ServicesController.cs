@@ -1,4 +1,5 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -7,6 +8,7 @@ using PetSpa.Core.Store;
 using PetSpa.Core.Utils;
 using PetSpa.ModelViews.ServiceModelViews;
 using PetSpa.Services.Service;
+using System.IdentityModel.Tokens.Jwt;
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]
@@ -24,7 +26,7 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> GetAllServices(int pageNumber, int pageSize)
         {
 
-            var item = await _servicesService.GetAll();
+            var item = await _servicesService.GetAll(pageNumber,pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<ServiceResposeModel>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
@@ -33,6 +35,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddService(ServiceCreateModel service)
         {
             await _servicesService.Add(service);
@@ -42,6 +45,7 @@ namespace PetSpaBE.API.Controllers
                 data: "Add service successful"));
         }
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteService(string id)
         {
             await _servicesService.Delete(id);
@@ -63,6 +67,7 @@ namespace PetSpaBE.API.Controllers
                 ));
         }
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateService(ServiceUpdateModel service)
         {
             await _servicesService.Update(service);

@@ -1,7 +1,6 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.BookingModelViews;
-using PetSpa.ModelViews.ModelViews;
 using PetSpa.ModelViews.PackageModelViews;
 using System;
 using System.Collections.Generic;
@@ -15,8 +14,9 @@ namespace PetSpa.Contract.Services.Interface
     {
         Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber, int pageSize);
         Task<GETBookingVM?> GetById(string id);
+        //Task<bool> Add(POSTBookingVM bookingVM);
         Task Add(POSTBookingVM bookingVM);
         Task Update( POSTBookingVM bookingVM, string id);
-        
+        Task CancelBooking(string bookingId);
     }
 }

@@ -13,130 +13,135 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using AutoMapper;
 namespace PetSpa.Services.Service
 {
     public class BookingPackageService : IBookingPackage_Service
     {
         private readonly IUnitOfWork _unitOfWork;
-        
-        public BookingPackageService(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public BookingPackageService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task Add(Booking_PackageVM bookingPackageVM)
         {
-            BookingPackage BookingPackage = new BookingPackage()
+            var existingBookingPackage = await _unitOfWork.GetRepository<BookingPackage>().Entities
+                .FirstOrDefaultAsync(bp => bp.BookingId == bookingPackageVM.BookingId &&
+                                           bp.PackageId == bookingPackageVM.PackageId);
+            if (existingBookingPackage != null)
             {
-                PackageId = bookingPackageVM.PackageId,
-                BookingId = bookingPackageVM.BookingId,
-                AddedDate = bookingPackageVM.AddedDate,
-            };
-            await _unitOfWork.GetRepository<BookingPackage>().InsertAsync(BookingPackage);
+                throw new ErrorException(
+                    statusCode: StatusCodes.Status400BadRequest,
+                    errorCode: ErrorCode.BadRequest,
+                    message: "BookingPackage với BookingID và PackageID này đã tồn tại.");
+            }
+            var booKing = await _unitOfWork.GetRepository<Bookings>().GetByIdAsync(bookingPackageVM.BookingId);
+            if (booKing == null)
+            {
+                throw new ErrorException(
+                    StatusCodes.Status404NotFound,
+                    "BookingNotFound",
+                    $"Không tìm thấy Booking với ID: {bookingPackageVM.BookingId}"
+                );
+            }
+            var pacKage = await _unitOfWork.GetRepository<Packages>().GetByIdAsync(bookingPackageVM.PackageId);
+            if (pacKage == null)
+            {
+                throw new ErrorException(
+                    StatusCodes.Status404NotFound,
+                    "PackageNotFound",
+                    $"Không tìm thấy Package với ID: {bookingPackageVM.PackageId}"
+                );
+            }
+
+            // Sử dụng AutoMapper để ánh xạ từ Booking_PackageVM sang BookingPackage
+            var bookingPackage = _mapper.Map<BookingPackage>(bookingPackageVM);
+            bookingPackage.AddedDate = DateTime.Now;
+
+            await _unitOfWork.GetRepository<BookingPackage>().InsertAsync(bookingPackage);
             await _unitOfWork.SaveAsync();
         }
         public async Task<BasePaginatedList<GETBooking_PackageVM>> GetAll(int pageNumber, int pageSize)
         {
-            // Truy vấn tất cả Bookings
-            var bookings = await _unitOfWork.GetRepository<Bookings>().Entities
-                .ToListAsync();
-
-            if (bookings == null || !bookings.Any())
+            if (pageSize < 1 || pageNumber < 1)
             {
-                return new BasePaginatedList<GETBooking_PackageVM>(new List<GETBooking_PackageVM>(), 0, pageNumber, pageSize);
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "PageNumber và PageSize không hợp lệ!");
             }
-            var bookingPackages = await _unitOfWork.GetRepository<BookingPackage>().Entities
-                .Include(bp => bp.Package)
-                .ToListAsync();
-            var packageGroups = bookingPackages.GroupBy(bp => bp.BookingId)
-                .ToDictionary(group => group.Key, group => group.Select(bp => new GETPackageModelView
+
+            var bookingRepository = _unitOfWork.GetRepository<Bookings>();
+            var bookingPackageRepository = _unitOfWork.GetRepository<BookingPackage>();
+
+            var bookingsWithPackagesQuery = bookingRepository.Entities
+                .Join(
+                    bookingPackageRepository.Entities.Include(bp => bp.Package),
+                    b => b.Id,
+                    bp => bp.BookingId,
+                    (b, bp) => new { Booking = b, BookingPackage = bp }
+                )
+                .Where(x => x.BookingPackage.Package != null)
+                .GroupBy(x => x.Booking)
+                .Select(g => new
                 {
-                    Id = bp.PackageId,
-                    Name = bp.Package.Name,
-                    Price = bp.Package.Price.GetValueOrDefault(),
-                }).ToList());
+                    Booking = g.Key,
+                    Packages = g.Select(x => new PackageDTO
+                    {
+                        Id = x.BookingPackage.PackageId,
+                        Name = x.BookingPackage.Package != null ? x.BookingPackage.Package.Name : "Unknown",
+                        Price = x.BookingPackage.Package != null ? x.BookingPackage.Package.Price : 0
+                    }).ToList()
+                });
 
-            // Ánh xạ Booking vào ViewModel
-            var bookingWithPackagesVMs = bookings.Select(b => new GETBooking_PackageVM
-            {
-                BookingId = b.Id,
-                Description = b.Description,
-                Date = b.Date,
-                Status = b.Status,
-                Packages = packageGroups.ContainsKey(b.Id) ? packageGroups[b.Id] : new List<GETPackageModelView>()
-            }).ToList();
+            int totalBookings = await bookingsWithPackagesQuery.CountAsync();
 
-            // Phân trang
-            int totalBookings = bookingWithPackagesVMs.Count;
-            var paginatedBookingPK = bookingWithPackagesVMs
+            var paginatedBookings = await bookingsWithPackagesQuery
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
+                .ToListAsync();
 
-            return new BasePaginatedList<GETBooking_PackageVM>(paginatedBookingPK, totalBookings, pageNumber, pageSize);
+            var bookingWithPackagesVMs = paginatedBookings.Select(b =>
+            {
+                var bookingVm = _mapper.Map<GETBooking_PackageVM>(b.Booking);
+                bookingVm.Packages = b.Packages; 
+                return bookingVm;
+            }).ToList();
+
+            return new BasePaginatedList<GETBooking_PackageVM>(bookingWithPackagesVMs, totalBookings, pageNumber, pageSize);
         }
 
-
-        //public async Task<BasePaginatedList<Booking_PackageVM>> GetAll(int pageNumber, int pageSize)
-        //{
-        //    var bookingPackages = await _unitOfWork.GetRepository<BookingPackage>().GetAllAsync();
-
-        //    var bookingPKViewModels = bookingPackages.Select(bk => new Booking_PackageVM
-        //    {
-        //        BookingId = bk.BookingId,
-        //        PackageId = bk.PackageId,
-        //        AddedDate = bk.AddedDate,
-
-        //    }).ToList();
-        //    int totalBookingPK = bookingPackages.Count;
-
-        //    var paginatedBookingPK = bookingPKViewModels
-        //        .Skip((pageNumber - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToList();
-
-        //    return new BasePaginatedList<Booking_PackageVM>(paginatedBookingPK, totalBookingPK, pageNumber, pageSize);
-        //}
-        public async Task<List<Booking_PackageVM>> GetById(string id)
+        public async Task<GETBooking_PackageVM> GetById(string id)
         {
-            if (id != null)
+            if (string.IsNullOrWhiteSpace(id))
             {
-                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Point must be greater than or equal to 0.");
-
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Id không được để trống");
             }
             var existedBookingPKs = await _unitOfWork.GetRepository<BookingPackage>()
                 .Entities
                 .Where(p => p.BookingId == id)
                 .ToListAsync();
+
             if (!existedBookingPKs.Any())
             {
-                return null;
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Không tìm thấy ");
             }
-            // Duyệt qua tất cả các bản ghi và chuyển đổi thành ViewModel
-            var bookingPKVMs = existedBookingPKs.Select(existedBookingPK => new Booking_PackageVM
-            {
-                BookingId = existedBookingPK.BookingId,
-                PackageId = existedBookingPK.PackageId,
-                AddedDate = existedBookingPK.AddedDate,
-            }).ToList();
+            var booking = await _unitOfWork.GetRepository<Bookings>()
+                .Entities
+                .FirstOrDefaultAsync(b => b.Id == id);
 
-            return bookingPKVMs;
+            // Lấy danh sách booking packages và bao gồm thông tin package
+            var bookingPackages = await _unitOfWork.GetRepository<BookingPackage>()
+                .Entities
+                .Where(bp => bp.BookingId == id)
+                .Include(bp => bp.Package)
+                .ToListAsync();
+            var packages = _mapper.Map<List<PackageDTO>>(bookingPackages);
+            var bookingWithPackagesVM = _mapper.Map<GETBooking_PackageVM>(booking);
+            bookingWithPackagesVM.Packages = packages;
+
+            return bookingWithPackagesVM;
         }
-        public async Task<bool> DeleteBookingPackageAsync(string bookingId, string packageId)
-        {
-            var repository = _unitOfWork.GetRepository<BookingPackage>();
-            //bookingId = bookingId.Trim();
-            //packageId = packageId.Trim();
-            var bookingPackage = await repository.GetByKeysAsync(bookingId, packageId);
 
-            if (bookingPackage == null)
-            {
-                return false; 
-            }
-            repository.Delete1(bookingPackage);
-            await _unitOfWork.SaveAsync();
-
-            return true; 
-        }
     }
 }

@@ -28,6 +28,9 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public virtual ICollection<Pets> Pets { get; set; } = new List<Pets>();
 
+        // MemberShip
+        public string? memberShipID { get; set; }
+        public virtual MemberShips? Membership { get; set; }
 
         public ApplicationUser()
         {
