@@ -11,7 +11,7 @@ using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookingController : ControllerBase

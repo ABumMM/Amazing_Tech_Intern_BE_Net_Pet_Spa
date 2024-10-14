@@ -2,6 +2,7 @@
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Core.Base;
 using PetSpa.Repositories.Context;
+using System.Linq.Expressions;
 namespace PetSpa.Repositories.UOW
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
@@ -99,6 +100,11 @@ namespace PetSpa.Repositories.UOW
         public void Delete1(T entity)
         {
             _dbSet.Remove(entity); // Xóa dựa trên đối tượng 
+        }
+        //thêm
+        public async Task<IList<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.Where(predicate).ToListAsync();
         }
     }
 }
