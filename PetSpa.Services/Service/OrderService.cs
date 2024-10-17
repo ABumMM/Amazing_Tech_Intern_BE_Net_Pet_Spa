@@ -79,9 +79,9 @@ namespace PetSpa.Services.Service
             var membership = await _unitOfWork.GetRepository<MemberShips>()
                 .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
 
-            double discountedTotal = membership != null
-                ? (double)totalAmount * (1 - membership.DiscountRate)
-                : (double)totalAmount;
+            decimal discountedTotal = membership != null
+            ? totalAmount * (decimal)(1 - membership.DiscountRate)
+            : totalAmount;
 
             var newOrder = _mapper.Map<Orders>(order);
             newOrder.Name = order.Name;
@@ -136,9 +136,9 @@ namespace PetSpa.Services.Service
                 .ToListAsync();
 
             // Tính toán tổng từ các chi tiết đơn hàng
-            double totalAmount = (double)orderDetails.Sum(detail => detail.Price);
+            //double totalAmount = (double)orderDetails.Sum(detail => detail.Price);
             // Cập nhật tổng cho đơn hàng
-            existingOrder.Total = totalAmount;
+            //existingOrder.Total = totalAmount;
             _mapper.Map(order, existingOrder);
             existingOrder.LastUpdatedTime = DateTime.UtcNow;
             existingOrder.LastUpdatedBy = currentUserId;
@@ -212,22 +212,6 @@ namespace PetSpa.Services.Service
 
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
-
-            // Lấy thông tin khách hàng (membership)
-            var membership = await _unitOfWork.GetRepository<MemberShips>()
-                .Entities.FirstOrDefaultAsync(m => m.UserId ==existingOrder.CustomerID
-                && !m.DeletedTime.HasValue);
-            // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
-            var orderUpdated=await _unitOfWork.GetRepository<Orders>()
-                .GetByIdAsync(existingOrder.Id);
-            if (membership != null && orderUpdated!=null)
-            {
-                // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
-                membership.TotalSpent += orderUpdated.Total;
-                await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
-                await _unitOfWork.SaveAsync();
-                await CheckMembershipUpgrade(membership.UserId);
-            }
         }
 
         // Phương thức kiểm tra xem thành viên có đủ điều kiện để nâng hạng không
