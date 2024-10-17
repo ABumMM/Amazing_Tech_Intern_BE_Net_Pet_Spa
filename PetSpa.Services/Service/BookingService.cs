@@ -39,8 +39,7 @@ namespace PetSpa.Services.Service
         
         public async Task Add(POSTBookingVM bookingVM)
         {
-            var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(currentUserId))
             {
                 throw new ErrorException(
                     StatusCodes.Status401Unauthorized,
@@ -51,7 +50,7 @@ namespace PetSpa.Services.Service
 
             //mapping
             var booking = _mapper.Map<Bookings>(bookingVM);
-            booking.CreatedBy = userId;
+            booking.CreatedBy = currentUserId;
             if (bookingVM.Date < DateTimeOffset.Now)
             {
                 throw new ErrorException(
@@ -60,16 +59,6 @@ namespace PetSpa.Services.Service
                     "Ngày đặt không được nhỏ hơn thời gian hiện tại."
                 );
             }
-            //var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
-
-            //if (order == null)
-            //{
-            //    throw new ErrorException(
-            //    StatusCodes.Status404NotFound,
-            //    "OrderNotFound",
-            //    $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
-            //    );
-            //}
             ////Kiểm tra xem ApplicationUserId có tồn tại dưới quyền Employee không
             if (!Guid.TryParse(bookingVM.ApplicationUserId, out var applicationUserId))
             {
@@ -157,7 +146,6 @@ namespace PetSpa.Services.Service
             IQueryable<Bookings> bookings = _unitOfWork.GetRepository<Bookings>()
                .Entities.Where(i => !i.DeletedTime.HasValue)
                .OrderByDescending(c => c.CreatedTime).AsQueryable();
-            //Phân trang và chỉ lấy các bản ghi cần thiết
             var paginatedBookings = await bookings
                  .Skip((pageNumber - 1) * pageSize)
                  .Take(pageSize)
@@ -178,7 +166,6 @@ namespace PetSpa.Services.Service
             IQueryable<Bookings> bookings = _unitOfWork.GetRepository<Bookings>()
                .Entities.Where(i => !i.DeletedTime.HasValue && i.CreatedBy == currentUserId)
                .OrderByDescending(c => c.CreatedTime).AsQueryable();
-            //Phân trang và chỉ lấy các bản ghi cần thiết
             var paginatedBookings = await bookings
                  .Skip((pageNumber - 1) * pageSize)
                  .Take(pageSize)
@@ -204,9 +191,7 @@ namespace PetSpa.Services.Service
         }
         public async Task Update( POSTBookingVM bookingVM, string id)
         {
-
-            var userId = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(currentUserId))
             {
                 throw new ErrorException(
                     StatusCodes.Status401Unauthorized,
@@ -219,13 +204,11 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
             }
-            //kt nếu status đã hủy thì không cho sửa
             if(existingBooking.Status == "Đã hủy")
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể sửa Booking đã bị hủy");
             }    
             var currentTime = DateTimeOffset.Now;
-            //kiểm tra nếu trong vòng 24h trước cuộc hẹn ban đầu thì không cho sửa
             if(existingBooking.Date - currentTime < TimeSpan.FromHours(24))
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể dời lịch, hủy, đổi nhân viên trong vòng 24 giờ trước cuộc hẹn ban đầu");
@@ -235,17 +218,6 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể dời lịch xuống ngày bé hơn ngày hiện tại");
             }
-            //var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
-
-            //if (order == null)
-            //{
-            //    throw new ErrorException(
-            //    StatusCodes.Status404NotFound,
-            //    "OrderNotFound",
-            //    $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
-            //    );
-            //}
-            //thêm
             ////Kiểm tra xem ApplicationUserId có tồn tại dưới quyền Employee không
             if (!Guid.TryParse(bookingVM.ApplicationUserId, out var applicationUserId))
             {
@@ -290,7 +262,6 @@ namespace PetSpa.Services.Service
                     "Không tìm thấy RoleId nào liên kết với người dùng."
                 );
             }
-            //
             var employeeRoleId = await _unitOfWork.GetRepository<ApplicationRole>()
             .Entities
             .Where(role => role.Name == "Employee")
@@ -320,7 +291,7 @@ namespace PetSpa.Services.Service
             }
             // Ánh xạ dữ liệu cập nhật từ POSTBookingVM sang Bookings
             _mapper.Map(bookingVM, existingBooking);
-            existingBooking.LastUpdatedBy = userId;
+            existingBooking.LastUpdatedBy = currentUserId;
             existingBooking.LastUpdatedTime = DateTime.Now;
             await _unitOfWork.GetRepository<Bookings>().UpdateAsync(existingBooking);
             await _unitOfWork.SaveAsync();
@@ -342,10 +313,8 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể hủy trogn 24h trước cuộc hẹn!");
             }
 
-            booking.Status = "Đã hủy"; // 
-
-            // Cập nhật thông tin về người hủy
-            booking.LastUpdatedBy = _httpContextAccessor.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            booking.Status = "Đã hủy"; 
+            booking.LastUpdatedBy = currentUserId;
             booking.LastUpdatedTime = DateTime.Now;
             _unitOfWork.GetRepository<Bookings>().Update(booking);
             await _unitOfWork.SaveAsync();
