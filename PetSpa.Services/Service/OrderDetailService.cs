@@ -49,11 +49,6 @@ namespace PetSpa.Services.Service
             var package = _unitOfWork.GetRepository<Packages>()
                          .Entities.FirstOrDefault(p => detailsMV.PackageID.Contains(p.Id));
 
-            // Lấy tất cả OrderDetails hiện có cho OrderID
-            var existingOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                                                .Entities.Where(od => od.OrderID == detailsMV.OrderID && !od.DeletedTime.HasValue)
-                                                .ToListAsync();
-
             decimal totalPrice = 0;
 
             if (package != null)
@@ -77,8 +72,20 @@ namespace PetSpa.Services.Service
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
             
             await _unitOfWork.SaveAsync();
+            //Update orderID trong orderDetailID
+            var existedOrder = await _unitOfWork.GetRepository<Orders>()
+                            .Entities
+                            .Where(od => detailsMV.OrderID.Contains(od.Id))
+                            .SingleOrDefaultAsync();
+            if (existedOrder != null)
+            {
 
-            
+                existedOrder.Total += details.Price;
+                await _unitOfWork.GetRepository<Orders>().UpdateAsync(existedOrder);
+                await _unitOfWork.SaveAsync();
+
+            }
+
         }
 
         public async Task Delete(string OrDetailID)
@@ -91,6 +98,20 @@ namespace PetSpa.Services.Service
             existedOrDetail.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
             await _unitOfWork.GetRepository<OrdersDetails>().DeleteAsync(OrDetailID);
             await _unitOfWork.SaveAsync();
+
+            //Update orderID trong orderDetailID
+            var existedOrder = await _unitOfWork.GetRepository<Orders>()
+                            .Entities
+                            .Where(od => existedOrDetail.OrderID.Contains(od.Id))
+                            .SingleOrDefaultAsync();
+            if (existedOrder != null)
+            {
+
+                existedOrder.Total -= existedOrDetail.Price;
+                await _unitOfWork.GetRepository<Orders>().UpdateAsync(existedOrder);
+                await _unitOfWork.SaveAsync();
+
+            }
         } 
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> GetAll(int pageNumber, int pageSize)
