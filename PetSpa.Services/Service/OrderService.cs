@@ -65,16 +65,17 @@ namespace PetSpa.Services.Service
             if (string.IsNullOrWhiteSpace(order.PaymentMethod))
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
 
-            if (order.OrderDetailId == null || !order.OrderDetailId.Any())
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
+            //if (order.OrderDetailId == null || !order.OrderDetailId.Any())
+            //throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
 
-            var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                .Entities
-                .Where(od => order.OrderDetailId.Contains(od.Id))
-                .ToListAsync();
+            //var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+            //.Entities
+            //.Where(od => order.OrderDetailId.Contains(od.Id))
+            //.ToListAsync();
 
-            decimal totalAmount = orderDetails.Sum(detail => detail.Price);
 
+            //decimal totalAmount = orderDetails.Sum(detail => detail.Price);
+            decimal totalAmount = 0;
             var membership = await _unitOfWork.GetRepository<MemberShips>()
                 .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
 
@@ -83,6 +84,7 @@ namespace PetSpa.Services.Service
                 : (double)totalAmount;
 
             var newOrder = _mapper.Map<Orders>(order);
+            newOrder.Name = order.Name;
             newOrder.Total = discountedTotal;
             newOrder.IsPaid = false;
             newOrder.CustomerID = Guid.Parse(order.CustomerID);
@@ -100,18 +102,18 @@ namespace PetSpa.Services.Service
                 await CheckMembershipUpgrade(Guid.Parse(currentUserId));
 
                 // Cập nhật OrderDetailID
-                var existedOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                    .Entities
-                    .Where(od => order.OrderDetailId.Contains(od.Id))
-                    .ToListAsync();
+                //var existedOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+                    //.Entities
+                    //.Where(od => order.OrderDetailId.Contains(od.Id))
+                    //.ToListAsync();
 
-                foreach (var detail in existedOrderDetails)
-                {
-                    detail.OrderID = newOrder.Id;
-                    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
-                }
+                //foreach (var detail in existedOrderDetails)
+                //{
+                //    detail.OrderID = newOrder.Id;
+                //    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
+                //}
 
-                await _unitOfWork.SaveAsync();
+                //await _unitOfWork.SaveAsync();
             }
         }
 
