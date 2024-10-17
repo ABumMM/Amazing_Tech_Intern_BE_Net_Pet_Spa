@@ -56,13 +56,13 @@ namespace PetSpa.Services.Service
 
             if (result.Succeeded)
             {
-                if (!await _roleManager.RoleExistsAsync("Customer"))
+                if (!await _roleManager.RoleExistsAsync("Employee"))
                 {
-                    var role = new ApplicationRole { Name = "Customer" };
+                    var role = new ApplicationRole { Name = "Employee" };
                     await _roleManager.CreateAsync(role);
                 }
 
-                result = await _userManager.AddToRoleAsync(user, "Customer");
+                result = await _userManager.AddToRoleAsync(user, "Employee");
                 if (!result.Succeeded)
                     throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error adding role: " + string.Join(", ", result.Errors.Select(e => e.Description)));
 

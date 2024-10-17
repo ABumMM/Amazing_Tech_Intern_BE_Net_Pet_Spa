@@ -148,18 +148,22 @@ namespace PetSpa.Services.Service
              await _unitOfWork.GetRepository<Bookings>().InsertAsync(booking);
              await _unitOfWork.SaveAsync();
         }
-        public async Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber , int pageSize )
+        public async Task<BasePaginatedList<GETBookingVM>> GetAll(int pageNumber, int pageSize)
         {
-            if (pageSize < 1 || pageNumber <1 )
+            if (pageNumber <= 0 || pageSize <= 0)
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "PageNumber và PageSize không hợp lệ!");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
             }
-            var genericRepository = _unitOfWork.GetRepository<Bookings>();
-            IQueryable<Bookings> bookingsQuery = genericRepository.Entities;
-            //thêm
-            var paginatedBookings = await genericRepository.GetPagging(bookingsQuery, pageNumber, pageSize);
-            var bookingVMs = _mapper.Map<List<GETBookingVM>>(paginatedBookings.Items);
-            return new BasePaginatedList<GETBookingVM>(bookingVMs, paginatedBookings.TotalItems, pageNumber, pageSize);
+            IQueryable<Bookings> bookings = _unitOfWork.GetRepository<Bookings>()
+               .Entities.Where(i => !i.DeletedTime.HasValue)
+               .OrderByDescending(c => c.CreatedTime).AsQueryable();
+            //Phân trang và chỉ lấy các bản ghi cần thiết
+            var paginatedBookings = await bookings
+                 .Skip((pageNumber - 1) * pageSize)
+                 .Take(pageSize)
+                 .ToListAsync();
+            return new BasePaginatedList<GETBookingVM>(_mapper.Map<List<GETBookingVM>>(paginatedBookings),
+                await bookings.CountAsync(), pageNumber, pageSize);
         }
 
         public async Task<BasePaginatedList<GETBookingVM>> GetAllBookingByCustomer(int pageNumber, int pageSize)
