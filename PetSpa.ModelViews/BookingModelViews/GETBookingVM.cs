@@ -14,13 +14,14 @@ namespace PetSpa.ModelViews.BookingModelViews
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string? Status { get; set; }
-
-        public string OrdersId { get; set; } = string.Empty;
+        public required  string? ApplicationUserId { get; set; }
+        //public string OrdersId { get; set; } = string.Empty;
         public string? CreatedBy { get; set; }
         //không cho hiển thị nếu null
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public string? LastUpdatedBy { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public DateTimeOffset? LastUpdatedTime { get; set; }
+        
     }
 }
