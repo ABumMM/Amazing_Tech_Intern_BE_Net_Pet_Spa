@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241013092320_InitialCreate")]
+    [Migration("20241017074645_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -414,14 +414,13 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<double>("TotalSpent")
                         .HasColumnType("float");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("MemberShips");
                 });
@@ -454,6 +453,10 @@ namespace PetSpa.Repositories.Migrations
 
                     b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
@@ -640,6 +643,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Species")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("UsersId")
                         .HasColumnType("uniqueidentifier");
@@ -1003,7 +1009,9 @@ namespace PetSpa.Repositories.Migrations
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", "User")
                         .WithOne("Membership")
-                        .HasForeignKey("PetSpa.Contract.Repositories.Entity.MemberShips", "UserId");
+                        .HasForeignKey("PetSpa.Contract.Repositories.Entity.MemberShips", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -1022,7 +1030,7 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.OrdersDetails", b =>
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Order")
-                        .WithMany()
+                        .WithMany("OrdersDetails")
                         .HasForeignKey("OrderID");
 
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Packages", "Package")
@@ -1086,6 +1094,8 @@ namespace PetSpa.Repositories.Migrations
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Orders", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("OrdersDetails");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Packages", b =>

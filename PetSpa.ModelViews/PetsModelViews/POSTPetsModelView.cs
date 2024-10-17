@@ -10,6 +10,7 @@ namespace PetSpa.ModelViews.PetsModelViews
         public int Age { get; set; } = 0;
         public string? Description { get; set; }
         public string? Image { get; set; }
+        public Guid? UserId { get; set; }
         public string? CreatedBy {  get; set; }
         public DateTimeOffset CreatedTime { get; set; }
     }

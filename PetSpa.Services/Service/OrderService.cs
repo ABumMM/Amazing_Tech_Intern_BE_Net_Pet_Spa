@@ -65,27 +65,29 @@ namespace PetSpa.Services.Service
             if (string.IsNullOrWhiteSpace(order.PaymentMethod))
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
 
-            if (order.OrderDetailId == null || !order.OrderDetailId.Any())
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
+            //if (order.OrderDetailId == null || !order.OrderDetailId.Any())
+            //throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
 
-            var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                .Entities
-                .Where(od => order.OrderDetailId.Contains(od.Id))
-                .ToListAsync();
+            //var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+            //.Entities
+            //.Where(od => order.OrderDetailId.Contains(od.Id))
+            //.ToListAsync();
 
-            decimal totalAmount = orderDetails.Sum(detail => detail.Price);
 
+            //decimal totalAmount = orderDetails.Sum(detail => detail.Price);
+            decimal totalAmount = 0;
             var membership = await _unitOfWork.GetRepository<MemberShips>()
-                .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(currentUserId) && !m.DeletedTime.HasValue);
+                .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
 
             double discountedTotal = membership != null
                 ? (double)totalAmount * (1 - membership.DiscountRate)
                 : (double)totalAmount;
 
             var newOrder = _mapper.Map<Orders>(order);
+            newOrder.Name = order.Name;
             newOrder.Total = discountedTotal;
             newOrder.IsPaid = false;
-
+            newOrder.CustomerID = Guid.Parse(order.CustomerID);
             newOrder.CreatedBy = currentUserId;
             newOrder.CreatedTime = DateTime.Now;
 
@@ -100,18 +102,18 @@ namespace PetSpa.Services.Service
                 await CheckMembershipUpgrade(Guid.Parse(currentUserId));
 
                 // Cập nhật OrderDetailID
-                var existedOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                    .Entities
-                    .Where(od => order.OrderDetailId.Contains(od.Id))
-                    .ToListAsync();
+                //var existedOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+                    //.Entities
+                    //.Where(od => order.OrderDetailId.Contains(od.Id))
+                    //.ToListAsync();
 
-                foreach (var detail in existedOrderDetails)
-                {
-                    detail.OrderID = newOrder.Id;
-                    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
-                }
+                //foreach (var detail in existedOrderDetails)
+                //{
+                //    detail.OrderID = newOrder.Id;
+                //    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
+                //}
 
-                await _unitOfWork.SaveAsync();
+                //await _unitOfWork.SaveAsync();
             }
         }
 
@@ -216,13 +218,15 @@ namespace PetSpa.Services.Service
                 .Entities.FirstOrDefaultAsync(m => m.UserId ==existingOrder.CustomerID
                 && !m.DeletedTime.HasValue);
             // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
-            if (membership != null)
+            var orderUpdated=await _unitOfWork.GetRepository<Orders>()
+                .GetByIdAsync(existingOrder.Id);
+            if (membership != null && orderUpdated!=null)
             {
                 // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
-                membership.TotalSpent += (double)existingOrder.Total;
+                membership.TotalSpent += orderUpdated.Total;
                 await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
                 await _unitOfWork.SaveAsync();
-                await CheckMembershipUpgrade(existingOrder.CustomerID);
+                await CheckMembershipUpgrade(membership.UserId);
             }
         }
 
@@ -230,7 +234,8 @@ namespace PetSpa.Services.Service
         public async Task CheckMembershipUpgrade(Guid customerId)
         {
             var membership = await _unitOfWork.GetRepository<MemberShips>().Entities
-                    .FirstOrDefaultAsync(m => m.UserId == customerId && !m.DeletedTime.HasValue);
+                    .FirstOrDefaultAsync(m => m.UserId == customerId
+                    && !m.DeletedTime.HasValue);
 
             if (membership == null)
             {
