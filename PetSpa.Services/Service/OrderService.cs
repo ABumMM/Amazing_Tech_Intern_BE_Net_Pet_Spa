@@ -73,7 +73,6 @@ namespace PetSpa.Services.Service
             //.Where(od => order.OrderDetailId.Contains(od.Id))
             //.ToListAsync();
 
-
             //decimal totalAmount = orderDetails.Sum(detail => detail.Price);
             decimal totalAmount = 0;
             var membership = await _unitOfWork.GetRepository<MemberShips>()

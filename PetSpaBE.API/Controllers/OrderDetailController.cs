@@ -22,7 +22,7 @@ namespace PetSpaBE.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllOrderDetail(int pageNumber, int pageSize)
         {
-            var orDetails = await _orderDetailService.GetAll(pageNumber, pageSize);
+            var orDetails = await _orderDetailService.GetAll( pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETOrderDetailModelView>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
