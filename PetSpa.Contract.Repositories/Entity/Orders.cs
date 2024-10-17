@@ -5,7 +5,7 @@ namespace PetSpa.Contract.Repositories.Entity
     {
         public string Name { get; set; } = string.Empty;
         public string PaymentMethod { get; set; } = string.Empty;
-        public double Total { get; set; } = 0;
+        public decimal Total { get; set; } = 0;
         public bool IsPaid { get; set; } = false;
         public Guid CustomerID {  get; set; }
         public virtual ApplicationUser? Customer { get; set; }
