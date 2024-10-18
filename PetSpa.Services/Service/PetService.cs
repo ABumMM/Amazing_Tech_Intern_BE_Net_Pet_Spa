@@ -43,28 +43,30 @@ namespace PetSpa.Services.Service
 
 
         }
-        public async Task<PUTPetsModelView> Update(PUTPetsModelView pets)
+    
+        public async Task<PUTPetsModelView> Update(PUTPetsModelView petMV)
         {
-            if (pets.Id == null)
+            if (string.IsNullOrWhiteSpace(petMV.Id))
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid pet data.");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "petID cannot be null or whitespace");
             }
 
-            var petRepository = _unitOfWork.GetRepository<Pets>();
-            var existingPet = await petRepository.GetByIdAsync(pets.Id);
-
-            if (existingPet == null || existingPet.DeletedTime.HasValue)
+            Pets? existedPets = await _unitOfWork.GetRepository<Pets>().GetByIdAsync(petMV.Id);
+            if (existedPets == null)
             {
-                throw new KeyNotFoundException("Pet not found.");
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Pet not found.");
             }
 
-            _mapper.Map(pets, existingPet);
-            existingPet.LastUpdatedTime = DateTime.UtcNow;
-
-            await petRepository.UpdateAsync(existingPet);
+            if (petMV.Price < 0)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Price must be greater than or equal to 0.");
+            }
+            _mapper.Map(petMV, existedPets);
+            await _unitOfWork.GetRepository<Pets>().UpdateAsync(existedPets);
             await _unitOfWork.SaveAsync();
-            return _mapper.Map<PUTPetsModelView>(existingPet);
+            return petMV;  
         }
+
 
         public async Task Delete(string id)
         {

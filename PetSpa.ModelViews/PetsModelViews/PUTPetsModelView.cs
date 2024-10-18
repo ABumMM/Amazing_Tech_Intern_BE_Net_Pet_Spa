@@ -8,6 +8,8 @@ namespace PetSpa.ModelViews.PetsModelViews
 {
     public class PUTPetsModelView
     {
+        public int Price;
+
         public string? Id { get; set; } 
 
         public string Name { get; set; } = string.Empty;

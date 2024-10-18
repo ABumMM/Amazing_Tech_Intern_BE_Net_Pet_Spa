@@ -10,6 +10,7 @@ namespace PetSpa.Contract.Services.Interface
         Task<GETPetsModelView> GetById(string petsID);
         Task<BasePaginatedList<GETPetsModelView>> GetAll(int pageNumber, int pageSize);
         Task<PUTPetsModelView> Update(PUTPetsModelView pets);
+     
         Task Delete(string Id);
         Task Add(POSTPetsModelView petMV);
     }

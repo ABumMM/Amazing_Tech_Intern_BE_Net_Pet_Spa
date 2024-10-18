@@ -16,15 +16,16 @@ namespace PetSpa.Services.Mapper
     {
         public OrderDetailMapper() 
         {
-            // Mapping từ Packages sang GETPackageModelView
+            // Mapping từ OrderDetail sang GETPackageModelView
             CreateMap<OrdersDetails, GETOrderDetailModelView>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.OrderID, opt => opt.MapFrom(src => src.OrderID))
             .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status))
             .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price));
 
 
-            CreateMap<Packages, GETOrderDetailModelView>()
+            CreateMap<OrdersDetails, GETOrderDetailModelView>()
             .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime))
             .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => src.CreatedBy))
             .ForMember(dest => dest.LastUpdatedTime, opt => opt.MapFrom(src => src.LastUpdatedTime))

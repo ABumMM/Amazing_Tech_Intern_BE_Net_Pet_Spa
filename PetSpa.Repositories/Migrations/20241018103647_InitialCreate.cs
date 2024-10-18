@@ -54,6 +54,26 @@ namespace PetSpa.Repositories.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Rank",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MinPrice = table.Column<int>(type: "int", nullable: false),
+                    DiscountPercent = table.Column<int>(type: "int", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DeletedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rank", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Services",
                 columns: table => new
                 {
@@ -191,6 +211,7 @@ namespace PetSpa.Repositories.Migrations
                     LastUpdatedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     DeletedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     memberShipID = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RankId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -209,6 +230,11 @@ namespace PetSpa.Repositories.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Rank_RankId",
+                        column: x => x.RankId,
+                        principalTable: "Rank",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_AspNetUsers_UserInfos_UserInfoId",
                         column: x => x.UserInfoId,
@@ -336,8 +362,10 @@ namespace PetSpa.Repositories.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TotalSpent = table.Column<double>(type: "float", nullable: false),
+                    Point = table.Column<int>(type: "int", nullable: false),
                     DiscountRate = table.Column<double>(type: "float", nullable: false),
+                    TotalSpent = table.Column<double>(type: "float", nullable: false),
+                    RankId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -355,6 +383,12 @@ namespace PetSpa.Repositories.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MemberShips_Rank_RankId",
+                        column: x => x.RankId,
+                        principalTable: "Rank",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -362,8 +396,9 @@ namespace PetSpa.Repositories.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PaymentMethod = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Total = table.Column<double>(type: "float", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsPaid = table.Column<bool>(type: "bit", nullable: false),
                     CustomerID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -456,7 +491,7 @@ namespace PetSpa.Repositories.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    OrderID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OrderID = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PackageID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -472,7 +507,8 @@ namespace PetSpa.Repositories.Migrations
                         name: "FK_OrdersDetails_Orders_OrderID",
                         column: x => x.OrderID,
                         principalTable: "Orders",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrdersDetails_Packages_PackageID",
                         column: x => x.PackageID,
@@ -538,6 +574,11 @@ namespace PetSpa.Repositories.Migrations
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_RankId",
+                table: "AspNetUsers",
+                column: "RankId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_UserInfoId",
                 table: "AspNetUsers",
                 column: "UserInfoId");
@@ -563,6 +604,11 @@ namespace PetSpa.Repositories.Migrations
                 name: "IX_Bookings_OrdersId",
                 table: "Bookings",
                 column: "OrdersId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MemberShips_RankId",
+                table: "MemberShips",
+                column: "RankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MemberShips_UserId",
@@ -659,6 +705,9 @@ namespace PetSpa.Repositories.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Rank");
 
             migrationBuilder.DropTable(
                 name: "UserInfos");
