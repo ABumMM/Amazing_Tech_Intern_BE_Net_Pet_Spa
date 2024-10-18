@@ -8,7 +8,7 @@ namespace PetSpa.ModelViews.PetsModelViews
 {
     public class PUTPetsModelView
     {
-        public string Id { get; set; } 
+        public string? Id { get; set; } 
 
         public string Name { get; set; } = string.Empty;
 
@@ -24,7 +24,7 @@ namespace PetSpa.ModelViews.PetsModelViews
 
         public string? Image { get; set; }
 
-        public int CustomerID { get; set; }
+        public Guid UserId { get; set; }
         public string? LastUpdatedBy { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
     }

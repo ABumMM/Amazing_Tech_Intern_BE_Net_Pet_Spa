@@ -17,7 +17,7 @@ namespace PetSpa.Services.Service
 
         private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
 
-        public OrderService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor,IMapper mapper)
+        public OrderService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
@@ -43,6 +43,8 @@ namespace PetSpa.Services.Service
             // Sử dụng AutoMapper để map từ Orders sang GetOrderViewModel
             return new BasePaginatedList<GetOrderViewModel>(_mapper.Map<List<GetOrderViewModel>>(paginatedOrders), await orders.CountAsync(), pageNumber, pageSize);
         }
+
+
         public async Task<GetOrderViewModel?> GetById(string id)
         {
             // Kiểm tra tính hợp lệ của ID đơn hàng
@@ -63,35 +65,26 @@ namespace PetSpa.Services.Service
             if (string.IsNullOrWhiteSpace(order.PaymentMethod))
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
 
-            if (order.OrderDetailId == null || !order.OrderDetailId.Any())
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
+            //if (order.OrderDetailId == null || !order.OrderDetailId.Any())
+            //throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
 
-            if (order.BookingID != null)
-            {
-                var booking = await _unitOfWork.GetRepository<Bookings>()
-                .Entities.FirstOrDefaultAsync(m => m.CreatedBy == order.CustomerID && !m.DeletedTime.HasValue);
-                if (booking == null)
-                {
-                    throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Customer not found.");
-                }
-            }
-            var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                .Entities
-                .Where(od => order.OrderDetailId.Contains(od.Id))
-                .ToListAsync();
+            //var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+            //.Entities
+            //.Where(od => order.OrderDetailId.Contains(od.Id))
+            //.ToListAsync();
 
-            decimal totalAmount = orderDetails.Sum(detail => detail.Price);
+            //decimal totalAmount = orderDetails.Sum(detail => detail.Price);
+            decimal totalAmount = 0;
+            //var membership = await _unitOfWork.GetRepository<MemberShips>()
+            //    .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
 
-            var membership = await _unitOfWork.GetRepository<MemberShips>()
-                .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
-
-           
-            double discountedTotal = membership != null
-                ? (double)totalAmount * (1 - membership.DiscountRate)
-                : (double)totalAmount;
+            //decimal discountedTotal = membership != null
+            //? totalAmount * (decimal)(1 - membership.DiscountRate)
+            //: totalAmount;
 
             var newOrder = _mapper.Map<Orders>(order);
-            newOrder.Total = discountedTotal;
+            newOrder.Name = order.Name;
+            newOrder.Total = totalAmount;
             newOrder.IsPaid = false;
             newOrder.CustomerID = Guid.Parse(order.CustomerID);
             newOrder.CreatedBy = currentUserId;
@@ -100,7 +93,27 @@ namespace PetSpa.Services.Service
             await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
             await _unitOfWork.SaveAsync();
 
+            //if (membership != null)
+            //{
+            //    //membership.TotalSpent += (double)totalAmount;
+            //    await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
+            //    await _unitOfWork.SaveAsync();
+            //    await CheckMembershipUpgrade(Guid.Parse(currentUserId));
 
+            //    // Cập nhật OrderDetailID
+            //    //var existedOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+            //        //.Entities
+            //        //.Where(od => order.OrderDetailId.Contains(od.Id))
+            //        //.ToListAsync();
+
+            //    //foreach (var detail in existedOrderDetails)
+            //    //{
+            //    //    detail.OrderID = newOrder.Id;
+            //    //    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
+            //    //}
+
+            //    //await _unitOfWork.SaveAsync();
+            //}
         }
 
         public async Task Update(PutOrderViewModel order)
@@ -122,9 +135,9 @@ namespace PetSpa.Services.Service
                 .ToListAsync();
 
             // Tính toán tổng từ các chi tiết đơn hàng
-            double totalAmount = (double)orderDetails.Sum(detail => detail.Price);
+            //double totalAmount = (double)orderDetails.Sum(detail => detail.Price);
             // Cập nhật tổng cho đơn hàng
-            existingOrder.Total = totalAmount;
+            //existingOrder.Total = totalAmount;
             _mapper.Map(order, existingOrder);
             existingOrder.LastUpdatedTime = DateTime.UtcNow;
             existingOrder.LastUpdatedBy = currentUserId;
@@ -198,22 +211,6 @@ namespace PetSpa.Services.Service
 
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
-
-            // Lấy thông tin khách hàng (membership)
-            var membership = await _unitOfWork.GetRepository<MemberShips>()
-                .Entities.FirstOrDefaultAsync(m => m.UserId ==existingOrder.CustomerID
-                && !m.DeletedTime.HasValue);
-            // Cập nhật số tiền đã sử dụng của khách hàng nếu là thành viên
-            var orderUpdated=await _unitOfWork.GetRepository<Orders>()
-                .GetByIdAsync(existingOrder.Id);
-            if (membership != null && orderUpdated!=null)
-            {
-                // Cộng tổng số tiền trước khi giảm giá vào TotalSpent
-                membership.TotalSpent += orderUpdated.Total;
-                await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
-                await _unitOfWork.SaveAsync();
-                await CheckMembershipUpgrade(membership.UserId);
-            }
         }
 
         // Phương thức kiểm tra xem thành viên có đủ điều kiện để nâng hạng không
@@ -228,38 +225,38 @@ namespace PetSpa.Services.Service
                 throw new Exception("No active membership found for the customer.");
             }
 
-            if (membership.TotalSpent >= 20000000) // Platinum
-            {
-                if (membership.Name != "Platinum")
-                {
-                    membership.Name = "Platinum";
-                    membership.DiscountRate = 0.20; // Giảm giá 20% cho hạng Platinum
-                }
-            }
-            else if (membership.TotalSpent >= 10000000) // Gold
-            {
-                if (membership.Name != "Gold")
-                {
-                    membership.Name = "Gold";
-                    membership.DiscountRate = 0.15; // Giảm giá 15% cho hạng Gold
-                }
-            }
-            else if (membership.TotalSpent >= 5000000) // Silver
-            {
-                if (membership.Name != "Silver")
-                {
-                    membership.Name = "Silver";
-                    membership.DiscountRate = 0.10; // Giảm giá 10% cho hạng Silver
-                }
-            }
-            else // Standard
-            {
-                if (membership.Name != "Standard")
-                {
-                    membership.Name = "Standard";
-                    membership.DiscountRate = 0; // Không giảm giá cho hạng Standard
-                }
-            }
+            //if (membership.TotalSpent >= 20000000) // Platinum
+            //{
+            //    if (membership.Name != "Platinum")
+            //    {
+            //        membership.Name = "Platinum";
+            //        membership.DiscountRate = 0.20; // Giảm giá 20% cho hạng Platinum
+            //    }
+            //}
+            //else if (membership.TotalSpent >= 10000000) // Gold
+            //{
+            //    if (membership.Name != "Gold")
+            //    {
+            //        membership.Name = "Gold";
+            //        membership.DiscountRate = 0.15; // Giảm giá 15% cho hạng Gold
+            //    }
+            //}
+            //else if (membership.TotalSpent >= 5000000) // Silver
+            //{
+            //    if (membership.Name != "Silver")
+            //    {
+            //        membership.Name = "Silver";
+            //        membership.DiscountRate = 0.10; // Giảm giá 10% cho hạng Silver
+            //    }
+            //}
+            //else // Standard
+            //{
+            //    if (membership.Name != "Standard")
+            //    {
+            //        membership.Name = "Standard";
+            //        membership.DiscountRate = 0; // Không giảm giá cho hạng Standard
+            //    }
+            //}
             await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
             await _unitOfWork.SaveAsync();
         }

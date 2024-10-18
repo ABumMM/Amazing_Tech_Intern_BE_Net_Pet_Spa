@@ -34,6 +34,18 @@ namespace PetSpaBE.API.Controllers
                 data: bookings));
 
         }
+
+        [HttpGet("ByUserId")]
+        public async Task<IActionResult> GetAllBookingByCustomer(int pageNumber, int pageSize)
+        {
+            var bookings = await _bookingService.GetAllBookingByCustomer(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETBookingVM>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: bookings));
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddBooking(POSTBookingVM bookingVM)
         {

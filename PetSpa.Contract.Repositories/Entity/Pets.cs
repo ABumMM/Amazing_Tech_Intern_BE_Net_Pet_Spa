@@ -19,7 +19,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Description { get; set; }
         public string? Image { get; set; }
         // Khóa ngoại đến User
-        //public Guid UserId { get; set; }
+        public Guid UserId { get; set; }
         public virtual ApplicationUser? Users { get; set; }
     }
 }

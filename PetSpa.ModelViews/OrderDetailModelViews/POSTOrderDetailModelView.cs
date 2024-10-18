@@ -10,8 +10,10 @@ namespace PetSpa.ModelViews.OrderDetailModelViews
     {
         public int Quantity { get; set; } = 0;
         public string? Status { get; set; }
+        public required string OrderID { get; set; }
+
         public string? PackageID { get; set; } // Danh sách PackageID
-        public required string OrderID {  get; set; }
+
         public string? CreatedBy { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
     }

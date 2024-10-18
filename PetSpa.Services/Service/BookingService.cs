@@ -16,6 +16,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Text.Json;
 using AutoMapper;
+using PetSpa.Core.Infrastructure;
 
 namespace PetSpa.Services.Service
     
@@ -25,6 +26,8 @@ namespace PetSpa.Services.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
+        private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_httpContextAccessor);
+
         public BookingService(IHttpContextAccessor httpContextAccessor, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -72,6 +75,27 @@ namespace PetSpa.Services.Service
             return new BasePaginatedList<GETBookingVM>(bookingVMs, paginatedBookings.TotalItems, pageNumber, pageSize);
         }
 
+        public async Task<BasePaginatedList<GETBookingVM>> GetAllBookingByCustomer(int pageNumber, int pageSize)
+        {
+            if (pageNumber <= 0 || pageSize <= 0)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
+            }
+
+
+
+            IQueryable<Bookings> bookings = _unitOfWork.GetRepository<Bookings>()
+               .Entities.Where(i => !i.DeletedTime.HasValue && i.CreatedBy == currentUserId)
+               .OrderByDescending(c => c.CreatedTime).AsQueryable();
+            //Phân trang và chỉ lấy các bản ghi cần thiết
+            var paginatedBookings = await bookings
+                 .Skip((pageNumber - 1) * pageSize)
+                 .Take(pageSize)
+                 .ToListAsync();
+            return new BasePaginatedList<GETBookingVM>(_mapper.Map<List<GETBookingVM>>(paginatedBookings),
+                await bookings.CountAsync(), pageNumber, pageSize);
+        }
+
         public async Task<GETBookingVM?> GetById(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -104,6 +128,11 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Booking not found.");
             }
+            //kt nếu status đã hủy thì không cho sửa
+            if(existingBooking.Status == "Đã hủy")
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể sửa Booking đã bị hủy");
+            }    
             var currentTime = DateTimeOffset.Now;
             //kiểm tra nếu trong vòng 24h trước cuộc hẹn ban đầu thì không cho sửa
             if(existingBooking.Date - currentTime < TimeSpan.FromHours(24))
@@ -134,11 +163,16 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, "BookingNotFound", $"Không tìm thấy Booking với ID: {bookingId}");
             }
+            if(booking.Status == "Đã hủy")
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Booking này đã bị hủy trước đó");
+            }    
             var currentTime = DateTimeOffset.Now;
             if(booking.Date - currentTime < TimeSpan.FromHours(24))
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể hủy trogn 24h trước cuộc hẹn!");
             }
+
             booking.Status = "Đã hủy"; // 
 
             // Cập nhật thông tin về người hủy

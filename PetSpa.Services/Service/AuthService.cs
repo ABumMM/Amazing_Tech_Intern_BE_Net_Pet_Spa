@@ -65,21 +65,32 @@ namespace PetSpa.Services.Service
                 result = await _userManager.AddToRoleAsync(user, "Customer");
                 if (!result.Succeeded)
                     throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error adding role: " + string.Join(", ", result.Errors.Select(e => e.Description)));
-
-                //Tạo Membership tương ứng cho người dùng mới
-                var newMembership = new MemberShips()
+                // Lấy ra hạng thấp nhất để cho vào membership
+                var rank = _unitOfWork.GetRepository<Rank>()
+       .Entities
+       .OrderBy(r => r.MinPrice)
+       .FirstOrDefault();
+                if (rank != null)
                 {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Standard", // Hạng mặc định
-                    TotalSpent = 0, // Chi tiêu ban đầu bằng 0
-                    DiscountRate = 0, // Không có giảm giá cho hạng mặc định
-                    UserId = user.Id, // Liên kết UserId của người dùng mới
-                    CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
-                    CreatedBy = user.UserName
-                };
+                    //Tạo Membership tương ứng cho người dùng mới
+                    var newMembership = new MemberShips()
+                    {
+
+                        Id = Guid.NewGuid().ToString(),
+                        RankId = rank.Id,
+                        //Name = "Standard", // Hạng mặc định
+                        TotalSpent = 0, // Chi tiêu ban đầu bằng 0
+                        //DiscountRate = 0, // Không có giảm giá cho hạng mặc định
+                        UserId = user.Id, // Liên kết UserId của người dùng mới
+                        CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
+                        CreatedBy = user.UserName
+
+                    };
+                    await _unitOfWork.GetRepository<MemberShips>().InsertAsync(newMembership);
+                    await _unitOfWork.SaveAsync();
+                }
                 // Lưu memberShip
-                await _unitOfWork.GetRepository<MemberShips>().InsertAsync(newMembership);
-                await _unitOfWork.SaveAsync();
+
                 return await GenerateJwtToken(user);
             }
 
