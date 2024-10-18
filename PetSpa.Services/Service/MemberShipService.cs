@@ -7,6 +7,7 @@ using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
 using PetSpa.ModelViews.MemberShipModelView;
+using System;
 namespace PetSpa.Services.Service
 {
     public class MemberShipService:IMembershipsService
@@ -48,6 +49,40 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found membership");
             return _mapper.Map<GETMemberShipModelView>(existedMemberShips);
         }
-       
+
+        public async Task UpdateMemberShip( string OrderID)
+        {
+            var Order = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync( h => h.Id == OrderID);
+            if (Order != null) {
+                
+                var newRank = GetNewRank(Order.Total);
+                if (!newRank.Equals(""))
+                {
+                    var MemberShip = _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefault(c => c.UserId == Order.CustomerID);
+                    if (MemberShip != null)
+                    {
+
+                        MemberShip.RankId = newRank;
+                        await _unitOfWork.SaveAsync();
+                    }
+                }
+            }
+            
+        }
+        public string GetNewRank ( decimal totalPrice)
+        {
+            var Ranks = _unitOfWork.GetRepository<Rank>().Entities.ToList();
+            // Lọc các Rank có MinPrice > totalPrice
+            string newRank = "";
+            for (int i = Ranks.Count - 1; i >= 0; i--) {
+                if (totalPrice > Ranks[i].MinPrice)
+                { 
+                    newRank = Ranks[i].Id;
+                    break;
+                }
+            }
+            return newRank;
+        }
+      
     }
 }
