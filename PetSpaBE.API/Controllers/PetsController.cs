@@ -8,6 +8,9 @@ using PetSpa.ModelViews.RoleModelViews;
 using PetSpa.ModelViews.PetsModelViews;
 using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.Contract.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
+using PetSpa.Services.Service;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -52,18 +55,32 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Delete pet successful"));
         }
-
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPetsById(string Id)
+
+        public async Task<IActionResult> GetPetsById(string id)
         {
-            var pet = await _petService.GetById(Id);
+            var pet = await _petService.GetById(id);
             return Ok(new BaseResponseModel<GETPetsModelView>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: pet));
         }
+        [HttpPost("add-service")]
+        [SwaggerOperation(
+            Summary = "Authorization: Admin",
+            Description = "Add service to Package (packageID, serviceID)"
+            )]
+        [Authorize(Roles = "Admin")]
+        //public async Task<IActionResult> GetPetsById(string Id)
+        //{
+        //    var pet = await _petService.GetById(Id);
+        //    return Ok(new BaseResponseModel<GETPetsModelView>(
+        //        statusCode: StatusCodes.Status200OK,
+        //        code: ResponseCodeConstants.SUCCESS,
+        //        data: pet));
+        //}
 
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
         public async Task<IActionResult> UpdatePets([FromBody] PUTPetsModelView pet)
         {
             await _petService.Update(pet);
