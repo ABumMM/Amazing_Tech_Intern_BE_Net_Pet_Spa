@@ -17,7 +17,7 @@ namespace PetSpa.Services.Service
 
         private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
 
-        public OrderService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor,IMapper mapper)
+        public OrderService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _contextAccessor = contextAccessor;
@@ -225,38 +225,7 @@ namespace PetSpa.Services.Service
                 throw new Exception("No active membership found for the customer.");
             }
 
-            //if (membership.TotalSpent >= 20000000) // Platinum
-            //{
-            //    if (membership.Name != "Platinum")
-            //    {
-            //        membership.Name = "Platinum";
-            //        membership.DiscountRate = 0.20; // Giảm giá 20% cho hạng Platinum
-            //    }
-            //}
-            //else if (membership.TotalSpent >= 10000000) // Gold
-            //{
-            //    if (membership.Name != "Gold")
-            //    {
-            //        membership.Name = "Gold";
-            //        membership.DiscountRate = 0.15; // Giảm giá 15% cho hạng Gold
-            //    }
-            //}
-            //else if (membership.TotalSpent >= 5000000) // Silver
-            //{
-            //    if (membership.Name != "Silver")
-            //    {
-            //        membership.Name = "Silver";
-            //        membership.DiscountRate = 0.10; // Giảm giá 10% cho hạng Silver
-            //    }
-            //}
-            //else // Standard
-            //{
-            //    if (membership.Name != "Standard")
-            //    {
-            //        membership.Name = "Standard";
-            //        membership.DiscountRate = 0; // Không giảm giá cho hạng Standard
-            //    }
-            //}
+          
             await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
             await _unitOfWork.SaveAsync();
         }

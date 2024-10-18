@@ -38,7 +38,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrderDetail Quantity must be greater than or equal to 0.");
             }
-            
+
             if (detailsMV.OrderID == null)
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrderDetail OrderID is required.");
@@ -55,7 +55,7 @@ namespace PetSpa.Services.Service
             {
                 totalPrice += package.Price * detailsMV.Quantity;
             }
-            
+
 
             var user = await _unitOfWork.GetRepository<ApplicationUser>().GetByIdAsync(Guid.Parse(currentUserId));
 
@@ -70,7 +70,7 @@ namespace PetSpa.Services.Service
                 CreatedBy = user?.UserName,
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
-            
+
             await _unitOfWork.SaveAsync();
             //Update orderID trong orderDetailID
             var existedOrder = await _unitOfWork.GetRepository<Orders>()
@@ -112,7 +112,7 @@ namespace PetSpa.Services.Service
                 await _unitOfWork.SaveAsync();
 
             }
-        } 
+        }
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> GetAll(int pageNumber, int pageSize)
         {
@@ -123,7 +123,7 @@ namespace PetSpa.Services.Service
             IQueryable<OrdersDetails> orDetails = _unitOfWork.GetRepository<OrdersDetails>()
                 .Entities.Where(i => !i.DeletedTime.HasValue)
                 .OrderByDescending(c => c.CreatedTime).AsQueryable();
-                
+
 
             var paginatedOrDetail = await orDetails
                 .Skip((pageNumber - 1) * pageSize)

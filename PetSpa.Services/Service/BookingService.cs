@@ -58,16 +58,7 @@ namespace PetSpa.Services.Service
                     "Ngày đặt không được nhỏ hơn thời gian hiện tại."
                 );
             }
-            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
             
-            if (order == null)
-            {
-                throw new ErrorException(
-                StatusCodes.Status404NotFound,
-                "OrderNotFound",
-                $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
-                );
-            }
             await _unitOfWork.GetRepository<Bookings>().InsertAsync(booking);
             await _unitOfWork.SaveAsync();
         }
@@ -157,16 +148,7 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể dời lịch xuống ngày bé hơn ngày hiện tại");
             }
-            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(bookingVM.OrdersId);
-
-            if (order == null)
-            {
-                throw new ErrorException(
-                StatusCodes.Status404NotFound,
-                "OrderNotFound",
-                $"Không tìm thấy Order với ID: {bookingVM.OrdersId}"
-                );
-            }
+          
             // Ánh xạ dữ liệu cập nhật từ POSTBookingVM sang Bookings
             _mapper.Map(bookingVM, existingBooking);
             existingBooking.LastUpdatedBy = userId;

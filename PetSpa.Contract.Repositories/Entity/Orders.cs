@@ -7,7 +7,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string PaymentMethod { get; set; } = string.Empty;
         public decimal Total { get; set; } = 0;
         public bool IsPaid { get; set; } = false;
-        public Guid CustomerID {  get; set; }
+        public Guid CustomerID { get; set; }
         public virtual ApplicationUser? Customer { get; set; }
 
         public virtual ICollection<OrdersDetails> OrdersDetails { get; set; } = new List<OrdersDetails>();

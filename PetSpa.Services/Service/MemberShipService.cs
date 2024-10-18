@@ -10,18 +10,18 @@ using PetSpa.ModelViews.MemberShipModelView;
 using System;
 namespace PetSpa.Services.Service
 {
-    public class MemberShipService:IMembershipsService
+    public class MemberShipService : IMembershipsService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IMapper _mapper;
         private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
         public MemberShipService(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor
-            ,IMapper mapper)
+            , IMapper mapper)
         {
             _unitOfWork = unitOfWork;
-            _contextAccessor= contextAccessor;
-            _mapper= mapper;
+            _contextAccessor = contextAccessor;
+            _mapper = mapper;
         }
         public async Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize)
         {
@@ -31,12 +31,12 @@ namespace PetSpa.Services.Service
             }
             IQueryable<MemberShips> memberShips = _unitOfWork.GetRepository<MemberShips>()
                 .Entities.Where(i => !i.DeletedTime.HasValue)//Membership chưa bị xóa
-                .OrderByDescending(c=>c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo                                                  
-                var paginatedMemberShips = await memberShips
-                 .Skip((pageNumber - 1) * pageSize)
-                 .Take(pageSize)
-                 .ToListAsync();
-            return new BasePaginatedList<GETMemberShipModelView>(_mapper.Map<List<GETMemberShipModelView>>(paginatedMemberShips), 
+                .OrderByDescending(c => c.CreatedTime).AsQueryable();// Sắp xếp theo thời gian tạo                                                  
+            var paginatedMemberShips = await memberShips
+             .Skip((pageNumber - 1) * pageSize)
+             .Take(pageSize)
+             .ToListAsync();
+            return new BasePaginatedList<GETMemberShipModelView>(_mapper.Map<List<GETMemberShipModelView>>(paginatedMemberShips),
                 await memberShips.CountAsync(), pageNumber, pageSize);
         }
         public async Task<GETMemberShipModelView?> GetById(string memberShipID)
@@ -50,11 +50,12 @@ namespace PetSpa.Services.Service
             return _mapper.Map<GETMemberShipModelView>(existedMemberShips);
         }
 
-        public async Task UpdateMemberShip( string OrderID)
+        public async Task UpdateMemberShip(string OrderID)
         {
-            var Order = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync( h => h.Id == OrderID);
-            if (Order != null) {
-                
+            var Order = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync(h => h.Id == OrderID);
+            if (Order != null)
+            {
+
                 var newRank = GetNewRank(Order.Total);
                 if (!newRank.Equals(""))
                 {
@@ -67,22 +68,23 @@ namespace PetSpa.Services.Service
                     }
                 }
             }
-            
+
         }
-        public string GetNewRank ( decimal totalPrice)
+        public string GetNewRank(decimal totalPrice)
         {
             var Ranks = _unitOfWork.GetRepository<Rank>().Entities.ToList();
             // Lọc các Rank có MinPrice > totalPrice
             string newRank = "";
-            for (int i = Ranks.Count - 1; i >= 0; i--) {
+            for (int i = Ranks.Count - 1; i >= 0; i--)
+            {
                 if (totalPrice > Ranks[i].MinPrice)
-                { 
+                {
                     newRank = Ranks[i].Id;
                     break;
                 }
             }
             return newRank;
         }
-      
+
     }
 }
