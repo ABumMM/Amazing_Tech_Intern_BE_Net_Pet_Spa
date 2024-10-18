@@ -7,5 +7,6 @@ namespace PetSpa.Contract.Services.Interface
     {
         Task<BasePaginatedList<GETMemberShipModelView>> GetAll(int pageNumber, int pageSize);
         Task<GETMemberShipModelView?> GetById(string memberShipID);
+        Task UpdateMemberShip(string OrderID);
     }
 }
