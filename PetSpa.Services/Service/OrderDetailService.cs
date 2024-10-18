@@ -50,6 +50,7 @@ namespace PetSpa.Services.Service
             }
             var user = await _unitOfWork.GetRepository<ApplicationUser>().GetByIdAsync(Guid.Parse(currentUserId));
 
+
             OrdersDetails details = new OrdersDetails()
             {
                 Quantity = (int)detailsMV.Quantity,
@@ -77,14 +78,15 @@ namespace PetSpa.Services.Service
             await _unitOfWork.SaveAsync();
         } 
 
-        public async Task<BasePaginatedList<GETOrderDetailModelView>> GetAll(int pageNumber, int pageSize)
+        public async Task<BasePaginatedList<GETOrderDetailModelView>> GetAll(string orderID,int pageNumber, int pageSize)
         {
             if (pageNumber <= 0 || pageSize <= 0)
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
             }
             IQueryable<OrdersDetails> orDetails = _unitOfWork.GetRepository<OrdersDetails>()
-                .Entities.Where(i => !i.DeletedTime.HasValue)
+                .Entities.Where(i => !i.DeletedTime.HasValue 
+                    && i.OrderID== orderID)
                 .OrderByDescending(c => c.CreatedTime).AsQueryable();
 
             var paginatedOrDetail = await orDetails

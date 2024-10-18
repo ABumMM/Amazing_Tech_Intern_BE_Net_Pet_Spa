@@ -43,8 +43,6 @@ namespace PetSpa.Services.Service
             // Sử dụng AutoMapper để map từ Orders sang GetOrderViewModel
             return new BasePaginatedList<GetOrderViewModel>(_mapper.Map<List<GetOrderViewModel>>(paginatedOrders), await orders.CountAsync(), pageNumber, pageSize);
         }
-
-
         public async Task<GetOrderViewModel?> GetById(string id)
         {
             // Kiểm tra tính hợp lệ của ID đơn hàng
@@ -68,6 +66,15 @@ namespace PetSpa.Services.Service
             if (order.OrderDetailId == null || !order.OrderDetailId.Any())
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
 
+            if (order.BookingID != null)
+            {
+                var booking = await _unitOfWork.GetRepository<Bookings>()
+                .Entities.FirstOrDefaultAsync(m => m.CreatedBy == order.CustomerID && !m.DeletedTime.HasValue);
+                if (booking == null)
+                {
+                    throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Customer not found.");
+                }
+            }
             var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
                 .Entities
                 .Where(od => order.OrderDetailId.Contains(od.Id))
@@ -78,6 +85,7 @@ namespace PetSpa.Services.Service
             var membership = await _unitOfWork.GetRepository<MemberShips>()
                 .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
 
+           
             double discountedTotal = membership != null
                 ? (double)totalAmount * (1 - membership.DiscountRate)
                 : (double)totalAmount;
@@ -92,27 +100,7 @@ namespace PetSpa.Services.Service
             await _unitOfWork.GetRepository<Orders>().InsertAsync(newOrder);
             await _unitOfWork.SaveAsync();
 
-            if (membership != null)
-            {
-                membership.TotalSpent += (double)totalAmount;
-                await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
-                await _unitOfWork.SaveAsync();
-                await CheckMembershipUpgrade(Guid.Parse(currentUserId));
 
-                // Cập nhật OrderDetailID
-                var existedOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
-                    .Entities
-                    .Where(od => order.OrderDetailId.Contains(od.Id))
-                    .ToListAsync();
-
-                foreach (var detail in existedOrderDetails)
-                {
-                    detail.OrderID = newOrder.Id;
-                    await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(detail);
-                }
-
-                await _unitOfWork.SaveAsync();
-            }
         }
 
         public async Task Update(PutOrderViewModel order)

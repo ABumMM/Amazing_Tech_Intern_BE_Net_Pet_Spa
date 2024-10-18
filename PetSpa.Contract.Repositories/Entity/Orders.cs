@@ -9,6 +9,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public bool IsPaid { get; set; } = false;
         public Guid CustomerID {  get; set; }
         public virtual ApplicationUser? Customer { get; set; }
-        public virtual ICollection<Bookings> Bookings { get; set; } = new List<Bookings>();
+        public string? BookingID { get; set; }
+        public virtual Bookings? Booking { get; set; }
     }
 }
