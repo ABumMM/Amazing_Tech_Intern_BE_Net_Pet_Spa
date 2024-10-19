@@ -11,8 +11,6 @@ namespace PetSpa.ModelViews.BookingModelViews
         public string? Description { get; set; }    
         public string? Status { get; set; }
         public DateTime Date { get; set; }
-        //thêm
         public required string ApplicationUserId { get; set; }
-       // public required string  OrdersId { get; set; }
     }
 }

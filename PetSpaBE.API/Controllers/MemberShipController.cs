@@ -24,7 +24,7 @@ namespace PetSpaBE.API.Controllers
              Summary = "Authorization: Admin",
             Description = "View All membership"
             )]
-        [Authorize(Roles = "Admim")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllMemberShips(int pageNumber, int pageSize)
         {
             var memberShips = await _membershipsService.GetAll(pageNumber, pageSize);
@@ -40,7 +40,7 @@ namespace PetSpaBE.API.Controllers
              Summary = "Authorization: Admin",
             Description = "Get membership by ID"
             )]
-        [Authorize(Roles = "Admim")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetMemberShipById(string id)
         {
             var memberShip = await _membershipsService.GetById(id);

@@ -15,12 +15,8 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string? Status { get; set; }
-       // public required string OrdersId { get; set; }     
-       // public virtual Orders? Orders { get; set; }
-        //thêm
         public Guid? ApplicationUserId { get; set; }
         public virtual ApplicationUser? ApplicationUser { get; set; }
-        //đến đây
         public ICollection<BookingPackage> BookingPackages { get; set; } = new HashSet<BookingPackage>();
     }
 }
