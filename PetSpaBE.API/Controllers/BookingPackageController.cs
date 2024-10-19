@@ -5,9 +5,10 @@ using PetSpa.Core.Base;
 using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.BookingPackageModelViews;
 using PetSpa.Services.Service;
+using Swashbuckle.AspNetCore.Annotations;
 namespace PetSpaBE.API.Controllers
 {
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class BookingPackageController : ControllerBase
@@ -18,6 +19,11 @@ namespace PetSpaBE.API.Controllers
             _bookingPackageService = bookingPKService;
         }
         [HttpGet]
+        [SwaggerOperation(
+            Summary = "Authorization: Admin",
+            Description = "GetAll Booking"
+            )]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllBookingPKs(int pageNumber, int pageSize)
         {  
             var bookingPKs = await _bookingPackageService.GetAll(pageNumber, pageSize);
@@ -27,6 +33,10 @@ namespace PetSpaBE.API.Controllers
                 data: bookingPKs));
         }
         [HttpPost]
+        [SwaggerOperation(
+            Summary = "Authorization: Anyone",
+            Description = "Get Booking ByUserId )"
+            )]
         public async Task<IActionResult> AddBookingPK(Booking_PackageVM bookingPKVM)
         {
             await _bookingPackageService.Add(bookingPKVM);
@@ -36,6 +46,10 @@ namespace PetSpaBE.API.Controllers
                 data: "Thêm thành công"));
         }
         [HttpGet("{id}")]
+        [SwaggerOperation(
+            Summary = "Authorization: Anyone",
+            Description = "Get Booking ByUserId )"
+            )]
         public async Task<IActionResult> GetBookingPackageById(string id)
         {
             var booking = await _bookingPackageService.GetById(id);
