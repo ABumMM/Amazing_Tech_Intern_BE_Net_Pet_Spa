@@ -15,6 +15,8 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string? Status { get; set; }
+        public Guid? ApplicationUserId { get; set; }
+        public virtual ApplicationUser? ApplicationUser { get; set; }
         public ICollection<BookingPackage> BookingPackages { get; set; } = new HashSet<BookingPackage>();
     }
 }
