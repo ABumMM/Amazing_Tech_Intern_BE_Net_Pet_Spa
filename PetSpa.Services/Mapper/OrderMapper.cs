@@ -16,6 +16,7 @@ namespace PetSpa.Services.Mapper
             // Map từ Orders sang GetOrderViewModel
             CreateMap<Orders, GetOrderViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
                 .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Total))
                 .ForMember(dest => dest.IsPaid, opt => opt.MapFrom(src => src.IsPaid))
@@ -23,11 +24,13 @@ namespace PetSpa.Services.Mapper
 
             // Map từ PostOrderViewModel sang Orders
             CreateMap<PostOrderViewModel, Orders>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
                 .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime));
 
             // Map từ PutOrderViewModel sang Orders
             CreateMap<PutOrderViewModel, Orders>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.PaymentMethod, opt => opt.MapFrom(src => src.PaymentMethod))
                 .ForMember(dest => dest.LastUpdatedTime, opt => opt.MapFrom(src => src.LastUpdatedTime));
         }

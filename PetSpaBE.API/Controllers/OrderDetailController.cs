@@ -13,16 +13,18 @@ namespace PetSpaBE.API.Controllers
     public class OrderDetailController : ControllerBase
     {
         private readonly IOrderDetailServices _orderDetailService;
-
-        public OrderDetailController(IOrderDetailServices orderDetailService)
+        private readonly IMembershipsService _membershipsService;
+        public OrderDetailController(IOrderDetailServices orderDetailService , IMembershipsService membershipsService)
         {
             _orderDetailService = orderDetailService;
+            _membershipsService = membershipsService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllOrderDetail(int pageNumber, int pageSize)
         {
-            var orDetails = await _orderDetailService.GetAll(pageNumber, pageSize);
+            var orDetails = await _orderDetailService.GetAll( pageNumber, pageSize);
+           
             return Ok(new BaseResponseModel<BasePaginatedList<GETOrderDetailModelView>>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
@@ -33,6 +35,7 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> AddOrderDetail([FromBody] POSTOrderDetailModelView detailsMV)
         {
             await _orderDetailService.Add(detailsMV);
+            await _membershipsService.UpdateMemberShip(detailsMV.OrderID);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,

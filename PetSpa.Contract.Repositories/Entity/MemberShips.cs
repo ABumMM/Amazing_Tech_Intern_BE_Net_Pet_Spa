@@ -10,11 +10,12 @@ namespace PetSpa.Contract.Repositories.Entity
 {
     public class MemberShips : BaseEntity
     {
-        public string Name { get; set; } = string.Empty;
-        public double TotalSpent { get; set; } = 0;//Tổng số tiền đã cho tiêu
-        public double DiscountRate { get; set; } = 0;
+        public decimal TotalSpent { get; set; } = 0;//Tổng số tiền đã cho tiêu
+        public string RankId { get; set; } = string.Empty; 
         public Guid UserId { get; set; }
         public virtual ApplicationUser? User { get; set; } 
+
+        public virtual Rank? Rank { get; set; }
 
     }
 }

@@ -36,33 +36,56 @@ namespace PetSpa.Services.Service
             }
             if (detailsMV.Quantity < 0)
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Quantity must be greater than or equal to 0.");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrderDetail Quantity must be greater than or equal to 0.");
             }
+
+            if (detailsMV.OrderID == null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "OrderDetail OrderID is required.");
+            }
+
 
             // Kiểm tra từng PackageID
             var package = _unitOfWork.GetRepository<Packages>()
                          .Entities.FirstOrDefault(p => detailsMV.PackageID.Contains(p.Id));
 
             decimal totalPrice = 0;
+
             if (package != null)
             {
                 totalPrice += package.Price * detailsMV.Quantity;
             }
+
+
             var user = await _unitOfWork.GetRepository<ApplicationUser>().GetByIdAsync(Guid.Parse(currentUserId));
 
             OrdersDetails details = new OrdersDetails()
             {
+                OrderID = detailsMV.OrderID,
                 Quantity = (int)detailsMV.Quantity,
                 Price = totalPrice,
                 Status = detailsMV.Status,
-                PackageID=detailsMV.PackageID,
+                PackageID = detailsMV.PackageID,
                 CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
-                CreatedBy = user?.UserName
+                CreatedBy = user?.UserName,
             };
             await _unitOfWork.GetRepository<OrdersDetails>().InsertAsync(details);
-            await _unitOfWork.SaveAsync();
 
-            
+            await _unitOfWork.SaveAsync();
+            //Update orderID trong orderDetailID
+            var existedOrder = await _unitOfWork.GetRepository<Orders>()
+                            .Entities
+                            .Where(od => detailsMV.OrderID.Contains(od.Id))
+                            .SingleOrDefaultAsync();
+            if (existedOrder != null)
+            {
+
+                existedOrder.Total += details.Price;
+                await _unitOfWork.GetRepository<Orders>().UpdateAsync(existedOrder);
+                await _unitOfWork.SaveAsync();
+                await UpdateTotalPriceOfUser(existedOrder.CustomerID.ToString(), totalPrice);
+            }
+
         }
 
         public async Task Delete(string OrDetailID)
@@ -75,7 +98,21 @@ namespace PetSpa.Services.Service
             existedOrDetail.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
             await _unitOfWork.GetRepository<OrdersDetails>().DeleteAsync(OrDetailID);
             await _unitOfWork.SaveAsync();
-        } 
+
+            //Update orderID trong orderDetailID
+            var existedOrder = await _unitOfWork.GetRepository<Orders>()
+                            .Entities
+                            .Where(od => existedOrDetail.OrderID.Contains(od.Id))
+                            .SingleOrDefaultAsync();
+            if (existedOrder != null)
+            {
+
+                existedOrder.Total -= existedOrDetail.Price;
+                await _unitOfWork.GetRepository<Orders>().UpdateAsync(existedOrder);
+                await _unitOfWork.SaveAsync();
+
+            }
+        }
 
         public async Task<BasePaginatedList<GETOrderDetailModelView>> GetAll(int pageNumber, int pageSize)
         {
@@ -87,21 +124,11 @@ namespace PetSpa.Services.Service
                 .Entities.Where(i => !i.DeletedTime.HasValue)
                 .OrderByDescending(c => c.CreatedTime).AsQueryable();
 
+
             var paginatedOrDetail = await orDetails
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                //.Select(orD => new GETOrderDetailModelView
-                //{
-                //    Id = orD.Id,
-                //    Quantity = orD.Quantity,
-                //    Price = (decimal)orD.Price,
-                //    Status = orD.Status,
-                //    //OrderID = orD.Orders.Id,
-                //    CreatedTime = orD.CreatedTime,
-                //    CreatedBy = orD.CreatedBy,
-                //})
                 .ToListAsync();
-            //return new BasePaginatedList<GETOrderDetailModelView>(paginatedOrDetail, await orDetails.CountAsync(), pageNumber, pageSize);
             return new BasePaginatedList<GETOrderDetailModelView>(_mapper.Map<List<GETOrderDetailModelView>>(paginatedOrDetail), await orDetails.CountAsync(), pageNumber, pageSize);
         }
 
@@ -116,15 +143,6 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found OrderDetail");
             }
-
-            //return new GETOrderDetailModelView
-            //{
-            //    Id = existedOrDetail.Id,
-            //    Quantity = existedOrDetail.Quantity,
-            //    Status = existedOrDetail.Status,
-            //    Price = (decimal)existedOrDetail.Price,
-            //    CreatedTime = existedOrDetail.CreatedTime
-            //};
             return _mapper.Map<GETOrderDetailModelView>(existedOrDetail);
         }
 
@@ -152,20 +170,6 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "No OrderDetail found.");
             }
-
-            // Chuyển đổi dữ liệu sang GETPackageModelView
-            //var orDetailViewModels = orDetails.Select(orD => new GETOrderDetailModelView
-            //{
-            //    Id = orD.Id,
-            //    Quantity = orD.Quantity,
-            //    Price = (decimal)orD.Price,
-            //    Status = orD.Status,
-            //    OrderID = orD.Orders.Id,
-            //    CreatedTime = orD.CreatedTime,
-            //    CreatedBy = orD.CreatedBy,
-                
-            //}).ToList();
-            //return orDetailViewModels;
             return _mapper.Map<List<GETOrderDetailModelView>>(orDetails);
         }
 
@@ -195,14 +199,54 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Quantity must be greater than or equal to 0.");
             }
-
-            //existedOrDetail.Quantity = (int)detailsMV.Quantity;
-            //existedOrDetail.Status = detailsMV.Status;
-            //existedOrDetail.LastUpdatedTime = DateTime.Now;
-            //existedOrDetail.LastUpdatedBy = currentUserId;
             _mapper.Map(detailsMV, existedOrDetail);
             await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(existedOrDetail);
             await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<decimal> CalculateTotalPrice(string orderId)
+        {
+            // Lấy tất cả OrderDetails hiện có cho OrderID
+            var existingOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+                                                .Entities.Where(od => od.OrderID == orderId && !od.DeletedTime.HasValue)
+                                                .ToListAsync();
+
+            // Tính tổng giá trị Price
+            decimal totalPrice = existingOrderDetails.Sum(od => od.Price);
+
+            return totalPrice;
+        }
+
+        public async Task UpdateOrderTotal(string orderId)
+        {
+            // Tính tổng giá trị Price cho tất cả OrderDetails liên quan đến OrderID
+            decimal totalPrice = await CalculateTotalPrice(orderId);
+
+            // Lấy Order hiện tại dựa trên OrderID
+            var order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(orderId);
+            if (order == null)
+            {
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Order not found.");
+            }
+
+            // Gán giá trị tổng cho thuộc tính Total
+            order.Total = totalPrice;
+
+            // Cập nhật Order trong cơ sở dữ liệu
+            await _unitOfWork.GetRepository<Orders>().UpdateAsync(order);
+            await _unitOfWork.SaveAsync();
+
+        }
+
+        public async Task UpdateTotalPriceOfUser(string userId, decimal totalPriceOfOrderDetal)
+        {
+            var User = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(m => m.UserId.ToString() == userId);
+            if (User != null)
+            {
+                User.TotalSpent += totalPriceOfOrderDetal;
+                await _unitOfWork.SaveAsync();
+            }
+
         }
     }
 }

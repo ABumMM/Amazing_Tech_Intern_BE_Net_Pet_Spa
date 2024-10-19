@@ -9,10 +9,14 @@ namespace PetSpa.ModelViews.OrderDetailModelViews
 {
     public class GETOrderDetailModelView
     {
-        public string? Id { get; set; }
+        public required string Id { get; set; }
         public int? Quantity { get; set; }
         public string? Status { get; set; }
         public decimal Price { get; set; } = 0; 
+<<<<<<< HEAD
+=======
+        public required string OrderID { get; set; }
+>>>>>>> e0e9beee1f67a3d2e892cdab14e0f1a27e88d326
         public string? CreatedBy { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
         public string? LastUpdatedBy { get; set; }
