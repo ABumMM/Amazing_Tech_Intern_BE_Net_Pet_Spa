@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.BookingModelViews;
-using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
