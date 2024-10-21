@@ -50,18 +50,16 @@ namespace PetSpa.Services.Service
             return _mapper.Map<GETMemberShipModelView>(existedMemberShips);
         }
 
-        public async Task UpdateMemberShip(string OrderID)
+        public async Task UpdateMemberShip( string OrderID)
         {
-            var Order = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync(h => h.Id == OrderID);
-            if (Order != null)
-            {
-                var MemberShip = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(m => m.UserId == Order.CustomerID);
-                if (MemberShip != null) {
-                    decimal total = MemberShip.TotalSpent + Order.Total;
-                    MemberShip.TotalSpent = total;
-                    await _unitOfWork.SaveAsync();
-                    var newRank = GetNewRank(total);
-                    if (!newRank.Equals(""))
+            var Order = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync( h => h.Id == OrderID);
+            if (Order != null) {
+                
+                var newRank = GetNewRank(Order.Total);
+                if (!newRank.Equals(""))
+                {
+                    var MemberShip = _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefault(c => c.UserId == Order.CustomerID);
+                    if (MemberShip != null)
                     {
                         MemberShip.RankId = newRank;
                         await _unitOfWork.SaveAsync();
