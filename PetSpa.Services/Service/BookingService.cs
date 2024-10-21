@@ -104,8 +104,6 @@ namespace PetSpa.Services.Service
                     "Người dùng không có quyền Employee."
                 );
             }
-
-
             booking.ApplicationUserId = Guid.Parse(bookingVM.ApplicationUserId);
              await _unitOfWork.GetRepository<Bookings>().InsertAsync(booking);
              await _unitOfWork.SaveAsync();
