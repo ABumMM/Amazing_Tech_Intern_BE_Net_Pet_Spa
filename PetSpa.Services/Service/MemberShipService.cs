@@ -56,19 +56,21 @@ namespace PetSpa.Services.Service
             if (Order != null)
             {
 
-                var newRank = GetNewRank(Order.Total);
-                if (!newRank.Equals(""))
+                var MemberShip = await _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefaultAsync(m => m.UserId == Order.CustomerID);
+                if (MemberShip != null)
                 {
-                    var MemberShip = _unitOfWork.GetRepository<MemberShips>().Entities.FirstOrDefault(c => c.UserId == Order.CustomerID);
-                    if (MemberShip != null)
+                    decimal total = MemberShip.TotalSpent + Order.Total;
+                    MemberShip.TotalSpent = total;
+                    await _unitOfWork.SaveAsync();
+                    var newRank = GetNewRank(total);
+                    if (!newRank.Equals(""))
                     {
                         MemberShip.RankId = newRank;
                         await _unitOfWork.SaveAsync();
                     }
-                }
-                
-            }
 
+                }
+            }
         }
         public string GetNewRank(decimal totalPrice)
         {
