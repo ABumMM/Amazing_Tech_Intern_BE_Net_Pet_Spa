@@ -83,7 +83,8 @@ namespace PetSpa.Services.Service
                 existedOrder.Total += details.Price;
                 await _unitOfWork.GetRepository<Orders>().UpdateAsync(existedOrder);
                 await _unitOfWork.SaveAsync();
-                await UpdateTotalPriceOfUser(existedOrder.CustomerID.ToString(), totalPrice);
+                
+  
             }
 
         }
@@ -235,6 +236,8 @@ namespace PetSpa.Services.Service
             // Cập nhật Order trong cơ sở dữ liệu
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(order);
             await _unitOfWork.SaveAsync();
+
+          
 
         }
 
