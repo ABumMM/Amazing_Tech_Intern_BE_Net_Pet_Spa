@@ -25,9 +25,9 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpPost("sign-up")]
-        public async Task<IActionResult> SignUp([FromBody] SignUpAuthModelView model)
+        public async Task<IActionResult> SignUp([FromBody] SignUpAuthModelView model,string roleName)
         {
-            await _authService.SignUpAsync(model);
+            await _authService.SignUpAsync(model,roleName);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,

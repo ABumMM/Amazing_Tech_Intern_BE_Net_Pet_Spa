@@ -1,11 +1,5 @@
 ﻿using PetSpa.Core.Base;
 using PetSpa.ModelViews.RankModelViews;
-using PetSpa.ModelViews.ReviewModelViews;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Services.Interface
 {

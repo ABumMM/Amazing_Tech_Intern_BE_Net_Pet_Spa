@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using PetSpa.Contract.Repositories.Entity;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.MemberShipModelView;
 namespace PetSpa.Services.Mapper
 {
-    public class MemberShipMapper:Profile
+    public class MemberShipMapper : Profile
     {
-        public MemberShipMapper() 
+        public MemberShipMapper()
         {
             //MemberShip sang GETMemberShipModelView
             CreateMap<MemberShips, GETMemberShipModelView>()

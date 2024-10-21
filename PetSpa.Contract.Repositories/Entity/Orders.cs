@@ -11,7 +11,7 @@ namespace PetSpa.Contract.Repositories.Entity
 
         public decimal FinalPrice { get; set; } = 0; // số tiền phải trả
         public bool IsPaid { get; set; } = false;
-        public Guid CustomerID {  get; set; }
+        public Guid CustomerID { get; set; }
         public virtual ApplicationUser? Customer { get; set; }
 
         public virtual ICollection<OrdersDetails> OrdersDetails { get; set; } = new List<OrdersDetails>();

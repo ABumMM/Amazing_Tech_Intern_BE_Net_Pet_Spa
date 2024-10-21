@@ -15,7 +15,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public Guid UserId { get; set; }
         public virtual ApplicationUser? User { get; set; } 
 
-        public virtual Rank Rank { get; set; }
+        public virtual Rank? Rank { get; set; }
 
     }
 }
