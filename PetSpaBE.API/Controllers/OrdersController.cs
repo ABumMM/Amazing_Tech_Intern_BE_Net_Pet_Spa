@@ -12,10 +12,12 @@ namespace PetSpaBE.API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly IMembershipsService _membershipsService;
 
-        public OrdersController(IOrderService orderService)
+        public OrdersController(IOrderService orderService,IMembershipsService membershipsService)
         {
             _orderService = orderService;
+            _membershipsService = membershipsService;
         }
 
         // Get All Orders
@@ -90,6 +92,8 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> ConfirmOrder(string id)
         {
             await _orderService.ConfirmOrder(id);
+            // cập nhật membership
+            await _membershipsService.UpdateMemberShip(id);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
