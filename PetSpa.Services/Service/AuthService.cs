@@ -74,10 +74,10 @@ namespace PetSpa.Services.Service
                 if (!result.Succeeded)
                     throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Error adding role: " + string.Join(", ", result.Errors.Select(e => e.Description)));
                 // Lấy ra hạng thấp nhất để cho vào membership
-                        var rank = _unitOfWork.GetRepository<Rank>()
-               .Entities
-               .OrderBy(r => r.MinPrice)
-               .FirstOrDefault();
+                var rank = _unitOfWork.GetRepository<Rank>()
+       .Entities
+       .OrderBy(r => r.MinPrice)
+       .FirstOrDefault();
                 if (rank != null)
                 {
                     //Tạo Membership tương ứng cho người dùng mới
@@ -86,10 +86,8 @@ namespace PetSpa.Services.Service
 
                         Id = Guid.NewGuid().ToString(),
                         RankId = rank.Id,
-                        //Name = "Standard", // Hạng mặc định
-                        TotalSpent = 0, // Chi tiêu ban đầu bằng 0
-                        //DiscountRate = 0, // Không có giảm giá cho hạng mặc định
-                        UserId = user.Id, // Liên kết UserId của người dùng mới
+                        TotalSpent = 0,
+                        UserId = user.Id,
                         CreatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now),
                         CreatedBy = user.UserName
 
@@ -183,5 +181,6 @@ namespace PetSpa.Services.Service
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
     }
 }
