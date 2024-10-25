@@ -13,7 +13,7 @@ namespace PetSpa.Contract.Services.Interface
         Task<BasePaginatedList<ServiceResposeModel>> GetAll(int pageNumber = 1, int pageSize = 10);
         Task<ServiceResposeModel?> GetById(string id);
         Task Add(ServiceCreateModel service);
-        Task Update(ServiceUpdateModel service);
+        Task Update(string id,ServiceUpdateModel service);
         Task Delete(string id);
     }
 }

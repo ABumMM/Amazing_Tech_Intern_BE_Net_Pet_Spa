@@ -49,7 +49,6 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found membership");
             return _mapper.Map<GETMemberShipModelView>(existedMemberShips);
         }
-
         public async Task UpdateMemberShip(string OrderID)
         {
             var Order = await _unitOfWork.GetRepository<Orders>().Entities.FirstOrDefaultAsync(h => h.Id == OrderID);
@@ -72,6 +71,7 @@ namespace PetSpa.Services.Service
                 }
             }
         }
+        
         public string GetNewRank(decimal totalPrice)
         {
             var Ranks = _unitOfWork.GetRepository<Rank>().Entities
