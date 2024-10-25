@@ -1,5 +1,6 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Core.Base;
+using System.Linq.Expressions;
 namespace PetSpa.Contract.Repositories.IUOW
 {
     public interface IGenericRepository<T> where T : class
@@ -27,6 +28,7 @@ namespace PetSpa.Contract.Repositories.IUOW
         Task DeleteAsync(object id);
         Task SaveAsync();
         Task<T?> GetByKeysAsync(object key1, object key2);
-       
+        //thêm
+        Task<IList<T>> FindAsync(Expression<Func<T, bool>> predicate);
     }
 }

@@ -66,11 +66,11 @@ namespace PetSpaBE.API.Controllers
                 data: service
                 ));
         }
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> UpdateService(ServiceUpdateModel service)
+        public async Task<IActionResult> UpdateService(string id,ServiceUpdateModel service)
         {
-            await _servicesService.Update(service);
+            await _servicesService.Update(id,service);
             return Ok(
                 new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,

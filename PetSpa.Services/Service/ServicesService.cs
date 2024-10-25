@@ -35,6 +35,16 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Service name cannot be null or empty.");
             }
+            // Kiểm tra xem tên dịch vụ có bị trùng hay không
+            var existingService = await _unitOfWork.GetRepository<ServicesEntity>().Entities.FirstOrDefaultAsync(s => s.Name.ToLower() == serviceModel.Name.ToLower());
+
+
+            if (existingService != null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Service name already exists.");
+            }
+
+
             ServicesEntity service = _mapper.Map<ServicesEntity>(serviceModel);
             service.CreatedBy = currentUserId;
             await _unitOfWork.GetRepository<ServicesEntity>().InsertAsync(service);
@@ -98,7 +108,7 @@ namespace PetSpa.Services.Service
         }
 
 
-        public async Task Update(ServiceUpdateModel serviceModel)
+        public async Task Update(string id ,ServiceUpdateModel serviceModel)
         {
             if (string.IsNullOrWhiteSpace(serviceModel.Name))
             {
@@ -106,10 +116,10 @@ namespace PetSpa.Services.Service
             }
             IGenericRepository<ServicesEntity> genericRepository = _unitOfWork.GetRepository<ServicesEntity>();
             
-            ServicesEntity? service = await _unitOfWork.GetRepository<ServicesEntity>().Entities.FirstOrDefaultAsync(s => s.DeletedTime.HasValue == false && s.Id == serviceModel.Id);
+            ServicesEntity? service = await _unitOfWork.GetRepository<ServicesEntity>().Entities.FirstOrDefaultAsync(s => s.DeletedTime.HasValue == false && s.Id == id );
             if (service == null)
             {
-                throw new ErrorException(statusCode: StatusCodes.Status404NotFound, errorCode: ErrorCode.NotFound, "Not found Service with id =" + serviceModel.Id);
+                throw new ErrorException(statusCode: StatusCodes.Status404NotFound, errorCode: ErrorCode.NotFound, "Not found Service with id =" + id);
             }
 
             _mapper.Map(serviceModel, service);

@@ -6,13 +6,6 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.RankModelViews;
-using PetSpa.ModelViews.ServiceModelViews;
-using PetSpa.Repositories.UOW;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetSpa.Services.Service
 {

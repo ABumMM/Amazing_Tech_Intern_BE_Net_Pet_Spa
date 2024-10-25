@@ -22,6 +22,7 @@ namespace PetSpa.Services.Mapper
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.LastUpdatedBy, opt => opt.Ignore())
                 .ForMember(dest => dest.LastUpdatedTime, opt => opt.Ignore());
+                //.ForMember(dest => dest.App, opt => opt.MapFrom(src => src.ApplicationUserId));
         }
     }
 }
