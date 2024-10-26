@@ -122,6 +122,19 @@ namespace PetSpa.Services.Service
                 existedOrder.Total -= existedOrDetail.Price;
                 await _unitOfWork.GetRepository<Orders>().UpdateAsync(existedOrder);
                 await _unitOfWork.SaveAsync();
+                var membership = await _unitOfWork.GetRepository<MemberShips>().Entities.Include(r => r.Rank).FirstOrDefaultAsync(m => m.UserId == existedOrder.CustomerID);
+                if (membership != null)
+                {
+                    if (membership.Rank != null)
+                    {
+                        decimal total = existedOrder.Total;
+                        int DiscountPercent = membership.Rank.DiscountPercent;
+                        decimal DiscountPrice = total * (DiscountPercent / 100m);
+                        existedOrder.DiscountPrice = DiscountPrice;
+                        existedOrder.FinalPrice = total - DiscountPrice;
+                        await _unitOfWork.SaveAsync();
+                    }
+                }
 
             }
         }
@@ -213,7 +226,7 @@ namespace PetSpa.Services.Service
             }
             _mapper.Map(detailsMV, existedOrDetail);
             await _unitOfWork.GetRepository<OrdersDetails>().UpdateAsync(existedOrDetail);
-            await _unitOfWork.SaveAsync();
+           
         }
 
         public async Task<decimal> CalculateTotalPrice(string orderId)
