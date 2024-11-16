@@ -13,11 +13,11 @@ namespace PetSpaBE.API.Controllers
     public class OrderDetailController : ControllerBase
     {
         private readonly IOrderDetailServices _orderDetailService;
-        private readonly IMembershipsService _membershipsService;
+       
         public OrderDetailController(IOrderDetailServices orderDetailService , IMembershipsService membershipsService)
         {
             _orderDetailService = orderDetailService;
-            _membershipsService = membershipsService;
+          
         }
 
         [HttpGet]
@@ -35,7 +35,7 @@ namespace PetSpaBE.API.Controllers
         public async Task<IActionResult> AddOrderDetail([FromBody] POSTOrderDetailModelView detailsMV)
         {
             await _orderDetailService.Add(detailsMV);
-            await _membershipsService.UpdateMemberShip(detailsMV.OrderID);
+           
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,

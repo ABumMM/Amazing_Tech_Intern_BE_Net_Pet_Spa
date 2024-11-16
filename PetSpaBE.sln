@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.Repositories", "PetS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpa.Core", "PetSpa.Core\PetSpa.Core.csproj", "{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetSpaBE.Razor", "PetSpaBE.Razor\PetSpaBE.Razor.csproj", "{D1FCB059-20F2-4C8F-9B5A-13D0B3C102E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1FCB059-20F2-4C8F-9B5A-13D0B3C102E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1FCB059-20F2-4C8F-9B5A-13D0B3C102E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1FCB059-20F2-4C8F-9B5A-13D0B3C102E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1FCB059-20F2-4C8F-9B5A-13D0B3C102E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{ADC77EF5-0819-4073-B856-E2CB2358E55C} = {F0AC476A-4449-46F9-94D0-E56515D3E358}
 		{E91F153A-2149-40A1-B2EF-47B5BE3942FC} = {F0AC476A-4449-46F9-94D0-E56515D3E358}
 		{0C903CE6-2BCE-4BE5-8247-BF6BBE4618C1} = {A99E8602-81F7-4FFF-88C5-305D65C27E52}
+		{D1FCB059-20F2-4C8F-9B5A-13D0B3C102E5} = {276EFBDB-FAE2-4F6E-A1C4-3AC2E829DC16}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE5A7BB6-2765-4F14-88D4-4DA839A13A6C}
