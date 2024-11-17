@@ -33,6 +33,21 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Discount percent cannot be null or empty.");
             }
+            // Kiểm tra trùng tên
+            var existingService = await _unitOfWork.GetRepository<Rank>().Entities.FirstOrDefaultAsync(s => s.Name.ToLower() == rank.Name.ToLower());
+
+
+            if (existingService != null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Service name already exists.");
+            }
+            // Kiểm tra trùng minprice
+            var existingPoint = await _unitOfWork.GetRepository<Rank>().Entities.FirstOrDefaultAsync(s => s.MinPrice == rank.MinPrice);
+
+            if (existingPoint != null)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Service min points already exists");
+            }
             var newRank = _mapper.Map<Rank>(rank);
             await _unitOfWork.GetRepository<Rank>().InsertAsync(newRank);
             await _unitOfWork.SaveAsync();
