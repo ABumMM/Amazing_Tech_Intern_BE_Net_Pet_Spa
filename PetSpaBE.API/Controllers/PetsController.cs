@@ -1,15 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Services;
-using PetSpa.Contract.Repositories.Entity;
-using System;
-using System.Threading.Tasks;
 using PetSpa.Core.Base;
-using PetSpa.ModelViews.RoleModelViews;
 using PetSpa.ModelViews.PetsModelViews;
-using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.Contract.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
-using PetSpa.Services.Service;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace PetSpaBE.API.Controllers

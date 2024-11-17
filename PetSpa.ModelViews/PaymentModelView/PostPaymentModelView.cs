@@ -8,10 +8,8 @@ namespace PetSpa.ModelViews.PaymentModelView
 {
     public class PostPaymentModelView
     {
-        public string PaymentMethod { get; set; } = string.Empty;
-        public decimal Amount { get; set; }
-        public string TransactionId { get; set; } = string.Empty;
-        public string OrderId { get; set; } = string.Empty; 
+        public required string OrderId { get; set; } 
+        public string? Description { get; set; }
     }
 
 }

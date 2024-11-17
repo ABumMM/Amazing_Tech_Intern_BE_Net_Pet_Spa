@@ -6,6 +6,7 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.OrderModelViews;
 namespace PetSpa.Services.Service
 {
@@ -62,10 +63,6 @@ namespace PetSpa.Services.Service
 
         public async Task Add(PostOrderViewModel order)
         {
-
-            if (string.IsNullOrWhiteSpace(order.PaymentMethod))
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
-
             //if (order.OrderDetailId == null || !order.OrderDetailId.Any())
             //throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
 
@@ -229,6 +226,27 @@ namespace PetSpa.Services.Service
           
             await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
             await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<string> HandleVnPayCallback(string orderId, bool isSuccess)
+        {
+            Orders? order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(orderId);
+            if (order == null)
+            {
+                return "Unsuccessfully";
+            }
+            if (isSuccess)
+            {
+                order.Status = PaymentStatusHelper.SUCCESS.ToString();
+                order.LastUpdatedTime = CoreHelper.SystemTimeNow;
+                await _unitOfWork.SaveAsync();
+                return "Successfully";
+            }
+
+            order.Status = PaymentStatusHelper.FAILED.ToString();
+            await _unitOfWork.SaveAsync();
+
+            return "Failed to purchase";
         }
     }
 }

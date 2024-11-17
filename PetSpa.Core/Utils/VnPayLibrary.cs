@@ -1,37 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Net.Sockets;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http;
 
 namespace PetSpa.Core.Utils
 {
     public class VnPayLibrary
     {
-        private readonly SortedDictionary<string, string> _requestData = new SortedDictionary<string, string>(new VnPayCompare());
-        private readonly SortedDictionary<string, string> _responseData = new SortedDictionary<string, string>(new VnPayCompare());
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly string _vnpTmnCode;
-        private readonly string _vnpHashSecret;
-
-        public VnPayLibrary(IHttpContextAccessor httpContextAccessor, IOptions<PaymentSettings> paymentSettings)
-        {
-            _httpContextAccessor = httpContextAccessor;
-            _vnpTmnCode = paymentSettings.Value.VnPayTmnCode;
-            _vnpHashSecret = paymentSettings.Value.VnPayHashSecret;
-        }
+        private readonly SortedList<string, string> _requestData = new SortedList<string, string>(new VnPayCompare());
+        private readonly SortedList<string, string> _responseData = new SortedList<string, string>(new VnPayCompare());
 
         public void AddRequestData(string key, string value)
         {
             if (!string.IsNullOrEmpty(value))
             {
-                _requestData[key] = value;
+                _requestData.Add(key, value);
             }
         }
 
@@ -39,7 +24,7 @@ namespace PetSpa.Core.Utils
         {
             if (!string.IsNullOrEmpty(value))
             {
-                _responseData[key] = value;
+                _responseData.Add(key, value);
             }
         }
 
@@ -60,20 +45,18 @@ namespace PetSpa.Core.Utils
 
             var querystring = data.ToString();
 
-            // Remove last '&'
-            if (querystring.Length > 0)
+            baseUrl += "?" + querystring;
+            var signData = querystring;
+            if (signData.Length > 0)
             {
-                querystring = querystring.Remove(querystring.Length - 1, 1);
+                signData = signData.Remove(data.Length - 1, 1);
             }
 
-            baseUrl += (baseUrl.Contains("?") ? "&" : "?") + querystring;
-
-            var vnpSecureHash = Utils.HmacSHA512(vnpHashSecret, querystring);
-            baseUrl += "&vnp_SecureHash=" + vnpSecureHash;
+            var vnpSecureHash = Utils.HmacSHA512(vnpHashSecret, signData);
+            baseUrl += "vnp_SecureHash=" + vnpSecureHash;
 
             return baseUrl;
         }
-    
         #endregion
 
         #region Response process
@@ -102,7 +85,7 @@ namespace PetSpa.Core.Utils
                 data.Append(WebUtility.UrlEncode(key) + "=" + WebUtility.UrlEncode(value) + "&");
             }
 
-            // Remove last '&'
+            //remove last '&'
             if (data.Length > 0)
             {
                 data.Remove(data.Length - 1, 1);
@@ -111,9 +94,10 @@ namespace PetSpa.Core.Utils
             return data.ToString();
         }
         #endregion
+
     }
 
-    public static class Utils
+    public class Utils
     {
         public static string HmacSHA512(string key, string inputData)
         {
@@ -132,34 +116,34 @@ namespace PetSpa.Core.Utils
             return hash.ToString();
         }
 
-        public static string GetIpAddress(IHttpContextAccessor httpContextAccessor)
+
+        // có chế biến cho .NET Core MVC
+        public static string GetIpAddress(HttpContext context)
         {
-            var ipAddress = "127.0.0.1"; // Default IP if not found
+            var ipAddress = string.Empty;
             try
             {
-                var context = httpContextAccessor.HttpContext;
-                if (context != null)
-                {
-                    var remoteIpAddress = context.Connection.RemoteIpAddress;
-                    if (remoteIpAddress != null)
-                    {
-                        if (remoteIpAddress.AddressFamily == AddressFamily.InterNetworkV6)
-                        {
-                            remoteIpAddress = Dns.GetHostEntry(remoteIpAddress).AddressList
-                                .FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
-                        }
+                var remoteIpAddress = context.Connection.RemoteIpAddress;
 
-                        if (remoteIpAddress != null)
-                            ipAddress = remoteIpAddress.ToString();
+                if (remoteIpAddress != null)
+                {
+                    if (remoteIpAddress.AddressFamily == AddressFamily.InterNetworkV6)
+                    {
+                        remoteIpAddress = Dns.GetHostEntry(remoteIpAddress).AddressList
+                            .FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
                     }
+
+                    if (remoteIpAddress != null) ipAddress = remoteIpAddress.ToString();
+
+                    return ipAddress;
                 }
             }
             catch (Exception ex)
             {
-                ipAddress = "Invalid IP: " + ex.Message;
+                return "Invalid IP:" + ex.Message;
             }
 
-            return ipAddress;
+            return "127.0.0.1";
         }
     }
 
@@ -174,5 +158,4 @@ namespace PetSpa.Core.Utils
             return vnpCompare.Compare(x, y, CompareOptions.Ordinal);
         }
     }
-
 }

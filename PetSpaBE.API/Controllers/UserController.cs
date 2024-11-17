@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
-using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.ModelViews.RoleModelViews;
 using PetSpa.ModelViews.UserModelViews;
-using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -55,7 +51,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet("employees")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> GetEmployees(int pageNumber, int pageSize)
         {
             var employees = await _userService.GetEmployees(pageNumber, pageSize);
