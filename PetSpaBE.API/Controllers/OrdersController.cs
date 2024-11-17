@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
@@ -12,10 +13,12 @@ namespace PetSpaBE.API.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
+        private readonly IMembershipsService _membershipsService;
 
-        public OrdersController(IOrderService orderService)
+        public OrdersController(IOrderService orderService,IMembershipsService membershipsService)
         {
             _orderService = orderService;
+            _membershipsService = membershipsService;
         }
 
         // Get All Orders
@@ -43,6 +46,7 @@ namespace PetSpaBE.API.Controllers
 
         // Add Order
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddOrder([FromBody] PostOrderViewModel order)
         {
             await _orderService.Add(order);
@@ -53,7 +57,9 @@ namespace PetSpaBE.API.Controllers
         }
 
         // Update Order
+        
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateOrder(string id, [FromBody] PutOrderViewModel order)
         {  
             var existingOrder = await _orderService.GetById(id);
@@ -66,6 +72,7 @@ namespace PetSpaBE.API.Controllers
 
         // Delete Order
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteOrder(string id)
         {
             var existingOrder = await _orderService.GetById(id);
@@ -75,6 +82,7 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Order deleted successfully"));
         }
+
         [HttpGet("payment-status/{isPaid}")]
         public async Task<IActionResult> GetOrdersByPaymentStatus(bool isPaid, int pageNumber, int pageSize)
         {
@@ -86,10 +94,13 @@ namespace PetSpaBE.API.Controllers
         }
 
         // Confirm Order
+        [Authorize(Roles = "Admin")]
         [HttpPost("confirm/{id}")]
         public async Task<IActionResult> ConfirmOrder(string id)
         {
             await _orderService.ConfirmOrder(id);
+            // cập nhật membership
+            await _membershipsService.UpdateMemberShip(id);
             return Ok(new BaseResponseModel<string>(
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,

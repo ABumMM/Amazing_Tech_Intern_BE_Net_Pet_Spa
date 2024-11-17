@@ -3,10 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
-using PetSpa.ModelViews.BookingModelViews;
 using PetSpa.ModelViews.RankModelViews;
-using PetSpa.Services.Service;
-
 namespace PetSpaBE.API.Controllers
 {
     [Route("api/[controller]")]

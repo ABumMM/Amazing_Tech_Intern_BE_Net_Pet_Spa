@@ -21,7 +21,7 @@ namespace PetSpaBE.API.Controllers
         }
         //[Authorize(Roles ="Admin")]
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers(int pageNumber = 1, int pageSize = 3)
+        public async Task<IActionResult> GetAllUsers(int pageNumber, int pageSize)
         {
             var users = await _userService.GetAll(pageNumber, pageSize);
             return Ok(new BaseResponseModel<BasePaginatedList<GETUserModelView>>(
@@ -41,7 +41,27 @@ namespace PetSpaBE.API.Controllers
                 data: user));
         }
 
-        
+        [HttpGet("customers")]
+        public async Task<IActionResult> GetCustomers(int pageNumber, int pageSize)
+        {
+            var customers = await _userService.GetCustomers(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETUserModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: customers));
+        }
+
+        [HttpGet("employees")]
+        public async Task<IActionResult> GetEmployees(int pageNumber, int pageSize)
+        {
+            var employees = await _userService.GetEmployees(pageNumber, pageSize);
+            return Ok(new BaseResponseModel<BasePaginatedList<GETUserModelView>>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: employees));
+        }
+
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser([FromBody] PUTUserModelView user)
         {

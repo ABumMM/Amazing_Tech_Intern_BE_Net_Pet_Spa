@@ -328,6 +328,9 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset>("AddedDate")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("PackageId", "BookingId");
 
                     b.HasIndex("BookingId");
@@ -368,7 +371,6 @@ namespace PetSpa.Repositories.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("OrdersId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Status")
@@ -400,28 +402,18 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<double>("DiscountRate")
-                        .HasColumnType("float");
-
                     b.Property<string>("LastUpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastUpdatedTime")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Point")
-                        .HasColumnType("int");
-
                     b.Property<string>("RankId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("TotalSpent")
-                        .HasColumnType("float");
+                    b.Property<decimal>("TotalSpent")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -455,6 +447,12 @@ namespace PetSpa.Repositories.Migrations
 
                     b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<decimal>("DiscountPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FinalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsPaid")
                         .HasColumnType("bit");
@@ -1046,17 +1044,15 @@ namespace PetSpa.Repositories.Migrations
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.Bookings", b =>
                 {
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", null)
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", "ApplicationUser")
                         .WithMany("Bookings")
                         .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", "Orders")
+                    b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", null)
                         .WithMany("Bookings")
-                        .HasForeignKey("OrdersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrdersId");
 
-                    b.Navigation("Orders");
+                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("PetSpa.Contract.Repositories.Entity.MemberShips", b =>

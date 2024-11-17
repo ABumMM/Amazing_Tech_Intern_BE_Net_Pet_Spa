@@ -7,6 +7,7 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
+using PetSpa.ModelViews.PackageModelViews;
 using PetSpa.ModelViews.UserModelViews;
 
 namespace PetSpa.Services.Service
@@ -18,6 +19,8 @@ namespace PetSpa.Services.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
+
+
 
         public UserService(IUnitOfWork unitOfWork,
             IHttpContextAccessor httpContextAccessor,
@@ -32,7 +35,7 @@ namespace PetSpa.Services.Service
             _mapper = mapper;
         }
 
-        private Guid GetCurrentUserId()
+        private Guid CurrentUserId()
         {
             var userIdString = Authentication.GetUserIdFromHttpContextAccessor(_httpContextAccessor);
 
@@ -44,7 +47,7 @@ namespace PetSpa.Services.Service
             return Guid.Parse(userIdString);
         }
 
-        private string GetCurrentUserRole()
+        private string CurrentUserRole()
         {
             var httpContext = _httpContextAccessor.HttpContext;
 
@@ -60,7 +63,7 @@ namespace PetSpa.Services.Service
         {
             if (id == Guid.Empty)
             {
-                throw new ArgumentException("Id không hợp lệ.", nameof(id));
+                throw new ArgumentException("Id invalid.", nameof(id));
             }
 
             var userRepository = _unitOfWork.GetRepository<ApplicationUser>();
@@ -70,7 +73,7 @@ namespace PetSpa.Services.Service
 
             if (user == null)
             {
-                throw new KeyNotFoundException("Người dùng không tìm thấy.");
+                throw new KeyNotFoundException("User not found.");
             }
 
             var roleName = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? string.Empty;
@@ -85,35 +88,122 @@ namespace PetSpa.Services.Service
         {
             if (pageNumber <= 0 || pageSize <= 0)
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must be greater than 0");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
             }
 
-            var usersQuery = _unitOfWork.GetRepository<ApplicationUser>()
+            IQueryable<ApplicationUser> users = _unitOfWork.GetRepository<ApplicationUser>()
                 .Entities
-                .Include(u => u.UserInfo) 
-                .Where(i => !i.DeletedTime.HasValue)
-                .OrderByDescending(c => c.CreatedTime);
+                .Include(u => u.UserInfo)
+                .Where(u => !u.DeletedTime.HasValue)
+                .OrderByDescending(c => c.CreatedTime)
+                .AsQueryable();
 
-            var totalUsers = await usersQuery.CountAsync();
+            var paginatedUsers = await users
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var userModelViews = new List<GETUserModelView>();
+
+            foreach (var user in paginatedUsers)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                var userModelView = _mapper.Map<GETUserModelView>(user);
+                userModelView.RoleName = roles.FirstOrDefault() ?? string.Empty;
+                userModelView.FullName = user.UserInfo?.FullName ?? string.Empty;
+                userModelViews.Add(userModelView);
+            }
+
+            return new BasePaginatedList<GETUserModelView>(
+                userModelViews,
+                await users.CountAsync(),
+                pageNumber,
+                pageSize
+            );
+        }
+
+
+
+        public async Task<BasePaginatedList<GETUserModelView>> GetCustomers(int pageNumber, int pageSize)
+        {
+            if (pageNumber <= 0 || pageSize <= 0)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber và pagesize phải lớn hơn 0");
+            }
+
+            IQueryable<ApplicationUser> usersQuery = _unitOfWork.GetRepository<ApplicationUser>()
+                .Entities
+                .Include(u => u.UserInfo)
+                .Where(u => !u.DeletedTime.HasValue)
+                .OrderByDescending(c => c.CreatedTime);
 
             var paginatedUsers = await usersQuery
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            var userModelViews = paginatedUsers.Select(async user =>
+            var customerModelViews = new List<GETUserModelView>();
+
+            foreach (var user in paginatedUsers)
             {
-                var userModelView = _mapper.Map<GETUserModelView>(user);
-                userModelView.RoleName = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? string.Empty;
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Customer"))
+                {
+                    var userModelView = _mapper.Map<GETUserModelView>(user);
+                    userModelView.RoleName = roles.FirstOrDefault() ?? string.Empty;
+                    userModelView.FullName = user.UserInfo?.FullName ?? string.Empty;
+                    customerModelViews.Add(userModelView);
+                }
+            }
 
-                userModelView.FullName = user.UserInfo?.FullName ?? string.Empty; 
+            return new BasePaginatedList<GETUserModelView>(
+                customerModelViews,
+                await usersQuery.CountAsync(),
+                pageNumber,
+                pageSize
+            );
+        }
 
-                return userModelView;
-            });
 
-            var userModelViewsList = await Task.WhenAll(userModelViews);
+        public async Task<BasePaginatedList<GETUserModelView>> GetEmployees(int pageNumber, int pageSize)
+        {
+            if (pageNumber <= 0 || pageSize <= 0)
+            {
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber và pagesize phải lớn hơn 0");
+            }
 
-            return new BasePaginatedList<GETUserModelView>(userModelViewsList.ToList(), totalUsers, pageNumber, pageSize);
+            IQueryable<ApplicationUser> employees = _unitOfWork.GetRepository<ApplicationUser>()
+                .Entities
+                .Include(u => u.UserInfo)
+                .Where(u => !u.DeletedTime.HasValue)
+                .OrderByDescending(c => c.CreatedTime)
+                .AsQueryable();
+
+            var paginatedEmployees = await employees
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var employeeModelViews = new List<GETUserModelView>();
+
+            foreach (var user in paginatedEmployees)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Employee"))
+                {
+                    var userModelView = _mapper.Map<GETUserModelView>(user);
+                    userModelView.RoleName = roles.FirstOrDefault() ?? string.Empty;
+                    userModelView.FullName = user.UserInfo?.FullName ?? string.Empty;
+                    employeeModelViews.Add(userModelView);
+                }
+            }
+
+            return new BasePaginatedList<GETUserModelView>(
+                employeeModelViews,
+                await employees.CountAsync(),
+                pageNumber,
+                pageSize
+            );
         }
 
 
@@ -135,8 +225,8 @@ namespace PetSpa.Services.Service
                 throw new KeyNotFoundException("Người dùng không tìm thấy.");
             }
 
-            var currentUserId = GetCurrentUserId();
-            var currentUserRole = GetCurrentUserRole();
+            var currentUserId = CurrentUserId();
+            var currentUserRole = CurrentUserRole();
 
             if (currentUserRole != "Admin" && currentUserId != user.Id)
             {
@@ -168,7 +258,7 @@ namespace PetSpa.Services.Service
                 throw new KeyNotFoundException("Người dùng không tìm thấy.");
             }
 
-            var currentUserRole = GetCurrentUserRole();
+            var currentUserRole = CurrentUserRole();
             if (currentUserRole != "Admin")
             {
                 throw new UnauthorizedAccessException("Bạn không có quyền xóa người dùng này.");
