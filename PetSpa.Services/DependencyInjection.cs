@@ -43,7 +43,7 @@ namespace PetSpa.Services
             services.AddScoped<IOrderDetailServices, OrderDetailService>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IRankService,RankService>();
-
+            services.AddScoped<IVnPayService, VnPayService>();
         }
     }
 

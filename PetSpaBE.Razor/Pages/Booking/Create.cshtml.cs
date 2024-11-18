@@ -52,14 +52,13 @@ namespace PetSpaBE.Razor.Pages.Booking
         {
             try
             {
-                SignInAuthModelView signInAuth = new SignInAuthModelView();
-                signInAuth.Email = "nv2@gmailc.om";
-                signInAuth.Password = "Nguyenvantai2003";
-                await _authService.SignInAsync(signInAuth);
+
+                
                 if (BookingVM == null)
                 {
                     throw new InvalidOperationException("Booking không th? null.");
                 }
+                BookingVM.ApplicationUserId = "EE82A3D9-EC37-449B-A5AD-08DCF105E5AA";
                 await _bookingService.Add(BookingVM);
                 return RedirectToPage("/Booking/Index");
             }
