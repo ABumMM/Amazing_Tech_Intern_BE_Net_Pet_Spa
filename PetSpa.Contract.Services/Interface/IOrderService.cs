@@ -21,5 +21,6 @@ namespace PetSpa.Contract.Services.Interface
         //Xác nhận đơn hàng
         Task<BasePaginatedList<GetOrderViewModel>> GetOrdersByPaymentStatus(bool isPaid, int pageNumber, int pageSize);
         Task ConfirmOrder(string id);
+        Task<string> HandleVnPayCallback(string orderId, bool isSuccess);
     }
 }

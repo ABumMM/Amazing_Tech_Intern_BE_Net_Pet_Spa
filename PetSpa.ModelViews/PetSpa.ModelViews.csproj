@@ -27,10 +27,4 @@
     <ProjectReference Include="..\PetSpa.Core\PetSpa.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ModelViews\" />
-    <Folder Include="UserModelViews\" />
-
-  </ItemGroup>
-
 </Project>

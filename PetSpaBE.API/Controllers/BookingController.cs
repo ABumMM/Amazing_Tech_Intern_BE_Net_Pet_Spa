@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.BookingModelViews;
-using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.Services.Service;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace PetSpaBE.API.Controllers
@@ -15,6 +10,7 @@ namespace PetSpaBE.API.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BookingController : ControllerBase
     {
         private readonly IBookingServicecs _bookingService;
@@ -28,7 +24,6 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "GetAll Booking"
             )]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllBookings(int pageNumber, int pageSize)
         {
             var bookings = await _bookingService.GetAll(pageNumber, pageSize);

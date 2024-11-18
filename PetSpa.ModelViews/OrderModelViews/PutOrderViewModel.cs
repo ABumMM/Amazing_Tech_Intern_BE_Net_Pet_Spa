@@ -10,7 +10,7 @@ namespace PetSpa.ModelViews.OrderModelViews
     {
         public string Id { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
-        public string? PaymentMethod { get; set; }
+        //public string? PaymentMethod { get; set; }
         //public double Total { get; set; }
         public string? LastUpdatedBy { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
