@@ -59,7 +59,6 @@ namespace PetSpa.Services.Service
                     "Ngày đặt không được nhỏ hơn thời gian hiện tại."
                 );
             }
-            ////Kiểm tra xem ApplicationUserId có tồn tại dưới quyền Employee không
             if (!Guid.TryParse(bookingVM.ApplicationUserId, out var applicationUserId))
             {
                 throw new ErrorException(
@@ -68,49 +67,23 @@ namespace PetSpa.Services.Service
                     "ID nhân viên không hợp lệ."
                 );
             }
+            var userExists = await _unitOfWork.GetRepository<ApplicationUser>()
+                                    .Entities
+                                    .AnyAsync(p => p.Id == applicationUserId);
 
-            var applicationUser = await _unitOfWork.GetRepository<ApplicationUser>()
-                                 .Entities
-                                 .FirstOrDefaultAsync(p => p.Id == applicationUserId);
-
-            if (applicationUser == null)
+            if (!userExists)
             {
                 throw new ErrorException(
                     StatusCodes.Status404NotFound,
                     "UserNotFound",
-                    $"Không tìm thấy nhân viên"
+                    "Không tìm thấy nhân viên"
                 );
             }
-            // Lấy danh sách RoleId của người dùng từ IdentityUserRole
-            var userRoles = await _unitOfWork.GetRepository<IdentityUserRole<Guid>>()
-                .FindAsync(ur => ur.UserId == applicationUserId);
-
-            if (!userRoles.Any())
-            {
-                throw new ErrorException(
-                    StatusCodes.Status403Forbidden,
-                    "NoRolesFound",
-                    "Người dùng không có bất kỳ quyền nào."
-                );
-            }
-            var roleIds = userRoles.Select(ur => ur.RoleId).ToList();
-
-            if (!roleIds.Any())
-            {
-                throw new ErrorException(
-                    StatusCodes.Status403Forbidden,
-                    "NoRoleIds",
-                    "Không tìm thấy RoleId nào liên kết với người dùng."
-                );
-            }
-            //
             var employeeRoleId = await _unitOfWork.GetRepository<ApplicationRole>()
-            .Entities
-            .Where(role => role.Name == "Employee")
-            .Select(role => role.Id)
-            .FirstOrDefaultAsync();
-
-            // Nếu không tìm thấy RoleId cho "Employee", ném lỗi
+                .Entities
+                .Where(role => role.Name == "Employee")
+                .Select(role => role.Id)
+                .FirstOrDefaultAsync();
             if (employeeRoleId == default)
             {
                 throw new ErrorException(
@@ -120,8 +93,8 @@ namespace PetSpa.Services.Service
                 );
             }
             var isEmployee = await _unitOfWork.GetRepository<IdentityUserRole<Guid>>()
-        .Entities
-        .AnyAsync(ur => ur.UserId == applicationUserId && ur.RoleId == employeeRoleId);
+                .Entities
+                .AnyAsync(ur => ur.UserId == applicationUserId && ur.RoleId == employeeRoleId);
 
             if (!isEmployee)
             {
@@ -218,7 +191,6 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể dời lịch xuống ngày bé hơn ngày hiện tại");
             }
-            ////Kiểm tra xem ApplicationUserId có tồn tại dưới quyền Employee không
             if (!Guid.TryParse(bookingVM.ApplicationUserId, out var applicationUserId))
             {
                 throw new ErrorException(
@@ -227,48 +199,23 @@ namespace PetSpa.Services.Service
                     "ID nhân viên không hợp lệ."
                 );
             }
+            var userExists = await _unitOfWork.GetRepository<ApplicationUser>()
+                                    .Entities
+                                    .AnyAsync(p => p.Id == applicationUserId);
 
-            var applicationUser = await _unitOfWork.GetRepository<ApplicationUser>()
-                                 .Entities
-                                 .FirstOrDefaultAsync(p => p.Id == applicationUserId);
-
-            if (applicationUser == null)
+            if (!userExists)
             {
                 throw new ErrorException(
                     StatusCodes.Status404NotFound,
                     "UserNotFound",
-                    $"Không tìm thấy nhân viên"
-                );
-            }
-            // Lấy danh sách RoleId của người dùng từ IdentityUserRole
-            var userRoles = await _unitOfWork.GetRepository<IdentityUserRole<Guid>>()
-                .FindAsync(ur => ur.UserId == applicationUserId);
-
-            if (!userRoles.Any())
-            {
-                throw new ErrorException(
-                    StatusCodes.Status403Forbidden,
-                    "NoRolesFound",
-                    "Người dùng không có bất kỳ quyền nào."
-                );
-            }
-            var roleIds = userRoles.Select(ur => ur.RoleId).ToList();
-
-            if (!roleIds.Any())
-            {
-                throw new ErrorException(
-                    StatusCodes.Status403Forbidden,
-                    "NoRoleIds",
-                    "Không tìm thấy RoleId nào liên kết với người dùng."
+                    "Không tìm thấy nhân viên"
                 );
             }
             var employeeRoleId = await _unitOfWork.GetRepository<ApplicationRole>()
-            .Entities
-            .Where(role => role.Name == "Employee")
-            .Select(role => role.Id)
-            .FirstOrDefaultAsync();
-
-            // Nếu không tìm thấy RoleId cho "Employee", ném lỗi
+                .Entities
+                .Where(role => role.Name == "Employee")
+                .Select(role => role.Id)
+                .FirstOrDefaultAsync();
             if (employeeRoleId == default)
             {
                 throw new ErrorException(
@@ -278,18 +225,17 @@ namespace PetSpa.Services.Service
                 );
             }
             var isEmployee = await _unitOfWork.GetRepository<IdentityUserRole<Guid>>()
-            .Entities
-            .AnyAsync(ur => ur.UserId == applicationUserId && ur.RoleId == employeeRoleId);
+                .Entities
+                .AnyAsync(ur => ur.UserId == applicationUserId && ur.RoleId == employeeRoleId);
 
             if (!isEmployee)
             {
                 throw new ErrorException(
                     StatusCodes.Status403Forbidden,
                     "NotAnEmployee",
-                    "Không phải là nhân viên"
+                    "Người dùng không có quyền Employee."
                 );
             }
-            // Ánh xạ dữ liệu cập nhật từ POSTBookingVM sang Bookings
             _mapper.Map(bookingVM, existingBooking);
             existingBooking.LastUpdatedBy = currentUserId;
             existingBooking.LastUpdatedTime = DateTime.Now;

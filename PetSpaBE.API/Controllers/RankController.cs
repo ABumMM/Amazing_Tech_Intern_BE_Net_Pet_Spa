@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Services.Interface;
@@ -24,6 +25,7 @@ namespace PetSpaBE.API.Controllers
                 data: ranks));
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(PostRankViewModel postRank)
         {
             await _rankService.Add(postRank);
@@ -33,6 +35,7 @@ namespace PetSpaBE.API.Controllers
                data: "Create rank successfull"));
         }
         [HttpPatch]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upadate(string RankID,UpdateViewModel updateModel)
         {
             await _rankService.Update( RankID,updateModel);
@@ -42,6 +45,7 @@ namespace PetSpaBE.API.Controllers
                data: "Update rank successfull"));
         }
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(string RankID) {
             await _rankService.Delete(RankID);
             return Ok(new BaseResponseModel<string>(
