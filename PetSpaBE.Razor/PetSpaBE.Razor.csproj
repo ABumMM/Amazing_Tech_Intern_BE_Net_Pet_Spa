@@ -43,9 +43,4 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
-<<<<<<< HEAD
-=======
-
->>>>>>> acf7af6f55e62382969f8cdc45e2d73607c14572
 </Project>
