@@ -223,7 +223,7 @@ namespace PetSpa.Services.Service
                 throw new Exception("No active membership found for the customer.");
             }
 
-          
+
             await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
             await _unitOfWork.SaveAsync();
         }
