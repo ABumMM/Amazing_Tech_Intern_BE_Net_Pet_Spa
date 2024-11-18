@@ -31,14 +31,17 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Page number and page size must be greater than 0.");
             }
+
             IQueryable<Orders> orders = _unitOfWork.GetRepository<Orders>()
                 .Entities.Where(o => !o.DeletedTime.HasValue)
                 .OrderByDescending(o => o.CreatedTime)
                 .AsQueryable();
+
             var paginatedOrders = await orders
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+            // Sử dụng AutoMapper để map từ Orders sang GetOrderViewModel
             return new BasePaginatedList<GetOrderViewModel>(_mapper.Map<List<GetOrderViewModel>>(paginatedOrders), await orders.CountAsync(), pageNumber, pageSize);
 
         }
@@ -46,6 +49,7 @@ namespace PetSpa.Services.Service
 
         public async Task<GetOrderViewModel?> GetById(string id)
         {
+            // Kiểm tra tính hợp lệ của ID đơn hàng
             if (string.IsNullOrWhiteSpace(id))
             {
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Invalid order ID.");
@@ -59,12 +63,6 @@ namespace PetSpa.Services.Service
 
         public async Task Add(PostOrderViewModel order)
         {
-<<<<<<< HEAD
-
-            if (string.IsNullOrWhiteSpace(order.PaymentMethod))
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
-
-=======
             //if (order.OrderDetailId == null || !order.OrderDetailId.Any())
             //throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
 
@@ -74,7 +72,6 @@ namespace PetSpa.Services.Service
             //.ToListAsync();
 
             //decimal totalAmount = orderDetails.Sum(detail => detail.Price);
->>>>>>> 21b54fd7bff749623e35e03d2ff56e3111f9c7e4
             decimal totalAmount = 0;
             //var membership = await _unitOfWork.GetRepository<MemberShips>()
             //    .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
@@ -101,7 +98,6 @@ namespace PetSpa.Services.Service
             //    await _unitOfWork.SaveAsync();
             //    await CheckMembershipUpgrade(Guid.Parse(currentUserId));
 
-            }
             //    // Cập nhật OrderDetailID
             //    //var existedOrderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
             //        //.Entities
@@ -116,7 +112,7 @@ namespace PetSpa.Services.Service
 
             //    //await _unitOfWork.SaveAsync();
             //}
-        //}
+        }
 
         public async Task Update(PutOrderViewModel order)
         {
@@ -130,9 +126,20 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Order not found.");
             }
+            // Lấy danh sách chi tiết đơn hàng để tính toán tổng
+            var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+                .Entities
+                .Where(od => od.OrderID == existingOrder.Id)
+                .ToListAsync();
+
+            // Tính toán tổng từ các chi tiết đơn hàng
+            //double totalAmount = (double)orderDetails.Sum(detail => detail.Price);
+            // Cập nhật tổng cho đơn hàng
+            //existingOrder.Total = totalAmount;
             _mapper.Map(order, existingOrder);
             existingOrder.LastUpdatedTime = DateTime.UtcNow;
             existingOrder.LastUpdatedBy = currentUserId;
+
             await _unitOfWork.GetRepository<Orders>().UpdateAsync(existingOrder);
             await _unitOfWork.SaveAsync();
         }
@@ -144,11 +151,13 @@ namespace PetSpa.Services.Service
             {
                 throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Orders not found.");
             }
+
             // Lấy danh sách các OrderDetails
             var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
                 .Entities
                 .Where(od => od.OrderID == existingOrder.Id)
                 .ToListAsync();
+
             // Xóa các OrderDetails bằng cách sử dụng ID
             foreach (var detail in orderDetails)
             {
@@ -214,7 +223,7 @@ namespace PetSpa.Services.Service
                 throw new Exception("No active membership found for the customer.");
             }
 
-          
+
             await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
             await _unitOfWork.SaveAsync();
         }

@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-=======
 ﻿using Microsoft.AspNetCore.Http;using Microsoft.EntityFrameworkCore;
->>>>>>> 21b54fd7bff749623e35e03d2ff56e3111f9c7e4
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
