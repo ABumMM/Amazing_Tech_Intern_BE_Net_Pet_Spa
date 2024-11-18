@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\css\" />
+    <Content Include="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\css\flogin.css" />
+    <None Include="wwwroot\images\background.jpg" />
+    <None Include="wwwroot\images\logopetspa.jpg" />
+    <None Include="wwwroot\js\flogin.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,4 +31,21 @@
     <ProjectReference Include="..\PetSpa.Services\PetSpa.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> acf7af6f55e62382969f8cdc45e2d73607c14572
 </Project>

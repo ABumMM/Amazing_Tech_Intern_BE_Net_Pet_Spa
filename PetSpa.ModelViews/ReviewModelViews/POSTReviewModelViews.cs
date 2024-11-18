@@ -3,6 +3,6 @@
     public class POSTReviewModelViews
     {
         public string Description { get; set; } = string.Empty;
-        public string? PackageID { get; set; }
+        public required string PackageID { get; set; }
     }
 }

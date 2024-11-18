@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
-using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
-using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.UserModelViews;
 
 namespace PetSpa.Services.Service
@@ -19,8 +18,6 @@ namespace PetSpa.Services.Service
         private readonly IUnitOfWork _unitOfWork;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
-
-
 
         public UserService(IUnitOfWork unitOfWork,
             IHttpContextAccessor httpContextAccessor,
@@ -88,7 +85,7 @@ namespace PetSpa.Services.Service
         {
             if (pageNumber <= 0 || pageSize <= 0)
             {
-                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must greater than 0");
+                throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Pagenumber and pagesize must be greater than 0");
             }
 
             IQueryable<ApplicationUser> users = _unitOfWork.GetRepository<ApplicationUser>()
@@ -110,7 +107,6 @@ namespace PetSpa.Services.Service
                 var roles = await _userManager.GetRolesAsync(user);
                 var userModelView = _mapper.Map<GETUserModelView>(user);
                 userModelView.RoleName = roles.FirstOrDefault() ?? string.Empty;
-                userModelView.FullName = user.UserInfo?.FullName ?? string.Empty;
                 userModelViews.Add(userModelView);
             }
 
@@ -121,8 +117,6 @@ namespace PetSpa.Services.Service
                 pageSize
             );
         }
-
-
 
         public async Task<BasePaginatedList<GETUserModelView>> GetCustomers(int pageNumber, int pageSize)
         {
@@ -151,7 +145,6 @@ namespace PetSpa.Services.Service
                 {
                     var userModelView = _mapper.Map<GETUserModelView>(user);
                     userModelView.RoleName = roles.FirstOrDefault() ?? string.Empty;
-                    userModelView.FullName = user.UserInfo?.FullName ?? string.Empty;
                     customerModelViews.Add(userModelView);
                 }
             }
@@ -163,7 +156,6 @@ namespace PetSpa.Services.Service
                 pageSize
             );
         }
-
 
         public async Task<BasePaginatedList<GETUserModelView>> GetEmployees(int pageNumber, int pageSize)
         {
@@ -193,7 +185,6 @@ namespace PetSpa.Services.Service
                 {
                     var userModelView = _mapper.Map<GETUserModelView>(user);
                     userModelView.RoleName = roles.FirstOrDefault() ?? string.Empty;
-                    userModelView.FullName = user.UserInfo?.FullName ?? string.Empty;
                     employeeModelViews.Add(userModelView);
                 }
             }
@@ -205,7 +196,6 @@ namespace PetSpa.Services.Service
                 pageSize
             );
         }
-
 
         public async Task<PUTUserModelView> Update(PUTUserModelView user)
         {
@@ -233,15 +223,39 @@ namespace PetSpa.Services.Service
                 throw new UnauthorizedAccessException("Bạn không có quyền chỉnh sửa thông tin người dùng này.");
             }
 
+            // Ánh xạ từ PUTUserModelView sang ApplicationUser
             _mapper.Map(user, existingUser);
 
-            existingUser.LastUpdatedBy = _httpContextAccessor.HttpContext?.User.Identity?.Name;
-            existingUser.LastUpdatedTime = DateTime.UtcNow;
+            existingUser.LastUpdatedBy = currentUserRole;
+            existingUser.LastUpdatedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now); ;
 
             await userRepository.UpdateAsync(existingUser);
             await _unitOfWork.SaveAsync();
 
             return user;
+        }
+
+        public async Task<PUTuserforcustomer> UpdateForCustomer(PUTuserforcustomer customer)
+        {
+            if (customer == null)
+            {
+                throw new ArgumentNullException(nameof(customer), "Thông tin người dùng không được để trống.");
+            }
+
+            var currentUserId = CurrentUserId();
+            customer.Id = currentUserId;
+
+            var userRepository = _unitOfWork.GetRepository<ApplicationUser>();
+            var existingUser = await userRepository.GetByIdAsync(currentUserId);
+            if (existingUser == null || existingUser.DeletedTime != null)
+            {
+                throw new KeyNotFoundException("Người dùng không tìm thấy.");
+            }
+            _mapper.Map(customer, existingUser);
+            await userRepository.UpdateAsync(existingUser);
+            await _unitOfWork.SaveAsync();
+
+            return customer;
         }
 
         public async Task Delete(Guid id)
@@ -264,10 +278,8 @@ namespace PetSpa.Services.Service
                 throw new UnauthorizedAccessException("Bạn không có quyền xóa người dùng này.");
             }
 
-            // xóa mềm chỉ cập nhật thời gian xóa và trạng thái người dùng nhớ nha ae :))
-            existedUser.DeletedTime = DateTime.UtcNow;
-            // này lấy role name trong http ném vào mấy cái trên cũng vậy
-            existedUser.DeletedBy = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+            existedUser.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
+            existedUser.DeletedBy = currentUserRole;
 
             await userRepository.UpdateAsync(existedUser);
             await _unitOfWork.SaveAsync();

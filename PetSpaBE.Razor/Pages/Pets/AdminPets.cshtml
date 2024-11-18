@@ -1,0 +1,71 @@
+﻿@page
+@model PetSpaBE.Razor.Pages.Pets.AdminPetsModel
+@{
+    ViewData["Title"] = "Quản lý thú cưng";
+}
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Pets <i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-0 bread">Quản lý thú cưng</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <a asp-page="./Create" class="btn btn-primary mb-2" style="margin-left:auto">Thêm thú cưng mới</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Loài</th>
+                    <th>Trọng lượng (kg)</th>
+                    <th>Giống</th>
+                    <th>Tuổi</th>
+                    <th>Mô tả</th>
+                    <th>Hình ảnh</th>
+                    <th>Người dùng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pet in Model.lst_Pets.Items)
+                {
+                    <tr>
+                        <td>@pet.Id</td>
+                        <td>@pet.Name</td>
+                        <td>@pet.Species</td>
+                        <td>@pet.Weight</td>
+                        <td>@pet.Breed</td>
+                        <td>@pet.Age</td>
+                        <td>@pet.Description</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(pet.Image))
+                            {
+                                <img src="@pet.Image" alt="@pet.Name" style="width: 50px; height: 50px;">
+                            }
+                            else
+                            {
+                                <span>Không có ảnh</span>
+                            }
+                        </td>
+                        
+                        <td>
+                            <a asp-page="./Update" asp-route-id="@pet.Id" class="btn btn-warning">Sửa</a>
+
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@pet.Id" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

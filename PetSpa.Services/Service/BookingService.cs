@@ -1,18 +1,15 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+=======
+﻿using Microsoft.AspNetCore.Http;using Microsoft.EntityFrameworkCore;
+>>>>>>> 21b54fd7bff749623e35e03d2ff56e3111f9c7e4
 using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
-using PetSpa.Core.Utils;
 using PetSpa.ModelViews.BookingModelViews;
-using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.ModelViews.ServiceModelViews;
-using System.Collections.Generic;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using System.Text.Json;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using PetSpa.Repositories.UOW;

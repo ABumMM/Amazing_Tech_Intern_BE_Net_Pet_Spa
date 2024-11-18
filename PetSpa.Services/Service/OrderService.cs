@@ -6,6 +6,7 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.Core.Infrastructure;
+using PetSpa.Core.Utils;
 using PetSpa.ModelViews.OrderModelViews;
 namespace PetSpa.Services.Service
 {
@@ -39,6 +40,7 @@ namespace PetSpa.Services.Service
                 .Take(pageSize)
                 .ToListAsync();
             return new BasePaginatedList<GetOrderViewModel>(_mapper.Map<List<GetOrderViewModel>>(paginatedOrders), await orders.CountAsync(), pageNumber, pageSize);
+
         }
 
 
@@ -57,10 +59,22 @@ namespace PetSpa.Services.Service
 
         public async Task Add(PostOrderViewModel order)
         {
+<<<<<<< HEAD
 
             if (string.IsNullOrWhiteSpace(order.PaymentMethod))
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "PaymentMethod is required.");
 
+=======
+            //if (order.OrderDetailId == null || !order.OrderDetailId.Any())
+            //throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.Validated, "OrderDetailId is required.");
+
+            //var orderDetails = await _unitOfWork.GetRepository<OrdersDetails>()
+            //.Entities
+            //.Where(od => order.OrderDetailId.Contains(od.Id))
+            //.ToListAsync();
+
+            //decimal totalAmount = orderDetails.Sum(detail => detail.Price);
+>>>>>>> 21b54fd7bff749623e35e03d2ff56e3111f9c7e4
             decimal totalAmount = 0;
             //var membership = await _unitOfWork.GetRepository<MemberShips>()
             //    .Entities.FirstOrDefaultAsync(m => m.UserId == Guid.Parse(order.CustomerID) && !m.DeletedTime.HasValue);
@@ -203,6 +217,27 @@ namespace PetSpa.Services.Service
           
             await _unitOfWork.GetRepository<MemberShips>().UpdateAsync(membership);
             await _unitOfWork.SaveAsync();
+        }
+
+        public async Task<string> HandleVnPayCallback(string orderId, bool isSuccess)
+        {
+            Orders? order = await _unitOfWork.GetRepository<Orders>().GetByIdAsync(orderId);
+            if (order == null)
+            {
+                return "Unsuccessfully";
+            }
+            if (isSuccess)
+            {
+                order.Status = PaymentStatusHelper.SUCCESS.ToString();
+                order.LastUpdatedTime = CoreHelper.SystemTimeNow;
+                await _unitOfWork.SaveAsync();
+                return "Successfully";
+            }
+
+            order.Status = PaymentStatusHelper.FAILED.ToString();
+            await _unitOfWork.SaveAsync();
+
+            return "Failed to purchase";
         }
     }
 }
