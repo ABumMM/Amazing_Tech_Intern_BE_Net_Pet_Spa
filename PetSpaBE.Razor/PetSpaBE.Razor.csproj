@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Pages\Packages\Detail.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="wwwroot\css\" />
   </ItemGroup>
 
@@ -25,18 +21,6 @@
   <ItemGroup>
     <ProjectReference Include="..\PetSpa.Contract.Services\PetSpa.Contract.Services.csproj" />
     <ProjectReference Include="..\PetSpa.Services\PetSpa.Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Packages\Detail.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Packages\Detail.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Packages\Detail.cshtml" />
   </ItemGroup>
 
 </Project>
