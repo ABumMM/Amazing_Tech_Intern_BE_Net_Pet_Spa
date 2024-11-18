@@ -1,0 +1,74 @@
+﻿@page 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PetSpaBE.Razor.Pages.Ranks.AdminRanksModel
+@{
+}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Services <i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-0 bread">Management Services</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <a asp-page="./Create" class="btn btn-primary mb-2" style="margin-left:auto">Thêm sản phẩm mới</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Min Price</th>
+                    <th>Discoutn Percent</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var service in Model.lst_rank.Items)
+                {
+                    <tr>
+                        <td>@service.Id</td>
+                        <td>@service.Name</td>
+                        <td>@service.MinPrice</td>
+                        <td>@service.DiscountPercent</td>
+                        <td>
+                            <a asp-page="./Update" asp-route-id="@service.Id" class="btn btn-warning">Sửa</a>
+
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@service.Id" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+           
+        </table>
+        <div class="block-27 ">
+            <ul class="mx-auto">
+                @for (int i = 1; i <= Model.lst_rank.TotalPages; i++)
+                {
+                    if (Model.lst_rank.CurrentPage == i)
+                    {
+                        <li class="active">
+                            <a href="#">@i</a>
+                            
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="col">
+                            <a asp-page="AdminRanks" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+       
+
+       
+    </div>
+</section>
