@@ -12,7 +12,7 @@ namespace PetSpa.ModelViews.OrderDetailModelViews
         public required string Id { get; set; }
         public int? Quantity { get; set; }
         public string? Status { get; set; }
-        public decimal Price { get; set; } = 0; 
+        public decimal Price { get; set; } = 0;
         public required string OrderID { get; set; }
         public string? CreatedBy { get; set; }
         public DateTimeOffset CreatedTime { get; set; }
@@ -20,7 +20,5 @@ namespace PetSpa.ModelViews.OrderDetailModelViews
         public DateTimeOffset LastUpdatedTime { get; set; }
         public string? DeletedBy { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
-
-
     }
 }

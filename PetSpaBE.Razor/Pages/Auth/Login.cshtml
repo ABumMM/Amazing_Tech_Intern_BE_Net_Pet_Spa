@@ -1,0 +1,49 @@
+﻿@page
+@model PetSpaBE.Razor.Pages.Auth.LoginModel
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin form</title>
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <!-- APP CSS -->
+    <link rel="stylesheet" href="~/css/css/flogin.css" asp-append-version="true">
+</head>
+    
+<body style="background-image: Url('/images/background.jpg');">
+    <div class="form" id="signin-form">
+        <a href="#" class="form-logo">
+            <img src="/images/logopetspa.jpg" alt="PetSpa logo">
+        </a>
+        <form method="post">
+            <div class="form-group">
+                <input asp-for="Email" type="email" class="form-input" placeholder="Email" id="signin-email">
+                <span class="form-input-icon err"><i class='bx bx-error-circle'></i></span>
+                <span class="form-input-icon success"><i class='bx bx-check-circle'></i></span>
+                <span class="form-input-err-msg" data-err-for="signin-email"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Password" type="password" class="form-input" placeholder="Password" id="signin-password">
+                <span class="form-input-icon err"><i class='bx bx-error-circle'></i></span>
+                <span class="form-input-icon success"><i class='bx bx-check-circle'></i></span>
+                <span class="form-input-err-msg" data-err-for="signin-password"></span>
+            </div>
+            <div class="form-group form-group-checkbox">
+                <input type="checkbox" name="remember" id="remember" checked="checked">
+                <label for="remember">Remember Me <i class='bx bx-check'></i></label>
+            </div>
+            <button type="submit" class="form-btn" id="signin-btn">Sign in</button>
+        </form>
+        <span class="form-txt">Don't have an account? <a href="#">Sign up!</a></span>
+        <span class="form-txt"><a href="#">Forgot password?</a></span>
+    </div>
+    <script src="~/js/flogin.js" asp-append-version="true"></script>
+</body>

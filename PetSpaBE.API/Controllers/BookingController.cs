@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.BookingModelViews;
-using PetSpa.ModelViews.ModelViews;
-using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.Services.Service;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace PetSpaBE.API.Controllers
@@ -15,6 +10,7 @@ namespace PetSpaBE.API.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BookingController : ControllerBase
     {
         private readonly IBookingServicecs _bookingService;
@@ -23,14 +19,11 @@ namespace PetSpaBE.API.Controllers
         {
             _bookingService = bookingService;
         }
-
-
         [HttpGet]
         [SwaggerOperation(
             Summary = "Authorization: Admin",
             Description = "GetAll Booking"
             )]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllBookings(int pageNumber, int pageSize)
         {
             var bookings = await _bookingService.GetAll(pageNumber, pageSize);
@@ -38,9 +31,7 @@ namespace PetSpaBE.API.Controllers
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: bookings));
-
         }
-
         [HttpGet("ByUserId")]
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
@@ -69,11 +60,10 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Add Booking successful"));
         }
-
         [HttpGet("{id}")]
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
-            Description = "Post Booking )"
+            Description = "GetBookingById )"
             )]
         public async Task<IActionResult> GetBookingById(string id)
         {
@@ -85,7 +75,7 @@ namespace PetSpaBE.API.Controllers
         }
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
-            Description = "Post Booking )"
+            Description = "Update Booking )"
             )]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBooking(string id, [FromBody] POSTBookingVM bookingVM)
@@ -99,7 +89,7 @@ namespace PetSpaBE.API.Controllers
         [HttpPut("{id}/cancel")]
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
-            Description = "Post Booking )"
+            Description = "Cancel Booking )"
             )]
         public async Task<IActionResult> CancelBooking(string id)
         {

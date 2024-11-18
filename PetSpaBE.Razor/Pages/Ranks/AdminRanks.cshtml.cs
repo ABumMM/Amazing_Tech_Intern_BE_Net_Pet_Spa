@@ -25,7 +25,6 @@ namespace PetSpaBE.Razor.Pages.Ranks
                 pageNumber = 1;
             }
             const int size = 6;
-            
             lst_rank = await _rankService.GetAll(pageNumber,size);
         }
         public async Task<IActionResult> OnPostDeleteAsync(string id)
