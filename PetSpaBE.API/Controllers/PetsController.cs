@@ -71,16 +71,7 @@ namespace PetSpaBE.API.Controllers
             Description = "Add service to Package (packageID, serviceID)"
             )]
         [Authorize(Roles = "Admin")]
-        //public async Task<IActionResult> GetPetsById(string Id)
-        //{
-        //    var pet = await _petService.GetById(Id);
-        //    return Ok(new BaseResponseModel<GETPetsModelView>(
-        //        statusCode: StatusCodes.Status200OK,
-        //        code: ResponseCodeConstants.SUCCESS,
-        //        data: pet));
-        //}
-
-        //[HttpPut("{id}")]
+        
         public async Task<IActionResult> UpdatePets([FromBody] PUTPetsModelView pet)
         {
             await _petService.Update(pet);
