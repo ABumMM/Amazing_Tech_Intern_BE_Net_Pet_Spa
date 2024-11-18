@@ -1,38 +1,35 @@
 ﻿@page
 @model PetSpaBE.Razor.Pages.Booking.CreateModel
-
 @{
-    ViewData["Title"] = "Tạo Booking Mới";
-    <h2>Tạo Booking Mới</h2>
-    <form method="post">
-
-        <div class="form-group">
-            <label for="Description">Mô tả</label>
-            <input type="text" class="form-control" id="Description" name="Description" required />
-        </div>
-        <div class="form-group">
-            <label for="Status">Trạng thái</label>
-            <input type="text" class="form-control" id="Status" name="Status" required />
-        </div>
-
-        <!-- Ngày đặt -->
-        <div class="form-group">
-            <label for="Date">Ngày đặt</label>
-            <input type="date" class="form-control" id="Date" name="Date" required />
-        </div>
-
-        <!-- Nhân viên -->
-        <div class="form-group">
-            <label for="ApplicationUserId">Nhân viên</label>
-            <select class="form-control" id="ApplicationUserId" name="ApplicationUserId" required>
-                <option value="Pending">Nhân viên 01</option>
-                <option value="Confirmed">Nhân viên 02</option>
-                <option value="Cancelled">Nhân viên 03</option>
-            </select>
-        </div>
-
-        <!-- Nút submit -->
-        <button type="submit" class="btn btn-primary">Tạo Booking</button>
-    </form>
 }
- 
+<form method="post" style="max-width: 500px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="Description" style="display: block; margin-bottom: 5px;">Mô tả</label>
+        <input type="text" class="form-control" id="Description" name="Description" value="@Model.BookingVM.Description" required />
+    </div>
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="Status" style="display: block; margin-bottom: 5px;">Trạng thái</label>
+        <input type="text" class="form-control" id="Status" name="Status" value="@Model.BookingVM.Status" required />
+    </div>
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="Date" style="display: block; margin-bottom: 5px;">Ngày đặt</label>
+        <input type="date" class="form-control" id="Date" name="Date" value="@Model.BookingVM.Date" required />
+    </div>
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="employeeSelect">Chọn nhân viên</label>
+        <select id="employeeSelect" class="form-control" asp-for="SelectedEmployeeId">
+            <option value="">-- Chọn nhân viên --</option>
+            @foreach (var employee in Model.Employees)
+            {
+                <option value="@employee.Id">@employee.FullName</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Booking Package</button>
+</form>
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger mt-3">
+        <strong>Error:</strong> @Model.ErrorMessage
+    </div>
+}

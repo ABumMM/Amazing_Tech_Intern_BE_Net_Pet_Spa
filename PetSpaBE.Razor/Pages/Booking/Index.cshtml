@@ -21,9 +21,10 @@
         @TempData["Error"]
     </div>
 }
-
+<a href="/booking/create" class="btn btn-primary">Tạo Booking</a>
 @if (Model.Booking != null)
 {
+    
     <!-- Nếu có booking tìm thấy, hiển thị booking đó -->
     <table class="table">
         <thead>
@@ -35,6 +36,7 @@
                 <th>Book nhân viên</th>
                 <th>Người tạo</th>
                 <th>Ngày cập nhật</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +48,16 @@
                 <td>@Model.Booking.ApplicationUserId</td>
                 <td>@Model.Booking.CreatedBy</td>
                 <td>@Model.Booking.LastUpdatedTime</td>
+                <td>
+                    <form method="post" asp-page-handler="Cancel" asp-route-id="@Model.Booking.Id">
+                        <button type="submit" class="btn btn-danger">Sửa</button>
+                    </form>
+                    <form method="post" asp-page-handler="Cancel" asp-route-id="@Model.Booking.Id" onsubmit="return confirm('Bạn có chắc muốn hủy booking này không?');">
+                        <button type="submit" class="btn btn-danger">Hủy</button>
+                    </form>
+                    @* <a href="@Url.Page("Update", new { id = Model.Booking.Id })">Sửa</a>
+                <a href="@Url.Page("Cancel", new { id = Model.Booking.Id })">Hủy</a> *@
+                </td>
             </tr>
         </tbody>
     </table>
@@ -63,6 +75,7 @@ else
                 <th>Book nhân viên</th>
                 <th>Người tạo</th>
                 <th>Ngày cập nhật</th>
+                <th>Hành động</th>
             </tr>
         </thead>
         <tbody>
@@ -76,6 +89,14 @@ else
                     <td>@booking.ApplicationUserId</td>
                     <td>@booking.CreatedBy</td>
                     <td>@booking.LastUpdatedTime</td>
+                    <td>
+                        <a href="@Url.Page("Update", new { id = booking.Id })" class="btn btn-primary">Sửa</a>
+                        <form method="post" asp-page-handler="Cancel" asp-route-id="@booking.Id" onsubmit="return confirm('Bạn có chắc muốn hủy booking này không?');">
+                            <button type="submit" class="btn btn-danger">Hủy</button>
+                        </form>
+                        @* <a href="@Url.Page("Update", new { id = Model.Booking.Id })">Sửa</a>
+                        <a href="@Url.Page("Cancel", new { id = Model.Booking.Id })">Hủy</a> *@
+                    </td>
                 </tr>
             }
         </tbody>

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
@@ -46,7 +46,7 @@ namespace PetSpaBE.Razor.Pages.BookingPackage
             {
                 if (BookingPackageVM == null)
                 {
-                    throw new InvalidOperationException("BookingPackageVM kh�ng th? null.");
+                    throw new InvalidOperationException("BookingPackageVM không thể null.");
                 }
                 await _bookingPackageService.Add(BookingPackageVM);
                 return RedirectToPage("/BookingPackage/Index");

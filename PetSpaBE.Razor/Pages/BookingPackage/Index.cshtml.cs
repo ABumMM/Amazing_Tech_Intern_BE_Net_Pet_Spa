@@ -17,9 +17,11 @@ namespace PetSpaBE.Razor.Pages.BookingPackage
         {
             _bookingPackageService = bookingPackageService;
         }
-        public string SearchTerm { get; set; }
+        
         public BasePaginatedList<GETBooking_PackageVM> BookingPackages { get; set; }
+       // public List<GETBooking_PackageVM> BookingPKs { get; set; } = new List<GETBooking_PackageVM>();
         public GETBooking_PackageVM BookingPackage { get; set; }
+        public string SearchTerm { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
 
@@ -29,7 +31,15 @@ namespace PetSpaBE.Razor.Pages.BookingPackage
             {
                 if (!string.IsNullOrEmpty(SearchTerm))
                 {
-                    await SearchBookingPackageById(SearchTerm);
+                    var booking = await _bookingPackageService.GetById(SearchTerm);
+                    if (booking != null)
+                    {
+                        BookingPackage = booking;
+                    }
+                    else
+                    {
+                        TempData["Error"] = "Không tìm thấy booking với ID này.";
+                    }
                 }
                 else
                 {
@@ -43,22 +53,6 @@ namespace PetSpaBE.Razor.Pages.BookingPackage
             catch (Exception)
             {
                 TempData["Error"] = "Đã có lỗi xảy ra. Vui lòng thử lại sau.";
-            }
-        }
-        private async Task SearchBookingPackageById(string searchTerm)
-        {
-            searchTerm = "7c373b798b024afa84ca507a7f469418"; // Hardcoded for testing
-            
-            BookingPackage = await _bookingPackageService.GetById(searchTerm);
-            if (BookingPackage != null)
-            {
-                // Nếu tìm thấy BookingPackage với ID cụ thể, chỉ hiển thị một kết quả.
-                BookingPackages = new BasePaginatedList<GETBooking_PackageVM>(new List<GETBooking_PackageVM> { BookingPackage }, 1, 1, 1);
-            }
-            else
-            {
-                TempData["Error"] = "Không tìm thấy BookingPackage với ID này.";
-                BookingPackages = null; // Không hiển thị danh sách nếu không tìm thấy.
             }
         }
         public async Task<IActionResult> OnGetDetailsAsync(string id)

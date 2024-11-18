@@ -8,8 +8,98 @@
 @{
     ViewData["Title"] = "Booking Packages";
 }
+<form method="get" class="search-form">
+    <div class="input-group mb-3">
+        <input type="text" name="SearchTerm" placeholder="Tìm kiếm BookingPackage theo BookingId..." value="@Model.SearchTerm" class="form-control" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+        </div>
+    </div>
+</form>
+@* @if (Model.BookingPackage != null)
+{
+    <!-- Nếu có booking tìm thấy, hiển thị booking đó -->
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Packages</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var bookingPackage in Model.BookingPackages.Items)
+                {
+                    <tr>
+                        <td>@bookingPackage.BookingId</td>
+                        <td>@bookingPackage.Description</td>
+                        <td>@bookingPackage.Date?.ToString("dd/MM/yyyy")</td>
+                        <td>@bookingPackage.Status</td>
+                        <td>
+                            @foreach (var package in bookingPackage.Packages)
+                            {
+                                <span>@package.Name (Qty: @package.Quantity, Price: @package.Price)</span>
 
-<h1>Booking Packages</h1>
+                                <br />
+                            }
+                        </td>
+                        <td>
+                            <a href="@Url.Page("BookingPackageDetails", new { id = bookingPackage.BookingId })">View Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+else
+{
+    <div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Packages</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bookingPackage in Model.BookingPackages.Items)
+            {
+                <tr>
+                    <td>@bookingPackage.BookingId</td>
+                    <td>@bookingPackage.Description</td>
+                    <td>@bookingPackage.Date?.ToString("dd/MM/yyyy")</td>
+                    <td>@bookingPackage.Status</td>
+                    <td>
+                        @foreach (var package in bookingPackage.Packages)
+                        {
+                            <span>@package.Name (Qty: @package.Quantity, Price: @package.Price)</span>
+
+                            <br />
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Page("BookingPackageDetails", new { id = bookingPackage.BookingId })">View Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div> *@
+
+<!-- Phân trang -->
+
+}
+ <h1>Booking Packages</h1>
 <form method="get" class="search-form">
     <div class="input-group mb-3">
         <input type="text" name="SearchTerm" placeholder="Tìm kiếm BookingPackage theo BookingId..." value="@Model.SearchTerm" class="form-control" />
@@ -67,4 +157,3 @@
     </ul>
     <p>Total items: @Model.BookingPackages.Items.Count()</p>
 </div> 
-

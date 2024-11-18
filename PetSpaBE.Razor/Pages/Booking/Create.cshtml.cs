@@ -1,78 +1,99 @@
-﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.ModelViews.BookingModelViews;
+using PetSpa.ModelViews.BookingPackageModelViews;
 using PetSpa.ModelViews.UserModelViews;
 using PetSpa.Services.Service;
-using System.Security.Claims;
+using PetSpa.Contract.Repositories.Entity;
 
 namespace PetSpaBE.Razor.Pages.Booking
 {
-    [Authorize]
     public class CreateModel : PageModel
     {
-        private readonly IBookingServicecs _bookingService;
-        private readonly IUserService _userService;
+        public readonly IBookingServicecs _bookingService;
+        public readonly IUserService _userService;
         [BindProperty]
-        public POSTBookingVM Booking { get; set; } 
-
-        // Danh sách nhân viên để hiển thị trong ComboBox
-        public List<GETUserModelView> Employees { get; set; } = new List<GETUserModelView>();
-
+        public List<GETUserModelView> Employees { get; set; }
+        [BindProperty]
+        public POSTBookingVM BookingVM { get; set; }
+        [BindProperty]
+        public string SelectedEmployeeId { get; set; }
+        public string ErrorMessage { get; set; }
         public CreateModel(IBookingServicecs bookingService, IUserService userService)
         {
             _bookingService = bookingService;
             _userService = userService;
         }
+        public async Task<IActionResult> OnGetAsync()
+        {
+            if (BookingVM == null)
+            {
+                BookingVM = new POSTBookingVM
+                {
+                    Description = string.Empty,
+                    Date = DateTime.Now,
+                    ApplicationUserId = string.Empty,
 
-        //public async Task<IActionResult> OnGetAsync()
-        //{
-        //    // Gọi phương thức GetEmployees để lấy danh sách nhân viên
-        //    var employeeList = await _userService.GetEmployees(1, 100); // Lấy 100 nhân viên đầu tiên (có thể thay đổi)
-        //    Employees = employeeList.Items.ToList();
+                    Status = string.Empty
 
-        //    // Đảm bảo ApplicationUserId có giá trị mặc định để tránh lỗi required
-        //    if (!Employees.Any())
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Không có nhân viên nào được tìm thấy.");
-        //        return Page();
-        //    }
+                };
+            }
+            var result = await _userService.GetEmployees(1, 100);
+            Employees = result.Items.ToList();
 
-        //    // Gán ApplicationUserId mặc định từ danh sách nhân viên nếu có
-        //    Booking.ApplicationUserId = Employees.First().Id;
+            return Page();
+        }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
-        //    return Page();
-        //}
+            //if (string.IsNullOrEmpty(SelectedEmployeeId) || !Guid.TryParse(SelectedEmployeeId, out var employeeId))
+            //{
+            //    ErrorMessage = "Vui l�ng ch?n nh�n vi�n h?p l?.";
+            //    return Page();
+            //}
 
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    if (string.IsNullOrEmpty(currentUserId))
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Không tìm thấy thông tin người dùng đăng nhập.");
-        //        return Page();
-        //    }
+            //var bookingVM = new POSTBookingVM
+            //{
+            //    Description = BookingVM.Description,
+            //    Status = BookingVM.Status,
+            //    Date = BookingVM.Date,
+            //    ApplicationUserId = SelectedEmployeeId
+            //};
 
-        //    // Gán User ID của người tạo vào thuộc tính CreatedBy
-        //    Booking.CreatedBy = currentUserId;
+            //try
+            //{
+            //    await _bookingService.Add(bookingVM);
+            //}
+            //catch (Exception ex)
+            //{
+            //    ErrorMessage = $"L?i khi t?o booking: {ex.Message}";
+            //    return Page();
+            //}
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Page();
-        //    }
+            //return RedirectToPage("Index");
+            
 
-        //    try
-        //    {
-        //        // Gửi thông tin booking đến service để thêm mới
-        //        await _bookingService.Add(Booking);
-        //        return RedirectToPage("/Booking/Index");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, $"Có lỗi xảy ra: {ex.Message}");
-        //        return Page();
-        //    }
-        //}
+            try
+            {
+                if (BookingVM == null)
+                {
+                    throw new InvalidOperationException("Booking kh�ng th? null.");
+                }
+                await _bookingService.Add(BookingVM);
+                return RedirectToPage("/Booking/Index");
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+                //return Page();
+            }
+            return Page();
+        }
+    
     }
 }

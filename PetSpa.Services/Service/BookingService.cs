@@ -50,7 +50,8 @@ namespace PetSpa.Services.Service
 
             //mapping
             var booking = _mapper.Map<Bookings>(bookingVM);
-            booking.CreatedBy = currentUserId;
+            //booking.CreatedBy = currentUserId;
+            booking.CreatedBy = "133C8835-5C20-4350-36DF-08DCF00C9F1D";
             if (bookingVM.Date < DateTimeOffset.Now)
             {
                 throw new ErrorException(
@@ -235,7 +236,8 @@ namespace PetSpa.Services.Service
                 );
             }
             _mapper.Map(bookingVM, existingBooking);
-            existingBooking.LastUpdatedBy = currentUserId;
+            //existingBooking.LastUpdatedBy = currentUserId;
+            existingBooking.LastUpdatedBy = "133C8835-5C20-4350-36DF-08DCF00C9F1D";
             existingBooking.LastUpdatedTime = DateTime.Now;
             await _unitOfWork.GetRepository<Bookings>().UpdateAsync(existingBooking);
             await _unitOfWork.SaveAsync();
@@ -257,8 +259,9 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Không thể hủy trogn 24h trước cuộc hẹn!");
             }
 
-            booking.Status = "Đã hủy"; 
-            booking.LastUpdatedBy = currentUserId;
+            booking.Status = "Đã hủy";
+            //booking.LastUpdatedBy = currentUserId;
+            booking.LastUpdatedBy = "133C8835-5C20-4350-36DF-08DCF00C9F1D";
             booking.LastUpdatedTime = DateTime.Now;
             _unitOfWork.GetRepository<Bookings>().Update(booking);
             await _unitOfWork.SaveAsync();
