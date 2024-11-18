@@ -1,0 +1,36 @@
+﻿
+@page "{id}"
+@model PetSpaBE.Razor.Pages.BookingPackage.BookingPackageDetailsModel
+
+@{
+    ViewData["Title"] = "Booking Package Details";
+}
+
+<h1>Booking Package Details</h1>
+
+@if (Model.BookingPackage != null)
+{
+    <div>
+        <h3>Booking Information</h3>
+        <p><strong>Booking ID:</strong> @Model.BookingPackage.BookingId</p>
+        <p><strong>Description:</strong> @Model.BookingPackage.Description</p>
+        <p><strong>Date:</strong> @Model.BookingPackage.Date?.ToString("dd/MM/yyyy")</p>
+        <p><strong>Status:</strong> @Model.BookingPackage.Status</p>
+
+        <h3>Packages</h3>
+        <ul>
+            @foreach (var package in Model.BookingPackage.Packages)
+            {
+                <li>
+                    <strong>@package.Name</strong><br />
+                    <span>Quantity: @package.Quantity</span><br />
+                    <span>Price: @package.Price</span><br />
+                </li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <p>Booking Package not found.</p>
+}

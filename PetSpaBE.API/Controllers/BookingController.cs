@@ -19,8 +19,6 @@ namespace PetSpaBE.API.Controllers
         {
             _bookingService = bookingService;
         }
-
-
         [HttpGet]
         [SwaggerOperation(
             Summary = "Authorization: Admin",
@@ -33,9 +31,7 @@ namespace PetSpaBE.API.Controllers
                 statusCode: StatusCodes.Status200OK,
                 code: ResponseCodeConstants.SUCCESS,
                 data: bookings));
-
         }
-
         [HttpGet("ByUserId")]
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
@@ -64,11 +60,10 @@ namespace PetSpaBE.API.Controllers
                 code: ResponseCodeConstants.SUCCESS,
                 data: "Add Booking successful"));
         }
-
         [HttpGet("{id}")]
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
-            Description = "Post Booking )"
+            Description = "GetBookingById )"
             )]
         public async Task<IActionResult> GetBookingById(string id)
         {
@@ -80,7 +75,7 @@ namespace PetSpaBE.API.Controllers
         }
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
-            Description = "Post Booking )"
+            Description = "Update Booking )"
             )]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBooking(string id, [FromBody] POSTBookingVM bookingVM)
@@ -94,7 +89,7 @@ namespace PetSpaBE.API.Controllers
         [HttpPut("{id}/cancel")]
         [SwaggerOperation(
             Summary = "Authorization: Anyone",
-            Description = "Post Booking )"
+            Description = "Cancel Booking )"
             )]
         public async Task<IActionResult> CancelBooking(string id)
         {
