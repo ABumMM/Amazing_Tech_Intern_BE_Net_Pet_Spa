@@ -34,7 +34,6 @@ namespace PetSpaBE.Razor.Pages.Order
                 OrderVM = new PostOrderViewModel
                 {
                     Name = string.Empty,
-                    PaymentMethod = "Unknown",
                     CustomerID = string.Empty,
                     BookingID = string.Empty,
                     CreatedTime = DateTimeOffset.Now,
