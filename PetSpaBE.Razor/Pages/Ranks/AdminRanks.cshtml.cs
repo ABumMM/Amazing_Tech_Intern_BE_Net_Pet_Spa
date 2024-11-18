@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.ModelViews.AuthModelViews;
 using PetSpa.ModelViews.RankModelViews;
 using PetSpa.Services.Service;
 
@@ -11,10 +12,11 @@ namespace PetSpaBE.Razor.Pages.Ranks
     {
         private readonly IRankService _rankService;
         public BasePaginatedList<GetRankViewModel> lst_rank { get; private set; }
-
-        public AdminRanksModel(IRankService rankSerivce)
+        private readonly IAuthService _authService;
+        public AdminRanksModel(IRankService rankSerivce, IAuthService authService)
         {
             _rankService = rankSerivce;
+            _authService = authService;
         }
         public async Task OnGet( int pageNumber) {
 
@@ -27,6 +29,10 @@ namespace PetSpaBE.Razor.Pages.Ranks
         }
         public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
+            SignInAuthModelView signInAuth = new SignInAuthModelView();
+            signInAuth.Email = "admin@gmail.com";
+            signInAuth.Password = "Admin@123";
+            await _authService.SignInAsync(signInAuth);
             if (string.IsNullOrEmpty(id))
             {
                 return BadRequest("ID không hợp lệ.");

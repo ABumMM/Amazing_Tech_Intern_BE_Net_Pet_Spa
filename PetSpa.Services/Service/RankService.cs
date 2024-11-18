@@ -5,6 +5,7 @@ using PetSpa.Contract.Repositories.Entity;
 using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
+using PetSpa.Core.Infrastructure;
 using PetSpa.ModelViews.RankModelViews;
 
 namespace PetSpa.Services.Service
@@ -13,11 +14,13 @@ namespace PetSpa.Services.Service
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
-        public RankService( IUnitOfWork unitOfWork , IMapper mapper ) {
+		private readonly IHttpContextAccessor _contextAccessor;
+		private string currentUserId => Authentication.GetUserIdFromHttpContextAccessor(_contextAccessor);
+		public RankService( IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor, IMapper mapper) {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
-        }
+			_contextAccessor = contextAccessor;
+		}
 
         public async Task Add(PostRankViewModel rank)
         {
@@ -49,6 +52,7 @@ namespace PetSpa.Services.Service
                 throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Service min points already exists");
             }
             var newRank = _mapper.Map<Rank>(rank);
+            newRank.CreatedBy = currentUserId;
             await _unitOfWork.GetRepository<Rank>().InsertAsync(newRank);
             await _unitOfWork.SaveAsync();
         }
@@ -67,6 +71,7 @@ namespace PetSpa.Services.Service
             }
             // service.DeletedBy = currentUserId;
             rank.DeletedTime = DateTime.UtcNow;
+            rank.DeletedBy = currentUserId;
             await _unitOfWork.SaveAsync();
         }
 
@@ -117,8 +122,8 @@ namespace PetSpa.Services.Service
             }
 
             _mapper.Map(UpdateRank, rank);
-            //service.LastUpdatedBy = currentUserId;
-
+            rank.LastUpdatedBy = currentUserId;
+            rank.LastUpdatedTime = DateTime.UtcNow;
             await genericRepository.UpdateAsync(rank);
             await genericRepository.SaveAsync();
         }
