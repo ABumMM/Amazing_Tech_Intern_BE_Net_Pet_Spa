@@ -6,6 +6,7 @@ using PetSpa.ModelViews.BookingPackageModelViews;
 using PetSpa.ModelViews.UserModelViews;
 using PetSpa.Services.Service;
 using PetSpa.Contract.Repositories.Entity;
+using PetSpa.ModelViews.AuthModelViews;
 
 namespace PetSpaBE.Razor.Pages.Booking
 {
@@ -13,17 +14,20 @@ namespace PetSpaBE.Razor.Pages.Booking
     {
         public readonly IBookingServicecs _bookingService;
         public readonly IUserService _userService;
+        public readonly IAuthService _authService;
         [BindProperty]
         public List<GETUserModelView> Employees { get; set; }
         [BindProperty]
         public POSTBookingVM BookingVM { get; set; }
+
         [BindProperty]
         public string SelectedEmployeeId { get; set; }
         public string ErrorMessage { get; set; }
-        public CreateModel(IBookingServicecs bookingService, IUserService userService)
+        public CreateModel(IBookingServicecs bookingService, IUserService userService, IAuthService authService)
         {
             _bookingService = bookingService;
             _userService = userService;
+            _authService = authService;
         }
         public async Task<IActionResult> OnGetAsync()
         {
@@ -46,40 +50,12 @@ namespace PetSpaBE.Razor.Pages.Booking
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
-
-            //if (string.IsNullOrEmpty(SelectedEmployeeId) || !Guid.TryParse(SelectedEmployeeId, out var employeeId))
-            //{
-            //    ErrorMessage = "Vui lòng ch?n nhân viên h?p l?.";
-            //    return Page();
-            //}
-
-            //var bookingVM = new POSTBookingVM
-            //{
-            //    Description = BookingVM.Description,
-            //    Status = BookingVM.Status,
-            //    Date = BookingVM.Date,
-            //    ApplicationUserId = SelectedEmployeeId
-            //};
-
-            //try
-            //{
-            //    await _bookingService.Add(bookingVM);
-            //}
-            //catch (Exception ex)
-            //{
-            //    ErrorMessage = $"L?i khi t?o booking: {ex.Message}";
-            //    return Page();
-            //}
-
-            //return RedirectToPage("Index");
-            
-
             try
             {
+                SignInAuthModelView signInAuth = new SignInAuthModelView();
+                signInAuth.Email = "nv2@gmailc.om";
+                signInAuth.Password = "Nguyenvantai2003";
+                await _authService.SignInAsync(signInAuth);
                 if (BookingVM == null)
                 {
                     throw new InvalidOperationException("Booking không th? null.");
