@@ -34,4 +34,8 @@
     <ProjectReference Include="..\PetSpa.Services\PetSpa.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Payment\" />
+  </ItemGroup>
+
 </Project>

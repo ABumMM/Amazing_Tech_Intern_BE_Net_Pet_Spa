@@ -5,13 +5,9 @@ using PetSpa.Core.Base;
 using PetSpa.ModelViews.PetsModelViews;
 using Microsoft.EntityFrameworkCore;
 using PetSpa.Contract.Services.Interface;
-using Microsoft.Extensions.Logging;
 using AutoMapper;
-using PetSpa.Services.Mapper;
-using PetSpa.Repositories.UOW;
-using Microsoft.AspNetCore.Identity;
-using PetSpa.ModelViews.UserModelViews;
-using PetSpa.ModelViews.PackageModelViews;
+using PetSpa.Core.Utils;
+using PetSpa.Core.Infrastructure;
 
 namespace PetSpa.Services.Service
 {
@@ -25,6 +21,30 @@ namespace PetSpa.Services.Service
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+        }
+
+        private Guid CurrentUserId()
+        {
+            var userIdString = Authentication.GetUserIdFromHttpContextAccessor(_httpContextAccessor);
+
+            if (string.IsNullOrWhiteSpace(userIdString))
+            {
+                throw new UnauthorizedAccessException("User ID is not available in the current context.");
+            }
+
+            return Guid.Parse(userIdString);
+        }
+
+        private string CurrentUserRole()
+        {
+            var httpContext = _httpContextAccessor.HttpContext;
+
+            if (httpContext == null)
+            {
+                throw new UnauthorizedAccessException("HttpContext is not available.");
+            }
+
+            return Authentication.GetUserRoleFromHttpContext(httpContext);
         }
 
         public async Task Add(POSTPetsModelView petMV)
@@ -82,10 +102,9 @@ namespace PetSpa.Services.Service
                 throw new KeyNotFoundException("Thú cưng không tìm thấy.");
             }
 
-
-            // Xóa mềm: cập nhật thời gian xóa và người xóa
-            existedPet.DeletedTime = DateTime.UtcNow;
-            existedPet.DeletedBy = _httpContextAccessor.HttpContext?.User.Identity?.Name;
+            var currentUserRole = CurrentUserRole();
+            existedPet.DeletedTime = TimeHelper.ConvertToUtcPlus7(DateTime.Now);
+            existedPet.DeletedBy = currentUserRole;
 
             await petRepository.UpdateAsync(existedPet);
             await _unitOfWork.SaveAsync();

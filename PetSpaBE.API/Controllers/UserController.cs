@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
-using PetSpa.ModelViews.PackageModelViews;
-using PetSpa.ModelViews.RoleModelViews;
 using PetSpa.ModelViews.UserModelViews;
-using PetSpa.Services.Service;
 
 namespace PetSpaBE.API.Controllers
 {
@@ -19,8 +15,9 @@ namespace PetSpaBE.API.Controllers
         {
             _userService = userService;
         }
-        //[Authorize(Roles ="Admin")]
+        
         [HttpGet]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> GetAllUsers(int pageNumber, int pageSize)
         {
             var users = await _userService.GetAll(pageNumber, pageSize);
@@ -31,6 +28,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> GetUserById(Guid id)
         {
             var user = await _userService.GetById(id);
@@ -42,6 +40,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet("customers")]
+        [Authorize]
         public async Task<IActionResult> GetCustomers(int pageNumber, int pageSize)
         {
             var customers = await _userService.GetCustomers(pageNumber, pageSize);
@@ -52,6 +51,7 @@ namespace PetSpaBE.API.Controllers
         }
 
         [HttpGet("employees")]
+        [Authorize(Roles = "Admin, Customer")]
         public async Task<IActionResult> GetEmployees(int pageNumber, int pageSize)
         {
             var employees = await _userService.GetEmployees(pageNumber, pageSize);
@@ -63,6 +63,7 @@ namespace PetSpaBE.API.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, Employee")]
         public async Task<IActionResult> UpdateUser([FromBody] PUTUserModelView user)
         {
             await _userService.Update(user);
@@ -72,7 +73,19 @@ namespace PetSpaBE.API.Controllers
                 data: "Update user successful"));
         }
 
+        [HttpPut("updatecustomer")]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> UpdateUserforcustomer([FromBody] PUTuserforcustomer customer)
+        {
+            await _userService.UpdateForCustomer(customer);
+            return Ok(new BaseResponseModel<string>(
+                statusCode: StatusCodes.Status200OK,
+                code: ResponseCodeConstants.SUCCESS,
+                data: "Update user successful"));
+        }
+
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(Guid Id)
         {
             await _userService.Delete(Id);

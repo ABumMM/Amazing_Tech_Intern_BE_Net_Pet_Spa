@@ -1,12 +1,4 @@
 ﻿using PetSpa.Core.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace PetSpa.Contract.Repositories.Entity
 {
@@ -15,7 +7,7 @@ namespace PetSpa.Contract.Repositories.Entity
         public string? Description { get; set; }
         public DateTime Date { get; set; }
         public string? Status { get; set; }
-        public Guid? ApplicationUserId { get; set; }
+        public required Guid ApplicationUserId { get; set; }
         public virtual ApplicationUser? ApplicationUser { get; set; }
         public ICollection<BookingPackage> BookingPackages { get; set; } = new HashSet<BookingPackage>();
     }

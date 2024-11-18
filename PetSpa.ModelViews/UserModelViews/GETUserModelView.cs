@@ -6,11 +6,9 @@ namespace PetSpa.ModelViews.UserModelViews
     public class GETUserModelView
     {
         public Guid Id { get; set; }
-        public required string Email { get; set; }
-        public required string FullName { get; set; }
-        public required string RoleName { get; set; }
-
-        public List<GETPetsModelView>? Pets { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public GETUserInfoModelView? UserInfo { get; set; }
+        public string RoleName { get; set; } = string.Empty;
 
         public string? CreatedBy { get; set; }
         public string? LastUpdatedBy { get; set; }
@@ -18,5 +16,7 @@ namespace PetSpa.ModelViews.UserModelViews
         public DateTimeOffset CreatedTime { get; set; }
         public DateTimeOffset LastUpdatedTime { get; set; }
         public DateTimeOffset? DeletedTime { get; set; }
+
+        public List<GETPetsModelView> Pets { get; set; } = new List<GETPetsModelView>();
     }
 }

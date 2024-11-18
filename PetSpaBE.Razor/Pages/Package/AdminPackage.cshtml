@@ -1,0 +1,84 @@
+﻿@page 
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PetSpaBE.Razor.Pages.Package.AdminPackageModel
+@{
+}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Packages <i class="ion-ios-arrow-forward"></i></span></p>
+                <h1 class="mb-0 bread">Management Packages</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <a asp-page="./Create" class="btn btn-primary mb-2" style="margin-left:auto">Thêm gói mới</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Information</th>
+                    <th>Experiences</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var package in Model.lst_package.Items)
+                {
+                    <tr>
+                        <td>@package.Id</td>
+                        <td>@package.Name</td>
+                        <td>@package.Price.ToString("N0", System.Globalization.CultureInfo.GetCultureInfo("vi-VN"))<sup>đ</sup></td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(package.Image))
+                            {
+                                <img src="~/images/@package.Image" alt="@package.Name" class="img-thumbnail" width="100" />
+                            }
+                            else
+                            {
+                                <span>No Image</span>
+                            }
+                        </td>
+                        <td>@package.Information</td>
+                        <td>@package.Experiences</td>
+                        <td>
+                            <a asp-page="./Update" asp-route-id="@package.Id" class="btn btn-warning">Sửa</a>
+
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@package.Id" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="block-27">
+            <ul class="mx-auto">
+                @for (int i = 1; i <= Model.lst_package.TotalPages; i++)
+                {
+                    if (Model.lst_package.CurrentPage == i)
+                    {
+                        <li class="active">
+                            <a href="#">@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="col">
+                            <a asp-page="AdminPackage" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+

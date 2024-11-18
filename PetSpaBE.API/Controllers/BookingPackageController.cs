@@ -11,6 +11,7 @@ namespace PetSpaBE.API.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class BookingPackageController : ControllerBase
     {
         private readonly IBookingPackage_Service _bookingPackageService;
@@ -23,7 +24,7 @@ namespace PetSpaBE.API.Controllers
             Summary = "Authorization: Admin",
             Description = "GetAll Booking"
             )]
-        [Authorize(Roles = "Admin")]
+        
         public async Task<IActionResult> GetAllBookingPKs(int pageNumber, int pageSize)
         {  
             var bookingPKs = await _bookingPackageService.GetAll(pageNumber, pageSize);
