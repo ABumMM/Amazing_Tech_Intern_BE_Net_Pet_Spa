@@ -4,7 +4,7 @@ namespace PetSpa.ModelViews.PackageModelViews
 {
     public class GETPackageModelView_OrderDetails
     {
-        public string? Id { get; set; }
+        public required string Id { get; set; }
         public string? Name { get; set; }
         public decimal Price { get; set; } = 0;
         public string? Image { get; set; }
