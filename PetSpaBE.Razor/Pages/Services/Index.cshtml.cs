@@ -22,8 +22,7 @@ namespace PetSpaBE.Razor.Pages.Services
 		public async Task OnGet(int page = 1 , int size = 6 ,string type = "Customer")
         {
             lst_Services=  await _serviceService.GetAll(pageNumber:1,pageSize:6);
-            type = type;
-          
+            
         }
     }
 }

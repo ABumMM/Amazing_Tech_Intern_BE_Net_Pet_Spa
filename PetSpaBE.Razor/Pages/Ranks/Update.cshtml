@@ -1,23 +1,22 @@
-﻿@page "{id}"
-@model PetSpaBE.Razor.Pages.Services.UpdateModel
+﻿@page
+@model PetSpaBE.Razor.Pages.Ranks.UpdateModel
 @{
-    ViewData["Title"] = "Update Service";
-};
+}
 <h1>@ViewData["Title"]</h1>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row no-gutters slider-text align-items-end">
-            <div class="col-md-9 ftco-animate pb-5">
-                <p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Contact <i class="ion-ios-arrow-forward"></i></span></p>
-                <h1 class="mb-0 bread">Service</h1>
-            </div>
-        </div>
-    </div>
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end">
+			<div class="col-md-9 ftco-animate pb-5">
+				<p class="breadcrumbs mb-2"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span>Contact <i class="ion-ios-arrow-forward"></i></span></p>
+				<h1 class="mb-0 bread">Service</h1>
+			</div>
+		</div>
+	</div>
 </section>
 <section class="ftco-section bg-light">
 	<div class="container">
-		
+
 		<div class="row justify-content-center">
 			<div class="col-md-12">
 				<div class="wrapper">
@@ -68,24 +67,29 @@
 							<div class="contact-wrap w-100 p-md-5 p-4">
 								<h3 class="mb-4">Contact Us</h3>
 								<form method="POST" id="contactForm" name="contactForm" class="contactForm">
+									<input type="hidden" name="id" value="@Model.rank.Id" />:
 									<div class="row">
 										@* service name *@
 										<div class="col-md-12">
 											<div class="form-group">
-												<label class="label" for="name">Service Name</label>
-												<input type="text" class="form-control" name="name" id="name" value="@Model.Service.Name" required placeholder="Name">
+												<label class="label" for="name">Rank Name</label>
+												<input type="text" class="form-control" name="name" id="name" value="@Model.rank.Name" required placeholder="Name">
 											</div>
 										</div>
 										@* service description *@
 										<div class="col-md-12">
 											<div class="form-group">
-												<label class="label" for="#">Message</label>
-												<textarea for="Description" class="form-control" id="Description" name="Description" cols="30" rows="4" placeholder="Message">@Model.Service.Description</textarea>
+												<label class="label" for="#">Min price</label>
+												<input type="number" class="form-control" name="MinPrice" id="MinPrice" value="@Model.rank.MinPrice"  placeholder="Min Price">
+											</div>
+											<div class="form-group">
+												<label class="label" for="#">Discount percent</label>
+												<input type="number" class="form-control" name="DiscountPercent" id="MinPrice" value="@Model.rank.DiscountPercent" placeholder="Discount Percent">
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="form-group">
-												
+
 												<button type="submit" class="btn btn-primary">Update</button>
 											</div>
 										</div>

@@ -42,7 +42,7 @@ namespace PetSpa.Services
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IOrderDetailServices, OrderDetailService>();
             services.AddScoped<IPetService, PetService>();
-            services.AddScoped<IRankSerivce,RankService>();
+            services.AddScoped<IRankService,RankService>();
 
         }
     }
