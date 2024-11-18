@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241024104214_InitialCreate")]
+    [Migration("20241118103125_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -331,7 +331,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<DateTimeOffset>("AddedDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("PackageId", "BookingId");
@@ -346,7 +346,7 @@ namespace PetSpa.Repositories.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("ApplicationUserId")
+                    b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CreatedBy")
@@ -1049,7 +1049,9 @@ namespace PetSpa.Repositories.Migrations
                 {
                     b.HasOne("PetSpa.Contract.Repositories.Entity.ApplicationUser", "ApplicationUser")
                         .WithMany("Bookings")
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("PetSpa.Contract.Repositories.Entity.Orders", null)
                         .WithMany("Bookings")

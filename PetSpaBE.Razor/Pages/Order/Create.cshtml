@@ -1,0 +1,29 @@
+﻿@page
+@model PetSpaBE.Razor.Pages.Order.CreateModel
+
+<form method="post" style="max-width: 500px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="Name" style="display: block; margin-bottom: 5px;">Tên Đơn Hàng</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.OrderVM.Name" required />
+    </div>
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="PaymentMethod" style="display: block; margin-bottom: 5px;">Phương thức thanh toán</label>
+        <input type="text" class="form-control" id="PaymentMethod" name="PaymentMethod" value="@Model.OrderVM.PaymentMethod" required />
+    </div>
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="CreatedTime" style="display: block; margin-bottom: 5px;">Ngày tạo</label>
+        <input type="datetime-local" class="form-control" id="CreatedTime" name="CreatedTime" value="@Model.OrderVM.CreatedTime.ToString("yyyy-MM-ddTHH:mm")" required />
+    </div>
+    <div class="form-group" style="margin-bottom: 15px;">
+        <label for="CreatedBy" style="display: block; margin-bottom: 5px;">Người tạo</label>
+        <input type="text" class="form-control" id="CreatedBy" name="CreatedBy" value="@Model.OrderVM.CreatedBy" />
+    </div>
+    <button type="submit" class="btn btn-primary">Tạo Đơn Hàng</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger mt-3">
+        <strong>Error:</strong> @Model.ErrorMessage
+    </div>
+}

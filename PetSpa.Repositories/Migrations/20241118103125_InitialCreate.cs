@@ -457,7 +457,7 @@ namespace PetSpa.Repositories.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrdersId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastUpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -473,7 +473,8 @@ namespace PetSpa.Repositories.Migrations
                         name: "FK_Bookings_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bookings_Orders_OrdersId",
                         column: x => x.OrdersId,
@@ -520,7 +521,7 @@ namespace PetSpa.Repositories.Migrations
                 {
                     BookingId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PackageId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     AddedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
