@@ -11,9 +11,9 @@ namespace PetSpaBE.API.Controllers
     [ApiController]
     public class RankController : ControllerBase
     {
-        private IRankSerivce _rankService;
+        private IRankService _rankService;
 
-        public RankController(IRankSerivce rankSerivce) {
+        public RankController(IRankService rankSerivce) {
             _rankService = rankSerivce;
         }
         [HttpGet]

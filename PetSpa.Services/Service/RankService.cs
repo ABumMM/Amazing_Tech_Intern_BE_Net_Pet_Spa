@@ -9,7 +9,7 @@ using PetSpa.ModelViews.RankModelViews;
 
 namespace PetSpa.Services.Service
 {
-    public class RankService : IRankSerivce
+    public class RankService : IRankService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -122,5 +122,26 @@ namespace PetSpa.Services.Service
             await genericRepository.UpdateAsync(rank);
             await genericRepository.SaveAsync();
         }
+        public async Task<GetRankViewModel> GetByID(string id) {
+			if (string.IsNullOrEmpty(id))
+			{
+				throw new ErrorException(StatusCodes.Status400BadRequest, ErrorCode.InvalidInput, "Rank id cannot be null or empty.");
+			}
+            else
+            {
+				var existedPets = await _unitOfWork.GetRepository<Rank>()
+					 .Entities
+					 .FirstOrDefaultAsync(p => p.Id == id && !p.DeletedTime.HasValue);
+				if (existedPets == null)
+				{
+					throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "Not found Pet");
+				}
+                else
+                {
+                    return _mapper.Map<GetRankViewModel>(existedPets);
+                } 
+                    
+			}
+		}
     }
 }
