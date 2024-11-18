@@ -5,11 +5,6 @@ using PetSpa.Contract.Repositories.IUOW;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Utils;
 using PetSpa.ModelViews.PaymentModelView;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PetSpa.Services.Service
 {
