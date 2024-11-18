@@ -182,5 +182,15 @@ namespace PetSpa.Services.Service
             return tokenHandler.WriteToken(token);
         }
 
+        public async Task<IList<string>> GetUserRolesAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                throw new ErrorException(StatusCodes.Status404NotFound, ErrorCode.NotFound, "User not found.");
+
+            return await _userManager.GetRolesAsync(user);
+        }
+
+
     }
 }

@@ -12,7 +12,7 @@ using PetSpa.Repositories.Context;
 namespace PetSpa.Repositories.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241021122147_InitialCreate")]
+    [Migration("20241118095309_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

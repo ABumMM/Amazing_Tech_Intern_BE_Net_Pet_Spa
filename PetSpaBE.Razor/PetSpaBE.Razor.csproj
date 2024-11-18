@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Pages\assets\css\flogin.css" />
-    <Content Include="Pages\assets\img\background.jpg" />
-    <Content Include="Pages\assets\img\logopetspa.jpg" />
-    <Content Include="Pages\assets\js\flogin.js" />
     <Content Include="Properties\launchSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\css\flogin.css" />
+    <None Include="wwwroot\images\background.jpg" />
+    <None Include="wwwroot\images\logopetspa.jpg" />
+    <None Include="wwwroot\js\flogin.js" />
   </ItemGroup>
 
   <ItemGroup>
