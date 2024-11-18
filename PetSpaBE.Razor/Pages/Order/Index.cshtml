@@ -14,6 +14,14 @@
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
         </div>
     </div>
+    <div class="input-group ml-3"> <select name="PaymentStatus" class="form-control"> 
+        <option value="">Tất cả</option> 
+        <option value="true">Đã xác nhận</option> 
+        <option value="false">Chưa xác nhận</option> </select> 
+        <div class="input-group-append"> 
+            <button type="submit" class="btn btn-primary">Lọc</button> 
+            </div> 
+        </div>
 </form>
 
 @if (TempData["Error"] != null)
@@ -33,7 +41,6 @@
             <tr>
                 <th>ID</th>
                 <th>Tên</th>
-                <th>Phương thức thanh toán</th>
                 <th>Tổng tiền</th>
                 <th>Giảm giá</th>
                 <th>Tổng phải trả</th>
@@ -49,7 +56,6 @@
                 <tr>
                     <td>@order.Id</td>
                     <td>@order.Name</td>
-                    <td>@order.PaymentMethod</td>
                     <td>@order.Total</td>
                     <td>@order.DiscountPrice</td>
                     <td>@order.FinalPrice</td>

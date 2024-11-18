@@ -20,7 +20,6 @@ namespace PetSpaBE.Razor.Pages.Order
                 {
                     Id = id,
                     Name = "",
-                    PaymentMethod = "Credit Card",
                     LastUpdatedBy = "Admin",
                     LastUpdatedTime = DateTimeOffset.Now
                 };
