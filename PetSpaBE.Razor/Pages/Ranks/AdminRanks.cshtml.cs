@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using PetSpa.Contract.Services.Interface;
 using PetSpa.Core.Base;
 using PetSpa.ModelViews.AuthModelViews;
@@ -30,8 +31,8 @@ namespace PetSpaBE.Razor.Pages.Ranks
         public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
             SignInAuthModelView signInAuth = new SignInAuthModelView();
-            signInAuth.Email = "admin@gmail.com";
-            signInAuth.Password = "Admin@123";
+            signInAuth.Email = "HungCus123@gmail.com";
+            signInAuth.Password = "Hungapa123@";
             await _authService.SignInAsync(signInAuth);
             if (string.IsNullOrEmpty(id))
             {
