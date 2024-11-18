@@ -191,6 +191,13 @@ namespace PetSpa.Services.Service
             return await _userManager.GetRolesAsync(user);
         }
 
+        public async Task<string> GetUserIdFromTokenAsync(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+            var userId = jsonToken?.Claims.FirstOrDefault(c => c.Type == "userId")?.Value;
+            return userId;
+        }
 
     }
 }

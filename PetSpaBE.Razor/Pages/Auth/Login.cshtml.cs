@@ -60,7 +60,7 @@ namespace PetSpaBE.Razor.Pages.Auth
             }
             else if (userRoles.Contains("Admin") || userRoles.Contains("Employee"))
             {
-                return RedirectToPage("/HomeAdmin");
+                return RedirectToPage("/Admin/Index");
             }
 
             ErrorMessage = "Account not found. Please Signup or contact support.";
