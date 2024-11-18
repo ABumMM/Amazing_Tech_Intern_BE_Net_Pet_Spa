@@ -25,10 +25,8 @@ namespace PetSpaBE.Razor.Pages.Ranks
 			{
 				return NotFound();
 			}
-
-
-			
 			return Page();
 		}
+		
     }
 }
