@@ -1,0 +1,76 @@
+﻿@page
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PetSpaBE.Razor.Pages.OrderDetails.AdminOrderDetailModel
+@{
+    ViewData["Title"] = "Order Details Management";
+}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2">
+                    <span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span>
+                    <span>Order Details <i class="ion-ios-arrow-forward"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Admin Order Detail Management</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <a asp-page="./CreateOrDetail" class="btn btn-primary mb-2" style="margin-left:auto">Add New Order Detail</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>OrderDetail ID</th>
+                    <th>Order </th>
+                    <th>Package ID </th
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.lst_OrderDetails.Items)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.OrderID</td
+                        <td>@order.Quantity</td>
+                        <td>@order.Price.ToString("C")</td>
+                        <td>@order.Status</td>
+                        <td>
+                            <a asp-page="./UpdateOrDetail" asp-route-id="@order.Id" class="btn btn-warning">Edit</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@order.Id" class="d-inline">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="block-27">
+            <ul class="mx-auto">
+                @for (int i = 1; i <= Model.lst_OrderDetails.TotalPages; i++)
+                {
+                    if (Model.lst_OrderDetails.CurrentPage == i)
+                    {
+                        <li class="active">
+                            <a href="#">@i</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a asp-page="AdminOrderDetail" asp-route-pageNumber="@i">@i</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</section>
