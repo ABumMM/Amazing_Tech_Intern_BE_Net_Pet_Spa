@@ -1,0 +1,39 @@
+﻿@page
+@model PetSpaBE.Razor.Pages.Auth.RegisterModel
+@{
+    Layout = null;
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body style="background-image: Url('/images/background.jpg');">
+    <div class="form" id="register-form">
+        <a href="#" class="form-logo">
+            <img src="/images/logopetspa.jpg" alt="PetSpa logo">
+        </a>
+        <form method="post">
+            <div class="form-group">
+                <input asp-for="SignUpModel.FullName" type="text" class="form-input" placeholder="Full Name" id="register-fullname">
+                <span class="form-input-err-msg" asp-validation-for="SignUpModel.FullName"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="SignUpModel.Email" type="email" class="form-input" placeholder="Email" id="register-email">
+                <span class="form-input-err-msg" asp-validation-for="SignUpModel.Email"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="SignUpModel.Password" type="password" class="form-input" placeholder="Password" id="register-password">
+                <span class="form-input-err-msg" asp-validation-for="SignUpModel.Password"></span>
+            </div>
+            <button type="submit" class="form-btn">Register</button>
+        </form>
+        <span class="form-txt">Already have an account? <a href="/Auth/Login">Sign in!</a></span>
+        <span class="form-txt"><a href="#">Forgot password?</a></span>
+    </div>
+
+    <script src="~/js/your-script.js" asp-append-version="true"></script>
+</body>

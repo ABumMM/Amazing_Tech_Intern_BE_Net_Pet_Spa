@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
 using PetSpa.ModelViews.AuthModelViews;
-using PetSpa.Services.Service;
 
 namespace PetSpaBE.Razor.Pages.Auth
 {
@@ -38,12 +38,19 @@ namespace PetSpaBE.Razor.Pages.Auth
 
             if (token == null)
             {
-                // Đăng nhập thất bại
                 ErrorMessage = "Invalid email or password.";
                 return Page();
             }
 
-            Response.Cookies.Append("AuthToken", token);
+            var options = new CookieOptions
+            {
+                Expires = DateTime.Now.AddHours(1),
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict
+            };
+
+            Response.Cookies.Append("AuthToken", token, options);
 
             var userRoles = await _authService.GetUserRolesAsync(Email);
 
@@ -53,12 +60,11 @@ namespace PetSpaBE.Razor.Pages.Auth
             }
             else if (userRoles.Contains("Admin") || userRoles.Contains("Employee"))
             {
-                return RedirectToPage("/HomeAdmin");
+                return RedirectToPage("/Admin/Index");
             }
 
             ErrorMessage = "Account not found. Please Signup or contact support.";
             return Page();
         }
-
     }
 }
