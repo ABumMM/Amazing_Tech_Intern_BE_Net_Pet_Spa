@@ -19,10 +19,10 @@
         <label for="employeeSelect">Chọn nhân viên</label>
         <select id="employeeSelect" class="form-control" asp-for="SelectedEmployeeId">
             <option value="">-- Chọn nhân viên --</option>
-            @foreach (var employee in Model.Employees)
+           @*  @foreach (var employee in Model.Employees)
             {
-                //<option value="@employee.Id">@employee.FullName</option>
-            }
+                <option value="@employee.Id">@employee.FullName</option>
+            } *@
         </select>
     </div>
     <button type="submit" class="btn btn-primary">Add Booking Package</button>
