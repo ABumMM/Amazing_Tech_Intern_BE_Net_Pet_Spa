@@ -42,7 +42,7 @@ namespace PetSpaBE.Razor.Pages.Auth
                 ErrorMessage = "Invalid email or password.";
                 return Page();
             }
-
+            HttpContext.Session.SetString("jwtToken", token);
             Response.Cookies.Append("AuthToken", token);
 
             var userRoles = await _authService.GetUserRolesAsync(Email);

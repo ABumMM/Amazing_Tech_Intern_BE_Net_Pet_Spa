@@ -40,8 +40,8 @@ namespace PetSpa.Services.Service
 
             //mapping
             var booking = _mapper.Map<Bookings>(bookingVM);
-            //booking.CreatedBy = currentUserId;
-            booking.CreatedBy = "133C8835-5C20-4350-36DF-08DCF00C9F1D";
+            booking.CreatedBy = currentUserId;
+            //booking.CreatedBy = "133C8835-5C20-4350-36DF-08DCF00C9F1D";
             if (bookingVM.Date < DateTimeOffset.Now)
             {
                 throw new ErrorException(
