@@ -33,13 +33,6 @@ namespace PetSpaBE.Razor.Pages.Package
 
         public async Task<IActionResult> OnPostDeleteAsync(string id)
         {
-            SignInAuthModelView signInAuth = new SignInAuthModelView
-            {
-                Email = "HungCus123@gmail.com",
-                Password = "Hungapa123@"
-            };
-
-            await _authService.SignInAsync(signInAuth);
 
             if (string.IsNullOrEmpty(id))
             {

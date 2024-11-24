@@ -31,17 +31,16 @@ namespace PetSpaBE.Razor.Pages.Package
             
             try
             {
-                // Call the package service to add a new package
-                await _packageService.Add(Model);  // Gọi đến dịch vụ tạo mới package
-                TempData["SuccessMessage"] = "Thêm gói dịch vụ mới thành công.";  // Success message
+                await _packageService.Add(Model);  
+                TempData["SuccessMessage"] = "Thêm gói dịch vụ mới thành công.";
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = $"Không thể thêm gói dịch vụ: {ex.Message}";  // Error message
+                TempData["ErrorMessage"] = $"Không thể thêm gói dịch vụ: {ex.Message}";  
                 return Page();
             }
 
-            return RedirectToPage("PackageList");  // Redirect to the package management page
+            return RedirectToPage("./AdminPackage"); 
         }
     }
 }
