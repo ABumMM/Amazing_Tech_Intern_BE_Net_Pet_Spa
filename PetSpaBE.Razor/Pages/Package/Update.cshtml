@@ -1,0 +1,93 @@
+﻿@page
+@model PetSpaBE.Razor.Pages.Package.UpdateModel
+@{
+}
+<h1>Update Package</h1>
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2">
+                    <span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span>
+                    <span>Update Package <i class="ion-ios-arrow-forward"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Update Package</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="col-md-7">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Update Package </h3>
+                                <form method="POST" enctype="multipart/form-data" id="updatePackageForm" name="updatePackageForm">
+                                    <input type="hidden" name="id" value="@Model.packageModelView.Id" />
+
+                                    <div class="row">
+                                        @* Package Name *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="name">Package Name</label>
+                                                <input type="text" class="form-control" name="Name" id="name" value="@Model.packageModelView" required placeholder="Package Name">
+                                            </div>
+                                        </div>
+
+                                        @* Package Price *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="Price">Price</label>
+                                                <input type="number" class="form-control" name="Price" id="Price" value="@Model.packageModelView.Price" required placeholder="Package Price">
+                                            </div>
+                                        </div>
+
+                                        @* Package Information *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="Information">Information</label>
+                                                <textarea class="form-control" name="Information" id="Information" rows="4" placeholder="Package Information">@Model.packageModelView.Information</textarea>
+                                            </div>
+                                        </div>
+                                        @* Package Experiences *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="Experiences">Experiences</label>
+                                                <textarea class="form-control" name="Experiences" id="Experiences" rows="4" placeholder="Package Experiences">@Model.packageModelView.Experiences</textarea>
+                                            </div>
+                                        </div>
+
+                                        @* Upload Image *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="Image">Upload Image</label>
+                                                <input type="text" class="form-control" name="Image" id="Image">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Update Package</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 d-flex align-items-stretch">
+                            <div class="info-wrap w-100 p-5 img" style="background-image: url('/images/img.jpg');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
