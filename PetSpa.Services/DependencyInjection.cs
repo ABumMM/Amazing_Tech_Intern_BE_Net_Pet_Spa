@@ -35,15 +35,15 @@ namespace PetSpa.Services
             services.AddScoped<IMembershipsService, MemberShipService>();
             services.AddScoped<IBookingServicecs, BookingService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IBookingPackage_Service, BookingPackageService>();
             services.AddScoped<IReviewService, ReviewService>();
-            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IOrderDetailServices, OrderDetailService>();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IRankService,RankService>();
-
+            services.AddScoped<IVnPayService, VnPayService>();
         }
     }
 

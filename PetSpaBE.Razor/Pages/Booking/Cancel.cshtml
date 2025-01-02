@@ -1,0 +1,20 @@
+﻿@page
+@model PetSpaBE.Razor.Pages.Booking.CancelModel
+@{
+}
+<form method="post" class="cancel-form">
+    <div class="input-group mb-3">
+        <input type="text" name="BookingId" placeholder="Nhập ID booking cần hủy" value="@Model.BookingId" class="form-control" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-danger">Hủy Booking</button>
+        </div>
+    </div>
+</form>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}

@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
@@ -32,6 +32,10 @@
     <ProjectReference Include="..\PetSpa.Contract.Services\PetSpa.Contract.Services.csproj" />
     <ProjectReference Include="..\PetSpa.Repositories\PetSpa.Repositories.csproj" />
     <ProjectReference Include="..\PetSpa.Services\PetSpa.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Payment\" />
   </ItemGroup>
 
 </Project>

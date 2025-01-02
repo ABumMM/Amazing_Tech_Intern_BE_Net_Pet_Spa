@@ -1,4 +1,5 @@
 ﻿using PetSpa.Contract.Repositories.Entity;
+using PetSpa.ModelViews.PetsModelViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,7 @@ namespace PetSpa.ModelViews.UserModelViews
     {
         public Guid Id { get; set; }
         public string Email { get; set; } = string.Empty;
-        public UserInfo? UserInfo { get; set; }
+        public GETUserInfoModelView? UserInfo { get; set; }
         public string RoleName { get; set; } = string.Empty;
-
-        public string? LastUpdatedBy { get; set; }
-        public DateTimeOffset LastUpdatedTime { get; set; }
     }
 }
