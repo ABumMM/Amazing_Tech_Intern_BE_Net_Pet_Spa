@@ -1,0 +1,80 @@
+﻿@page
+@model PetSpaBE.Razor.Pages.OrderDetails.UpdateOrDetailModel
+@{
+    ViewData["Title"] = "Update Order Detail";
+}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end">
+            <div class="col-md-9 ftco-animate pb-5">
+                <p class="breadcrumbs mb-2">
+                    <span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span>
+                    <span>Update Order Detail <i class="ion-ios-arrow-forward"></i></span>
+                </p>
+                <h1 class="mb-0 bread">Update Order Detail</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="wrapper">
+                    <div class="row no-gutters">
+                        <div class="col-md-7">
+                            <div class="contact-wrap w-100 p-md-5 p-4">
+                                <h3 class="mb-4">Update Order Detail</h3>
+                                <form method="POST" id="updateOrderDetailForm" name="updateOrderDetailForm" class="updateOrderDetailForm">
+                                    <div class="row">
+                                        @* Order Detail ID (read-only) *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="orderId">Order Deatail ID</label>
+                                                <input type="text" class="form-control" name="OrderID" id="orderId" value="@Model.OrderDetail.Id" readonly>
+                                            </div>
+                                        </div>
+                                        @* Order ID *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="packageId">Order ID</label>
+                                                <input type="text" class="form-control" name="PackageID" id="packageId" value="@Model.OrderDetail.OrderID" placeholder="Enter Package ID">
+                                            </div>
+                                        </div>
+                                        @* Quantity *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="quantity">Quantity</label>
+                                                <input type="number" class="form-control" name="Quantity" id="quantity" value="@Model.OrderDetail.Quantity" required placeholder="Enter Quantity">
+                                            </div>
+                                        </div>
+                                        @* Status *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="label" for="status">Status</label>
+                                                <input type="text" class="form-control" name="Status" id="status" value="@Model.OrderDetail.Status" placeholder="Enter Status">
+                                            </div>
+                                        </div>
+                                        @* Submit Button *@
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-primary">Update Order Detail</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-5 d-flex align-items-stretch">
+                            <div class="info-wrap w-100 p-5 img" style="background-image: url('/images/order_detail_bg.jpg');">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
